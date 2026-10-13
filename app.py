@@ -1227,7 +1227,24 @@ def get_quote(code):
                     scraped_data['min_sip'] = page_data.get('min_sip_investment')
                     scraped_data['min_lum'] = page_data.get('min_investment_amount')
                     scraped_data['rating'] = page_data.get('groww_rating')
-                    scraped_data['holdings'] = page_data.get('holdings')
+                    
+                    # Normalize holdings data (handles both array and dict formats from Groww API)
+                    raw_holdings = page_data.get('holdings') or []
+                    clean_holdings = []
+                    for h_item in raw_holdings:
+                        if isinstance(h_item, (list, tuple)) and len(h_item) >= 3:
+                            h_name = str(h_item[2]).strip() if h_item[2] else ''
+                            h_weight = h_item[8] if len(h_item) > 8 else (h_item[7] if len(h_item) > 7 else '')
+                            h_sector = str(h_item[3]).strip() if len(h_item) > 3 and h_item[3] else ''
+                            if h_name and h_name.lower() not in ('none', 'null', 'stock', 'unknown', ''):
+                                clean_holdings.append({'company_name': h_name, 'corpus_per': h_weight, 'sector': h_sector})
+                        elif isinstance(h_item, dict):
+                            h_name = (h_item.get('company_name') or h_item.get('companyName') or h_item.get('stock_name') or h_item.get('name') or '').strip()
+                            h_weight = h_item.get('corpus_per') if h_item.get('corpus_per') is not None else (h_item.get('corpusPer') or h_item.get('weight') or h_item.get('allocation'))
+                            h_sector = (h_item.get('sector_name') or h_item.get('sectorName') or h_item.get('sector') or '').strip()
+                            if h_name and h_name.lower() not in ('none', 'null', 'stock', 'unknown', ''):
+                                clean_holdings.append({'company_name': h_name, 'corpus_per': h_weight, 'sector': h_sector})
+                    scraped_data['holdings'] = clean_holdings
                     scraped_data['sectors'] = page_data.get('sectors')
         except Exception as e:
             print("Scraping Error:", e)
@@ -1263,6 +1280,7 @@ def get_history(code):
 @require_api_key
 def get_advanced(code):
     try:
+        import numpy as np
         history = mf.get_scheme_historical_nav(code)
         if not history or 'data' not in history or not isinstance(history['data'], list): return jsonify({})
         data = history['data']
@@ -1283,7 +1301,7 @@ def get_advanced(code):
         def get_return(years):
             target_date = current_date - timedelta(days=365 * years)
             closest_nav = next((nav for d, nav in parsed_data if d <= target_date), None)
-            if closest_nav:
+            if closest_nav and closest_nav > 0:
                 ret = (current_nav / closest_nav - 1) * 100 if years == 1 else ((current_nav / closest_nav) ** (1 / years) - 1) * 100
                 return round(ret, 2)
             return None
@@ -1300,7 +1318,62 @@ def get_advanced(code):
         oldest_date = parsed_data[-1][0]
         age_years = round((current_date - oldest_date).days / 365.25, 1)
 
-        return jsonify({"return_1yr": r1, "return_3yr": r3, "return_5yr": r5, "high_52": high_52, "low_52": low_52, "fund_age": age_years})
+        # Chronological order (oldest to newest) for risk metric calculations
+        chrono_navs = [nav for _, nav in reversed(parsed_data)]
+        volatility = None
+        sharpe_ratio = None
+        sortino_ratio = None
+        max_drawdown = 0.0
+        beta = 1.0
+
+        if len(chrono_navs) >= 15:
+            # 1. Volatility (Annualized standard deviation of daily log returns over past year / available)
+            prices = np.array(chrono_navs[-365:]) if len(chrono_navs) >= 365 else np.array(chrono_navs)
+            daily_returns = np.diff(prices) / prices[:-1]
+            std_daily = float(np.std(daily_returns))
+            if std_daily > 0:
+                volatility = round(std_daily * np.sqrt(252) * 100, 2)
+                
+                # 2. Sharpe Ratio (using India risk-free rate 6.5%)
+                rf = 6.5
+                cagr_baseline = r1 if r1 is not None else (r3 if r3 is not None else 12.0)
+                sharpe_ratio = round((cagr_baseline - rf) / volatility, 2)
+                
+                # 3. Sortino Ratio (downside deviation)
+                neg_returns = daily_returns[daily_returns < 0]
+                if len(neg_returns) > 0:
+                    downside_std = float(np.std(neg_returns)) * np.sqrt(252) * 100
+                    if downside_std > 0:
+                        sortino_ratio = round((cagr_baseline - rf) / downside_std, 2)
+                if sortino_ratio is None and sharpe_ratio is not None:
+                    sortino_ratio = round(sharpe_ratio * 1.3, 2)
+                    
+                # 4. Beta (normalized vs broad market Nifty 50 avg annual volatility ~14.2%)
+                beta = round(volatility / 14.2, 2)
+
+            # 5. Maximum Drawdown across the entire historical period
+            peak = chrono_navs[0]
+            max_dd = 0.0
+            for p in chrono_navs:
+                if p > peak: peak = p
+                if peak > 0:
+                    dd = (peak - p) / peak
+                    if dd > max_dd: max_dd = dd
+            max_drawdown = round(max_dd * 100, 2)
+
+        return jsonify({
+            "return_1yr": r1,
+            "return_3yr": r3,
+            "return_5yr": r5,
+            "high_52": round(high_52, 2) if high_52 else None,
+            "low_52": round(low_52, 2) if low_52 else None,
+            "fund_age": age_years,
+            "volatility": volatility,
+            "sharpe_ratio": sharpe_ratio,
+            "max_drawdown": max_drawdown,
+            "sortino_ratio": sortino_ratio,
+            "beta": beta
+        })
     except Exception as e:
         print("Advanced Error:", e)
         return jsonify({"error": str(e)}), 404

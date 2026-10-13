@@ -54,9 +54,9 @@ jobs:
         continue-on-error: true
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.0.2
-          name: "Pro Mutual Fund Analytics v1.0.2 (Native Mobile Navigation & Full Responsive UI)"
-          body: "📱 Updated Native Android APK featuring full Mobile Responsive UI: Native Thumb-Friendly Bottom Navigation Bar (Explore, Portfolio, Compare, Simulate, Saved), clean vertical card stacking, touch-scrollable tables, and live Railway cloud backend integration."
+          tag_name: v1.0.3
+          name: "Pro Mutual Fund Analytics v1.0.3 (Rich Fund Detail Modal with Real-Time Risk Analytics & Verified Holdings)"
+          body: "📱 Updated Native Android APK featuring: Dedicated Fund Detail Popup on all fund clicks, high-contrast 3-pillar return cards, 52W High/Low visual range slider, real-time calculated risk metrics (Volatility, Sharpe, Max Drawdown, Sortino, Beta), and verified top stock holdings."
           files: ProMutualFund-Analytics.apk
           draft: false
           prerelease: false

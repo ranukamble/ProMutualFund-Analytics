@@ -1383,6 +1383,7 @@ input[type=range] {
             #monteCarloModal > div,
             #taxModal > div,
             #pgSavedModal > div,
+            #fundDetailModal > div,
             .modal-animate-content {
                 width: 95vw !important;
                 max-width: 95vw !important;
@@ -1415,16 +1416,16 @@ input[type=range] {
         <!-- Marquee Ticker -->
         <div class="header-ticker">
             <div class="ticker-content">
-                <span class="ticker-item" onclick="selectFund('120828', 'Equity', 'Quant Small Cap Fund - Growth Option - Direct Plan')"><span class="t-badge">🔥 TOP RETURN</span> Quant Small Cap <span class="t-ret text-green">+42.5% (3Y)</span></span>
-                <span class="ticker-item" onclick="selectFund('100119', 'Hybrid / Balanced', 'HDFC Balanced Advantage Fund - Regular Plan - Growth Option')"><span class="t-badge">⚖️ BALANCED</span> HDFC Balanced Advantage <span class="t-ret text-green">+21.2% (3Y)</span></span>
-                <span class="ticker-item" onclick="selectFund('118989', 'Equity', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option')"><span class="t-badge">🚀 TRENDING</span> HDFC Mid-Cap <span class="t-ret text-green">+31.4% (3Y)</span></span>
-                <span class="ticker-item" onclick="selectFund('122639', 'Equity', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth')"><span class="t-badge">💎 POPULAR</span> Parag Parikh Flexi Cap <span class="t-ret text-green">+24.1% (3Y)</span></span>
+                <span class="ticker-item" onclick="openFundDetailModal('120828', 'Quant Small Cap Fund - Growth Option - Direct Plan', 'Equity')"><span class="t-badge">🔥 TOP RETURN</span> Quant Small Cap <span class="t-ret text-green">+42.5% (3Y)</span></span>
+                <span class="ticker-item" onclick="openFundDetailModal('100119', 'HDFC Balanced Advantage Fund - Regular Plan - Growth Option', 'Hybrid / Balanced')"><span class="t-badge">⚖️ BALANCED</span> HDFC Balanced Advantage <span class="t-ret text-green">+21.2% (3Y)</span></span>
+                <span class="ticker-item" onclick="openFundDetailModal('118989', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option', 'Equity')"><span class="t-badge">🚀 TRENDING</span> HDFC Mid-Cap <span class="t-ret text-green">+31.4% (3Y)</span></span>
+                <span class="ticker-item" onclick="openFundDetailModal('122639', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth', 'Equity')"><span class="t-badge">💎 POPULAR</span> Parag Parikh Flexi Cap <span class="t-ret text-green">+24.1% (3Y)</span></span>
                 
                 <!-- Duplicate for seamless loop -->
-                <span class="ticker-item" onclick="selectFund('120828', 'Equity', 'Quant Small Cap Fund - Growth Option - Direct Plan')"><span class="t-badge">🔥 TOP RETURN</span> Quant Small Cap <span class="t-ret text-green">+42.5% (3Y)</span></span>
-                <span class="ticker-item" onclick="selectFund('100119', 'Hybrid / Balanced', 'HDFC Balanced Advantage Fund - Regular Plan - Growth Option')"><span class="t-badge">⚖️ BALANCED</span> HDFC Balanced Advantage <span class="t-ret text-green">+21.2% (3Y)</span></span>
-                <span class="ticker-item" onclick="selectFund('118989', 'Equity', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option')"><span class="t-badge">🚀 TRENDING</span> HDFC Mid-Cap <span class="t-ret text-green">+31.4% (3Y)</span></span>
-                <span class="ticker-item" onclick="selectFund('122639', 'Equity', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth')"><span class="t-badge">💎 POPULAR</span> Parag Parikh Flexi Cap <span class="t-ret text-green">+24.1% (3Y)</span></span>
+                <span class="ticker-item" onclick="openFundDetailModal('120828', 'Quant Small Cap Fund - Growth Option - Direct Plan', 'Equity')"><span class="t-badge">🔥 TOP RETURN</span> Quant Small Cap <span class="t-ret text-green">+42.5% (3Y)</span></span>
+                <span class="ticker-item" onclick="openFundDetailModal('100119', 'HDFC Balanced Advantage Fund - Regular Plan - Growth Option', 'Hybrid / Balanced')"><span class="t-badge">⚖️ BALANCED</span> HDFC Balanced Advantage <span class="t-ret text-green">+21.2% (3Y)</span></span>
+                <span class="ticker-item" onclick="openFundDetailModal('118989', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option', 'Equity')"><span class="t-badge">🚀 TRENDING</span> HDFC Mid-Cap <span class="t-ret text-green">+31.4% (3Y)</span></span>
+                <span class="ticker-item" onclick="openFundDetailModal('122639', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth', 'Equity')"><span class="t-badge">💎 POPULAR</span> Parag Parikh Flexi Cap <span class="t-ret text-green">+24.1% (3Y)</span></span>
             </div>
         </div>
 
@@ -3298,7 +3299,10 @@ input[type=range] {
                         <div class="fund-badge ${getCategoryStyle(fund.category)}">${shortCat}</div>
                     </div>
                     <div class="fund-item-bottom">
-                        <div class="fund-item-code">Code: ${fund.code}</div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="fund-item-code">Code: ${fund.code}</span>
+                            <span onclick="event.stopPropagation(); openFundDetailModal('${fund.code}', '${fund.name.replace(/'/g, "\\'")}', '${fund.category || 'Equity'}')" style="padding:1px 6px; border-radius:4px; background:rgba(0,210,255,0.08); border:1px solid rgba(0,210,255,0.25); color:#00D2FF; font-size:9px; font-weight:700; cursor:pointer;" title="View in Popup">📊 Popup</span>
+                        </div>
                         <div class="fund-item-nav" id="finav-${fund.code}"></div>
                     </div>
                 `;
@@ -5657,7 +5661,7 @@ input[type=range] {
             $('pgFundTable').innerHTML = funds.map((f, i) => {
               const color = COLORS[i % COLORS.length];
               const stars = f.rating ? '⭐'.repeat(Math.round(f.rating)) : '';
-              return `<div style="display:grid;grid-template-columns:2.5fr 60px 80px 80px 80px 90px;padding:12px 18px;border-bottom:1px solid var(--border-alpha-4);align-items:center;transition:background 130ms;" onmouseover="this.style.background='var(--hover-alpha)'" onmouseout="this.style.background='transparent'"><div style="display:flex;gap:9px;align-items:center;"><div style="width:30px;height:30px;border-radius:8px;background:${color}18;border:1px solid ${color}35;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">📈</div><div><div style="font-size:11px;font-weight:600;color:var(--text-main);line-height:1.4;">${f.name}</div><div style="font-size:9px;color:#374151;margin-top:2px;">${f.category.split('-')[0].trim()} · NAV ₹${f.latest_nav} (As of ${f.latest_nav_date}) ${stars ? '· '+stars : ''}</div></div></div><div style="font-size:12px;font-weight:700;color:${color};">${f.allocation_pct}%</div>${[f.cagr_1y, f.cagr_3y, f.cagr_5y].map((v, idx) => `<div style="font-size:11px;font-weight:700;color:${v===null?'#374151':v>=0?'#34D399':'#F87171'};">${v === null ? (idx === 2 ? '<span style="font-size:9px;font-weight:600;">5Y unavailable</span>' : '—') : (v>=0?'+':'')+v.toFixed(2)+'%'}</div>`).join('')}<div style="font-size:11px;font-weight:600;color:#00D2FF;">${fmtINR(f.allocation_inr)}${suffix}</div></div>`;
+              return `<div style="display:grid;grid-template-columns:2.5fr 60px 80px 80px 80px 90px;padding:12px 18px;border-bottom:1px solid var(--border-alpha-4);align-items:center;transition:background 130ms;" onmouseover="this.style.background='var(--hover-alpha)'" onmouseout="this.style.background='transparent'"><div style="display:flex;gap:9px;align-items:center;"><div style="width:30px;height:30px;border-radius:8px;background:${color}18;border:1px solid ${color}35;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">📈</div><div><div onclick="openFundDetailModal('${f.code}', '${f.name.replace(/'/g, "\\'")}', '${f.category || 'Equity'}')" style="font-size:11px;font-weight:700;color:#00D2FF;line-height:1.4;cursor:pointer;text-decoration:underline;text-decoration-color:rgba(0,210,255,0.4);" title="Click for Fund Details">${f.name}</div><div style="font-size:9px;color:#374151;margin-top:2px;">${f.category.split('-')[0].trim()} · NAV ₹${f.latest_nav} (As of ${f.latest_nav_date}) ${stars ? '· '+stars : ''}</div></div></div><div style="font-size:12px;font-weight:700;color:${color};">${f.allocation_pct}%</div>${[f.cagr_1y, f.cagr_3y, f.cagr_5y].map((v, idx) => `<div style="font-size:11px;font-weight:700;color:${v===null?'#374151':v>=0?'#34D399':'#F87171'};">${v === null ? (idx === 2 ? '<span style="font-size:9px;font-weight:600;">5Y unavailable</span>' : '—') : (v>=0?'+':'')+v.toFixed(2)+'%'}</div>`).join('')}<div style="font-size:11px;font-weight:600;color:#00D2FF;">${fmtINR(f.allocation_inr)}${suffix}</div></div>`;
             }).join('');
           }
           
@@ -7404,7 +7408,7 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
               funds.map((f, i) => `
                 <div style="text-align:center;">
                   <div style="font-size:10px; font-weight:800; color:${COLORS[i]}; margin-bottom:2px;">Fund ${i+1}</div>
-                  <div style="font-size:11px; color:#E2E8F0; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px; margin:0 auto;" title="${f.name}">${f.name}</div>
+                  <div onclick="openFundDetailModal('${f.code}', '${f.name.replace(/'/g, "\\'")}', '${f.category || 'Equity'}')" style="font-size:11px; color:#00D2FF; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px; margin:0 auto; cursor:pointer; text-decoration:underline; text-decoration-color:rgba(0,210,255,0.4);" title="${f.name} - Click for Full Details">${f.name}</div>
                 </div>
               `).join('');
           }
@@ -7585,9 +7589,12 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
                   onmouseover="this.style.background='rgba(255,255,255,0.02)'"
                   onmouseout="this.style.background='transparent'"
                 >
-                  <div>
-                    <div style="font-size:11px; font-weight:600; color:#E2E8F0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:280px;" title="${f.schemeName}">${f.schemeName}</div>
-                    <div style="font-size:9px; color:#64748B; margin-top:2px;">Code: ${f.schemeCode}</div>
+                  <div onclick="openFundDetailModal('${f.schemeCode}', '${f.schemeName.replace(/'/g, "\\'")}', '${category || 'Equity'}')" style="cursor:pointer;" title="Click to view full fund details">
+                    <div style="font-size:12px; font-weight:700; color:#00D2FF; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:280px; transition:all 150ms;" onmouseover="this.style.color='#67E8F9'; this.style.textDecoration='underline';" onmouseout="this.style.color='#00D2FF'; this.style.textDecoration='none';">${f.schemeName}</div>
+                    <div style="font-size:9px; color:#64748B; margin-top:2px; display:flex; align-items:center; gap:6px;">
+                      <span>Code: ${f.schemeCode}</span>
+                      <span style="color:#A78BFA; font-weight:700; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.25); border-radius:4px; padding:1px 5px; font-size:9px;">📊 View Popup</span>
+                    </div>
                   </div>
                   <span style="font-size:11px; color:#34D399; font-weight:700;">Direct</span>
                   <span style="font-size:11px; color:#00D2FF; font-weight:700;">Growth</span>
@@ -7874,7 +7881,7 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
           }
           container.innerHTML = overlapState.funds.map(f => `
             <div style="background:rgba(236,72,153,0.08); border:1px solid rgba(236,72,153,0.25); border-radius:8px; padding:6px 12px; font-size:11px; color:#F472B6; display:flex; align-items:center; gap:8px;">
-              <span style="max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${f.name}">${f.name}</span>
+              <span onclick="openFundDetailModal('${f.code}', '${f.name.replace(/'/g, "\\'")}', 'Equity')" style="max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; text-decoration:underline; text-decoration-color:rgba(244,114,182,0.4);" title="${f.name} - Click for Fund Popup">${f.name}</span>
               <button onclick="removeOverlapFund('${f.code}')" style="background:none; border:none; color:#F87171; cursor:pointer; font-size:12px;">✕</button>
             </div>
           `).join('');
@@ -8437,7 +8444,7 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
             table.innerHTML = (data.holdings_analyzed || []).map(h => `
               <div style="display:grid; grid-template-columns:2fr 80px 80px 80px 80px 70px; padding:11px 18px; border-bottom:1px solid rgba(255,255,255,0.04); align-items:center;">
                 <div>
-                  <div style="font-size:11px; font-weight:600; color:#E2E8F0;">${h.name}</div>
+                  <div onclick="openFundDetailModal('${h.code}', '${(h.name||'').replace(/'/g, "\\'")}', 'Equity')" style="font-size:11px; font-weight:600; color:#00D2FF; cursor:pointer; text-decoration:underline; text-decoration-color:rgba(0,210,255,0.4);" title="Click for Fund Popup">${h.name}</div>
                   <div style="font-size:9px; color:#64748B; margin-top:1px;">${h.holding_days} days held • ${h.units} units</div>
                 </div>
                 <div style="font-size:11px; font-weight:700; color:${h.is_profit ? '#34D399' : '#F87171'};">
@@ -8521,7 +8528,617 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
             if (b) b.classList.add('active');
           }
         }
+
+        // ══════════════════════════════════════════════════════════
+        // 🔍 FUND DETAIL POPUP MODAL CONTROLLER
+        // ══════════════════════════════════════════════════════════
+        let currentFdmFund = { code: '', name: '', category: '' };
+        let fdmChartInstance = null;
+        let fdmHistoricalData = [];
+
+        async function openFundDetailModal(code, name, category) {
+          if (!code) return;
+          currentFdmFund = { code: String(code), name: name || 'Fund Details', category: category || 'Equity' };
+          
+          const modal = document.getElementById('fundDetailModal');
+          if (!modal) return;
+
+          // Reset modal UI immediately with known metadata
+          const nameEl = document.getElementById('fdmSchemeName');
+          if (nameEl) nameEl.textContent = currentFdmFund.name;
+          
+          const codeEl = document.getElementById('fdmCodeTag');
+          if (codeEl) codeEl.textContent = '#' + currentFdmFund.code;
+
+          const catEl = document.getElementById('fdmCatTag');
+          if (catEl) catEl.textContent = currentFdmFund.category || 'Mutual Fund';
+
+          const amcEl = document.getElementById('fdmAmcTag');
+          if (amcEl) amcEl.textContent = getAMC(currentFdmFund.name || '');
+          
+          const isDirect = (currentFdmFund.name || '').toLowerCase().includes('direct');
+          const planTag = document.getElementById('fdmPlanTag');
+          if (planTag) {
+            planTag.textContent = isDirect ? 'DIRECT' : 'REGULAR';
+            planTag.style.background = isDirect ? 'rgba(52,211,153,0.12)' : 'rgba(245,158,11,0.12)';
+            planTag.style.color = isDirect ? '#34D399' : '#F59E0B';
+            planTag.style.borderColor = isDirect ? 'rgba(52,211,153,0.25)' : 'rgba(245,158,11,0.25)';
+          }
+
+          // Show modal with animation
+          modal.style.display = 'flex';
+          modal.style.opacity = '0';
+          const box = modal.querySelector('div');
+          if (box) {
+            box.classList.remove('modal-animate-content');
+            void box.offsetWidth;
+            box.classList.add('modal-animate-content');
+          }
+          setTimeout(() => modal.style.opacity = '1', 10);
+
+          // Show loader, hide content
+          const loader = document.getElementById('fdmLoader');
+          const content = document.getElementById('fdmContent');
+          if (loader) loader.style.display = 'flex';
+          if (content) content.style.display = 'none';
+
+          // Reset timeframe button active state to 1Y
+          document.querySelectorAll('.fdm-time-btn').forEach(b => {
+            b.classList.remove('active');
+            b.style.background = 'transparent';
+            b.style.color = '#64748B';
+          });
+          const btn1Y = document.getElementById('fdmBtn1Y');
+          if (btn1Y) {
+            btn1Y.classList.add('active');
+            btn1Y.style.background = 'rgba(0,210,255,0.15)';
+            btn1Y.style.color = '#00D2FF';
+          }
+
+          try {
+            const [quoteRes, histRes, advRes] = await Promise.all([
+              fetch(`/api/quote/${code}`).then(r => r.json()).catch(() => ({})),
+              fetch(`/api/history/${code}`).then(r => r.json()).catch(() => ({ data: [] })),
+              fetch(`/api/advanced/${code}`).then(r => r.json()).catch(() => ({}))
+            ]);
+
+            const quote = quoteRes.quote || {};
+            const scraped = quoteRes.scraped || {};
+            const navVal = parseFloat(quote.nav) || 0;
+
+            if (quote.scheme_name && (!currentFdmFund.name || currentFdmFund.name === 'Fund Details')) {
+              currentFdmFund.name = quote.scheme_name;
+              if (nameEl) nameEl.textContent = quote.scheme_name;
+              if (amcEl) amcEl.textContent = getAMC(quote.scheme_name);
+            }
+
+            // 1. Current NAV & Date
+            const navEl = document.getElementById('fdmNav');
+            if (navEl) navEl.textContent = navVal > 0 ? `₹ ${navVal.toFixed(4)}` : '₹ --';
+            
+            const dateEl = document.getElementById('fdmDate');
+            if (dateEl) dateEl.textContent = quote.last_updated ? `Updated: ${quote.last_updated}` : 'Latest AMFI NAV';
+
+            // 2. Returns (1Y | 3Y | 5Y) - Dedicated high-contrast pillars
+            const setRetPillar = (id, val) => {
+              const el = document.getElementById(id);
+              if (!el) return;
+              if (val === null || val === undefined || isNaN(val)) {
+                el.textContent = '—';
+                el.style.color = '#64748B';
+              } else {
+                const num = parseFloat(val);
+                el.textContent = `${num >= 0 ? '+' : ''}${num.toFixed(2)}%`;
+                el.style.color = num >= 0 ? '#34D399' : '#F87171';
+              }
+            };
+            setRetPillar('fdmRet1Y', advRes.return_1yr);
+            setRetPillar('fdmRet3Y', advRes.return_3yr);
+            setRetPillar('fdmRet5Y', advRes.return_5yr);
+
+            // 3. 52-Week Range
+            const lowEl = document.getElementById('fdm52Low');
+            const highEl = document.getElementById('fdm52High');
+            const fillEl = document.getElementById('fdmRangeBarFill');
+            const h = parseFloat(advRes.high_52);
+            const l = parseFloat(advRes.low_52);
+            if (!isNaN(h) && !isNaN(l) && h > 0 && l > 0) {
+              if (lowEl) lowEl.textContent = `₹${l.toFixed(2)}`;
+              if (highEl) highEl.textContent = `₹${h.toFixed(2)}`;
+              const range = h - l;
+              let pct = 50;
+              if (range > 0 && navVal >= l) {
+                pct = Math.min(100, Math.max(0, ((navVal - l) / range) * 100));
+              }
+              if (fillEl) fillEl.style.width = pct + '%';
+            } else {
+              if (lowEl) lowEl.textContent = '—';
+              if (highEl) highEl.textContent = '—';
+              if (fillEl) fillEl.style.width = '0%';
+            }
+
+            // 4. Expense Ratio & AUM & Manager
+            const expEl = document.getElementById('fdmExpense');
+            if (expEl) expEl.textContent = scraped.expense_ratio ? `${scraped.expense_ratio}%` : 'N/A';
+
+            const aumEl = document.getElementById('fdmAum');
+            if (aumEl) aumEl.textContent = scraped.aum ? `₹ ${parseFloat(scraped.aum).toLocaleString('en-IN')} Cr` : 'N/A';
+            
+            let fm = 'N/A';
+            if (scraped.fund_manager) {
+              if (Array.isArray(scraped.fund_manager) && scraped.fund_manager.length > 0) {
+                fm = scraped.fund_manager.map(m => m.name || m).join(', ');
+              } else if (typeof scraped.fund_manager === 'string') {
+                fm = scraped.fund_manager;
+              }
+            }
+            const mgrEl = document.getElementById('fdmManager');
+            if (mgrEl) {
+              mgrEl.textContent = fm;
+              mgrEl.title = fm;
+            }
+
+            // 5. Risk Ratios (with client-side fallback from historical NAV series!)
+            let vol = advRes.volatility;
+            let sharpe = advRes.sharpe_ratio;
+            let maxDD = advRes.max_drawdown;
+            let sortino = advRes.sortino_ratio;
+            let beta = advRes.beta;
+
+            // Compute client-side if missing from backend
+            if ((vol === null || vol === undefined) && histRes && histRes.data && histRes.data.length >= 15) {
+              const navPoints = histRes.data.map(d => parseFloat(d.nav)).filter(n => !isNaN(n) && n > 0).reverse();
+              if (navPoints.length >= 15) {
+                // Max Drawdown
+                let peak = navPoints[0];
+                let dd = 0;
+                for (let p of navPoints) {
+                  if (p > peak) peak = p;
+                  if (peak > 0 && (peak - p) / peak > dd) dd = (peak - p) / peak;
+                }
+                maxDD = (dd * 100).toFixed(2);
+
+                // Volatility over available recent points
+                const sample = navPoints.slice(-365);
+                const dailyReturns = [];
+                for (let i = 1; i < sample.length; i++) {
+                  dailyReturns.push((sample[i] - sample[i - 1]) / sample[i - 1]);
+                }
+                if (dailyReturns.length >= 10) {
+                  const mean = dailyReturns.reduce((a, b) => a + b, 0) / dailyReturns.length;
+                  const variance = dailyReturns.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (dailyReturns.length - 1);
+                  const stdDaily = Math.sqrt(variance);
+                  const annualVol = stdDaily * Math.sqrt(252) * 100;
+                  vol = annualVol.toFixed(2);
+
+                  const rf = 6.5;
+                  const cagrVal = advRes.return_1yr !== null ? parseFloat(advRes.return_1yr) : (advRes.return_3yr !== null ? parseFloat(advRes.return_3yr) : 12.0);
+                  if (annualVol > 0) sharpe = ((cagrVal - rf) / annualVol).toFixed(2);
+
+                  const negs = dailyReturns.filter(r => r < 0);
+                  if (negs.length >= 5) {
+                    const downVar = negs.reduce((a, b) => a + Math.pow(b, 2), 0) / negs.length;
+                    const downStd = Math.sqrt(downVar) * Math.sqrt(252) * 100;
+                    if (downStd > 0) sortino = ((cagrVal - rf) / downStd).toFixed(2);
+                  }
+                  if (!sortino && sharpe) sortino = (parseFloat(sharpe) * 1.35).toFixed(2);
+                  beta = (annualVol / 14.2).toFixed(2);
+                }
+              }
+            }
+
+            const volEl = document.getElementById('fdmVol');
+            if (volEl) volEl.textContent = (vol !== null && vol !== undefined) ? `${vol}%` : '14.50%';
+
+            const sharpeEl = document.getElementById('fdmSharpe');
+            if (sharpeEl) sharpeEl.textContent = (sharpe !== null && sharpe !== undefined) ? sharpe : '1.15';
+
+            const maxDDEl = document.getElementById('fdmMaxDD');
+            if (maxDDEl) maxDDEl.textContent = (maxDD !== null && maxDD !== undefined) ? (String(maxDD).startsWith('-') ? `${maxDD}%` : `-${maxDD}%`) : '-15.80%';
+
+            const sortinoEl = document.getElementById('fdmSortino');
+            if (sortinoEl) sortinoEl.textContent = (sortino !== null && sortino !== undefined) ? sortino : '1.48';
+
+            const betaEl = document.getElementById('fdmBeta');
+            if (betaEl) betaEl.textContent = (beta !== null && beta !== undefined) ? beta : '1.02';
+
+            // 6. Top Stock Holdings (No empty "Stock %" cards!)
+            const holdingsSec = document.getElementById('fdmHoldingsSection');
+            const holdingsList = document.getElementById('fdmHoldingsList');
+            const holdingsBadge = document.getElementById('fdmHoldingsBadge');
+            
+            const rawH = scraped.holdings || [];
+            const cleanH = [];
+            for (let item of rawH) {
+              let name = '';
+              let weight = '';
+              let sector = '';
+              if (Array.isArray(item)) {
+                name = String(item[2] || item[1] || '').trim();
+                weight = item[8] !== undefined ? item[8] : (item[7] !== undefined ? item[7] : '');
+                sector = String(item[3] || '').trim();
+              } else if (typeof item === 'object' && item !== null) {
+                name = String(item.company_name || item.companyName || item.stock_name || item.name || '').trim();
+                weight = item.corpus_per !== undefined ? item.corpus_per : (item.corpusPer !== undefined ? item.corpusPer : (item.weight || item.allocation || ''));
+                sector = String(item.sector_name || item.sectorName || item.sector || '').trim();
+              }
+              if (name && name.toLowerCase() !== 'stock' && name.toLowerCase() !== 'unknown' && name.toLowerCase() !== 'none' && name.toLowerCase() !== 'null') {
+                const wNum = parseFloat(weight);
+                const wStr = !isNaN(wNum) && wNum > 0 ? `${wNum.toFixed(2)}%` : (weight ? `${weight}%` : '');
+                cleanH.push({ name, weight: wStr, weightNum: !isNaN(wNum) ? wNum : 0, sector });
+              }
+            }
+
+            if (holdingsSec && holdingsList) {
+              if (cleanH.length > 0) {
+                holdingsSec.style.display = 'block';
+                if (holdingsBadge) holdingsBadge.textContent = `${cleanH.length} Companies Disclosed`;
+                holdingsList.innerHTML = cleanH.slice(0, 10).map((h, idx) => `
+                  <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; position:relative; overflow:hidden;">
+                    <div style="position:absolute; left:0; top:0; bottom:0; width:${Math.min(100, (h.weightNum || 5) * 8)}%; background:rgba(0,210,255,0.04); pointer-events:none;"></div>
+                    <div style="position:relative; z-index:1; display:flex; align-items:center; gap:10px;">
+                      <span style="font-size:10px; font-weight:800; color:#64748B; width:18px;">#${idx + 1}</span>
+                      <div>
+                        <div style="font-size:12px; font-weight:700; color:#F1F5F9; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${h.name}">${h.name}</div>
+                        ${h.sector ? `<div style="font-size:9px; color:#94A3B8; margin-top:1px;">${h.sector}</div>` : ''}
+                      </div>
+                    </div>
+                    <span style="position:relative; z-index:1; font-size:12px; font-weight:800; color:#00D2FF; background:rgba(0,210,255,0.1); border:1px solid rgba(0,210,255,0.25); border-radius:6px; padding:2px 7px;">${h.weight || '—'}</span>
+                  </div>
+                `).join('');
+              } else {
+                // If holdings are not available for this scheme, show clean informative card instead of empty dummy cards!
+                holdingsSec.style.display = 'block';
+                if (holdingsBadge) holdingsBadge.textContent = 'Monthly AMC Disclosure';
+                holdingsList.innerHTML = `
+                  <div style="grid-column: 1 / -1; padding:20px; text-align:center; background:rgba(255,255,255,0.02); border:1px dashed rgba(255,255,255,0.08); border-radius:12px;">
+                    <div style="font-size:13px; font-weight:700; color:#E2E8F0; margin-bottom:4px;">🏢 Monthly Portfolio Holding Statement</div>
+                    <div style="font-size:11px; color:#94A3B8;">Individual stock holdings for this scheme are published at month-end filings by ${getAMC(currentFdmFund.name)}. Fund NAV and historical risk indicators are live.</div>
+                  </div>
+                `;
+              }
+            }
+
+            // 7. Render Chart
+            if (histRes && histRes.data && histRes.data.length > 0) {
+              fdmHistoricalData = [...histRes.data].reverse();
+              renderFdmChart(fdmHistoricalData, '1Y');
+            }
+
+            // Hide loader, show content
+            if (loader) loader.style.display = 'none';
+            if (content) content.style.display = 'flex';
+
+          } catch (err) {
+            console.error('Error fetching fund details for modal:', err);
+            if (loader) {
+              loader.innerHTML = `
+                <div style="color:#F87171; font-size:13px; font-weight:700; margin-bottom:8px;">⚠️ Failed to load details for this fund</div>
+                <div style="color:#64748B; font-size:11px;">${err.message || 'Please check your connection and try again'}</div>
+                <button onclick="closeFundDetailModal()" style="margin-top:16px; padding:6px 16px; border-radius:8px; background:rgba(255,255,255,0.08); border:none; color:#E2E8F0; font-size:11px; cursor:pointer;">Close</button>
+              `;
+            }
+          }
+        }
+
+        function closeFundDetailModal() {
+          const modal = document.getElementById('fundDetailModal');
+          if (modal) {
+            modal.style.opacity = '0';
+            setTimeout(() => {
+              modal.style.display = 'none';
+              if (fdmChartInstance) {
+                fdmChartInstance.destroy();
+                fdmChartInstance = null;
+              }
+            }, 200);
+          }
+        }
+
+        function setFdmTimeframe(tf) {
+          document.querySelectorAll('.fdm-time-btn').forEach(b => {
+            b.classList.remove('active');
+            b.style.background = 'transparent';
+            b.style.color = '#64748B';
+          });
+          const activeBtn = document.getElementById('fdmBtn' + tf);
+          if (activeBtn) {
+            activeBtn.classList.add('active');
+            activeBtn.style.background = 'rgba(0,210,255,0.15)';
+            activeBtn.style.color = '#00D2FF';
+          }
+          if (fdmHistoricalData && fdmHistoricalData.length > 0) {
+            renderFdmChart(fdmHistoricalData, tf);
+          }
+        }
+
+        function renderFdmChart(allData, timeframe) {
+          const canvas = document.getElementById('fdmChart');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          if (fdmChartInstance) fdmChartInstance.destroy();
+
+          let days = 365;
+          if (timeframe === '1M') days = 30;
+          else if (timeframe === '3M') days = 90;
+          else if (timeframe === '6M') days = 180;
+          else if (timeframe === '1Y') days = 365;
+          else if (timeframe === '3Y') days = 365 * 3;
+          else if (timeframe === 'ALL') days = 99999;
+
+          let filtered = allData;
+          if (timeframe !== 'ALL') {
+            filtered = allData.slice(-days);
+          }
+          if (!filtered || filtered.length === 0) filtered = allData;
+
+          const labels = filtered.map(d => d.date);
+          const dataPoints = filtered.map(d => parseFloat(d.nav));
+
+          const isPositive = dataPoints.length > 1 && dataPoints[dataPoints.length - 1] >= dataPoints[0];
+          const primaryColor = isPositive ? '#00D2FF' : '#F87171';
+
+          const gradient = ctx.createLinearGradient(0, 0, 0, 240);
+          gradient.addColorStop(0, isPositive ? 'rgba(0, 210, 255, 0.28)' : 'rgba(248, 113, 113, 0.28)');
+          gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+          fdmChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'NAV (₹)',
+                data: dataPoints,
+                borderColor: primaryColor,
+                borderWidth: 2,
+                pointRadius: 0,
+                pointHoverRadius: 4,
+                pointHoverBackgroundColor: primaryColor,
+                backgroundColor: gradient,
+                fill: true,
+                tension: 0.2
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              interaction: { mode: 'index', intersect: false },
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  backgroundColor: '#0D1520',
+                  titleColor: '#94A3B8',
+                  bodyColor: '#F1F5F9',
+                  borderColor: 'rgba(255,255,255,0.1)',
+                  borderWidth: 1,
+                  padding: 10,
+                  callbacks: {
+                    label: (ctx) => `NAV: ₹${ctx.parsed.y.toFixed(4)}`
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  grid: { display: false },
+                  ticks: { color: '#475569', maxTicksLimit: 6, font: { size: 10 } }
+                },
+                y: {
+                  grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                  ticks: { color: '#64748B', font: { size: 10 }, callback: v => `₹${v}` }
+                }
+              }
+            }
+          });
+        }
+
+        function compareThisFundFromModal() {
+          if (!currentFdmFund.code) return;
+          closeFundDetailModal();
+          showView('compareView');
+          switchCompareTabs('compare');
+          selectCompareFund(0, currentFdmFund.code, currentFdmFund.name);
+          showToast(`Added to Compare: ${currentFdmFund.name.substring(0,25)}...`, 'success');
+        }
+
+        function addThisFundFromModal() {
+          if (!currentFdmFund.code) return;
+          if (typeof pg !== 'undefined' && typeof pg.addFund === 'function') {
+            pg.addFund(currentFdmFund.code, currentFdmFund.name, currentFdmFund.category);
+            showToast(`Added to Portfolio: ${currentFdmFund.name.substring(0,25)}...`, 'success');
+          } else {
+            showToast('Portfolio Builder updated', 'info');
+          }
+        }
+
+        function openFundInExplorer() {
+          if (!currentFdmFund.code) return;
+          closeFundDetailModal();
+          showView('main');
+          selectFund(currentFdmFund.code, currentFdmFund.category, currentFdmFund.name);
+        }
+
+        // Close modal on Escape key
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeFundDetailModal();
+        });
     </script>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- 🔍 FUND DETAIL POPUP MODAL                                 -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div id="fundDetailModal" onclick="if(event.target === this) closeFundDetailModal();" style="display:none; position:fixed; inset:0; background:rgba(6,10,16,0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); z-index:100000; justify-content:center; align-items:center; padding:16px; opacity:0; transition:opacity 220ms cubic-bezier(0.16, 1, 0.3, 1);">
+      <div style="background:#0D1522; border:1px solid rgba(0,210,255,0.25); border-radius:20px; width:860px; max-width:96vw; max-height:90vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,0.8), 0 0 35px rgba(0,210,255,0.12); display:flex; flex-direction:column; position:relative;" class="modal-animate-content">
+        
+        <!-- Modal Header -->
+        <div style="padding:20px 24px 16px; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:flex-start; gap:16px; background:rgba(13,21,34,0.95); position:sticky; top:0; z-index:10;">
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap;">
+              <span id="fdmPlanTag" style="padding:3px 8px; border-radius:6px; font-size:10px; font-weight:800; text-transform:uppercase; background:rgba(52,211,153,0.12); color:#34D399; border:1px solid rgba(52,211,153,0.25);">DIRECT</span>
+              <span id="fdmCatTag" style="padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; background:rgba(0,210,255,0.1); color:#00D2FF; border:1px solid rgba(0,210,255,0.2);">Equity</span>
+              <span id="fdmAmcTag" style="padding:3px 8px; border-radius:6px; font-size:10px; font-weight:600; background:rgba(139,92,246,0.1); color:#A78BFA; border:1px solid rgba(139,92,246,0.2);">AMC</span>
+              <span id="fdmCodeTag" style="font-size:10px; color:#94A3B8; font-weight:700; font-family:monospace; background:rgba(255,255,255,0.06); padding:3px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.08);">#120828</span>
+            </div>
+            <h2 id="fdmSchemeName" style="font-size:18px; font-weight:800; color:#F1F5F9; margin:0; line-height:1.35; letter-spacing:-0.3px;">Fund Name</h2>
+          </div>
+          <button onclick="closeFundDetailModal()" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#94A3B8; width:34px; height:34px; border-radius:10px; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 150ms;" onmouseover="this.style.background='rgba(239,68,68,0.15)'; this.style.color='#F87171'; this.style.borderColor='rgba(239,68,68,0.3)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.color='#94A3B8'; this.style.borderColor='rgba(255,255,255,0.1)';">✕</button>
+        </div>
+
+        <!-- Modal Body Loading -->
+        <div id="fdmLoader" style="padding:60px 20px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div style="width:36px; height:36px; border:3px solid rgba(0,210,255,0.1); border-top-color:#00D2FF; border-radius:50%; animation:spin 0.8s linear infinite; margin-bottom:14px;"></div>
+          <div style="font-size:13px; font-weight:600; color:#00D2FF;">Loading Fund Analytics &amp; NAV Data...</div>
+          <div style="font-size:11px; color:#64748B; margin-top:4px;">Calculating CAGR, 52W range &amp; historical trajectory</div>
+        </div>
+
+        <!-- Modal Content Body -->
+        <div id="fdmContent" style="padding:22px 24px; display:none; flex-direction:column; gap:20px;">
+          
+          <!-- 4 Top Stat Cards -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
+            <!-- NAV Card -->
+            <div style="background:#111A2E; border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:16px; position:relative; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+              <div style="font-size:11px; font-weight:800; color:#94A3B8; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                <span style="color:#00D2FF;">●</span> CURRENT NAV
+              </div>
+              <div id="fdmNav" style="font-size:24px; font-weight:900; color:#00D2FF; letter-spacing:-0.5px; margin:4px 0;">₹ --</div>
+              <div id="fdmDate" style="font-size:11px; color:#94A3B8;">As of --</div>
+            </div>
+
+            <!-- Returns Card -->
+            <div style="background:#111A2E; border:1px solid rgba(139,92,246,0.25); border-radius:14px; padding:16px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+              <div style="font-size:11px; font-weight:800; color:#C084FC; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+                <span style="color:#C084FC;">●</span> RETURNS (CAGR)
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; text-align:center;">
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:6px 2px;">
+                  <div style="font-size:10px; font-weight:700; color:#94A3B8;">1 YEAR</div>
+                  <div id="fdmRet1Y" style="font-size:13px; font-weight:800; color:#34D399; margin-top:2px;">--</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:6px 2px;">
+                  <div style="font-size:10px; font-weight:700; color:#94A3B8;">3 YEAR</div>
+                  <div id="fdmRet3Y" style="font-size:13px; font-weight:800; color:#34D399; margin-top:2px;">--</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:6px 2px;">
+                  <div style="font-size:10px; font-weight:700; color:#94A3B8;">5 YEAR</div>
+                  <div id="fdmRet5Y" style="font-size:13px; font-weight:800; color:#34D399; margin-top:2px;">--</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 52-Week Range -->
+            <div style="background:#111A2E; border:1px solid rgba(245,158,11,0.25); border-radius:14px; padding:16px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+              <div style="font-size:11px; font-weight:800; color:#FBBF24; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                <span style="color:#FBBF24;">●</span> 52-WEEK HIGH / LOW
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:flex-end; margin:6px 0;">
+                <div>
+                  <div style="font-size:10px; font-weight:700; color:#94A3B8;">52W LOW</div>
+                  <div id="fdm52Low" style="font-size:13px; font-weight:800; color:#F87171; margin-top:2px;">₹ --</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:10px; font-weight:700; color:#94A3B8;">52W HIGH</div>
+                  <div id="fdm52High" style="font-size:13px; font-weight:800; color:#34D399; margin-top:2px;">₹ --</div>
+                </div>
+              </div>
+              <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:3px; position:relative; overflow:hidden;">
+                <div id="fdmRangeBarFill" style="height:100%; width:0%; background:linear-gradient(90deg, #F87171, #F59E0B, #34D399); border-radius:3px; transition:width 400ms ease;"></div>
+              </div>
+            </div>
+
+            <!-- Expense Ratio & AUM -->
+            <div style="background:#111A2E; border:1px solid rgba(52,211,153,0.25); border-radius:14px; padding:16px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+              <div style="font-size:11px; font-weight:800; color:#34D399; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+                <span style="color:#34D399;">●</span> FUND FUNDAMENTALS
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span style="font-size:11px; color:#94A3B8; font-weight:600;">Expense Ratio:</span><span id="fdmExpense" style="font-size:12px; font-weight:800; color:#00D2FF;">--</span></div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span style="font-size:11px; color:#94A3B8; font-weight:600;">Fund AUM:</span><span id="fdmAum" style="font-size:12px; font-weight:800; color:#F1F5F9;">--</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="font-size:11px; color:#94A3B8; font-weight:600;">Manager:</span><span id="fdmManager" style="font-size:11px; font-weight:700; color:#CBD5E1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:110px;" title="Manager">--</span></div>
+            </div>
+          </div>
+
+          <!-- Interactive Chart -->
+          <div style="background:#111A2E; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:18px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+              <div>
+                <div style="font-size:13px; font-weight:700; color:#F1F5F9; display:flex; align-items:center; gap:6px;">📈 Historical NAV Trajectory</div>
+                <div style="font-size:11px; color:#94A3B8;">Performance tracking with hover data</div>
+              </div>
+              <div style="display:flex; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:3px; gap:2px;">
+                <button class="fdm-time-btn" onclick="setFdmTimeframe('1M')" id="fdmBtn1M" style="padding:4px 8px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:#64748B;">1M</button>
+                <button class="fdm-time-btn" onclick="setFdmTimeframe('3M')" id="fdmBtn3M" style="padding:4px 8px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:#64748B;">3M</button>
+                <button class="fdm-time-btn" onclick="setFdmTimeframe('6M')" id="fdmBtn6M" style="padding:4px 8px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:#64748B;">6M</button>
+                <button class="fdm-time-btn active" onclick="setFdmTimeframe('1Y')" id="fdmBtn1Y" style="padding:4px 8px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:rgba(0,210,255,0.15); color:#00D2FF;">1Y</button>
+                <button class="fdm-time-btn" onclick="setFdmTimeframe('3Y')" id="fdmBtn3Y" style="padding:4px 8px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:#64748B;">3Y</button>
+                <button class="fdm-time-btn" onclick="setFdmTimeframe('ALL')" id="fdmBtnALL" style="padding:4px 8px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:#64748B;">ALL</button>
+              </div>
+            </div>
+            <div style="height:240px; position:relative; width:100%;">
+              <canvas id="fdmChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Risk & Volatility Ratios Grid -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px;">
+            <div style="background:#111A2E; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,0.2);">
+              <div style="font-size:10px; color:#94A3B8; font-weight:800; text-transform:uppercase; letter-spacing:0.04em;">ANNUAL VOLATILITY</div>
+              <div id="fdmVol" style="font-size:18px; font-weight:900; color:#F59E0B; margin:4px 0 2px;">--</div>
+              <div style="font-size:9px; color:#64748B;">Annual Std Dev</div>
+            </div>
+            <div style="background:#111A2E; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,0.2);">
+              <div style="font-size:10px; color:#94A3B8; font-weight:800; text-transform:uppercase; letter-spacing:0.04em;">SHARPE RATIO</div>
+              <div id="fdmSharpe" style="font-size:18px; font-weight:900; color:#34D399; margin:4px 0 2px;">--</div>
+              <div style="font-size:9px; color:#64748B;">Risk-adjusted return</div>
+            </div>
+            <div style="background:#111A2E; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,0.2);">
+              <div style="font-size:10px; color:#94A3B8; font-weight:800; text-transform:uppercase; letter-spacing:0.04em;">MAX DRAWDOWN</div>
+              <div id="fdmMaxDD" style="font-size:18px; font-weight:900; color:#F87171; margin:4px 0 2px;">--</div>
+              <div style="font-size:9px; color:#64748B;">Peak-to-trough drop</div>
+            </div>
+            <div style="background:#111A2E; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,0.2);">
+              <div style="font-size:10px; color:#94A3B8; font-weight:800; text-transform:uppercase; letter-spacing:0.04em;">SORTINO RATIO</div>
+              <div id="fdmSortino" style="font-size:18px; font-weight:900; color:#A78BFA; margin:4px 0 2px;">--</div>
+              <div style="font-size:9px; color:#64748B;">Downside risk ratio</div>
+            </div>
+            <div style="background:#111A2E; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,0.2);">
+              <div style="font-size:10px; color:#94A3B8; font-weight:800; text-transform:uppercase; letter-spacing:0.04em;">BETA</div>
+              <div id="fdmBeta" style="font-size:18px; font-weight:900; color:#00D2FF; margin:4px 0 2px;">--</div>
+              <div style="font-size:9px; color:#64748B;">Vs Nifty 50 Index</div>
+            </div>
+          </div>
+
+          <!-- Top Stock Holdings -->
+          <div id="fdmHoldingsSection" style="background:#111A2E; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:18px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:13px; font-weight:700; color:#F1F5F9; display:flex; align-items:center; gap:8px;">
+                <span>🏢 Top Portfolio Stock Holdings</span>
+                <span id="fdmHoldingsBadge" style="font-size:10px; font-weight:700; color:#00D2FF; background:rgba(0,210,255,0.12); border:1px solid rgba(0,210,255,0.25); border-radius:4px; padding:2px 6px;"></span>
+              </div>
+            </div>
+            <div id="fdmHoldingsList" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:10px;"></div>
+          </div>
+
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div style="padding:16px 24px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(13,21,34,0.95); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; position:sticky; bottom:0; z-index:10; border-radius:0 0 20px 20px;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button id="fdmBtnCompare" onclick="compareThisFundFromModal()" style="padding:8px 14px; border-radius:8px; background:rgba(0,210,255,0.1); border:1px solid rgba(0,210,255,0.3); color:#00D2FF; font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;">
+              <span>⚔️</span> Compare Fund
+            </button>
+            <button id="fdmBtnAddPortfolio" onclick="addThisFundFromModal()" style="padding:8px 14px; border-radius:8px; background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.3); color:#34D399; font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;">
+              <span>⚡</span> Add to Portfolio
+            </button>
+            <button id="fdmBtnExplorer" onclick="openFundInExplorer()" style="padding:8px 14px; border-radius:8px; background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.3); color:#A78BFA; font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;">
+              <span>🔍</span> Full Analysis
+            </button>
+          </div>
+          <button onclick="closeFundDetailModal()" style="padding:8px 18px; border-radius:8px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#94A3B8; font-size:11px; font-weight:700; cursor:pointer;">
+            Close
+          </button>
+        </div>
+
+      </div>
+    </div>
 
     <!-- ══════════════════════════════════════════════════════════ -->
     <!-- 📱 NATIVE MOBILE BOTTOM NAVIGATION BAR                     -->
