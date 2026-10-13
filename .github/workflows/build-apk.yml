@@ -23,18 +23,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Ensure Gradle Wrapper Jar Exists
+      - name: Accept Android SDK Licenses
         run: |
-          mkdir -p android/gradle/wrapper
-          if [ ! -f "android/gradle/wrapper/gradle-wrapper.jar" ]; then
-            echo "Downloading gradle-wrapper.jar..."
-            curl -sSL -o android/gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradle/wrapper/gradle-wrapper.jar
-          fi
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
 
-      - name: Make Gradlew Executable
+      - name: Ensure Gradle Wrapper Executable
         run: chmod +x android/gradlew
 
       - name: Build APK with Gradle
@@ -56,6 +49,7 @@ jobs:
 
       - name: Publish APK to GitHub Releases
         uses: softprops/action-gh-release@v2
+        continue-on-error: true
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: v1.0.0
@@ -64,4 +58,5 @@ jobs:
           files: ProMutualFund-Analytics.apk
           draft: false
           prerelease: false
+
 
