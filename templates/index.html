@@ -1416,16 +1416,16 @@ input[type=range] {
         <!-- Marquee Ticker -->
         <div class="header-ticker">
             <div class="ticker-content">
-                <span class="ticker-item" onclick="openFundDetailModal('120828', 'Quant Small Cap Fund - Growth Option - Direct Plan', 'Equity')"><span class="t-badge">🔥 TOP RETURN</span> Quant Small Cap <span class="t-ret text-green">+42.5% (3Y)</span></span>
-                <span class="ticker-item" onclick="openFundDetailModal('100119', 'HDFC Balanced Advantage Fund - Regular Plan - Growth Option', 'Hybrid / Balanced')"><span class="t-badge">⚖️ BALANCED</span> HDFC Balanced Advantage <span class="t-ret text-green">+21.2% (3Y)</span></span>
-                <span class="ticker-item" onclick="openFundDetailModal('118989', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option', 'Equity')"><span class="t-badge">🚀 TRENDING</span> HDFC Mid-Cap <span class="t-ret text-green">+31.4% (3Y)</span></span>
-                <span class="ticker-item" onclick="openFundDetailModal('122639', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth', 'Equity')"><span class="t-badge">💎 POPULAR</span> Parag Parikh Flexi Cap <span class="t-ret text-green">+24.1% (3Y)</span></span>
+                <span class="ticker-item" onclick="selectFund('120828', 'Equity', 'Quant Small Cap Fund - Growth Option - Direct Plan')"><span class="t-badge">🔥 TOP RETURN</span> Quant Small Cap <span class="t-ret text-green">+42.5% (3Y)</span></span>
+                <span class="ticker-item" onclick="selectFund('100119', 'Hybrid / Balanced', 'HDFC Balanced Advantage Fund - Regular Plan - Growth Option')"><span class="t-badge">⚖️ BALANCED</span> HDFC Balanced Advantage <span class="t-ret text-green">+21.2% (3Y)</span></span>
+                <span class="ticker-item" onclick="selectFund('118989', 'Equity', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option')"><span class="t-badge">🚀 TRENDING</span> HDFC Mid-Cap <span class="t-ret text-green">+31.4% (3Y)</span></span>
+                <span class="ticker-item" onclick="selectFund('122639', 'Equity', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth')"><span class="t-badge">💎 POPULAR</span> Parag Parikh Flexi Cap <span class="t-ret text-green">+24.1% (3Y)</span></span>
                 
                 <!-- Duplicate for seamless loop -->
-                <span class="ticker-item" onclick="openFundDetailModal('120828', 'Quant Small Cap Fund - Growth Option - Direct Plan', 'Equity')"><span class="t-badge">🔥 TOP RETURN</span> Quant Small Cap <span class="t-ret text-green">+42.5% (3Y)</span></span>
-                <span class="ticker-item" onclick="openFundDetailModal('100119', 'HDFC Balanced Advantage Fund - Regular Plan - Growth Option', 'Hybrid / Balanced')"><span class="t-badge">⚖️ BALANCED</span> HDFC Balanced Advantage <span class="t-ret text-green">+21.2% (3Y)</span></span>
-                <span class="ticker-item" onclick="openFundDetailModal('118989', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option', 'Equity')"><span class="t-badge">🚀 TRENDING</span> HDFC Mid-Cap <span class="t-ret text-green">+31.4% (3Y)</span></span>
-                <span class="ticker-item" onclick="openFundDetailModal('122639', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth', 'Equity')"><span class="t-badge">💎 POPULAR</span> Parag Parikh Flexi Cap <span class="t-ret text-green">+24.1% (3Y)</span></span>
+                <span class="ticker-item" onclick="selectFund('120828', 'Equity', 'Quant Small Cap Fund - Growth Option - Direct Plan')"><span class="t-badge">🔥 TOP RETURN</span> Quant Small Cap <span class="t-ret text-green">+42.5% (3Y)</span></span>
+                <span class="ticker-item" onclick="selectFund('100119', 'Hybrid / Balanced', 'HDFC Balanced Advantage Fund - Regular Plan - Growth Option')"><span class="t-badge">⚖️ BALANCED</span> HDFC Balanced Advantage <span class="t-ret text-green">+21.2% (3Y)</span></span>
+                <span class="ticker-item" onclick="selectFund('118989', 'Equity', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth Option')"><span class="t-badge">🚀 TRENDING</span> HDFC Mid-Cap <span class="t-ret text-green">+31.4% (3Y)</span></span>
+                <span class="ticker-item" onclick="selectFund('122639', 'Equity', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth')"><span class="t-badge">💎 POPULAR</span> Parag Parikh Flexi Cap <span class="t-ret text-green">+24.1% (3Y)</span></span>
             </div>
         </div>
 
@@ -2160,6 +2160,9 @@ input[type=range] {
             <span style="font-size:10px; font-weight:800; color:#64748B; text-transform:uppercase; letter-spacing:0.08em; display:flex; align-items:center; gap:5px; margin-right:4px;">
               <span style="color:#00D2FF">✦</span> Advanced Suite:
             </span>
+            <button onclick="openCurrentOrSearchFundDetail()" class="adv-toolbar-btn" style="background:rgba(0,210,255,0.12); border:1px solid rgba(0,210,255,0.35); color:#00D2FF;" onmouseover="this.style.background='rgba(0,210,255,0.22)'; this.style.boxShadow='0 4px 14px rgba(0,210,255,0.3)';" onmouseout="this.style.background='rgba(0,210,255,0.12)'; this.style.boxShadow='none';">
+              <span>📋</span> Funds Detail
+            </button>
             <button onclick="showView('compareView')" class="adv-toolbar-btn" style="background:rgba(0,210,255,0.08); border:1px solid rgba(0,210,255,0.25); color:#00D2FF;" onmouseover="this.style.background='rgba(0,210,255,0.18)'; this.style.boxShadow='0 4px 14px rgba(0,210,255,0.25)';" onmouseout="this.style.background='rgba(0,210,255,0.08)'; this.style.boxShadow='none';">
               <span>⚔️</span> Fund Compare & Screener
             </button>
@@ -2187,12 +2190,18 @@ input[type=range] {
           <h3 style="font-size:20px; font-weight:300; color:var(--text-main); margin:0 0 6px 0;">Build Your Portfolio</h3>
           <p style="font-size:12px; color:var(--text-dark); max-width:420px; text-align:center; line-height:1.5; margin:0 0 24px 0;">Search and add mutual funds from the left panel, set target allocations, or launch one of our dedicated advanced analytics tools below.</p>
 
-          <!-- 5 Advanced Analytics Launchpad Grid -->
-          <div style="width:100%; max-width:880px;">
+          <!-- Advanced Analytics Launchpad Grid -->
+          <div style="width:100%; max-width:960px;">
             <div style="font-size:10px; font-weight:800; color:#64748B; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px; text-align:center;">
               PRO MUTUAL FUND ANALYTICS SUITE
             </div>
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:14px;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:14px;">
+              <div onclick="openCurrentOrSearchFundDetail()" class="lp-card lp-card-details" style="border:1px solid rgba(0,210,255,0.3); background:rgba(0,210,255,0.04);">
+                <div class="lp-card-icon">📋</div>
+                <div style="font-size:12px; font-weight:700; color:#00D2FF; margin-bottom:4px;">Funds Detail</div>
+                <div style="font-size:10px; color:#64748B; line-height:1.4;">Instant interactive popup card &amp; analytics</div>
+              </div>
+
               <div onclick="showView('compareView')" class="lp-card lp-card-compare">
                 <div class="lp-card-icon">⚔️</div>
                 <div style="font-size:12px; font-weight:700; color:#00D2FF; margin-bottom:4px;">Head-to-Head</div>
@@ -3299,10 +3308,7 @@ input[type=range] {
                         <div class="fund-badge ${getCategoryStyle(fund.category)}">${shortCat}</div>
                     </div>
                     <div class="fund-item-bottom">
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <span class="fund-item-code">Code: ${fund.code}</span>
-                            <span onclick="event.stopPropagation(); openFundDetailModal('${fund.code}', '${fund.name.replace(/'/g, "\\'")}', '${fund.category || 'Equity'}')" style="padding:1px 6px; border-radius:4px; background:rgba(0,210,255,0.08); border:1px solid rgba(0,210,255,0.25); color:#00D2FF; font-size:9px; font-weight:700; cursor:pointer;" title="View in Popup">📊 Popup</span>
-                        </div>
+                        <span class="fund-item-code">Code: ${fund.code}</span>
                         <div class="fund-item-nav" id="finav-${fund.code}"></div>
                     </div>
                 `;
@@ -3375,27 +3381,117 @@ input[type=range] {
         }
 
         // --- Helpers ---
+        function parseNavDate(dateStr) {
+            if (!dateStr) return null;
+            const str = String(dateStr).trim();
+            const parts = str.split(/[-/]/);
+            if (parts.length === 3) {
+                if (parts[0].length === 4) {
+                    // YYYY-MM-DD
+                    return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+                } else {
+                    // DD-MM-YYYY or DD-MMM-YYYY
+                    const day = parseInt(parts[0], 10);
+                    let month = parseInt(parts[1], 10) - 1;
+                    if (isNaN(month)) {
+                        const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+                        month = months.indexOf(parts[1].toLowerCase().substring(0, 3));
+                    }
+                    const year = parseInt(parts[2], 10);
+                    return new Date(year, month, day);
+                }
+            }
+            const d = new Date(str);
+            return isNaN(d.getTime()) ? null : d;
+        }
+
+        function computeMetricsFromHistory(histData, currentNav) {
+            if (!histData || !Array.isArray(histData) || histData.length === 0) return null;
+            
+            const points = [];
+            for (let i = 0; i < histData.length; i++) {
+                const item = histData[i];
+                if (!item) continue;
+                const nav = parseFloat(item.nav);
+                if (isNaN(nav) || nav <= 0) continue;
+                const dt = parseNavDate(item.date);
+                if (dt && !isNaN(dt.getTime())) {
+                    points.push({ date: dt, nav: nav });
+                }
+            }
+            if (points.length === 0) return null;
+
+            // Sort newest first
+            points.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+            const newest = points[0];
+            const latestNav = (currentNav && currentNav > 0) ? currentNav : newest.nav;
+            const newestTime = newest.date.getTime();
+            const oneYearMs = 365.25 * 86400000;
+
+            // 52-Week High & Low
+            const oneYearAgoTime = newestTime - oneYearMs;
+            const lastYearPoints = points.filter(p => p.date.getTime() >= oneYearAgoTime);
+            const navPool = lastYearPoints.length > 0 ? lastYearPoints : points;
+            const high_52 = Math.max(...navPool.map(p => p.nav));
+            const low_52 = Math.min(...navPool.map(p => p.nav));
+
+            // Fund Age (Years)
+            const oldest = points[points.length - 1];
+            const ageYears = parseFloat(((newestTime - oldest.date.getTime()) / oneYearMs).toFixed(1));
+
+            // CAGR helper
+            const calcCagr = (years) => {
+                const targetTime = newestTime - (years * oneYearMs);
+                let closest = null;
+                for (let p of points) {
+                    if (p.date.getTime() <= targetTime) {
+                        closest = p;
+                        break;
+                    }
+                }
+                if (closest && closest.nav > 0) {
+                    const ratio = latestNav / closest.nav;
+                    const cagr = years === 1 ? (ratio - 1) * 100 : (Math.pow(ratio, 1 / years) - 1) * 100;
+                    return parseFloat(cagr.toFixed(2));
+                }
+                return null;
+            };
+
+            return {
+                return_1yr: calcCagr(1),
+                return_3yr: calcCagr(3),
+                return_5yr: calcCagr(5),
+                high_52: high_52,
+                low_52: low_52,
+                fund_age: ageYears
+            };
+        }
+
         function formatReturn(val) {
-            if(val === null || val === undefined) return '<span class="text-muted">N/A</span>';
-            const color = val >= 0 ? 'var(--green)' : 'var(--red)';
-            const sign = val > 0 ? '' : '';
-            return `<span class="returns-val" style="color: ${color}">${sign}${val}%</span>`;
+            if(val === null || val === undefined || isNaN(val)) return '<span class="text-muted">N/A</span>';
+            const num = parseFloat(val);
+            const color = num >= 0 ? 'var(--green)' : 'var(--red)';
+            const sign = num > 0 ? '+' : '';
+            return `<span class="returns-val" style="color: ${color}">${sign}${num.toFixed(2)}%</span>`;
         }
         
         function updateReturnBar(id, val, staggerDelay) {
             const bar = document.getElementById(`bar-${id}`);
             const text = document.getElementById(`bar-val-${id}`);
+            if(!bar || !text) return;
             bar.style.transition = 'none'; bar.style.width = '0%';
-            if(val === null || val === undefined) { text.textContent = 'N/A'; text.style.color = 'var(--text-muted)'; return; }
+            if(val === null || val === undefined || isNaN(val)) { text.textContent = 'N/A'; text.style.color = 'var(--text-muted)'; return; }
             
+            const num = parseFloat(val);
             setTimeout(() => {
                 bar.style.transition = 'width 800ms cubic-bezier(0.1, 0.7, 0.1, 1)';
-                const w = Math.min(Math.abs(val) * 2, 100);
+                const w = Math.min(Math.abs(num) * 2, 100);
                 bar.style.width = `${Math.max(w, 2)}%`;
-                bar.style.backgroundColor = val >= 0 ? 'var(--green)' : 'var(--red)';
+                bar.style.backgroundColor = num >= 0 ? 'var(--green)' : 'var(--red)';
             }, staggerDelay);
-            text.textContent = `${val > 0 ? '+' : ''}${val}%`;
-            text.style.color = val >= 0 ? 'var(--green)' : 'var(--red)';
+            text.textContent = `${num > 0 ? '+' : ''}${num.toFixed(2)}%`;
+            text.style.color = num >= 0 ? 'var(--green)' : 'var(--red)';
         }
 
         // --- Single Fund View ---
@@ -3517,11 +3613,11 @@ input[type=range] {
                 updateAddButtonState();
 
                 const [histRes, advRes] = await Promise.all([
-                    fetch(`/api/history/${code}`, { signal }).then(r=>r.json()),
-                    fetch(`/api/advanced/${code}`, { signal }).then(r=>r.json())
+                    fetch(`/api/history/${code}`, { signal }).then(r=>r.ok ? r.json() : {}).catch(()=>({})),
+                    fetch(`/api/advanced/${code}`, { signal }).then(r=>r.ok ? r.json() : {}).catch(()=>({}))
                 ]);
                 
-                populateAdvancedData(advRes, navVal);
+                populateAdvancedData(advRes, navVal, histRes?.data);
 
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
@@ -3534,8 +3630,8 @@ input[type=range] {
                     }, 120);
                 }
                 
-                if(histRes && histRes.data) {
-                    fullHistoricalData = histRes.data.reverse();
+                if(histRes && histRes.data && Array.isArray(histRes.data)) {
+                    fullHistoricalData = [...histRes.data].reverse();
                     updateChartTimeframe('1Y');
                 }
             } catch (error) {
@@ -3546,27 +3642,51 @@ input[type=range] {
             }
         }
 
-        function populateAdvancedData(advRes, currentVal) {
-            const r1 = formatReturn(advRes.return_1yr);
-            const r3 = formatReturn(advRes.return_3yr);
-            const r5 = formatReturn(advRes.return_5yr);
+        function populateAdvancedData(advRes, currentVal, histData) {
+            advRes = advRes || {};
+
+            let r1Val = (advRes.return_1yr !== undefined && advRes.return_1yr !== null) ? advRes.return_1yr : null;
+            let r3Val = (advRes.return_3yr !== undefined && advRes.return_3yr !== null) ? advRes.return_3yr : null;
+            let r5Val = (advRes.return_5yr !== undefined && advRes.return_5yr !== null) ? advRes.return_5yr : null;
+            let high52Val = (advRes.high_52 !== undefined && advRes.high_52 !== null) ? parseFloat(advRes.high_52) : null;
+            let low52Val = (advRes.low_52 !== undefined && advRes.low_52 !== null) ? parseFloat(advRes.low_52) : null;
+            let ageVal = (advRes.fund_age !== undefined && advRes.fund_age !== null) ? advRes.fund_age : null;
+
+            // Fallback: If any metrics are missing, compute directly from histData!
+            if ((r1Val === null || high52Val === null || ageVal === null) && histData && Array.isArray(histData) && histData.length > 0) {
+                const computed = computeMetricsFromHistory(histData, currentVal);
+                if (computed) {
+                    if (r1Val === null && computed.return_1yr !== null) r1Val = computed.return_1yr;
+                    if (r3Val === null && computed.return_3yr !== null) r3Val = computed.return_3yr;
+                    if (r5Val === null && computed.return_5yr !== null) r5Val = computed.return_5yr;
+                    if ((high52Val === null || isNaN(high52Val)) && computed.high_52) high52Val = computed.high_52;
+                    if ((low52Val === null || isNaN(low52Val)) && computed.low_52) low52Val = computed.low_52;
+                    if (ageVal === null && computed.fund_age) ageVal = computed.fund_age;
+                }
+            }
+
+            const r1 = formatReturn(r1Val);
+            const r3 = formatReturn(r3Val);
+            const r5 = formatReturn(r5Val);
             document.getElementById('val-returns-row').innerHTML = `${r1} <span class="returns-sep">|</span> ${r3} <span class="returns-sep">|</span> ${r5}`;
             
-            updateReturnBar('1y', advRes.return_1yr, 100);
-            updateReturnBar('3y', advRes.return_3yr, 300);
-            updateReturnBar('5y', advRes.return_5yr, 500);
+            updateReturnBar('1y', r1Val, 100);
+            updateReturnBar('3y', r3Val, 300);
+            updateReturnBar('5y', r5Val, 500);
 
-            if (advRes.high_52 && advRes.low_52) {
-                const h = parseFloat(advRes.high_52).toFixed(4);
-                const l = parseFloat(advRes.low_52).toFixed(4);
+            if (high52Val !== null && !isNaN(high52Val) && low52Val !== null && !isNaN(low52Val)) {
+                const h = high52Val.toFixed(4);
+                const l = low52Val.toFixed(4);
                 document.getElementById('val-range-row').innerHTML = `<span class="range-val text-green">▲ ₹${h}</span> <span class="returns-sep">/</span> <span class="range-val text-red">▼ ₹${l}</span>`;
                 document.getElementById('qs-high').textContent = `₹${h}`;
                 document.getElementById('qs-low').textContent = `₹${l}`;
                 
                 document.getElementById('val-range-bar').style.display = 'block';
-                const rangeSpan = advRes.high_52 - advRes.low_52;
-                let pct = 0;
-                if(rangeSpan > 0) pct = Math.max(0, Math.min(100, ((currentVal - advRes.low_52) / rangeSpan) * 100));
+                const rangeSpan = high52Val - low52Val;
+                let pct = 50;
+                if(rangeSpan > 0 && currentVal >= low52Val) {
+                    pct = Math.max(0, Math.min(100, ((currentVal - low52Val) / rangeSpan) * 100));
+                }
                 document.getElementById('val-range-dot').style.left = `${pct}%`;
                 document.getElementById('val-range-fill').style.width = `${pct}%`;
             } else {
@@ -3576,12 +3696,12 @@ input[type=range] {
                 document.getElementById('qs-low').textContent = 'N/A';
             }
 
-            if(advRes.fund_age) {
-                document.getElementById('val-age').textContent = `${advRes.fund_age} yrs`;
-                document.getElementById('qs-age').textContent = `${advRes.fund_age} years`;
+            if(ageVal !== null && ageVal !== undefined) {
+                document.getElementById('val-age').textContent = `${ageVal} yrs`;
+                document.getElementById('qs-age').textContent = `${ageVal} years`;
                 const blocksWrap = document.getElementById('val-age-blocks');
                 blocksWrap.innerHTML = '';
-                const ageInt = Math.floor(advRes.fund_age);
+                const ageInt = Math.floor(parseFloat(ageVal));
                 for(let i=0; i<14; i++) {
                     const d = document.createElement('div');
                     d.className = 'age-block';
@@ -8536,6 +8656,53 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
         let fdmChartInstance = null;
         let fdmHistoricalData = [];
 
+        function openCurrentOrSearchFundDetail() {
+          let code = activeCode;
+          let name = currentFundName;
+          let cat = currentFundCat;
+          
+          if (!code) {
+            if (portfolio && portfolio.length > 0) {
+              code = portfolio[0].code;
+              name = portfolio[0].name;
+              cat = portfolio[0].category || 'Equity';
+            } else if (allFunds && allFunds.length > 0) {
+              const pp = allFunds.find(f => f.code === '122639') || allFunds[0];
+              code = pp.code;
+              name = pp.name;
+              cat = pp.category || 'Equity';
+            } else {
+              code = '122639';
+              name = 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth';
+              cat = 'Equity';
+            }
+          }
+          openFundDetailModal(code, name, cat);
+        }
+
+        function fdmFilterFunds(query) {
+          const dd = document.getElementById('fdmSearchDropdown');
+          if (!dd) return;
+          const q = (query || '').trim().toLowerCase();
+          if (q.length < 2) {
+            dd.style.display = 'none';
+            return;
+          }
+          const matches = allFunds.filter(f => f.name.toLowerCase().includes(q) || f.code.includes(q)).slice(0, 8);
+          if (matches.length === 0) {
+            dd.innerHTML = `<div style="padding:8px 12px; font-size:11px; color:#64748B;">No matching funds</div>`;
+            dd.style.display = 'block';
+            return;
+          }
+          dd.innerHTML = matches.map(f => `
+            <div onclick="document.getElementById('fdmSearchDropdown').style.display='none'; document.getElementById('fdmSearchInput').value=''; openFundDetailModal('${f.code}', '${f.name.replace(/'/g, "\\'")}', '${f.category || 'Equity'}');" style="padding:8px 12px; border-bottom:1px solid rgba(255,255,255,0.05); font-size:11px; color:#E2E8F0; cursor:pointer; transition:background 120ms;" onmouseover="this.style.background='rgba(0,210,255,0.1)'" onmouseout="this.style.background='transparent'">
+              <div style="font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${f.name}</div>
+              <div style="font-size:9px; color:#64748B; margin-top:2px;">${f.category} · #${f.code}</div>
+            </div>
+          `).join('');
+          dd.style.display = 'block';
+        }
+
         async function openFundDetailModal(code, name, category) {
           if (!code) return;
           currentFdmFund = { code: String(code), name: name || 'Fund Details', category: category || 'Equity' };
@@ -8620,6 +8787,23 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
             if (dateEl) dateEl.textContent = quote.last_updated ? `Updated: ${quote.last_updated}` : 'Latest AMFI NAV';
 
             // 2. Returns (1Y | 3Y | 5Y) - Dedicated high-contrast pillars
+            let mR1 = advRes.return_1yr;
+            let mR3 = advRes.return_3yr;
+            let mR5 = advRes.return_5yr;
+            let mH52 = advRes.high_52;
+            let mL52 = advRes.low_52;
+
+            if ((mR1 === undefined || mR1 === null || mH52 === undefined || mH52 === null) && histRes && histRes.data && histRes.data.length > 0) {
+              const comp = computeMetricsFromHistory(histRes.data, navVal);
+              if (comp) {
+                if (mR1 === undefined || mR1 === null) mR1 = comp.return_1yr;
+                if (mR3 === undefined || mR3 === null) mR3 = comp.return_3yr;
+                if (mR5 === undefined || mR5 === null) mR5 = comp.return_5yr;
+                if (mH52 === undefined || mH52 === null) mH52 = comp.high_52;
+                if (mL52 === undefined || mL52 === null) mL52 = comp.low_52;
+              }
+            }
+
             const setRetPillar = (id, val) => {
               const el = document.getElementById(id);
               if (!el) return;
@@ -8632,16 +8816,16 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
                 el.style.color = num >= 0 ? '#34D399' : '#F87171';
               }
             };
-            setRetPillar('fdmRet1Y', advRes.return_1yr);
-            setRetPillar('fdmRet3Y', advRes.return_3yr);
-            setRetPillar('fdmRet5Y', advRes.return_5yr);
+            setRetPillar('fdmRet1Y', mR1);
+            setRetPillar('fdmRet3Y', mR3);
+            setRetPillar('fdmRet5Y', mR5);
 
             // 3. 52-Week Range
             const lowEl = document.getElementById('fdm52Low');
             const highEl = document.getElementById('fdm52High');
             const fillEl = document.getElementById('fdmRangeBarFill');
-            const h = parseFloat(advRes.high_52);
-            const l = parseFloat(advRes.low_52);
+            const h = parseFloat(mH52);
+            const l = parseFloat(mL52);
             if (!isNaN(h) && !isNaN(l) && h > 0 && l > 0) {
               if (lowEl) lowEl.textContent = `₹${l.toFixed(2)}`;
               if (highEl) highEl.textContent = `₹${h.toFixed(2)}`;
@@ -8980,7 +9164,13 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
             </div>
             <h2 id="fdmSchemeName" style="font-size:18px; font-weight:800; color:#F1F5F9; margin:0; line-height:1.35; letter-spacing:-0.3px;">Fund Name</h2>
           </div>
-          <button onclick="closeFundDetailModal()" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#94A3B8; width:34px; height:34px; border-radius:10px; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 150ms;" onmouseover="this.style.background='rgba(239,68,68,0.15)'; this.style.color='#F87171'; this.style.borderColor='rgba(239,68,68,0.3)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.color='#94A3B8'; this.style.borderColor='rgba(255,255,255,0.1)';">✕</button>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="position:relative; width:220px;" class="hide-mobile">
+              <input id="fdmSearchInput" placeholder="🔍 Switch fund..." oninput="fdmFilterFunds(this.value)" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:6px 10px; font-size:11px; color:#F1F5F9; outline:none;" />
+              <div id="fdmSearchDropdown" style="position:absolute; left:0; right:0; top:36px; background:#0B111E; border:1px solid rgba(0,210,255,0.3); border-radius:8px; max-height:220px; overflow-y:auto; display:none; z-index:50; box-shadow:0 8px 24px rgba(0,0,0,0.6);"></div>
+            </div>
+            <button onclick="closeFundDetailModal()" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#94A3B8; width:34px; height:34px; border-radius:10px; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 150ms;" onmouseover="this.style.background='rgba(239,68,68,0.15)'; this.style.color='#F87171'; this.style.borderColor='rgba(239,68,68,0.3)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.color='#94A3B8'; this.style.borderColor='rgba(255,255,255,0.1)';">✕</button>
+          </div>
         </div>
 
         <!-- Modal Body Loading -->

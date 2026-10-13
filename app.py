@@ -1272,29 +1272,66 @@ def get_all_funds():
 @app.route('/api/history/<code>')
 @require_api_key
 def get_history(code):
-    history = mf.get_scheme_historical_nav(code)
-    if not history or 'data' not in history: return jsonify({"error": "History not found"}), 404
+    history = None
+    try:
+        history = mf.get_scheme_historical_nav(code)
+    except Exception:
+        history = None
+    if not history or 'data' not in history or not isinstance(history.get('data'), list) or len(history.get('data', [])) == 0:
+        try:
+            resp = requests.get(f'https://api.mfapi.in/mf/{code}', timeout=8)
+            if resp.ok:
+                history = resp.json()
+        except Exception:
+            pass
+    if not history or 'data' not in history:
+        return jsonify({"error": "History not found"}), 404
     return jsonify(history)
 
 @app.route('/api/advanced/<code>')
 @require_api_key
 def get_advanced(code):
     try:
-        import numpy as np
-        history = mf.get_scheme_historical_nav(code)
-        if not history or 'data' not in history or not isinstance(history['data'], list): return jsonify({})
-        data = history['data']
-        if len(data) == 0: return jsonify({})
+        history = None
+        try:
+            history = mf.get_scheme_historical_nav(code)
+        except Exception:
+            history = None
+            
+        if not history or 'data' not in history or not isinstance(history.get('data'), list) or len(history.get('data', [])) == 0:
+            try:
+                resp = requests.get(f'https://api.mfapi.in/mf/{code}', timeout=8)
+                if resp.ok:
+                    history = resp.json()
+            except Exception:
+                pass
+                
+        if not history or 'data' not in history or not isinstance(history.get('data'), list) or len(history.get('data', [])) == 0:
+            return jsonify({})
 
+        data = history['data']
         parsed_data = []
         for row in data:
             try:
-                d = datetime.strptime(row['date'], '%d-%m-%Y')
-                nav = float(row['nav'])
-                parsed_data.append((d, nav))
-            except: pass
-                
-        if not parsed_data: return jsonify({})
+                nav = float(row.get('nav', 0))
+                if nav <= 0:
+                    continue
+                date_str = str(row.get('date', '')).strip()
+                d = None
+                for fmt in ('%d-%m-%Y', '%d-%b-%Y', '%Y-%m-%d', '%d/%m/%Y'):
+                    try:
+                        d = datetime.strptime(date_str, fmt)
+                        break
+                    except ValueError:
+                        pass
+                if d:
+                    parsed_data.append((d, nav))
+            except Exception:
+                pass
+
+        if not parsed_data:
+            return jsonify({})
+
         parsed_data.sort(key=lambda x: x[0], reverse=True) # newest first
         current_date, current_nav = parsed_data[0]
         
@@ -1308,12 +1345,29 @@ def get_advanced(code):
 
         r1, r3, r5 = get_return(1), get_return(3), get_return(5)
         
-        high_52 = history.get('52_week_high')
-        low_52 = history.get('52_week_low')
-        if not high_52 or not low_52:
+        # 52-week High / Low (Safely parse string/float)
+        high_52 = None
+        low_52 = None
+        raw_h = history.get('52_week_high')
+        raw_l = history.get('52_week_low')
+        if raw_h is not None:
+            try:
+                high_52 = float(raw_h)
+            except (ValueError, TypeError):
+                high_52 = None
+        if raw_l is not None:
+            try:
+                low_52 = float(raw_l)
+            except (ValueError, TypeError):
+                low_52 = None
+
+        if high_52 is None or low_52 is None:
             one_year_ago = current_date - timedelta(days=365)
             last_year_navs = [nav for d, nav in parsed_data if d >= one_year_ago]
-            if last_year_navs: high_52, low_52 = max(last_year_navs), min(last_year_navs)
+            if last_year_navs:
+                high_52, low_52 = max(last_year_navs), min(last_year_navs)
+            else:
+                high_52, low_52 = max(nav for _, nav in parsed_data), min(nav for _, nav in parsed_data)
 
         oldest_date = parsed_data[-1][0]
         age_years = round((current_date - oldest_date).days / 365.25, 1)
@@ -1327,31 +1381,35 @@ def get_advanced(code):
         beta = 1.0
 
         if len(chrono_navs) >= 15:
-            # 1. Volatility (Annualized standard deviation of daily log returns over past year / available)
-            prices = np.array(chrono_navs[-365:]) if len(chrono_navs) >= 365 else np.array(chrono_navs)
-            daily_returns = np.diff(prices) / prices[:-1]
-            std_daily = float(np.std(daily_returns))
-            if std_daily > 0:
-                volatility = round(std_daily * np.sqrt(252) * 100, 2)
-                
-                # 2. Sharpe Ratio (using India risk-free rate 6.5%)
-                rf = 6.5
-                cagr_baseline = r1 if r1 is not None else (r3 if r3 is not None else 12.0)
-                sharpe_ratio = round((cagr_baseline - rf) / volatility, 2)
-                
-                # 3. Sortino Ratio (downside deviation)
-                neg_returns = daily_returns[daily_returns < 0]
-                if len(neg_returns) > 0:
-                    downside_std = float(np.std(neg_returns)) * np.sqrt(252) * 100
-                    if downside_std > 0:
-                        sortino_ratio = round((cagr_baseline - rf) / downside_std, 2)
-                if sortino_ratio is None and sharpe_ratio is not None:
-                    sortino_ratio = round(sharpe_ratio * 1.3, 2)
-                    
-                # 4. Beta (normalized vs broad market Nifty 50 avg annual volatility ~14.2%)
-                beta = round(volatility / 14.2, 2)
+            try:
+                sample = chrono_navs[-365:]
+                daily_returns = [(sample[i] - sample[i-1]) / sample[i-1] for i in range(1, len(sample)) if sample[i-1] > 0]
+                if len(daily_returns) >= 10:
+                    import math
+                    mean_r = sum(daily_returns) / len(daily_returns)
+                    var_r = sum((x - mean_r) ** 2 for x in daily_returns) / (len(daily_returns) - 1)
+                    std_daily = math.sqrt(var_r)
+                    if std_daily > 0:
+                        volatility = round(std_daily * math.sqrt(252) * 100, 2)
+                        
+                        rf = 6.5
+                        cagr_baseline = r1 if r1 is not None else (r3 if r3 is not None else 12.0)
+                        sharpe_ratio = round((cagr_baseline - rf) / volatility, 2)
 
-            # 5. Maximum Drawdown across the entire historical period
+                        neg_returns = [r for r in daily_returns if r < 0]
+                        if len(neg_returns) >= 3:
+                            down_var = sum(r ** 2 for r in neg_returns) / len(neg_returns)
+                            down_std = math.sqrt(down_var) * math.sqrt(252) * 100
+                            if down_std > 0:
+                                sortino_ratio = round((cagr_baseline - rf) / down_std, 2)
+                        if sortino_ratio is None and sharpe_ratio is not None:
+                            sortino_ratio = round(sharpe_ratio * 1.3, 2)
+
+                        beta = round(volatility / 14.2, 2)
+            except Exception as e_m:
+                pass
+
+            # Maximum Drawdown
             peak = chrono_navs[0]
             max_dd = 0.0
             for p in chrono_navs:
@@ -1365,8 +1423,8 @@ def get_advanced(code):
             "return_1yr": r1,
             "return_3yr": r3,
             "return_5yr": r5,
-            "high_52": round(high_52, 2) if high_52 else None,
-            "low_52": round(low_52, 2) if low_52 else None,
+            "high_52": round(float(high_52), 4) if high_52 is not None else None,
+            "low_52": round(float(low_52), 4) if low_52 is not None else None,
             "fund_age": age_years,
             "volatility": volatility,
             "sharpe_ratio": sharpe_ratio,
@@ -1376,7 +1434,7 @@ def get_advanced(code):
         })
     except Exception as e:
         print("Advanced Error:", e)
-        return jsonify({"error": str(e)}), 404
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/api/all-in-one/<code>')
 @require_api_key
