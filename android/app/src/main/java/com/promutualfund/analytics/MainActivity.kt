@@ -14,9 +14,10 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
 
@@ -163,12 +164,12 @@ class MainActivity : AppCompatActivity() {
         val input = EditText(this).apply {
             setText(currentUrl)
             setSelection(text.length)
-            setTextColor(getColor(R.color.white))
-            setBackgroundColor(getColor(R.color.bg_card))
+            setTextColor(ContextCompat.getColor(this@MainActivity, R.color.white))
+            setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bg_card))
             setPadding(32, 24, 32, 24)
         }
 
-        AlertDialog.Builder(this, R.style.Theme_MaterialComponents_DayNight_Dialog_Alert)
+        MaterialAlertDialogBuilder(this)
             .setTitle("Configure Server URL")
             .setMessage("Enter the URL where your Pro Mutual Fund Flask backend is running (Local IP or Cloud Domain):")
             .setView(input)
