@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private var backPressedTime: Long = 0
     private val PREFS_NAME = "pmf_prefs"
     private val KEY_SERVER_URL = "server_url"
-    private val DEFAULT_URL = "http://192.168.1.18:5000/dashboard"
+    private val DEFAULT_URL = "https://mftool-master.up.railway.app/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

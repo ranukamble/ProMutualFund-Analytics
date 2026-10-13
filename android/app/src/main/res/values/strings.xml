@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Pro Mutual Fund Analytics</string>
-    <string name="default_url">http://192.168.1.18:5000/dashboard</string>
+    <string name="default_url">https://mftool-master.up.railway.app/</string>
     <string name="retry">Retry Connection</string>
     <string name="connection_error">Cannot connect to server.\nMake sure your Flask server is running or configure the server URL.</string>
     <string name="change_url">Change Server URL</string>

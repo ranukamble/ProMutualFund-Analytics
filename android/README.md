@@ -54,22 +54,13 @@ If you have Java JDK (17+) or Android Studio installed on your computer:
 
 ---
 
-## 🌐 Connecting Phone to Your Computer's Server
+### Live Cloud URL (Connected by Default):
+- The app defaults directly to your live Railway cloud deployment:
+  ```
+  https://mftool-master.up.railway.app/
+  ```
+- **No PC required!** The app works standalone 24/7 on 4G, 5G, and Wi-Fi anywhere in the world.
 
-### When Testing Locally over Wi-Fi:
-1. Make sure your PC and Android phone are connected to the **same Wi-Fi router / hotspot**.
-2. Keep your Flask server running on your PC:
-   ```bash
-   python app.py
-   ```
-3. Open the app on your phone. It defaults to:
-   ```
-   http://192.168.1.18:5000/dashboard
-   ```
-4. If your PC's IP address ever changes (e.g. after restarting router):
-   - In the app's error screen, tap **"Change Server URL"**.
-   - Enter your updated IP, e.g.: `http://192.168.1.XX:5000/dashboard` and tap **Save & Connect**.
-
-### When Testing over the Internet (Cloud Deployment):
-- If you deploy your Flask backend to **Render**, **Railway**, or **PythonAnywhere**, simply tap **"Change Server URL"** in the app and enter your live URL (e.g. `https://my-mf-analytics.up.railway.app/dashboard`).
-- Your app will now work anywhere in the world on 4G/5G mobile data!
+### Local Development / Wi-Fi Testing (Optional):
+- If you ever want to test local backend changes from your PC, tap **"Change Server URL"** in the app and enter `http://192.168.1.18:5000/dashboard`.
+- To return to the Railway cloud, tap **"Reset to Default"**.
