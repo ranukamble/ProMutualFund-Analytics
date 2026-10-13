@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Better Stable Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #37465b;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-content {
+            padding: 40px;
+            display: flex;
+            flex: 1;
+            gap: 40px;
+        }
+        h1 {
+            font-size: 32px;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+        }
+        .table-container {
+            flex: 2;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px 16px;
+            border: 1px solid #55667b;
+        }
+        th {
+            font-weight: 700;
+        }
+        tr:last-child {
+            font-weight: 700;
+        }
+        
+        .summary-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 18px;
+            padding-top: 75px; /* To align with table body */
+        }
+        .summary-item strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .summary-item {
+            font-size: 16px;
+        }
+        
+        .footer {
+            background-color: #176179;
+            padding: 25px 40px;
+            position: relative;
+        }
+        
+        .allocation-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .allocation-list {
+            margin: 0;
+            padding-left: 20px;
+            list-style-type: disc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .allocation-list li {
+            margin-bottom: 6px;
+        }
+        .risk-level {
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .disclaimer {
+            font-size: 12px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            background-color: #0b1a26;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="table-container">
+            <h1>Example Better Stable Portfolio (₹20,000) 5 Year</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Fund</th>
+                        <th>Monthly SIP</th>
+                        <th>Exp. Return</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Debt</td>
+                        <td>ICICI Pru Corporate Bond Fund</td>
+                        <td>₹3,000</td>
+                        <td>7%</td>
+                    </tr>
+                    <tr>
+                        <td>Debt</td>
+                        <td>HDFC Short Term Debt Fund</td>
+                        <td>₹2,500</td>
+                        <td>7%</td>
+                    </tr>
+                    <tr>
+                        <td>Debt</td>
+                        <td>HDFC Money Market Fund</td>
+                        <td>₹2,000</td>
+                        <td>7%</td>
+                    </tr>
+                    <tr>
+                        <td>Debt</td>
+                        <td>ICICI Pru Savings Fund</td>
+                        <td>₹2,000</td>
+                        <td>7%</td>
+                    </tr>
+                    <tr>
+                        <td>Arbitrage</td>
+                        <td>Kotak Equity Arbitrage Fund</td>
+                        <td>₹3,000</td>
+                        <td>6.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Equity Savings</td>
+                        <td>UTI Equity Savings Fund - Growth</td>
+                        <td>₹2,500</td>
+                        <td>8%</td>
+                    </tr>
+                    <tr>
+                        <td>Conservative Hybrid</td>
+                        <td>SBI Conservative Hybrid Fund</td>
+                        <td>₹2,000</td>
+                        <td>8%</td>
+                    </tr>
+                    <tr>
+                        <td>Dynamic Hybrid</td>
+                        <td>HDFC Balanced Advantage Fund</td>
+                        <td>₹3,000</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td>₹20,000</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="summary-container">
+            <div class="summary-item">
+                <strong>Estimated 5 Year Growth</strong>
+                (7.6% weighted p.a.)
+            </div>
+            <div class="summary-item">
+                <strong>Monthly SIP</strong>
+                ₹20,000
+            </div>
+            <div class="summary-item">
+                <strong>Duration</strong>
+                5 Years
+            </div>
+            <div class="summary-item">
+                <strong>Total Investment</strong>
+                ₹12,00,000
+            </div>
+            <div class="summary-item">
+                <strong>Estimated Value</strong>
+                ≈ ₹14,64,000
+            </div>
+            <div class="summary-item">
+                <strong>Estimated Gain</strong>
+                ≈ ₹2,64,000
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="allocation-title">Allocation</div>
+        <ul class="allocation-list">
+            <li>Debt: 47.5%</li>
+            <li>Arbitrage: 15%</li>
+            <li>Hybrid (Equity Savings, Conservative, Dynamic): 37.5%</li>
+        </ul>
+        <div class="risk-level">Risk Level: Low to Moderate (Stable-focused)</div>
+        
+        <div class="disclaimer">Expected returns are estimates, not guaranteed. Mutual fund investments are subject to market risk. Read all scheme documents carefully.</div>
+        
+        <div class="page-number">Page 1 / 1</div>
+    </div>
+</body>
+</html>

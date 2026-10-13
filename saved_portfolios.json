@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "name": "AI Generated Portfolio",
+    "created_at": "10 Oct 2026, 11:49",
+    "investment_amount": 1000,
+    "funds": [
+      {
+        "code": "122639",
+        "name": "Parag Parikh Flexi Cap Fund",
+        "category": "Equity - Flexi Cap",
+        "weight": 30
+      },
+      {
+        "code": "120586",
+        "name": "ICICI Prudential Bluechip Fund",
+        "category": "Equity - Large Cap",
+        "weight": 25
+      },
+      {
+        "code": "119609",
+        "name": "SBI Aggressive Hybrid Fund",
+        "category": "Hybrid",
+        "weight": 25
+      },
+      {
+        "code": "118968",
+        "name": "HDFC Balanced Advantage Fund",
+        "category": "Hybrid - BAF",
+        "weight": 20
+      }
+    ],
+    "summary": {
+      "absolute_gain": 16263.14,
+      "absolute_return": 26.66,
+      "cagr_1y": 12.75,
+      "cagr_3y": 38.15,
+      "cagr_5y": 138.81,
+      "current_value": 77263.14,
+      "date_range": {
+        "days": 1824,
+        "end": "09-Oct-2026",
+        "start": "11-Oct-2021"
+      },
+      "expense_ratio": "Data unavailable",
+      "fund_count": 4,
+      "health_observations": [
+        "\u2713 Good diversification across funds"
+      ],
+      "health_status": "Good",
+      "market_cap_allocation": "Data unavailable",
+      "max_drawdown": 9,
+      "overlap": "Overlap data unavailable",
+      "risk_explanation": "Risk is driven primarily by equity exposure and capitalization allocation.",
+      "risk_label": "High",
+      "sharpe_ratio": 0.06,
+      "total_amcs": 4,
+      "total_invested": 61000,
+      "volatility": 59.42,
+      "xirr": 9.45
+    }
+  }
+]

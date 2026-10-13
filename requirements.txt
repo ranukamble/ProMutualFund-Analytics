@@ -1,0 +1,17 @@
+Flask==3.0.3
+mftool==2.5
+requests==2.31.0
+beautifulsoup4==4.12.3
+gunicorn==21.2.0
+pandas
+numpy
+cohere
+matplotlib
+redis
+Flask-Caching
+celery
+schedule
+Flask-SocketIO
+simple-websocket
+pytesseract
+Pillow

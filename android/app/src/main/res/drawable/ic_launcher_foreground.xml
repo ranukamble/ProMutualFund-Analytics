@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Bar 1 -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M32,68 L40,68 L40,50 L32,50 Z" />
+    <!-- Bar 2 -->
+    <path
+        android:fillColor="#8B5CF6"
+        android:pathData="M44,68 L52,68 L52,42 L44,42 Z" />
+    <!-- Bar 3 -->
+    <path
+        android:fillColor="#00D2FF"
+        android:pathData="M56,68 L64,68 L64,32 L56,32 Z" />
+    <!-- Bar 4 (Peak) -->
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M68,68 L76,68 L76,24 L68,24 Z" />
+    <!-- Upward Trend Line -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M30,55 L42,46 L54,48 L68,28 L78,22" />
+    <!-- Trend Arrow Tip -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,22 L72,21 L75,27 Z" />
+    <!-- Baseline -->
+    <path
+        android:strokeColor="#334155"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M28,72 L80,72" />
+</vector>

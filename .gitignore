@@ -1,0 +1,18 @@
+.pytest_cache
+*pyc
+__pycache__/
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.idea/
+
+# Android
+.gradle/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+*.apk
+

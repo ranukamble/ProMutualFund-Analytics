@@ -1,0 +1,35 @@
+[
+    {
+        "category": "Equity",
+        "code": "122639",
+        "er": "0.69%",
+        "name": "Parag Parikh Flexi Cap Fund - Direct Plan - Growth",
+        "nav": "\u20b9 89.9580",
+        "ret1y": "-3.45%",
+        "ret3y": "+12.9%",
+        "ret5y": "+11.14%",
+        "weight": 50
+    },
+    {
+        "category": "Equity",
+        "code": "118989",
+        "er": "0.76%",
+        "name": "HDFC Mid Cap Fund - Direct Plan - Growth Option",
+        "nav": "\u20b9 226.3800",
+        "ret1y": "+6.12%",
+        "ret3y": "+16.84%",
+        "ret5y": "+18.34%",
+        "weight": 30
+    },
+    {
+        "category": "Equity",
+        "code": "118777",
+        "er": "0.68%",
+        "name": "Nippon India Small Cap Fund - Direct Plan - Bonus Option",
+        "nav": "\u20b9 208.0154",
+        "ret1y": "+9.62%",
+        "ret3y": "+15.57%",
+        "ret5y": "+18.67%",
+        "weight": 20
+    }
+]

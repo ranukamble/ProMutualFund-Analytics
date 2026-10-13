@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ portfolio.name }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #37465b;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-content {
+            padding: 40px;
+            display: flex;
+            flex: 1;
+            gap: 40px;
+        }
+        h1 {
+            font-size: 32px;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+        }
+        .table-container {
+            flex: 2;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px 16px;
+            border: 1px solid #55667b;
+        }
+        th {
+            font-weight: 700;
+        }
+        tr:last-child {
+            font-weight: 700;
+        }
+        
+        .summary-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 18px;
+            padding-top: 75px;
+        }
+        .summary-item strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .summary-item {
+            font-size: 16px;
+        }
+        
+        .footer {
+            background-color: #176179;
+            padding: 25px 40px;
+            position: relative;
+        }
+        
+        .allocation-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .allocation-list {
+            margin: 0;
+            padding-left: 20px;
+            list-style-type: disc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .allocation-list li {
+            margin-bottom: 6px;
+        }
+        .risk-level {
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .disclaimer {
+            font-size: 12px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            background-color: #0b1a26;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="table-container">
+            <h1>{{ portfolio.name }}</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Fund</th>
+                        <th>Monthly SIP / Amount</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fund in portfolio.funds %}
+                    <tr>
+                        <td>{{ fund.category }}</td>
+                        <td>{{ fund.name }}</td>
+                        <td>₹{{ "{:,.0f}".format((portfolio.investment_amount * fund.weight) / 100) }}</td>
+                        <td>{{ fund.weight }}%</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td>₹{{ "{:,.0f}".format(portfolio.investment_amount) }}</td>
+                        <td>100%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="summary-container">
+            <div class="summary-item">
+                <strong>Historical 5 Year Growth</strong>
+                ({{ portfolio.summary.cagr_5y if portfolio.summary.cagr_5y else (portfolio.summary.cagr_3y if portfolio.summary.cagr_3y else 'N/A') }}% p.a.)
+            </div>
+            <div class="summary-item">
+                <strong>Monthly SIP / Amount</strong>
+                ₹{{ "{:,.0f}".format(portfolio.investment_amount) }}
+            </div>
+            <div class="summary-item">
+                <strong>Total Investment (Analyzed)</strong>
+                ₹{{ "{:,.0f}".format(portfolio.summary.total_invested) }}
+            </div>
+            <div class="summary-item">
+                <strong>Current Value</strong>
+                ₹{{ "{:,.0f}".format(portfolio.summary.current_value) }}
+            </div>
+            <div class="summary-item">
+                <strong>Absolute Gain</strong>
+                ₹{{ "{:,.0f}".format(portfolio.summary.current_value - portfolio.summary.total_invested) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="allocation-title">Allocation Overview</div>
+        <ul class="allocation-list">
+            {% set cats = {} %}
+            {% for f in portfolio.funds %}
+                {% set _ = cats.update({f.category: cats.get(f.category, 0) + f.weight}) %}
+            {% endfor %}
+            {% for cat, w in cats.items() %}
+            <li>{{ cat }}: {{ w }}%</li>
+            {% endfor %}
+        </ul>
+        <div class="risk-level">Volatility: {{ portfolio.summary.volatility }}%</div>
+        
+        <div class="disclaimer">Expected returns are estimates, not guaranteed. Mutual fund investments are subject to market risk. Read all scheme documents carefully.</div>
+        
+        <div class="page-number">Page 1 / 1</div>
+    </div>
+</body>
+</html>
