@@ -54,9 +54,9 @@ jobs:
         continue-on-error: true
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.0.1
-          name: "Pro Mutual Fund Analytics v1.0.1 (Mobile Responsive)"
-          body: "📱 Updated Native Android APK with 100% Android-friendly mobile responsive structure, vertical card stacking, touch-optimized controls, and default live Railway cloud backend."
+          tag_name: v1.0.2
+          name: "Pro Mutual Fund Analytics v1.0.2 (Native Mobile Navigation & Full Responsive UI)"
+          body: "📱 Updated Native Android APK featuring full Mobile Responsive UI: Native Thumb-Friendly Bottom Navigation Bar (Explore, Portfolio, Compare, Simulate, Saved), clean vertical card stacking, touch-scrollable tables, and live Railway cloud backend integration."
           files: ProMutualFund-Analytics.apk
           draft: false
           prerelease: false
