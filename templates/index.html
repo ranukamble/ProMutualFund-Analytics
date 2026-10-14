@@ -275,9 +275,11 @@
         }
 
         /* Card Specific Themes */
+        .lp-card-details,
         .lp-card-compare {
           border: 1px solid rgba(0, 210, 255, 0.22);
         }
+        .lp-card-details:hover,
         .lp-card-compare:hover {
           border-color: #00D2FF;
           box-shadow: 0 14px 32px rgba(0, 210, 255, 0.22), inset 0 0 16px rgba(0, 210, 255, 0.06);
@@ -825,11 +827,283 @@ input[type=range] {
         }
         
         [data-theme="light"] [style*="background:rgba(10,15,30,0.9)"],
-        [data-theme="light"] [style*="background: rgba(10,15,30,0.9)"] {
-            background: rgba(255, 255, 255, 0.9) !important;
+        [data-theme="light"] [style*="background: rgba(10,15,30,0.9)"],
+        [data-theme="light"] [style*="background:rgba(10,15,30,0.95)"],
+        [data-theme="light"] [style*="background: rgba(10,15,30,0.95)"] {
+            background: rgba(255, 255, 255, 0.95) !important;
             border-top: 1px solid var(--border-light) !important;
         }
-        
+
+        /* ── ADVANCED SUITE TOOLBAR (LIGHT THEME) ── */
+        [data-theme="light"] #pgAdvancedToolbar {
+            background: rgba(248, 250, 252, 0.96) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar span[style*="color:#00D2FF"],
+        [data-theme="light"] #pgAdvancedToolbar span[style*="color: #00D2FF"] {
+            color: #0284C7 !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar .adv-toolbar-btn {
+            background: #FFFFFF !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="openCurrentOrSearchFundDetail()"] {
+            background: rgba(2, 132, 199, 0.08) !important;
+            border: 1px solid rgba(2, 132, 199, 0.3) !important;
+            color: #0284C7 !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="openCurrentOrSearchFundDetail()"]:hover {
+            background: rgba(2, 132, 199, 0.16) !important;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('compareView')"] {
+            background: rgba(2, 132, 199, 0.06) !important;
+            border: 1px solid rgba(2, 132, 199, 0.25) !important;
+            color: #0284C7 !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('compareView')"]:hover {
+            background: rgba(2, 132, 199, 0.14) !important;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('rollingView')"] {
+            background: rgba(217, 119, 6, 0.06) !important;
+            border: 1px solid rgba(217, 119, 6, 0.25) !important;
+            color: #D97706 !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('rollingView')"]:hover {
+            background: rgba(217, 119, 6, 0.14) !important;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('overlapView')"] {
+            background: rgba(219, 39, 119, 0.06) !important;
+            border: 1px solid rgba(219, 39, 119, 0.25) !important;
+            color: #DB2777 !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('overlapView')"]:hover {
+            background: rgba(219, 39, 119, 0.14) !important;
+            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('monteCarloView')"] {
+            background: rgba(124, 58, 237, 0.06) !important;
+            border: 1px solid rgba(124, 58, 237, 0.25) !important;
+            color: #7C3AED !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('monteCarloView')"]:hover {
+            background: rgba(124, 58, 237, 0.14) !important;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('taxView')"] {
+            background: rgba(5, 150, 105, 0.06) !important;
+            border: 1px solid rgba(5, 150, 105, 0.25) !important;
+            color: #059669 !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="showView('taxView')"]:hover {
+            background: rgba(5, 150, 105, 0.14) !important;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="AriaChat.toggle()"] {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(99, 102, 241, 0.12)) !important;
+            border: 1px solid rgba(124, 58, 237, 0.35) !important;
+            color: #7C3AED !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="AriaChat.toggle()"]:hover {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.16), rgba(99, 102, 241, 0.22)) !important;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2) !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="pg.goBack()"] {
+            background: rgba(0, 0, 0, 0.04) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            color: #475569 !important;
+        }
+        [data-theme="light"] #pgAdvancedToolbar button[onclick="pg.goBack()"]:hover {
+            background: rgba(0, 0, 0, 0.08) !important;
+            color: #0F172A !important;
+        }
+
+        /* ── WAITING STATE & PUZZLE ICON (LIGHT THEME) ── */
+        [data-theme="light"] .pg-waiting-circle,
+        [data-theme="light"] #pgWaitingState div[style*="width:100px"],
+        [data-theme="light"] #pgWaitingState div[style*="width: 100px"] {
+            background: #F1F5F9 !important;
+            border-color: rgba(0, 0, 0, 0.12) !important;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+        }
+        [data-theme="light"] #pgWaitingState h3 {
+            color: var(--text-main) !important;
+        }
+        [data-theme="light"] #pgWaitingState p {
+            color: var(--text-muted) !important;
+        }
+        [data-theme="light"] #pgWaitingState div[style*="letter-spacing:0.08em"] {
+            color: #475569 !important;
+        }
+
+        /* ── LAUNCHPAD CARDS (LIGHT THEME) ── */
+        [data-theme="light"] .lp-card {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+        }
+        [data-theme="light"] .lp-card::before {
+            display: none !important;
+        }
+        [data-theme="light"] .lp-card:hover {
+            background: #FFFFFF !important;
+            transform: translateY(-8px) scale(1.025);
+        }
+
+        /* Launchpad card color themes */
+        [data-theme="light"] .lp-card-details,
+        [data-theme="light"] .lp-card-compare {
+            background: rgba(2, 132, 199, 0.03) !important;
+            border: 1px solid rgba(2, 132, 199, 0.25) !important;
+        }
+        [data-theme="light"] .lp-card-details:hover,
+        [data-theme="light"] .lp-card-compare:hover {
+            border-color: #0284C7 !important;
+            box-shadow: 0 14px 32px rgba(2, 132, 199, 0.18), inset 0 0 16px rgba(2, 132, 199, 0.04) !important;
+        }
+
+        [data-theme="light"] .lp-card-rolling {
+            background: rgba(217, 119, 6, 0.03) !important;
+            border: 1px solid rgba(217, 119, 6, 0.25) !important;
+        }
+        [data-theme="light"] .lp-card-rolling:hover {
+            border-color: #D97706 !important;
+            box-shadow: 0 14px 32px rgba(217, 119, 6, 0.18), inset 0 0 16px rgba(217, 119, 6, 0.04) !important;
+        }
+
+        [data-theme="light"] .lp-card-overlap {
+            background: rgba(219, 39, 119, 0.03) !important;
+            border: 1px solid rgba(219, 39, 119, 0.25) !important;
+        }
+        [data-theme="light"] .lp-card-overlap:hover {
+            border-color: #DB2777 !important;
+            box-shadow: 0 14px 32px rgba(219, 39, 119, 0.18), inset 0 0 16px rgba(219, 39, 119, 0.04) !important;
+        }
+
+        [data-theme="light"] .lp-card-monte {
+            background: rgba(124, 58, 237, 0.03) !important;
+            border: 1px solid rgba(124, 58, 237, 0.25) !important;
+        }
+        [data-theme="light"] .lp-card-monte:hover {
+            border-color: #7C3AED !important;
+            box-shadow: 0 14px 32px rgba(124, 58, 237, 0.18), inset 0 0 16px rgba(124, 58, 237, 0.04) !important;
+        }
+
+        [data-theme="light"] .lp-card-tax {
+            background: rgba(5, 150, 105, 0.03) !important;
+            border: 1px solid rgba(5, 150, 105, 0.25) !important;
+        }
+        [data-theme="light"] .lp-card-tax:hover {
+            border-color: #059669 !important;
+            box-shadow: 0 14px 32px rgba(5, 150, 105, 0.18), inset 0 0 16px rgba(5, 150, 105, 0.04) !important;
+        }
+
+        /* Launchpad Card Titles & Subtitles */
+        [data-theme="light"] .lp-card-details > div:nth-child(2),
+        [data-theme="light"] .lp-card-compare > div:nth-child(2) {
+            color: #0284C7 !important;
+        }
+        [data-theme="light"] .lp-card-rolling > div:nth-child(2) {
+            color: #D97706 !important;
+        }
+        [data-theme="light"] .lp-card-overlap > div:nth-child(2) {
+            color: #DB2777 !important;
+        }
+        [data-theme="light"] .lp-card-monte > div:nth-child(2) {
+            color: #7C3AED !important;
+        }
+        [data-theme="light"] .lp-card-tax > div:nth-child(2) {
+            color: #059669 !important;
+        }
+        [data-theme="light"] .lp-card > div:nth-child(3) {
+            color: #64748B !important;
+        }
+
+        /* ── ADVANCED ANALYTICS VIEWS (LIGHT THEME) ── */
+        [data-theme="light"] #compareView,
+        [data-theme="light"] #rollingView,
+        [data-theme="light"] #overlapView,
+        [data-theme="light"] #monteCarloView,
+        [data-theme="light"] #taxView {
+            background: var(--bg-page) !important;
+        }
+
+        [data-theme="light"] #compareView > div:first-child,
+        [data-theme="light"] #rollingView > div:first-child,
+        [data-theme="light"] #overlapView > div:first-child,
+        [data-theme="light"] #monteCarloView > div:first-child,
+        [data-theme="light"] #taxView > div:first-child {
+            background: #FFFFFF !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+        }
+
+        [data-theme="light"] #compareView [style*="background:#0D1520"],
+        [data-theme="light"] #rollingView [style*="background:#0D1520"],
+        [data-theme="light"] #overlapView [style*="background:#0D1520"],
+        [data-theme="light"] #monteCarloView [style*="background:#0D1520"],
+        [data-theme="light"] #taxView [style*="background:#0D1520"] {
+            background: #F8FAFC !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+        }
+
+        [data-theme="light"] #compareView [style*="background:#0D1B2A"],
+        [data-theme="light"] #rollingView [style*="background:#0D1B2A"],
+        [data-theme="light"] #overlapView [style*="background:#0D1B2A"],
+        [data-theme="light"] #monteCarloView [style*="background:#0D1B2A"],
+        [data-theme="light"] #taxView [style*="background:#0D1B2A"],
+        [data-theme="light"] #compareView [style*="background:#131D2E"],
+        [data-theme="light"] #rollingView [style*="background:#131D2E"],
+        [data-theme="light"] #overlapView [style*="background:#131D2E"],
+        [data-theme="light"] #monteCarloView [style*="background:#131D2E"],
+        [data-theme="light"] #taxView [style*="background:#131D2E"] {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        [data-theme="light"] #compareView input,
+        [data-theme="light"] #rollingView input,
+        [data-theme="light"] #overlapView input,
+        [data-theme="light"] #monteCarloView input,
+        [data-theme="light"] #taxView input,
+        [data-theme="light"] #compareView select,
+        [data-theme="light"] #rollingView select,
+        [data-theme="light"] #overlapView select,
+        [data-theme="light"] #monteCarloView select,
+        [data-theme="light"] #taxView select {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(0, 0, 0, 0.12) !important;
+            color: #0F172A !important;
+        }
+
+        [data-theme="light"] #compareView button[onclick="returnFromAdvView()"],
+        [data-theme="light"] #rollingView button[onclick="returnFromAdvView()"],
+        [data-theme="light"] #overlapView button[onclick="returnFromAdvView()"],
+        [data-theme="light"] #monteCarloView button[onclick="returnFromAdvView()"],
+        [data-theme="light"] #taxView button[onclick="returnFromAdvView()"] {
+            background: #F1F5F9 !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            color: #475569 !important;
+        }
+        [data-theme="light"] #compareView button[onclick="returnFromAdvView()"]:hover,
+        [data-theme="light"] #rollingView button[onclick="returnFromAdvView()"]:hover,
+        [data-theme="light"] #overlapView button[onclick="returnFromAdvView()"]:hover,
+        [data-theme="light"] #monteCarloView button[onclick="returnFromAdvView()"]:hover,
+        [data-theme="light"] #taxView button[onclick="returnFromAdvView()"]:hover {
+            background: #E2E8F0 !important;
+            color: #0F172A !important;
+        }
+
+        /* ── EXECUTIVE METRIC CARDS (LIGHT THEME) ── */
+        [data-theme="light"] #pgResultsState > div:nth-child(2) > div {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+        }
+
         /* Ensure specific puzzle/empty state text is visible */
         [data-theme="light"] #pgEmptyState h2 {
             color: var(--text-main) !important;
@@ -2186,7 +2460,7 @@ input[type=range] {
         </div>
     
         <div id="pgWaitingState" style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; opacity:1; transition:opacity 300ms; padding:30px 20px;">
-          <div style="width:100px; height:100px; border-radius:50%; background:var(--bg-card-alt); display:flex; align-items:center; justify-content:center; border:1px dashed var(--border-alpha-10); margin-bottom:16px; box-shadow:inset 0 10px 30px rgba(0,0,0,0.5);"><span style="font-size:38px; opacity:0.8;">🧩</span></div>
+          <div class="pg-waiting-circle" style="width:100px; height:100px; border-radius:50%; background:var(--bg-card-alt); display:flex; align-items:center; justify-content:center; border:1px dashed var(--border-alpha-10); margin-bottom:16px; box-shadow:inset 0 10px 30px rgba(0,0,0,0.5);"><span style="font-size:38px; opacity:0.8;">🧩</span></div>
           <h3 style="font-size:20px; font-weight:300; color:var(--text-main); margin:0 0 6px 0;">Build Your Portfolio</h3>
           <p style="font-size:12px; color:var(--text-dark); max-width:420px; text-align:center; line-height:1.5; margin:0 0 24px 0;">Search and add mutual funds from the left panel, set target allocations, or launch one of our dedicated advanced analytics tools below.</p>
 
@@ -2196,7 +2470,7 @@ input[type=range] {
               PRO MUTUAL FUND ANALYTICS SUITE
             </div>
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:14px;">
-              <div onclick="openCurrentOrSearchFundDetail()" class="lp-card lp-card-details" style="border:1px solid rgba(0,210,255,0.3); background:rgba(0,210,255,0.04);">
+              <div onclick="openCurrentOrSearchFundDetail()" class="lp-card lp-card-details">
                 <div class="lp-card-icon">📋</div>
                 <div style="font-size:12px; font-weight:700; color:#00D2FF; margin-bottom:4px;">Funds Detail</div>
                 <div style="font-size:10px; color:#64748B; line-height:1.4;">Instant interactive popup card &amp; analytics</div>
@@ -6820,8 +7094,12 @@ document.addEventListener('DOMContentLoaded', () => { setTimeout(initCalculators
               
             } catch(err) {
               removeTypingIndicator();
+              let errorMsg = err.message || 'Having trouble connecting. Please try again.';
+              if (errorMsg.includes('cache-control') || errorMsg.includes('headers:') || errorMsg.includes('UnauthorizedError')) {
+                errorMsg = 'AI advisor service is temporarily busy. Please try again.';
+              }
               addMessage('aria', 
-                `⚠️ Oops! ${err.message || 'Having trouble connecting. Please try again.'}`
+                `⚠️ Oops! ${errorMsg}`
               );
             } finally {
               _isTyping = false;
