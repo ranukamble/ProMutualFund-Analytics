@@ -2252,6 +2252,17 @@ input[type=range] {
     
         <div id="pgResultsState" style="display:none; padding:24px 28px; animation:fadeInUp 0.6s ease-out;">
           
+          <!-- Top Header & Data Range Badge -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+            <div style="font-size:12px; font-weight:800; color:#94A3B8; text-transform:uppercase; letter-spacing:0.08em; display:flex; align-items:center; gap:6px;">
+              <span>⚡</span> Portfolio Analysis &amp; Performance
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:11px; color:#64748B;">Data Range:</span>
+              <span id="pgInfoRangeBadge" style="font-size:10.5px; font-weight:700; color:#00D2FF; background:rgba(0,210,255,0.08); border:1px solid rgba(0,210,255,0.2); padding:3px 8px; border-radius:6px;">Live AMFI Feed</span>
+            </div>
+          </div>
+
           <!-- Top Executive Metric Cards -->
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; margin-bottom:18px;">
             <div style="background:var(--bg-card-alt); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:16px 18px; box-shadow:0 4px 16px rgba(0,0,0,0.25);">
@@ -2287,250 +2298,49 @@ input[type=range] {
             </div>
           </div>
 
-          <!-- Clean Tab Switcher Bar -->
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px; flex-wrap:wrap; gap:8px;">
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="pg-tab-btn active" id="pgTabBtnSummary" onclick="switchPgResultTab('summary')" style="padding:8px 16px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer; border:1px solid rgba(0,210,255,0.35); background:rgba(0,210,255,0.15); color:#00D2FF; display:flex; align-items:center; gap:6px; transition:all 180ms ease;">
-                <span>📊</span> Portfolio Overview &amp; Holdings
-              </button>
-              <button class="pg-tab-btn" id="pgTabBtnProjections" onclick="switchPgResultTab('projections')" style="padding:8px 16px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); color:#94A3B8; display:flex; align-items:center; gap:6px; transition:all 180ms ease;">
-                <span>🎯</span> Future Projections &amp; Goals
-              </button>
-              <button class="pg-tab-btn" id="pgTabBtnRisk" onclick="switchPgResultTab('risk')" style="padding:8px 16px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); color:#94A3B8; display:flex; align-items:center; gap:6px; transition:all 180ms ease;">
-                <span>🔮</span> Market Scenarios &amp; Risk
-              </button>
+          <!-- Growth Trajectory Chart -->
+          <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-3); border-radius:16px; padding:20px; margin-bottom:18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:8px;">
+              <div>
+                <h3 style="font-size:15px; font-weight:800; color:var(--text-main); margin:0 0 2px 0;">📈 Portfolio Growth Trajectory</h3>
+                <div style="font-size:11px; color:var(--text-dark);">Historical trajectory indexed to 100 on start date</div>
+              </div>
+              <div id="pgTimeRangeBtns" style="display:flex; background:var(--shadow-alpha); border-radius:8px; padding:3px; gap:2px;">
+                <button class="pgRangeBtn" data-range="1M" onclick="pg.setTimeRange('1M')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">1M</button>
+                <button class="pgRangeBtn" data-range="3M" onclick="pg.setTimeRange('3M')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">3M</button>
+                <button class="pgRangeBtn" data-range="6M" onclick="pg.setTimeRange('6M')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">6M</button>
+                <button class="pgRangeBtn" data-range="1Y" onclick="pg.setTimeRange('1Y')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">1Y</button>
+                <button class="pgRangeBtn" data-range="3Y" onclick="pg.setTimeRange('3Y')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">3Y</button>
+                <button class="pgRangeBtn" data-range="ALL" onclick="pg.setTimeRange('ALL')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:rgba(139,92,246,0.15); color:#A78BFA; border:1px solid rgba(139,92,246,0.25); transition:all 180ms;">ALL</button>
+              </div>
             </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:11px; color:#64748B;">Data Range:</span>
-              <span id="pgInfoRangeBadge" style="font-size:10.5px; font-weight:700; color:#00D2FF; background:rgba(0,210,255,0.08); border:1px solid rgba(0,210,255,0.2); padding:3px 8px; border-radius:6px;">Live AMFI Feed</span>
-            </div>
+            <div id="pgTimelineChartWrapper" style="height:260px; position:relative;"><canvas id="pgTimelineChart"></canvas></div>
+            <div id="pgTimelineStats" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; margin-top:16px; padding-top:16px; border-top:1px solid var(--border-alpha-3);"></div>
           </div>
 
-          <!-- ════════ TAB 1: SUMMARY & HOLDINGS (DEFAULT ACTIVE) ════════ -->
-          <div id="pgTabContentSummary">
-            
-            <!-- Growth Trajectory Chart -->
-            <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-3); border-radius:16px; padding:20px; margin-bottom:18px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:8px;">
-                <div>
-                  <h3 style="font-size:15px; font-weight:800; color:var(--text-main); margin:0 0 2px 0;">📈 Portfolio Growth Trajectory</h3>
-                  <div style="font-size:11px; color:var(--text-dark);">Historical trajectory indexed to 100 on start date</div>
-                </div>
-                <div id="pgTimeRangeBtns" style="display:flex; background:var(--shadow-alpha); border-radius:8px; padding:3px; gap:2px;">
-                  <button class="pgRangeBtn" data-range="1M" onclick="pg.setTimeRange('1M')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">1M</button>
-                  <button class="pgRangeBtn" data-range="3M" onclick="pg.setTimeRange('3M')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">3M</button>
-                  <button class="pgRangeBtn" data-range="6M" onclick="pg.setTimeRange('6M')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">6M</button>
-                  <button class="pgRangeBtn" data-range="1Y" onclick="pg.setTimeRange('1Y')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">1Y</button>
-                  <button class="pgRangeBtn" data-range="3Y" onclick="pg.setTimeRange('3Y')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:transparent; color:var(--text-dark); transition:all 180ms;">3Y</button>
-                  <button class="pgRangeBtn" data-range="ALL" onclick="pg.setTimeRange('ALL')" style="padding:4px 10px; font-size:10px; font-weight:700; border:none; border-radius:6px; cursor:pointer; background:rgba(139,92,246,0.15); color:#A78BFA; border:1px solid rgba(139,92,246,0.25); transition:all 180ms;">ALL</button>
-                </div>
+          <!-- Professional Overview (Asset Allocation & Portfolio Health) -->
+          <div id="pg_professional_overview" style="margin-bottom:18px;"></div>
+
+
+
+          <!-- Detailed Holdings Table -->
+          <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-3); border-radius:16px; overflow:hidden;">
+            <div style="padding:16px 20px; border-bottom:1px solid var(--border-alpha-5); display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <h3 style="font-size:14px; font-weight:800; color:var(--text-main); margin:0 0 2px 0;">📋 Fund Allocation &amp; Performance</h3>
+                <div style="font-size:11px; color:#64748B;">Weights, CAGR return metrics and calculated amounts</div>
               </div>
-              <div id="pgTimelineChartWrapper" style="height:260px; position:relative;"><canvas id="pgTimelineChart"></canvas></div>
-              <div id="pgTimelineStats" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; margin-top:16px; padding-top:16px; border-top:1px solid var(--border-alpha-3);"></div>
+              <div style="font-size:11px; color:#34D399; font-weight:700;">✓ 100% Balanced</div>
             </div>
-
-            <!-- Professional Overview (Asset Allocation & Portfolio Health) -->
-            <div id="pg_professional_overview" style="margin-bottom:18px;"></div>
-
-            <!-- Detailed Holdings Table -->
-            <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-3); border-radius:16px; overflow:hidden;">
-              <div style="padding:16px 20px; border-bottom:1px solid var(--border-alpha-5); display:flex; justify-content:space-between; align-items:center;">
-                <div>
-                  <h3 style="font-size:14px; font-weight:800; color:var(--text-main); margin:0 0 2px 0;">📋 Fund Allocation &amp; Performance</h3>
-                  <div style="font-size:11px; color:#64748B;">Weights, CAGR return metrics and calculated amounts</div>
-                </div>
-                <div style="font-size:11px; color:#34D399; font-weight:700;">✓ 100% Balanced</div>
-              </div>
-              <div style="display:grid; grid-template-columns:2.5fr 60px 80px 80px 80px 90px; padding:10px 18px; background:var(--hover-alpha); border-bottom:1px solid var(--border-alpha-5);">
-                <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Fund</div>
-                <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Weight</div>
-                <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">1Y Return</div>
-                <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">3Y CAGR</div>
-                <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">5Y CAGR</div>
-                <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; text-align:right;">₹ Allocated</div>
-              </div>
-              <div id="pgFundTable"></div>
+            <div style="display:grid; grid-template-columns:2.5fr 60px 80px 80px 80px 90px; padding:10px 18px; background:var(--hover-alpha); border-bottom:1px solid var(--border-alpha-5);">
+              <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Fund</div>
+              <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Weight</div>
+              <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">1Y Return</div>
+              <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">3Y CAGR</div>
+              <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">5Y CAGR</div>
+              <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; text-align:right;">₹ Allocated</div>
             </div>
-
-          </div>
-
-          <!-- ════════ TAB 2: PROJECTIONS & GOALS ════════ -->
-          <div id="pgTabContentProjections" style="display:none;">
-            
-            <!-- SIP Projection Calculator -->
-            <div style="background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; padding: 20px; margin-bottom: 16px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
-                <div>
-                  <div style="font-size:14px;font-weight:800; color:#F1F5F9;">💰 SIP Projection Calculator</div>
-                  <div style="font-size:11px;color:var(--text-dark);margin-top:2px;">Based on your portfolio's historical CAGR performance</div>
-                </div>
-                <div style="display: flex; background: var(--border-alpha-4); border: 1px solid var(--border-alpha-8); border-radius: 10px; padding: 3px;">
-                  <button id="sipToggleBtn" onclick="switchMode('SIP')" style="padding: 6px 16px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; background: linear-gradient(135deg,#8B5CF6,#6D28D9); color: white; transition: all 200ms;">SIP</button>
-                  <button id="lumpToggleBtn" onclick="switchMode('LUMP')" style="padding: 6px 16px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; background: transparent; color: var(--text-dark); transition: all 200ms;">Lump Sum</button>
-                </div>
-              </div>
-
-              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px;">
-                <div>
-                  <label id="sipAmountLabel" style="font-size:10px;color:var(--text-dark);font-weight:700; text-transform:uppercase;letter-spacing:0.06em; display:block;margin-bottom:6px;">Monthly SIP (₹)</label>
-                  <input id="sipAmount" type="number" value="5000" oninput="calculateProjection()" style="width:100%;box-sizing:border-box; background:var(--bg-card-alt); border:1px solid rgba(139,92,246,0.3); border-radius:10px;padding:10px 12px; font-size:14px;font-weight:700; color:#A78BFA;outline:none;" />
-                </div>
-                <div>
-                  <label style="font-size:10px;color:var(--text-dark);font-weight:700; text-transform:uppercase;letter-spacing:0.06em; display:block;margin-bottom:6px;">Time Period (Years)</label>
-                  <input id="sipYears" type="range" min="1" max="40" value="10" oninput="document.getElementById('sipYearsDisplay').textContent = this.value + ' yrs'; calculateProjection();" style="width:100%;accent-color:#8B5CF6;margin-top:8px;" />
-                  <div id="sipYearsDisplay" style="font-size:14px;font-weight:800;color:#8B5CF6; text-align:center;margin-top:4px;">10 yrs</div>
-                </div>
-                <div>
-                  <label style="font-size:10px;color:var(--text-dark);font-weight:700; text-transform:uppercase;letter-spacing:0.06em; display:block;margin-bottom:6px;">Expected CAGR (%)</label>
-                  <div style="display:flex;gap:4px;flex-wrap:wrap;">
-                    <button onclick="document.getElementById('sipRate').value = 8; calculateProjection(); document.querySelectorAll('.rateBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(139,92,246,0.2)'; this.style.color='#A78BFA';" class="rateBtn" style="padding:4px 8px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">8%</button>
-                    <button onclick="document.getElementById('sipRate').value = 10; calculateProjection(); document.querySelectorAll('.rateBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(139,92,246,0.2)'; this.style.color='#A78BFA';" class="rateBtn" style="padding:4px 8px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">10%</button>
-                    <button onclick="document.getElementById('sipRate').value = 12; calculateProjection(); document.querySelectorAll('.rateBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(139,92,246,0.2)'; this.style.color='#A78BFA';" class="rateBtn" style="padding:4px 8px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">12%</button>
-                    <button onclick="document.getElementById('sipRate').value = 15; calculateProjection(); document.querySelectorAll('.rateBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(139,92,246,0.2)'; this.style.color='#A78BFA';" class="rateBtn" style="padding:4px 8px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">15%</button>
-                    <button onclick="document.getElementById('sipRate').value = 18; calculateProjection(); document.querySelectorAll('.rateBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(139,92,246,0.2)'; this.style.color='#A78BFA';" class="rateBtn" style="padding:4px 8px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">18%</button>
-                    <input id="sipRate" type="number" value="12" min="1" max="50" oninput="calculateProjection()" style="width:48px;background:var(--bg-card-alt); border:1px solid rgba(139,92,246,0.2); border-radius:6px;padding:3px 6px; font-size:11px;font-weight:700; color:#A78BFA;text-align:center; outline:none;" />
-                  </div>
-                </div>
-                <div>
-                  <label style="font-size:10px;color:var(--text-dark);font-weight:700; text-transform:uppercase;letter-spacing:0.06em; display:block;margin-bottom:6px;">Annual Step-Up (%)</label>
-                  <div style="display:flex;gap:4px;">
-                    <button onclick="document.getElementById('sipStepUp').value=0; calculateProjection(); document.querySelectorAll('.stepBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(0,210,255,0.15)'; this.style.color='#00D2FF';" class="stepBtn" style="padding:4px 10px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">0%</button>
-                    <button onclick="document.getElementById('sipStepUp').value=5; calculateProjection(); document.querySelectorAll('.stepBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(0,210,255,0.15)'; this.style.color='#00D2FF';" class="stepBtn" style="padding:4px 10px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">5%</button>
-                    <button onclick="document.getElementById('sipStepUp').value=10; calculateProjection(); document.querySelectorAll('.stepBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(0,210,255,0.15)'; this.style.color='#00D2FF';" class="stepBtn" style="padding:4px 10px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">10%</button>
-                    <button onclick="document.getElementById('sipStepUp').value=15; calculateProjection(); document.querySelectorAll('.stepBtn').forEach(b => { b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(0,210,255,0.15)'; this.style.color='#00D2FF';" class="stepBtn" style="padding:4px 10px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px; font-weight:600;cursor:pointer;">15%</button>
-                  </div>
-                  <input id="sipStepUp" type="number" value="0" min="0" max="30" oninput="calculateProjection()" style="display:none;" />
-                </div>
-              </div>
-              
-              <div style="display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; margin-bottom: 18px;">
-                <div style="background: var(--border-alpha-3); border: 1px solid var(--border-alpha-6); border-radius: 12px; padding: 14px; text-align: center;"><div style="font-size:16px;margin-bottom:6px;">💰</div><div id="projTotalInvested" style="font-size:16px;font-weight:900; color:#00D2FF;letter-spacing:-0.3px; margin-bottom:3px;">—</div><div style="font-size:9px;color:#374151; text-transform:uppercase;letter-spacing:0.06em; font-weight:600;">Total Invested</div></div>
-                <div style="background: var(--border-alpha-3); border: 1px solid var(--border-alpha-6); border-radius: 12px; padding: 14px; text-align: center;"><div style="font-size:16px;margin-bottom:6px;">📈</div><div id="projFutureValue" style="font-size:16px;font-weight:900; color:#34D399;letter-spacing:-0.3px; margin-bottom:3px;">—</div><div style="font-size:9px;color:#374151; text-transform:uppercase;letter-spacing:0.06em; font-weight:600;">Future Value</div></div>
-                <div style="background: var(--border-alpha-3); border: 1px solid var(--border-alpha-6); border-radius: 12px; padding: 14px; text-align: center;"><div style="font-size:16px;margin-bottom:6px;">💎</div><div id="projWealthGain" style="font-size:16px;font-weight:900; color:#A78BFA;letter-spacing:-0.3px; margin-bottom:3px;">—</div><div style="font-size:9px;color:#374151; text-transform:uppercase;letter-spacing:0.06em; font-weight:600;">Wealth Gain</div></div>
-                <div style="background: var(--border-alpha-3); border: 1px solid var(--border-alpha-6); border-radius: 12px; padding: 14px; text-align: center;"><div style="font-size:16px;margin-bottom:6px;">🎯</div><div id="projAbsReturn" style="font-size:16px;font-weight:900; color:#F59E0B;letter-spacing:-0.3px; margin-bottom:3px;">—</div><div style="font-size:9px;color:#374151; text-transform:uppercase;letter-spacing:0.06em; font-weight:600;">Absolute Return</div></div>
-                <div style="background: var(--border-alpha-3); border: 1px solid var(--border-alpha-6); border-radius: 12px; padding: 14px; text-align: center;"><div style="font-size:16px;margin-bottom:6px;">📅</div><div id="projMonthly" style="font-size:16px;font-weight:900; color:#06B6D4;letter-spacing:-0.3px; margin-bottom:3px;">—</div><div style="font-size:9px;color:#374151; text-transform:uppercase;letter-spacing:0.06em; font-weight:600;">Monthly Returns</div></div>
-              </div>
-              
-              <div style="background: var(--shadow-alpha); border: 1px solid var(--border-alpha-5); border-radius: 12px; overflow: hidden;">
-                <div class="sipTableHdr" style="display: grid; grid-template-columns: 60px 1fr 1fr 1fr 1fr; padding: 10px 16px; background: var(--border-alpha-3); border-bottom: 1px solid var(--border-alpha-5);">
-                  <span style="font-size:9px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.08em;">YEAR</span>
-                  <span style="font-size:9px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.08em;">INVESTED</span>
-                  <span style="font-size:9px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.08em;">GAINS</span>
-                  <span style="font-size:9px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.08em;">TOTAL VALUE</span>
-                  <span style="font-size:9px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.08em;">RETURN %</span>
-                </div>
-                <div id="sipYearlyTable" style="max-height: 200px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #1E2D42 transparent;"></div>
-              </div>
-            </div>
-
-            <!-- Goal Planner -->
-            <div style="background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; padding: 20px; margin-bottom: 16px;">
-              <div style="margin-bottom:16px;">
-                <div style="font-size:14px;font-weight:800;color:#F1F5F9;">🎯 Goal Planner</div>
-                <div style="font-size:11px;color:var(--text-dark);margin-top:2px;">How much SIP needed to reach your financial goal?</div>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px;">
-                <div>
-                  <label style="font-size:10px;color:var(--text-dark);font-weight:700; text-transform:uppercase;letter-spacing:0.06em; display:block;margin-bottom:6px;">Target Amount (₹)</label>
-                  <div style="position:relative;">
-                    <span style="position:absolute;left:10px;top:50%; transform:translateY(-50%); color:#34D399;font-weight:700;font-size:14px;">₹</span>
-                    <input id="goalTarget" type="number" value="10000000" oninput="calculateGoal()" style="width:100%;box-sizing:border-box; background:var(--bg-card-alt); border:1px solid rgba(52,211,153,0.3); border-radius:10px; padding:10px 12px 10px 26px; font-size:13px;font-weight:700; color:#34D399;outline:none;" />
-                  </div>
-                  <div style="display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;">
-                    <button onclick="document.getElementById('goalTarget').value=10000000; calculateGoal();" style="padding:3px 8px;border-radius:5px; border:1px solid rgba(52,211,153,0.2); background:rgba(52,211,153,0.08); color:#34D399;font-size:10px; font-weight:600;cursor:pointer;">1Cr</button>
-                    <button onclick="document.getElementById('goalTarget').value=20000000; calculateGoal();" style="padding:3px 8px;border-radius:5px; border:1px solid rgba(52,211,153,0.2); background:rgba(52,211,153,0.08); color:#34D399;font-size:10px; font-weight:600;cursor:pointer;">2Cr</button>
-                    <button onclick="document.getElementById('goalTarget').value=50000000; calculateGoal();" style="padding:3px 8px;border-radius:5px; border:1px solid rgba(52,211,153,0.2); background:rgba(52,211,153,0.08); color:#34D399;font-size:10px; font-weight:600;cursor:pointer;">5Cr</button>
-                    <button onclick="document.getElementById('goalTarget').value=100000000; calculateGoal();" style="padding:3px 8px;border-radius:5px; border:1px solid rgba(52,211,153,0.2); background:rgba(52,211,153,0.08); color:#34D399;font-size:10px; font-weight:600;cursor:pointer;">10Cr</button>
-                  </div>
-                </div>
-                <div>
-                  <label style="font-size:10px;color:var(--text-dark);font-weight:700; text-transform:uppercase;letter-spacing:0.06em; display:block;margin-bottom:6px;">Time Horizon (Years)</label>
-                  <input id="goalYears" type="range" min="1" max="40" value="15" oninput="document.getElementById('goalYrsDisplay').textContent = this.value + ' years'; calculateGoal();" style="width:100%;accent-color:#34D399;margin-top:8px;" />
-                  <div id="goalYrsDisplay" style="font-size:14px;font-weight:800;color:#34D399; text-align:center;margin-top:4px;">15 years</div>
-                </div>
-                <div>
-                  <label style="font-size:10px;color:var(--text-dark);font-weight:700; text-transform:uppercase;letter-spacing:0.06em; display:block;margin-bottom:6px;">Expected Return (%)</label>
-                  <input id="goalCagr" type="number" value="12" oninput="calculateGoal()" style="width:100%;box-sizing:border-box; background:var(--bg-card-alt); border:1px solid rgba(52,211,153,0.3); border-radius:10px;padding:10px 12px; font-size:14px;font-weight:700; color:#34D399;outline:none;" />
-                  <div style="font-size:10px;color:var(--text-dark);margin-top:4px;">Your portfolio 3Y CAGR: <span id="goalPortfolioCagr" style="color:#34D399;font-weight:700;">—</span></div>
-                </div>
-              </div>
-              <div id="goalResult" style="background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(16,185,129,0.06)); border: 1px solid rgba(52,211,153,0.25); border-radius: 14px; padding: 20px;">
-                <div style="display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 16px;">
-                  <div style="text-align:center;"><div id="goalSIPNeeded" style="font-size:24px; font-weight:900;color:#34D399; letter-spacing:-0.5px;margin-bottom:4px;">—</div><div style="font-size:9px;color:var(--text-dark); text-transform:uppercase; letter-spacing:0.06em;font-weight:600;">Monthly SIP Needed</div></div>
-                  <div style="text-align:center;"><div id="goalTotalInvested" style="font-size:18px; font-weight:900;color:#00D2FF; letter-spacing:-0.5px;margin-bottom:4px;">—</div><div style="font-size:9px;color:var(--text-dark); text-transform:uppercase; letter-spacing:0.06em;font-weight:600;">Total You Invest</div></div>
-                  <div style="text-align:center;"><div id="goalWealthGain" style="font-size:18px; font-weight:900;color:#A78BFA; letter-spacing:-0.5px;margin-bottom:4px;">—</div><div style="font-size:9px;color:var(--text-dark); text-transform:uppercase; letter-spacing:0.06em;font-weight:600;">Wealth Created</div></div>
-                  <div style="text-align:center;"><div id="goalMultiplier" style="font-size:18px; font-weight:900;color:#F59E0B; letter-spacing:-0.5px;margin-bottom:4px;">—</div><div style="font-size:9px;color:var(--text-dark); text-transform:uppercase; letter-spacing:0.06em;font-weight:600;">Money Multiplier</div></div>
-                </div>
-                <div>
-                  <div style="font-size:10px;color:var(--text-dark);font-weight:700; text-transform:uppercase;letter-spacing:0.06em; margin-bottom:10px;">Wealth Milestones</div>
-                  <div id="goalMilestones" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- ════════ TAB 3: SCENARIOS & RISK ════════ -->
-          <div id="pgTabContentRisk" style="display:none;">
-            
-            <!-- Return Scenario Analysis -->
-            <div style="background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; padding: 20px; margin-bottom: 16px;">
-              <div style="margin-bottom:16px;">
-                <div style="font-size:14px;font-weight:800;color:#F1F5F9;">🔮 Return Scenario Analysis</div>
-                <div style="font-size:11px;color:var(--text-dark);margin-top:2px;">How your portfolio performs under different market conditions</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;">
-                <div style="background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); border-radius: 14px; padding: 18px; position: relative; overflow: hidden;"><div style="font-size:12px;font-weight:800; color:#F87171;margin-bottom:4px;">🐻 Bear Case</div><div style="font-size:10px;color:var(--text-dark); margin-bottom:14px;">Pessimistic scenario</div><div style="display:flex;align-items:center;gap:6px; margin-bottom:14px;"><span style="font-size:11px;color:var(--text-dark);">Assumed CAGR:</span><input type="number" id="scenarioCagr0" value="6" min="1" max="50" oninput="calculateScenarios()" style="width:48px;background:rgba(0,0,0,0.3); border:1px solid rgba(248,113,113,0.2); border-radius:6px;padding:3px 6px; font-size:12px;font-weight:700; color:#F87171;text-align:center; outline:none;" /><span style="color:#F87171;font-weight:700;">%</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">5 Years</span><span id="sc0yr5" style="font-size:11px;font-weight:700; color:#F87171;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">10 Years</span><span id="sc0yr10" style="font-size:11px;font-weight:700; color:#F87171;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">15 Years</span><span id="sc0yr15" style="font-size:11px;font-weight:700; color:#F87171;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">20 Years</span><span id="sc0yr20" style="font-size:11px;font-weight:700; color:#F87171;">—</span></div></div>
-                <div style="background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 14px; padding: 18px; position: relative; overflow: hidden;"><div style="font-size:12px;font-weight:800; color:#F59E0B;margin-bottom:4px;">📊 Base Case</div><div style="font-size:10px;color:var(--text-dark); margin-bottom:14px;">Historical average</div><div style="display:flex;align-items:center;gap:6px; margin-bottom:14px;"><span style="font-size:11px;color:var(--text-dark);">Assumed CAGR:</span><input type="number" id="scenarioCagr1" value="12" min="1" max="50" oninput="calculateScenarios()" style="width:48px;background:rgba(0,0,0,0.3); border:1px solid rgba(245,158,11,0.2); border-radius:6px;padding:3px 6px; font-size:12px;font-weight:700; color:#F59E0B;text-align:center; outline:none;" /><span style="color:#F59E0B;font-weight:700;">%</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">5 Years</span><span id="sc1yr5" style="font-size:11px;font-weight:700; color:#F59E0B;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">10 Years</span><span id="sc1yr10" style="font-size:11px;font-weight:700; color:#F59E0B;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">15 Years</span><span id="sc1yr15" style="font-size:11px;font-weight:700; color:#F59E0B;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">20 Years</span><span id="sc1yr20" style="font-size:11px;font-weight:700; color:#F59E0B;">—</span></div></div>
-                <div style="background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); border-radius: 14px; padding: 18px; position: relative; overflow: hidden;"><div style="font-size:12px;font-weight:800; color:#34D399;margin-bottom:4px;">🐂 Bull Case</div><div style="font-size:10px;color:var(--text-dark); margin-bottom:14px;">Optimistic scenario</div><div style="display:flex;align-items:center;gap:6px; margin-bottom:14px;"><span style="font-size:11px;color:var(--text-dark);">Assumed CAGR:</span><input type="number" id="scenarioCagr2" value="18" min="1" max="50" oninput="calculateScenarios()" style="width:48px;background:rgba(0,0,0,0.3); border:1px solid rgba(52,211,153,0.2); border-radius:6px;padding:3px 6px; font-size:12px;font-weight:700; color:#34D399;text-align:center; outline:none;" /><span style="color:#34D399;font-weight:700;">%</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">5 Years</span><span id="sc2yr5" style="font-size:11px;font-weight:700; color:#34D399;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">10 Years</span><span id="sc2yr10" style="font-size:11px;font-weight:700; color:#34D399;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">15 Years</span><span id="sc2yr15" style="font-size:11px;font-weight:700; color:#34D399;">—</span></div><div style="display:flex;justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border-alpha-4);"><span style="font-size:11px;color:var(--text-dark);">20 Years</span><span id="sc2yr20" style="font-size:11px;font-weight:700; color:#34D399;">—</span></div></div>
-              </div>
-              <div style="background: var(--shadow-alpha); border-radius: 12px; padding: 16px;">
-                <div style="font-size:11px;font-weight:700;color:#64748B; text-transform:uppercase;letter-spacing:0.08em; margin-bottom:12px;">10-Year Projection Comparison</div>
-                <canvas id="scenarioBarChart" height="120"></canvas>
-              </div>
-            </div>
-
-            <!-- Inflation-Adjusted Analysis -->
-            <div style="background: var(--bg-card); border: 1px solid rgba(255,159,10,0.2); border-radius: 18px; padding: 20px; margin-bottom: 16px;">
-              <div style="margin-bottom:14px;">
-                <div style="font-size:13px;font-weight:800;color:#F1F5F9;">📊 Inflation-Adjusted Returns</div>
-                <div style="font-size:11px;color:var(--text-dark);margin-top:2px;">Real purchasing power of your investment</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px; margin-bottom:14px;">
-                <span style="font-size:11px;color:var(--text-dark);">Inflation Rate:</span>
-                <button onclick="document.getElementById('inflationRate').value=4; calculateInflationAdjusted(); document.querySelectorAll('.inflBtn').forEach(b=>{ b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(245,158,11,0.15)'; this.style.color='#F59E0B';" class="inflBtn" style="padding:4px 10px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px;font-weight:600; cursor:pointer;">4%</button>
-                <button onclick="document.getElementById('inflationRate').value=6; calculateInflationAdjusted(); document.querySelectorAll('.inflBtn').forEach(b=>{ b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(245,158,11,0.15)'; this.style.color='#F59E0B';" class="inflBtn" style="padding:4px 10px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px;font-weight:600; cursor:pointer;">6%</button>
-                <button onclick="document.getElementById('inflationRate').value=7; calculateInflationAdjusted(); document.querySelectorAll('.inflBtn').forEach(b=>{ b.style.background='var(--border-alpha-4)'; b.style.color='var(--text-dark)'; }); this.style.background='rgba(245,158,11,0.15)'; this.style.color='#F59E0B';" class="inflBtn" style="padding:4px 10px;border-radius:6px; border:1px solid var(--border-alpha-8); background:var(--border-alpha-4); color:var(--text-dark);font-size:10px;font-weight:600; cursor:pointer;">7%</button>
-                <input id="inflationRate" type="number" value="6" oninput="calculateInflationAdjusted()" style="width:44px;background:var(--bg-card-alt); border:1px solid rgba(245,158,11,0.2); border-radius:6px;padding:3px 6px; font-size:11px;font-weight:700; color:#F59E0B;text-align:center;outline:none;" />
-                <span style="color:#F59E0B;font-weight:700;">%</span>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:6px;">
-                <div style="display:grid; grid-template-columns:60px 1fr 1fr 1fr; padding:8px 12px; background:var(--hover-alpha); border-radius:8px;align-items:center; gap:8px;"><span style="font-size:11px;font-weight:700;color:#F59E0B;">5Y</span><div style="text-align:center;"><div id="inflNominal5" style="font-size:12px;font-weight:700;color:#34D399;">—</div><div style="font-size:9px;color:#374151;">Nominal</div></div><div style="text-align:center;"><div id="inflReal5" style="font-size:12px;font-weight:700;color:#F59E0B;">—</div><div style="font-size:9px;color:#374151;">Real Value</div></div><div style="text-align:center;"><div id="inflPurchasing5" style="font-size:11px;font-weight:700;color:#F87171;">—</div><div style="font-size:9px;color:#374151;">Purchasing Power</div></div></div>
-                <div style="display:grid; grid-template-columns:60px 1fr 1fr 1fr; padding:8px 12px; background:var(--hover-alpha); border-radius:8px;align-items:center; gap:8px;"><span style="font-size:11px;font-weight:700;color:#F59E0B;">10Y</span><div style="text-align:center;"><div id="inflNominal10" style="font-size:12px;font-weight:700;color:#34D399;">—</div><div style="font-size:9px;color:#374151;">Nominal</div></div><div style="text-align:center;"><div id="inflReal10" style="font-size:12px;font-weight:700;color:#F59E0B;">—</div><div style="font-size:9px;color:#374151;">Real Value</div></div><div style="text-align:center;"><div id="inflPurchasing10" style="font-size:11px;font-weight:700;color:#F87171;">—</div><div style="font-size:9px;color:#374151;">Purchasing Power</div></div></div>
-                <div style="display:grid; grid-template-columns:60px 1fr 1fr 1fr; padding:8px 12px; background:var(--hover-alpha); border-radius:8px;align-items:center; gap:8px;"><span style="font-size:11px;font-weight:700;color:#F59E0B;">15Y</span><div style="text-align:center;"><div id="inflNominal15" style="font-size:12px;font-weight:700;color:#34D399;">—</div><div style="font-size:9px;color:#374151;">Nominal</div></div><div style="text-align:center;"><div id="inflReal15" style="font-size:12px;font-weight:700;color:#F59E0B;">—</div><div style="font-size:9px;color:#374151;">Real Value</div></div><div style="text-align:center;"><div id="inflPurchasing15" style="font-size:11px;font-weight:700;color:#F87171;">—</div><div style="font-size:9px;color:#374151;">Purchasing Power</div></div></div>
-                <div style="display:grid; grid-template-columns:60px 1fr 1fr 1fr; padding:8px 12px; background:var(--hover-alpha); border-radius:8px;align-items:center; gap:8px;"><span style="font-size:11px;font-weight:700;color:#F59E0B;">20Y</span><div style="text-align:center;"><div id="inflNominal20" style="font-size:12px;font-weight:700;color:#34D399;">—</div><div style="font-size:9px;color:#374151;">Nominal</div></div><div style="text-align:center;"><div id="inflReal20" style="font-size:12px;font-weight:700;color:#F59E0B;">—</div><div style="font-size:9px;color:#374151;">Real Value</div></div><div style="text-align:center;"><div id="inflPurchasing20" style="font-size:11px;font-weight:700;color:#F87171;">—</div><div style="font-size:9px;color:#374151;">Purchasing Power</div></div></div>
-              </div>
-            </div>
-
-            <!-- Risk-Return Profile (3Y) -->
-            <div style="display:grid; grid-template-columns:3fr 2fr; gap:16px; margin-bottom:16px;">
-              <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-3); border-radius:16px; padding:24px;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:20px;"><h3 style="font-size:14px; font-weight:700; color:var(--text-main); margin:0;">Risk-Return Profile (3Y)</h3><span style="font-size:10px; color:var(--text-dark);">Funds Comparison</span></div>
-                <div style="height:200px; position:relative;"><canvas id="pgScatterChart"></canvas></div>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:16px;">
-                <div style="flex:1; background:var(--bg-card-alt); border:1px solid var(--border-alpha-3); border-radius:14px; padding:20px; display:flex; align-items:center;">
-                  <div style="flex:1;"><div style="font-size:11px; color:var(--text-dark); font-weight:600; text-transform:uppercase; margin-bottom:4px;">Annual Volatility</div><div id="pgRiskVol" style="font-size:22px; font-weight:800; color:var(--text-main);">0%</div></div><div style="font-size:28px; opacity:0.1; filter:grayscale(1);">🎢</div>
-                </div>
-                <div style="flex:1; background:var(--bg-card-alt); border:1px solid var(--border-alpha-3); border-radius:14px; padding:20px; display:flex; align-items:center;">
-                  <div style="flex:1;"><div style="font-size:11px; color:var(--text-dark); font-weight:600; text-transform:uppercase; margin-bottom:4px;">Sharpe Ratio</div><div id="pgRiskSharpe" style="font-size:22px; font-weight:800; color:var(--text-main);">0.00</div></div><div style="font-size:28px; opacity:0.1; filter:grayscale(1);">⚖️</div>
-                </div>
-                <div style="flex:1; background:rgba(248,113,113,0.02); border:1px solid rgba(248,113,113,0.1); border-radius:14px; padding:20px; display:flex; align-items:center;">
-                  <div style="flex:1;"><div style="font-size:11px; color:#F87171; font-weight:600; text-transform:uppercase; margin-bottom:4px;">Max Drawdown</div><div id="pgRiskDD" style="font-size:22px; font-weight:800; color:#F87171;">-0%</div></div><div style="font-size:28px; opacity:0.1; filter:grayscale(1);">📉</div>
-                </div>
-              </div>
-            </div>
-
+            <div id="pgFundTable"></div>
           </div>
 
         </div>
@@ -5584,50 +5394,10 @@ input[type=range] {
             }, 500);
           }
 
-          // ── Switch Result Tabs ─────────────────────────
+          // ── Switch Result Tabs (Unified View) ──────────
           function switchPgResultTab(tabName) {
-            const tabs = [
-              { name: 'summary', content: 'pgTabContentSummary', btn: 'pgTabBtnSummary' },
-              { name: 'projections', content: 'pgTabContentProjections', btn: 'pgTabBtnProjections' },
-              { name: 'risk', content: 'pgTabContentRisk', btn: 'pgTabBtnRisk' }
-            ];
-
-            tabs.forEach(t => {
-              const contentEl = document.getElementById(t.content);
-              const btnEl = document.getElementById(t.btn);
-              const isActive = (t.name === tabName);
-
-              if (contentEl) {
-                contentEl.style.display = isActive ? 'block' : 'none';
-              }
-
-              if (btnEl) {
-                if (isActive) {
-                  btnEl.classList.add('active');
-                  btnEl.style.background = 'rgba(0,210,255,0.15)';
-                  btnEl.style.borderColor = 'rgba(0,210,255,0.35)';
-                  btnEl.style.color = '#00D2FF';
-                  btnEl.style.boxShadow = '0 2px 8px rgba(0,210,255,0.15)';
-                } else {
-                  btnEl.classList.remove('active');
-                  btnEl.style.background = 'rgba(255,255,255,0.04)';
-                  btnEl.style.borderColor = 'rgba(255,255,255,0.08)';
-                  btnEl.style.color = '#94A3B8';
-                  btnEl.style.boxShadow = 'none';
-                }
-              }
-            });
-
-            // Re-render / trigger resize so Chart.js canvases adapt instantly
             setTimeout(() => {
               window.dispatchEvent(new Event('resize'));
-              if (tabName === 'risk' && typeof calculateScenarios === 'function') {
-                calculateScenarios();
-              }
-              if (tabName === 'projections' && typeof calculateProjection === 'function') {
-                calculateProjection();
-                if (typeof calculateGoal === 'function') calculateGoal();
-              }
             }, 50);
           }
           window.switchPgResultTab = switchPgResultTab;
@@ -5686,15 +5456,16 @@ input[type=range] {
                 infoBadge.textContent = `${s.date_range.start} → ${s.date_range.end}`;
             }
             
-            $('pgRiskVol').textContent = s.volatility !== null ? s.volatility + '%' : '—';
-            $('pgRiskSharpe').textContent = s.sharpe_ratio !== null ? s.sharpe_ratio.toFixed(2) : '—';
-            $('pgRiskDD').textContent = s.max_drawdown !== null ? '-' + s.max_drawdown + '%' : '—';
-            
-            if (s.volatility !== null) {
-              $('pgRiskVol').style.color = s.volatility < 10 ? '#34D399' : s.volatility < 20 ? '#F59E0B' : '#F87171';
+            if ($('pgRiskVol')) {
+              $('pgRiskVol').textContent = s.volatility !== null ? s.volatility + '%' : '—';
+              if (s.volatility !== null) $('pgRiskVol').style.color = s.volatility < 10 ? '#34D399' : s.volatility < 20 ? '#F59E0B' : '#F87171';
             }
-            if (s.sharpe_ratio !== null) {
-              $('pgRiskSharpe').style.color = s.sharpe_ratio > 1 ? '#34D399' : s.sharpe_ratio > 0 ? '#F59E0B' : '#F87171';
+            if ($('pgRiskSharpe')) {
+              $('pgRiskSharpe').textContent = s.sharpe_ratio !== null ? s.sharpe_ratio.toFixed(2) : '—';
+              if (s.sharpe_ratio !== null) $('pgRiskSharpe').style.color = s.sharpe_ratio > 1 ? '#34D399' : s.sharpe_ratio > 0 ? '#F59E0B' : '#F87171';
+            }
+            if ($('pgRiskDD')) {
+              $('pgRiskDD').textContent = s.max_drawdown !== null ? '-' + s.max_drawdown + '%' : '—';
             }
             
             setTimeRange('ALL');
@@ -5931,8 +5702,10 @@ input[type=range] {
           // ── Scatter Chart ──────────────────────────────
           function renderScatterChart(scatterData) {
             destroyChart('pgScatter');
-            const ctx = $('pgScatterChart').getContext('2d');
-            const valid = scatterData.filter(d => d.risk !== null && d.return_3y !== null);
+            const canvas = $('pgScatterChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const valid = (scatterData || []).filter(d => d.risk !== null && d.return_3y !== null);
             if (!valid.length) return;
             
             _charts['pgScatter'] = new Chart(ctx, {
@@ -6376,10 +6149,20 @@ function renderYearlyTable(data) {
 }
 
 function calculateScenarios() {
-  const amount  = parseFloat(document.getElementById('sipAmount')?.value || 5000);
-  const mode    = calcState.mode;
-  const years   = [5, 10, 15, 20];
-  const scData  = [0, 1, 2].map(i => ({ rate: parseFloat(document.getElementById(`scenarioCagr${i}`)?.value || [6, 12, 18][i]) }));
+  if (!document.getElementById('sc0yr10') && !document.getElementById('scenarioBarChart')) return;
+  const pgAmt = document.getElementById('pgInvestmentAmount')?.value;
+  const pgType = document.getElementById('pgInvestmentType')?.value;
+  const isSip = pgType ? pgType === 'sip' : (calcState.mode === 'SIP');
+  const amount = parseFloat(pgAmt || document.getElementById('sipAmount')?.value || 10000);
+  const mode = isSip ? 'SIP' : 'LUMP';
+  
+  const noteEl = document.getElementById('scenarioInvestmentNote');
+  if (noteEl) {
+    noteEl.textContent = isSip ? `Calculated on ₹${amount.toLocaleString('en-IN')}/mo SIP` : `Calculated on ₹${amount.toLocaleString('en-IN')} Lumpsum`;
+  }
+  
+  const years = [5, 10, 15, 20];
+  const scData = [0, 1, 2].map(i => ({ rate: parseFloat(document.getElementById(`scenarioCagr${i}`)?.value || [6, 12, 18][i]) }));
   
   scData.forEach((sc, idx) => {
     const r = sc.rate / 100;
