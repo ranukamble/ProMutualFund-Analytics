@@ -2017,30 +2017,67 @@ def get_live_news_feed(category="all", custom_query=None):
     if cache_key in _news_cache["data"] and (now - _news_cache["timestamp"].get(cache_key, 0) < 600):
         return _news_cache["data"][cache_key]
         
-    query_map = {
-        "all": "Indian Mutual Funds AMFI SEBI",
-        "sebi": "SEBI circular mutual fund regulations",
-        "amc": "Mutual Fund AMC fund manager NFO portfolio",
-        "macro": "Indian economy Nifty RBI inflation repo rate"
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    query_sources = {
+        "all": [
+            "Indian Mutual Funds AMFI SEBI",
+            "SEBI circular mutual fund regulations",
+            "Mutual Fund AMC SIP inflow AUM",
+            "Indian economy Nifty RBI inflation repo rate"
+        ],
+        "sebi": [
+            "SEBI circular mutual fund regulations",
+            "SEBI mandate capital markets disclosure",
+            "SEBI AMFI compliance rules"
+        ],
+        "amc": [
+            "Mutual Fund AMC fund manager NFO portfolio",
+            "AMFI monthly inflows mutual funds AUM",
+            "Mutual fund equity inflows"
+        ],
+        "macro": [
+            "Indian economy Nifty RBI inflation repo rate",
+            "BSE Sensex Indian stock market equities",
+            "India GDP interest rate monetary policy"
+        ]
     }
     
-    q_str = custom_query if custom_query else query_map.get(category, query_map["all"])
-    encoded_q = urllib.parse.quote(q_str)
-    rss_url = f"https://news.google.com/rss/search?q={encoded_q}&hl=en-IN&gl=IN&ceid=IN:en"
+    target_queries = [custom_query, f"{custom_query} mutual fund"] if custom_query else query_sources.get(category, query_sources["all"])
     
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'application/rss+xml, application/xml, text/xml, */*'
     }
     
+    def fetch_feed(q_term):
+        try:
+            enc = urllib.parse.quote(q_term)
+            url = f"https://news.google.com/rss/search?q={enc}&hl=en-IN&gl=IN&ceid=IN:en"
+            resp = requests.get(url, headers=headers, timeout=5)
+            if resp.status_code == 200:
+                root_el = ET.fromstring(resp.content)
+                return root_el.findall('.//item')
+        except Exception:
+            pass
+        return []
+
     articles = []
     try:
-        r = requests.get(rss_url, headers=headers, timeout=6)
-        if r.status_code == 200:
-            root = ET.fromstring(r.content)
-            now_utc = datetime.now(timezone.utc)
-            
-            for item in root.findall('.//item')[:30]:
+        raw_items = []
+        with ThreadPoolExecutor(max_workers=min(4, len(target_queries))) as executor:
+            futures = [executor.submit(fetch_feed, q) for q in target_queries]
+            for f in as_completed(futures):
+                try:
+                    raw_items.extend(f.result())
+                except Exception:
+                    pass
+
+        now_utc = datetime.now(timezone.utc)
+        seen_titles = set()
+        seen_links = set()
+        
+        for item in raw_items:
                 title_el = item.find('title')
                 link_el = item.find('link')
                 pub_el = item.find('pubDate')
@@ -2061,7 +2098,14 @@ def get_live_news_feed(category="all", custom_query=None):
                 else:
                     clean_title = raw_title
                     
+                norm_key = re.sub(r'[^a-zA-Z0-9]', '', clean_title.lower())
+                if not norm_key or norm_key in seen_titles:
+                    continue
                 link = link_el.text.strip() if link_el is not None and link_el.text else "#"
+                if link != "#" and link in seen_links:
+                    continue
+                seen_titles.add(norm_key)
+                seen_links.add(link)
                 pub_date_str = pub_el.text.strip() if pub_el is not None and pub_el.text else ""
                 time_ago = "Recently"
                 is_fresh = False
@@ -2235,6 +2279,7 @@ def get_live_news_feed(category="all", custom_query=None):
                     "badge_color": badge_color,
                     "image_url": final_img
                 })
+        articles = articles[:100]
     except Exception as e_news:
         print("[News Feed Fetch Error]", e_news)
 

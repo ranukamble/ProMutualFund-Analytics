@@ -1303,6 +1303,7 @@
 
     <!-- 6. NEWS CARDS GRID (Responsive Full-Width Fluid Columns) -->
     <div id="newsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px;"></div>
+    <div id="newsLoadMoreSection"></div>
 
   </div>
 
@@ -1364,6 +1365,8 @@
     let currentPublisher = 'all';
     let allArticles = [];
     let isFetching = false;
+    let visibleGridLimit = 24;
+    let lastRenderedGridArticles = [];
 
     // Authentic fallback data with dynamic live day-by-day dates and real high-resolution financial imagery
     function getCuratedArticles(category = 'all') {
@@ -1817,6 +1820,7 @@
         }
 
         allArticles = items;
+        visibleGridLimit = 24;
         renderAll(allArticles);
         const syncEl = document.getElementById('newsSyncTime');
         if (syncEl) syncEl.textContent = timeStr;
@@ -2092,6 +2096,25 @@
       }
     });
 
+    function getCategoryMeta(category, title = '') {
+      const c = (category || '').toLowerCase();
+      const t = (title || '').toLowerCase();
+
+      if (c === 'sebi' || /sebi|circular|regulation|regulator|mandate|rules|liquidity/i.test(t)) {
+        return { name: 'SEBI Regulatory', emoji: '🏛️', color: '#10B981' };
+      }
+      if (c === 'amc' || /amfi|aum|fund manager|nfo|portfolio|inflow|outflow/i.test(t)) {
+        return { name: 'AMC & Industry', emoji: '💼', color: '#8B5CF6' };
+      }
+      if (/tax|ltcg|stcg|budget|exemption/i.test(t)) {
+        return { name: 'Tax & Planning', emoji: '💰', color: '#EC4899' };
+      }
+      if (c === 'macro' || /nifty|sensex|market|rbi|inflation|fed|rate|gdp/i.test(t)) {
+        return { name: 'Market & Macro', emoji: '📈', color: '#F59E0B' };
+      }
+      return { name: 'Mutual Funds', emoji: '📰', color: '#38BDF8' };
+    }
+
     function renderHero(articles) {
       const heroSec = document.getElementById('heroFeaturedSection');
       if (!heroSec) return;
@@ -2325,6 +2348,7 @@
       const q = document.getElementById('newsSearchBox') ? document.getElementById('newsSearchBox').value.trim() : '';
       const pub = document.getElementById('publisherFilterSelect') ? document.getElementById('publisherFilterSelect').value : 'all';
       const gridArticles = (articles.length > 3 && !q && pub === 'all') ? articles.slice(4) : (articles.length > 1 && !q && pub === 'all') ? articles.slice(1) : articles;
+      lastRenderedGridArticles = gridArticles;
 
       if (!gridArticles || gridArticles.length === 0) {
         grid.innerHTML = `
@@ -2337,10 +2361,13 @@
             </button>
           </div>
         `;
+        updateLoadMoreUI(0, 0);
         return;
       }
 
-      grid.innerHTML = gridArticles.map(art => {
+      const visibleSlice = gridArticles.slice(0, visibleGridLimit);
+
+      grid.innerHTML = visibleSlice.map(art => {
         const meta = getCategoryMeta(art.category || 'SEBI', art.title);
         const img = art.image_url || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80';
         return `
@@ -2397,6 +2424,55 @@
           </div>
         `;
       }).join('');
+
+      updateLoadMoreUI(visibleSlice.length, gridArticles.length);
+    }
+
+    function updateLoadMoreUI(showing, total) {
+      let loadMoreContainer = document.getElementById('newsLoadMoreSection');
+      if (!loadMoreContainer) {
+        const grid = document.getElementById('newsGrid');
+        if (grid && grid.parentNode) {
+          loadMoreContainer = document.createElement('div');
+          loadMoreContainer.id = 'newsLoadMoreSection';
+          grid.parentNode.insertBefore(loadMoreContainer, grid.nextSibling);
+        }
+      }
+      if (!loadMoreContainer) return;
+
+      if (total <= showing) {
+        if (total > 0) {
+          loadMoreContainer.innerHTML = `
+            <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin: 32px 0 20px; font-size: 12px; color: #64748B; font-weight: 700; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 12px 24px;">
+              <span style="color: #34D399; font-size: 14px;">✓</span> All ${total} Live Wire Stories Loaded
+            </div>
+          `;
+        } else {
+          loadMoreContainer.innerHTML = '';
+        }
+      } else {
+        const remaining = total - showing;
+        const nextBatch = Math.min(24, remaining);
+        loadMoreContainer.innerHTML = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; margin: 36px 0 24px;">
+            <button type="button" onclick="loadMoreNewsStories()"
+              style="background: linear-gradient(135deg, rgba(0,210,255,0.14) 0%, rgba(56,189,248,0.06) 100%); border: 1px solid rgba(56,189,248,0.35); color: #38BDF8; border-radius: 12px; padding: 12px 28px; font-size: 12.5px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(0,210,255,0.12); transition: all 200ms ease;"
+              onmouseover="this.style.background='linear-gradient(135deg, rgba(0,210,255,0.22) 0%, rgba(56,189,248,0.12) 100%)'; this.style.transform='translateY(-2px)';"
+              onmouseout="this.style.background='linear-gradient(135deg, rgba(0,210,255,0.14) 0%, rgba(56,189,248,0.06) 100%)'; this.style.transform='none';">
+              <span>⚡ Load More Wire Stories</span>
+              <span style="background: rgba(56,189,248,0.22); color: #00D2FF; border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 800;">+${nextBatch} More</span>
+            </button>
+            <div style="font-size: 11px; color: #64748B; font-weight: 600;">
+              Showing <span style="color: #CBD5E1; font-weight: 700;">${showing}</span> of <span style="color: #00D2FF; font-weight: 700;">${total}</span> live stories
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function loadMoreNewsStories() {
+      visibleGridLimit += 24;
+      renderGrid(lastRenderedGridArticles);
     }
 
     function updateSidebarAndStats(articles) {
@@ -2493,6 +2569,7 @@
     }
 
     function applyFilters(query, publisher) {
+      visibleGridLimit = 24;
       let filtered = allArticles;
 
       if (publisher !== 'all') {
