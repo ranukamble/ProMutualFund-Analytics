@@ -761,7 +761,9 @@ def get_all_schemes():
     import os
     import json
     # Attempt to load from local file first to prevent Vercel being blocked by AMFI
-    local_path = os.path.join(os.path.dirname(__file__), 'active_funds.json')
+    local_path = os.path.join(os.path.dirname(__file__), 'data', 'active_funds.json')
+    if not os.path.exists(local_path):
+        local_path = os.path.join(os.path.dirname(__file__), 'active_funds.json')
     if os.path.exists(local_path):
         try:
             with open(local_path, 'r', encoding='utf-8') as f:
@@ -1294,7 +1296,9 @@ def generate_portfolio():
         }), 500
 
 
-PORTFOLIOS_FILE = 'saved_portfolios.json'
+PORTFOLIOS_FILE = os.path.join(os.path.dirname(__file__), 'data', 'saved_portfolios.json')
+if not os.path.exists(PORTFOLIOS_FILE) and os.path.exists(os.path.join(os.path.dirname(__file__), 'saved_portfolios.json')):
+    PORTFOLIOS_FILE = os.path.join(os.path.dirname(__file__), 'saved_portfolios.json')
 
 @app.route('/api/portfolio/save', methods=['POST'])
 def save_portfolio():
@@ -1665,7 +1669,10 @@ def get_quote(code):
 def get_all_funds():
     import json
     try:
-        with open('scheme_codes.json', 'r') as f:
+        scheme_path = os.path.join(os.path.dirname(__file__), 'data', 'scheme_codes.json')
+        if not os.path.exists(scheme_path):
+            scheme_path = os.path.join(os.path.dirname(__file__), 'scheme_codes.json')
+        with open(scheme_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
         # Format for Power BI: list of objects instead of a dictionary
         funds_list = [{"code": k, "name": v} for k, v in data.items()]

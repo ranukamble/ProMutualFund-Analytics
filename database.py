@@ -2,9 +2,13 @@ import sqlite3
 import os
 from datetime import datetime
 
-DB_FILE = "mutual_funds.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+DB_FILE = os.path.join(DATA_DIR, "mutual_funds.db") if os.path.exists(os.path.join(DATA_DIR, "mutual_funds.db")) else os.path.join(BASE_DIR, "mutual_funds.db")
 
 def get_db_connection():
+    if not os.path.exists(os.path.dirname(DB_FILE)):
+        os.makedirs(os.path.dirname(DB_FILE), exist_ok=True)
     conn = sqlite3.connect(DB_FILE)
     conn.row_factory = sqlite3.Row
     return conn
