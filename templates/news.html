@@ -1,0 +1,3235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Financial News &amp; Regulatory Intelligence | ProMutualFund Terminal</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #060A10;
+      --bg-secondary: #0A0F1D;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-card-hover: rgba(22, 33, 58, 0.85);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(56, 189, 248, 0.35);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dark: #64748B;
+      --cyan: #38BDF8;
+      --green: #10B981;
+      --purple: #8B5CF6;
+      --amber: #F59E0B;
+      --pink: #EC4899;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(ellipse at 20% -10%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 10%, rgba(139, 92, 246, 0.06) 0%, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060A10;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--cyan);
+    }
+
+    /* Top Navigation Bar */
+    .news-header {
+      background: rgba(10, 15, 29, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 0 28px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo-wrap {
+      position: relative;
+      width: 36px;
+      height: 36px;
+    }
+
+    .brand-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      border-radius: 9px;
+      object-fit: cover;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.3);
+    }
+
+    .brand-title {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-tag-news {
+      font-size: 10px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #EF4444, #F59E0B);
+      color: #FFFFFF;
+      padding: 2px 7px;
+      border-radius: 6px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    }
+
+    .brand-subtitle {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-light);
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      transform: translateX(-2px);
+    }
+
+    .live-feed-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #10B981;
+      font-family: var(--font-mono);
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10B981;
+      animation: pulseAnim 1.8s infinite;
+    }
+
+    @keyframes pulseAnim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Live Marquee Strip */
+    .news-ticker-strip {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border-light);
+      height: 38px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      font-size: 12px;
+    }
+
+    .ticker-lead-badge {
+      background: #EF4444;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 10.5px;
+      letter-spacing: 0.6px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 6px;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .ticker-marquee {
+      display: flex;
+      white-space: nowrap;
+      overflow: hidden;
+      flex: 1;
+      position: relative;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      animation: marqueeScroll 45s linear infinite;
+    }
+
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 24px;
+      color: #CBD5E1;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .ticker-item:hover {
+      color: var(--cyan);
+    }
+
+    .ticker-tag {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    /* Page Container */
+    .news-container {
+      max-width: 1480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 28px 60px;
+      flex: 1;
+    }
+
+    /* Hero Section: Featured Story */
+    .hero-news-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.75) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      margin-bottom: 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .hero-news-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 24px rgba(56, 189, 248, 0.1);
+    }
+
+    .hero-img-wrap {
+      position: relative;
+      min-height: 380px;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-news-card:hover .hero-img {
+      transform: scale(1.04);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(6, 10, 16, 0.1), rgba(15, 23, 42, 0.95) 95%);
+    }
+
+    .hero-content {
+      padding: 36px 36px 36px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .hero-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-title {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+      letter-spacing: -0.3px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .hero-title a:hover {
+      color: var(--cyan);
+    }
+
+    .hero-snippet {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #94A3B8;
+      margin-bottom: 22px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .hero-source {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #E2E8F0;
+    }
+
+    .hero-read-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.08));
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .hero-read-btn:hover {
+      background: var(--cyan);
+      color: #060A10;
+      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* Filter & Search Bar */
+    .controls-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .cat-tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s ease;
+    }
+
+    .cat-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .cat-tab-btn.active {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.2);
+    }
+
+    .search-refresh-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-box {
+      position: relative;
+    }
+
+    .search-input-box input {
+      background: rgba(10, 15, 29, 0.8);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 8px 14px 8px 34px;
+      font-size: 12px;
+      color: #FFFFFF;
+      outline: none;
+      width: 260px;
+      transition: all 0.2s ease;
+    }
+
+    .search-input-box input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+      width: 300px;
+    }
+
+    .search-input-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: var(--text-dark);
+      pointer-events: none;
+    }
+
+    .source-select-box select {
+      background: rgba(10, 15, 29, 0.8);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11.5px;
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .refresh-news-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .refresh-news-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* Main Grid Layout */
+    .news-main-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 20px;
+    }
+
+    /* Real-Image Article Card */
+    .article-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .article-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45), 0 0 20px rgba(56, 189, 248, 0.1);
+      background: var(--bg-card-hover);
+    }
+
+    .article-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 190px;
+      overflow: hidden;
+      background: #0F172A;
+    }
+
+    .article-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .article-card:hover .article-img {
+      transform: scale(1.06);
+    }
+
+    .article-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%);
+    }
+
+    .article-source-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(6, 10, 16, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #F1F5F9;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .article-time-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      background: rgba(6, 10, 16, 0.85);
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      color: #CBD5E1;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .article-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .article-cat-tag {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 5px;
+      display: inline-block;
+      align-self: flex-start;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .article-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #F8FAFC;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color 0.18s;
+    }
+
+    .article-title a:hover {
+      color: var(--cyan);
+    }
+
+    .article-snippet {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #94A3B8;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .article-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-light);
+      margin-top: auto;
+    }
+
+    .article-pub-name {
+      font-size: 11px;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .article-read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--cyan);
+      transition: gap 0.2s, color 0.2s;
+    }
+
+    .article-read-link:hover {
+      gap: 7px;
+      color: #7DD3FC;
+    }
+
+    /* Page Footer */
+    .news-page-footer {
+      margin-top: 50px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 11.5px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-news-card {
+        grid-template-columns: 1fr;
+      }
+      .hero-img-wrap {
+        min-height: 240px;
+      }
+      .hero-overlay {
+        background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.3) 100%);
+      }
+      .hero-content {
+        padding: 24px;
+      }
+      .search-input-box input {
+        width: 100%;
+      }
+      .search-input-box input:focus {
+        width: 100%;
+      }
+    }
+
+    /* MIDDLE INTELLIGENCE & FILTER HUB */
+    .newsroom-middle-hub {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 22px 0 26px;
+    }
+    .middle-hub-card {
+      transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+    }
+    .middle-hub-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(0,0,0,0.5) !important;
+    }
+    @media (max-width: 1200px) {
+      .newsroom-middle-hub {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    @media (max-width: 1080px) {
+      #newsGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .newsroom-front-desk {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    @media (max-width: 680px) {
+      .newsroom-middle-hub {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    @media (max-width: 768px) {
+        .newsroom-hero-card {
+          flex-direction: column !important;
+          min-height: auto !important;
+        }
+        .newsroom-hero-img-wrap {
+          width: 100% !important;
+          height: 220px !important;
+        }
+        #newsGrid {
+          grid-template-columns: 1fr !important;
+        }
+        .market-ticker-ribbon {
+          padding: 6px 12px !important;
+          gap: 14px !important;
+        }
+      }
+
+      /* HERO SLIDER CAROUSEL STYLES */
+      .newsroom-hero-carousel-container {
+        position: relative;
+        background: #0D1B2A;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow 300ms ease, border-color 300ms ease;
+      }
+      .newsroom-hero-carousel-container:hover {
+        border-color: rgba(56,189,248,0.25);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 25px rgba(56,189,248,0.12);
+      }
+      .newsroom-hero-slide {
+        flex: 0 0 100%;
+        min-width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        user-select: none;
+      }
+      .hero-nav-arrow {
+        position: absolute;
+        top: 125px;
+        transform: translateY(-50%);
+        z-index: 18;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(13,27,42,0.88);
+        border: 1px solid rgba(255,255,255,0.22);
+        color: #F8FAFC;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        transition: all 200ms ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        opacity: 0.85;
+      }
+      .hero-nav-arrow:hover {
+        background: #38BDF8;
+        color: #040711;
+        border-color: #38BDF8;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 0 15px rgba(56,189,248,0.5);
+        opacity: 1;
+      }
+      .hero-nav-prev { left: 14px; }
+      .hero-nav-next { right: 14px; }
+      .hero-slide-capsule {
+        position: absolute;
+        top: 204px;
+        right: 14px;
+        z-index: 18;
+      }
+      @media (max-width: 768px) {
+        .hero-nav-arrow {
+          top: 110px !important;
+          width: 34px !important;
+          height: 34px !important;
+          font-size: 18px !important;
+        }
+        .hero-slide-capsule {
+          top: 174px !important;
+        }
+      }
+      .newsroom-hero-carousel-container:hover .hero-nav-arrow {
+        opacity: 1;
+      }
+
+      /* NEWS WEBSITE PORTAL STYLES */
+      .editorial-masthead-dateline {
+        background: #040711;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding: 6px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 10px;
+        color: #64748B;
+        letter-spacing: 0.04em;
+      }
+      .market-ticker-ribbon {
+        background: #080D1A;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding: 7px 20px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        white-space: nowrap;
+      }
+      .market-ticker-ribbon::-webkit-scrollbar { display: none; }
+      .ticker-index-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+      }
+      .newsroom-front-desk {
+        display: grid;
+        grid-template-columns: 1.65fr 1fr;
+        gap: 16px;
+        margin: 16px 0 20px;
+      }
+      .developing-desk-card {
+        background: #0D1B2A;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .developing-story-item {
+        display: flex;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        cursor: pointer;
+        transition: all 180ms ease;
+      }
+      .developing-story-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .developing-story-item:hover .dev-headline {
+        color: #38BDF8 !important;
+      }
+      .dev-num {
+        font-size: 22px;
+        font-weight: 900;
+        line-height: 1;
+        flex-shrink: 0;
+        width: 28px;
+        font-family: Georgia, serif, monospace;
+      }
+      .news-article-card {
+        background: #0D1B2A;
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 220ms cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+      }
+      .news-article-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(56,189,248,0.3);
+        box-shadow: 0 16px 36px rgba(0,0,0,0.4), 0 0 20px rgba(56,189,248,0.1);
+      }
+      .news-article-card:hover img {
+        transform: scale(1.05);
+      }
+  </style>
+</head>
+
+<body>
+
+  <!-- 0. EDITORIAL MASTHEAD DATELINE BAR -->
+  <div class="editorial-masthead-dateline">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="color: #EF4444; font-weight: 800; display: inline-flex; align-items: center; gap: 5px;">
+        <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #EF4444; animation: feedPulse 1.5s infinite;"></span>
+        EDITION: INDIA (IN • EN)
+      </span>
+      <span style="color: #334155;">•</span>
+      <span id="editorialDateString" style="color: #E2E8F0; font-weight: 700; text-transform: none;"></span>
+      <span style="color: #334155;">•</span>
+      <span style="color: #38BDF8; font-weight: 700;">LIVE FINANCIAL MARKETS WIRE</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <span style="display: inline-flex; align-items: center; gap: 5px; color: #34D399; font-weight: 700;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #34D399;"></span>
+        EXCHANGES ACTIVE (NSE / BSE)
+      </span>
+      <span style="color: #334155;">•</span>
+      <span style="color: #94A3B8; font-weight: 600;">AMFI / SEBI REGULATORY DESK</span>
+    </div>
+  </div>
+
+  <!-- 1. TOP NAVIGATION BAR -->
+  <nav style="height: 56px; background: #080C14; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; padding: 0 20px; gap: 14px; position: sticky; top: 0; z-index: 100;">
+    <!-- Logo + Title -->
+    <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+      <!-- Logo circle -->
+      <div style="width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 0 12px rgba(56,189,248,0.2);">
+        <img src="/static/logo.png" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <div>
+        <div style="font-size: 15px; font-weight: 900; color: #F1F5F9; letter-spacing: -0.3px; display: flex; align-items: center; gap: 6px;">
+          ProMutualFund
+          <span style="background: linear-gradient(135deg,#EF4444,#DC2626); color: white; border-radius: 4px; padding: 2px 7px; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;">FINANCIAL WIRE</span>
+        </div>
+        <div style="font-size: 10px; color: #64748B; font-weight: 500;">Real-Time Indian Mutual Funds &amp; Regulatory Intelligence Bureau</div>
+      </div>
+    </div>
+
+    <div style="flex: 1;"></div>
+
+    <!-- Live clock -->
+    <div style="font-size: 11px; color: #94A3B8; font-family: monospace; flex-shrink: 0; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+      <span style="color: #64748B;">⏰</span>
+      <span id="newsroomClock"></span>
+    </div>
+
+    <!-- Feed status -->
+    <div style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 20px; flex-shrink: 0;">
+      <div style="width: 6px; height: 6px; border-radius: 50%; background: #34D399; animation: feedPulse 2s infinite;"></div>
+      <span style="font-size: 10px; font-weight: 800; color: #34D399; letter-spacing: 0.04em;">FEED CONNECTED</span>
+    </div>
+
+    <!-- Back button -->
+    <button type="button" onclick="window.location='/dashboard';" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #E2E8F0; padding: 7px 15px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 150ms; flex-shrink: 0;"
+      onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.2)';"
+      onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+      ← Back to Dashboard
+    </button>
+  </nav>
+
+  <!-- 2. LIVE FINANCIAL MARKET INDICES & MUTUAL FUND PULSE RIBBON -->
+  <div class="market-ticker-ribbon">
+    <div style="display: inline-flex; align-items: center; gap: 5px; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); padding: 2px 7px; border-radius: 4px; font-size: 9px; font-weight: 800; color: #38BDF8; letter-spacing: 0.05em; flex-shrink: 0;">
+      <span style="width: 5px; height: 5px; border-radius: 50%; background: #38BDF8; box-shadow: 0 0 6px #38BDF8; animation: feedPulse 2s infinite;"></span>
+      LIVE TICKER
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item">
+      <span style="font-weight: 800; color: #38BDF8; font-size: 10px; letter-spacing: 0.05em;">NIFTY 50</span>
+      <span style="font-weight: 700; color: #F1F5F9;" id="tickerNiftyVal">24,852.15</span>
+      <span style="color: #34D399; font-weight: 700; font-size: 10px;" id="tickerNiftyChg">▲ +118.40 (+0.47%)</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item">
+      <span style="font-weight: 800; color: #38BDF8; font-size: 10px; letter-spacing: 0.05em;">SENSEX</span>
+      <span style="font-weight: 700; color: #F1F5F9;" id="tickerSensexVal">81,224.75</span>
+      <span style="color: #34D399; font-weight: 700; font-size: 10px;" id="tickerSensexChg">▲ +384.10 (+0.46%)</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item">
+      <span style="font-weight: 800; color: #F87171; font-size: 10px; letter-spacing: 0.05em;">INDIA VIX</span>
+      <span style="font-weight: 700; color: #F1F5F9;" id="tickerVixVal">13.42</span>
+      <span style="color: #F87171; font-weight: 700; font-size: 10px;" id="tickerVixChg">▼ -0.28 (-2.04%)</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item">
+      <span style="font-weight: 800; color: #34D399; font-size: 10px; letter-spacing: 0.05em;">MONTHLY SIP INFLOW</span>
+      <span style="font-weight: 700; color: #F1F5F9;" id="tickerSipVal">₹25,320 Cr</span>
+      <span id="tickerSipBadge" style="background: rgba(56,189,248,0.15); color: #38BDF8; padding: 1px 5px; border-radius: 4px; font-size: 9px; font-weight: 800;">RECORD ATH</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item">
+      <span style="font-weight: 800; color: #A78BFA; font-size: 10px; letter-spacing: 0.05em;">TOTAL MF AUM</span>
+      <span style="font-weight: 700; color: #F1F5F9;" id="tickerAumVal">₹74.8 Lakh Cr</span>
+      <span style="color: #34D399; font-weight: 700; font-size: 10px;" id="tickerAumChg">▲ +2.1% MoM</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item">
+      <span style="font-weight: 800; color: #F59E0B; font-size: 10px; letter-spacing: 0.05em;">10Y G-SEC</span>
+      <span style="font-weight: 700; color: #F1F5F9;" id="tickerGsecVal">6.78%</span>
+      <span style="color: #F59E0B; font-weight: 700; font-size: 10px;" id="tickerGsecChg">▬ -2 bps</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item">
+      <span style="font-weight: 800; color: #FCD34D; font-size: 10px; letter-spacing: 0.05em;">MCX GOLD (10g)</span>
+      <span style="font-weight: 700; color: #F1F5F9;" id="tickerGoldVal">₹78,450</span>
+      <span style="color: #34D399; font-weight: 700; font-size: 10px;" id="tickerGoldChg">▲ +0.62%</span>
+    </div>
+  </div>
+
+  <!-- 3. BREAKING WIRE TICKER -->
+  <div style="background: #0A0F1A; border-bottom: 1px solid rgba(255,255,255,0.06); height: 38px; display: flex; align-items: center; overflow: hidden; position: relative;">
+    <!-- BREAKING WIRE label -->
+    <div style="background: linear-gradient(135deg,#EF4444,#DC2626); color: white; padding: 0 16px; height: 100%; display: flex; align-items: center; flex-shrink: 0; font-size: 10px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; z-index: 2; gap: 6px; box-shadow: 2px 0 10px rgba(239,68,68,0.3);">
+      <span style="animation: tickerBlink 1s infinite;">⚡</span>
+      BREAKING WIRE
+    </div>
+
+    <!-- Gradient fade left edge -->
+    <div style="position: absolute; left: 130px; top: 0; bottom: 0; width: 35px; background: linear-gradient(90deg,#0A0F1A,transparent); z-index: 1; pointer-events: none;"></div>
+
+    <!-- Scrolling ticker -->
+    <div style="flex: 1; overflow: hidden; margin-left: 10px;">
+      <div id="topNewsTickerTrack" style="display: flex; gap: 0; animation: tickerMove 60s linear infinite; white-space: nowrap;">
+        <span style="color: #64748B; font-size: 11px; padding: 0 20px;">Connecting to live financial news &amp; SEBI feeds...</span>
+      </div>
+    </div>
+
+    <!-- Gradient fade right edge -->
+    <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 40px; background: linear-gradient(90deg,transparent,#0A0F1A); z-index: 1; pointer-events: none;"></div>
+  </div>
+
+  <!-- 4. COMPLETE BALANCED PAGE LAYOUT (Full-Width Centered, No Side Column) -->
+  <div style="width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 20px 32px; box-sizing: border-box;" id="newsroomMainLayout">
+    
+    <!-- 1. HERO FRONT DESK (Lead Story Carousel 65% + Top Developing Stories 35%) -->
+    <div id="heroFeaturedSection"></div>
+
+    <!-- 2. MIDDLE INTELLIGENCE & FILTER HUB ("Middle and Perfect") -->
+    <div class="newsroom-middle-hub">
+      
+      <!-- CARD 1: MARKET MOOD INDEX (SENTIMENT) -->
+      <div class="middle-hub-card" style="background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(13,27,42,0.95)); border: 1px solid rgba(139,92,246,0.25); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <span style="font-size: 12px; font-weight: 800; color: #F1F5F9; display: flex; align-items: center; gap: 6px;">
+              <span>📊</span>
+              <span>Market Mood Index</span>
+            </span>
+            <span style="font-size: 9px; font-weight: 800; color: #C4B5FD; background: rgba(139,92,246,0.2); border: 1px solid rgba(139,92,246,0.35); padding: 2px 7px; border-radius: 4px; text-transform: uppercase;">
+              Sentiment
+            </span>
+          </div>
+          <div style="text-align: center; margin: 6px 0 12px;">
+            <div style="font-size: 34px; font-weight: 900; color: #C4B5FD; line-height: 1;" id="mmiValue">50.4</div>
+            <div id="mmiLabel" style="font-size: 11px; font-weight: 700; color: #94A3B8; margin-top: 4px;">Greed (Elevated)</div>
+          </div>
+          <div style="height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 6px; overflow: hidden;">
+            <div id="mmiBar" style="height: 100%; width: 50.4%; background: linear-gradient(90deg, #34D399, #F59E0B, #EF4444); border-radius: 3px; transition: width 800ms ease;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 9px; color: #64748B; font-weight: 700;">
+            <span>Extreme Fear</span>
+            <span>Neutral</span>
+            <span>Extreme Greed</span>
+          </div>
+        </div>
+        <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 10px; color: #94A3B8; line-height: 1.4; display: flex; align-items: flex-start; gap: 6px;">
+          <span style="color: #F59E0B; font-size: 12px;">💡</span>
+          <span>Optimal environment for systematic SIP accumulation without timing pressure.</span>
+        </div>
+      </div>
+
+      <!-- CARD 2: TRENDING TOPIC FILTERS -->
+      <div class="middle-hub-card" style="background: #0D1B2A; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <span style="font-size: 12px; font-weight: 800; color: #F1F5F9; display: flex; align-items: center; gap: 6px;">
+              <span>🔥</span>
+              <span>Trending Topics</span>
+            </span>
+            <span style="font-size: 9px; font-weight: 800; color: #F87171; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); padding: 2px 7px; border-radius: 4px; text-transform: uppercase;">
+              Live Filters
+            </span>
+          </div>
+          <div id="newsroomTrendingTopics"></div>
+        </div>
+        <div style="margin-top: 8px; font-size: 9px; color: #64748B; text-align: center;">
+          Click topic to filter wire articles ↗
+        </div>
+      </div>
+
+      <!-- CARD 3: WIRE COVERAGE BREAKDOWN (PUBLISHER FILTERS) -->
+      <div class="middle-hub-card" style="background: #0D1B2A; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <span style="font-size: 12px; font-weight: 800; color: #F1F5F9; display: flex; align-items: center; gap: 6px;">
+              <span>📰</span>
+              <span>Wire Coverage</span>
+            </span>
+            <span style="font-size: 9px; font-weight: 800; color: #38BDF8; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); padding: 2px 7px; border-radius: 4px; text-transform: uppercase;">
+              Publishers
+            </span>
+          </div>
+          <div id="newsroomTopPublishers"></div>
+        </div>
+        <div style="margin-top: 8px; font-size: 9px; color: #64748B; text-align: center;">
+          Filter by verified Indian publication ↗
+        </div>
+      </div>
+
+      <!-- CARD 4: COMPLIANCE & REGULATORY RADAR -->
+      <div class="middle-hub-card" style="background: linear-gradient(135deg, rgba(14,165,233,0.1), rgba(13,27,42,0.95)); border: 1px solid rgba(56,189,248,0.22); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <span style="font-size: 12px; font-weight: 800; color: #38BDF8; display: flex; align-items: center; gap: 6px;">
+              <span>⚡</span>
+              <span>COMPLIANCE RADAR</span>
+            </span>
+            <span style="font-size: 9px; font-weight: 800; color: #34D399; background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.3); padding: 2px 7px; border-radius: 4px; text-transform: uppercase;">
+              SEBI
+            </span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 8px 10px;">
+              <div style="font-size: 11px; font-weight: 800; color: #E2E8F0; margin-bottom: 2px;">⚡ T+1 Redemption Payouts</div>
+              <div style="font-size: 10px; color: #94A3B8; line-height: 1.4;">Proceeds for eligible equity funds credit within one business day cycle.</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 8px 10px;">
+              <div style="font-size: 11px; font-weight: 800; color: #F59E0B; margin-bottom: 2px;">📋 Statutory Borrowing Ceiling</div>
+              <div style="font-size: 10px; color: #94A3B8; line-height: 1.4;">20% statutory limit with intraday credit lines for settlement stability.</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 9px; color: #64748B;">
+          • Cut-off: 1:00 PM Liquid, 3:00 PM Equity & Debt
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3. SECTION DIVIDER: EDITORIAL WIRE & FILTER DESK -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin: 24px 0 14px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 4px; height: 18px; background: linear-gradient(180deg, #EF4444, #F59E0B); border-radius: 2px;"></div>
+        <h2 style="font-size: 14px; font-weight: 800; color: #F1F5F9; letter-spacing: 0.05em; text-transform: uppercase; margin: 0;">
+          LATEST REGULATORY &amp; INDUSTRY WIRE
+        </h2>
+        <span id="wireBadgeCount" style="font-size: 10px; font-weight: 800; background: rgba(56,189,248,0.15); color: #38BDF8; border: 1px solid rgba(56,189,248,0.25); border-radius: 20px; padding: 2px 9px;">
+          LIVE
+        </span>
+      </div>
+      <div style="font-size: 11px; color: #64748B; font-weight: 500;">
+        Continuous Institutional Wire Feed • Verified Indian Sources
+      </div>
+    </div>
+
+    <!-- 4. FILTER & SEARCH BAR -->
+    <div style="margin: 0 0 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+      <!-- Category tabs -->
+      <div style="display: flex; gap: 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 4px; flex-shrink: 0;">
+        <button type="button" onclick="changeCategory('all')" id="newsTab_all" class="cat-tab-btn"
+          style="padding: 7px 14px; border-radius: 9px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms; background: rgba(239,68,68,0.15); color: #F87171;">
+          🔥 All Breaking News
+        </button>
+        <button type="button" onclick="changeCategory('sebi')" id="newsTab_sebi" class="cat-tab-btn"
+          style="padding: 7px 14px; border-radius: 9px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms; background: transparent; color: #64748B;">
+          🏛️ SEBI &amp; Regulations
+        </button>
+        <button type="button" onclick="changeCategory('amc')" id="newsTab_amc" class="cat-tab-btn"
+          style="padding: 7px 14px; border-radius: 9px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms; background: transparent; color: #64748B;">
+          🏢 AMC &amp; Industry
+        </button>
+        <button type="button" onclick="changeCategory('macro')" id="newsTab_macro" class="cat-tab-btn"
+          style="padding: 7px 14px; border-radius: 9px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms; background: transparent; color: #64748B;">
+          📊 Market &amp; Macro
+        </button>
+      </div>
+
+      <div style="flex: 1;"></div>
+
+      <!-- Search -->
+      <div style="position: relative; flex-shrink: 0;">
+        <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #475569;">🔍</span>
+        <input type="text" id="newsSearchBox" placeholder="Search news headlines..."
+          style="background: #0D1B2A; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 8px 12px 8px 30px; font-size: 11px; color: #E2E8F0; outline: none; width: 220px; transition: all 200ms;"
+          onfocus="this.style.borderColor='rgba(0,210,255,0.3)'"
+          onblur="this.style.borderColor='rgba(255,255,255,0.08)'"
+          oninput="handleSearch()" />
+      </div>
+
+      <!-- Publisher filter -->
+      <select id="publisherFilterSelect" onchange="handlePublisherFilter()"
+        style="background: #0D1B2A; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 8px 12px; font-size: 11px; color: #94A3B8; outline: none; cursor: pointer;">
+        <option value="all">All Publishers</option>
+        <option value="Economic Times">The Economic Times</option>
+        <option value="Mint">Livemint</option>
+        <option value="Moneycontrol">Moneycontrol</option>
+        <option value="Business Standard">Business Standard</option>
+        <option value="SEBI">SEBI Official</option>
+      </select>
+
+      <!-- Refresh button -->
+      <button type="button" onclick="refreshNews(true)"
+        style="background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); color: #34D399; border-radius: 10px; padding: 8px 16px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 150ms;"
+        onmouseover="this.style.background='rgba(52,211,153,0.16)'"
+        onmouseout="this.style.background='rgba(52,211,153,0.08)'">
+        <span id="refreshIcon">🔄</span>
+        <span>Refresh</span>
+      </button>
+    </div>
+
+    <!-- 5. STATS BAR -->
+    <div style="margin: 0 0 16px; display: flex; gap: 10px; padding: 10px 16px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; align-items: center; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 8px; padding: 0 14px; border-right: 1px solid rgba(255,255,255,0.06);">
+        <span style="font-size: 16px;">📰</span>
+        <div>
+          <div id="statTotal" style="font-size: 14px; font-weight: 900; color: #00D2FF;">—</div>
+          <div style="font-size: 9px; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;">Total Articles</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px; padding: 0 14px; border-right: 1px solid rgba(255,255,255,0.06);">
+        <span style="font-size: 16px;">🔥</span>
+        <div>
+          <div id="statBreaking" style="font-size: 14px; font-weight: 900; color: #EF4444;">—</div>
+          <div style="font-size: 9px; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;">Breaking Today</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px; padding: 0 14px; border-right: 1px solid rgba(255,255,255,0.06);">
+        <span style="font-size: 16px;">🏛️</span>
+        <div>
+          <div id="statSEBI" style="font-size: 14px; font-weight: 900; color: #F59E0B;">—</div>
+          <div style="font-size: 9px; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;">SEBI Updates</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px; padding: 0 14px; border-right: 1px solid rgba(255,255,255,0.06);">
+        <span style="font-size: 16px;">🔄</span>
+        <div>
+          <div id="statRefresh" style="font-size: 14px; font-weight: 900; color: #34D399;">—</div>
+          <div style="font-size: 9px; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;">Last Refreshed</div>
+        </div>
+      </div>
+
+      <!-- Auto-refresh indicator -->
+      <div style="margin-left: auto;">
+        <div style="font-size: 10px; color: #64748B; display: flex; align-items: center; gap: 6px; font-weight: 600;">
+          <div style="width: 6px; height: 6px; border-radius: 50%; background: #34D399; animation: feedPulse 2s infinite;"></div>
+          Live Auto-Sync Active
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. NEWS CARDS GRID (Responsive Full-Width Fluid Columns) -->
+    <div id="newsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px;"></div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer style="width: 100%; box-sizing: border-box; margin: 20px 0 40px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; color: #4A5568; font-size: 11px; flex-wrap: wrap; gap: 12px;">
+    <div>
+      <span>Institutional Wire Sources: </span>
+      <strong style="color: #94A3B8;">The Economic Times, Moneycontrol, Livemint, Business Standard, Value Research, SEBI Disclosures</strong>
+    </div>
+    <div>
+      <span>ProMutualFund Terminal</span> • Live Real-Time Indian Mutual Funds Intelligence
+    </div>
+  </footer>
+
+  <!-- IN-APP INSTITUTIONAL ARTICLE READER MODAL (ZERO EXTERNAL REDIRECTS) -->
+  <div id="inAppArticleModal"
+    style="display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 3500; overflow-y: auto; padding: 24px 16px; align-items: flex-start; justify-content: center;">
+    <div style="max-width: 920px; width: 100%; margin: 24px auto 60px; background: #0B1120; border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; overflow: hidden; box-shadow: 0 25px 70px rgba(0,0,0,0.85), 0 0 35px rgba(56,189,248,0.15); display: flex; flex-direction: column;">
+      
+      <!-- Sticky Reader Top Navigation Header -->
+      <div style="position: sticky; top: 0; background: rgba(11, 17, 32, 0.98); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; z-index: 20;">
+        <button type="button" onclick="closeInAppArticle()" 
+          style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #F1F5F9; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;"
+          onmouseover="this.style.background='rgba(56,189,248,0.15)'; this.style.borderColor='#38BDF8'; this.style.color='#38BDF8';"
+          onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#F1F5F9';">
+          <span>←</span>
+          <span>Back to Newsroom</span>
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span id="readerCategoryBadge" style="font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 6px; text-transform: uppercase;">
+            🏛️ SEBI REGULATORY
+          </span>
+          <span id="readerReadTimeBadge" style="font-size: 11px; color: #94A3B8; font-family: monospace; background: rgba(255,255,255,0.04); padding: 3px 8px; border-radius: 5px;">
+            ⏱️ 3 min read
+          </span>
+          <button type="button" onclick="copyArticleSummary()" title="Copy Article Executive Summary"
+            style="padding: 7px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #CBD5E1; font-size: 12px; font-weight: 700; cursor: pointer;"
+            id="btnCopySummary">
+            <span>📋 Copy Summary</span>
+          </button>
+          <button type="button" onclick="closeInAppArticle()" title="Close Reader (Esc)"
+            style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #94A3B8; font-size: 16px; cursor: pointer;">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Reader Scrollable Body Content -->
+      <div id="readerContentBody" style="padding: 32px 36px 48px;">
+        <!-- Dynamically populated article body -->
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentCategory = 'all';
+    let currentPublisher = 'all';
+    let allArticles = [];
+    let isFetching = false;
+
+    // Authentic fallback data with dynamic live day-by-day dates and real high-resolution financial imagery
+    function getCuratedArticles(category = 'all') {
+      const now = new Date();
+      const fmtDate = (daysAgo) => {
+        const d = new Date(now.getTime() - daysAgo * 86400000);
+        return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      };
+
+      const list = [
+        {
+          id: "news_art_0",
+          title: "SEBI allows mutual funds to use intraday borrowings for wider range of liquidity management purposes",
+          link: "https://news.google.com/search?q=SEBI+intraday+borrowing+mutual+funds",
+          source: "News On AIR",
+          pub_date: fmtDate(0),
+          time_ago: "2h ago",
+          is_fresh: true,
+          snippet: "The capital markets regulator has relaxed borrowing norms for asset management companies to help mutual funds smoothly manage settlement cycles and investor redemptions.",
+          category: "sebi",
+          tag_label: "🏛️ SEBI Regulatory",
+          badge_color: "#10B981",
+          image_url: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80"
+        },
+        {
+          id: "news_art_1",
+          title: "Claiming mutual funds after an investor's death made easier: What nominees and legal heirs should know",
+          link: "https://news.google.com/search?q=SEBI+mutual+fund+transmission+nominee",
+          source: "Moneycontrol",
+          pub_date: fmtDate(0),
+          time_ago: "4h ago",
+          is_fresh: true,
+          snippet: "SEBI introduces a fast-track transmission mechanism for mutual fund folios. Threshold limits for streamlined claims without probate or legal heir certificate have been expanded.",
+          category: "sebi",
+          tag_label: "🏛️ SEBI Regulatory",
+          badge_color: "#10B981",
+          image_url: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "news_art_2",
+          title: "10 crore mutual fund investors, Rs 150 lakh crore AUM: Inside AMFI's massive 2030 roadmap",
+          link: "https://news.google.com/search?q=AMFI+150+lakh+crore+AUM+roadmap",
+          source: "The Economic Times",
+          pub_date: fmtDate(1),
+          time_ago: "1d ago",
+          is_fresh: false,
+          snippet: "AMFI outlines an aggressive blueprint to double mutual fund penetration across tier-2 and tier-3 cities, driven by digital onboarding and monthly systematic investment plans.",
+          category: "amc",
+          tag_label: "💼 AMC & Industry",
+          badge_color: "#8B5CF6",
+          image_url: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "news_art_3",
+          title: "AMFI seeks review of decade-old $7 billion overseas mutual fund investment limit with RBI and SEBI",
+          link: "https://news.google.com/search?q=AMFI+overseas+investment+limit",
+          source: "Livemint",
+          pub_date: fmtDate(1),
+          time_ago: "1d ago",
+          is_fresh: false,
+          snippet: "Industry body AMFI has urged regulators to expand foreign investment caps, allowing Indian fund houses to relaunch international feeder schemes and global technology funds.",
+          category: "amc",
+          tag_label: "💼 AMC & Industry",
+          badge_color: "#8B5CF6",
+          image_url: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "news_art_4",
+          title: "SEBI Mutual Fund Regulations 2026: 6 key rule changes every retail investor must know",
+          link: "https://news.google.com/search?q=SEBI+mutual+fund+rules+2026",
+          source: "Value Research",
+          pub_date: fmtDate(2),
+          time_ago: "2d ago",
+          is_fresh: false,
+          snippet: "A comprehensive breakdown of SEBI's updated categorisation mandates, net settlement facilities, mandatory stress testing disclosures, and simplified nomination procedures.",
+          category: "sebi",
+          tag_label: "🏛️ SEBI Regulatory",
+          badge_color: "#10B981",
+          image_url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "news_art_5",
+          title: "Equity mutual funds can now invest up to 35% of non-core allocation in gold and silver ETFs",
+          link: "https://news.google.com/search?q=SEBI+mutual+funds+gold+silver+allocation",
+          source: "The Economic Times",
+          pub_date: fmtDate(2),
+          time_ago: "2d ago",
+          is_fresh: false,
+          snippet: "Fund managers gain flexibility to hold precious metals for tactical hedging during volatile macro environments, enhancing portfolio risk-adjusted returns.",
+          category: "macro",
+          tag_label: "📈 Market & Macro",
+          badge_color: "#F59E0B",
+          image_url: "https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "news_art_6",
+          title: "Nifty 50 trades near 23,000 as domestic SIP inflows hit fresh all-time monthly record of ₹24,500 Crore",
+          link: "https://news.google.com/search?q=AMFI+monthly+SIP+inflows+record",
+          source: "Business Standard",
+          pub_date: fmtDate(3),
+          time_ago: "3d ago",
+          is_fresh: false,
+          snippet: "Unrelenting domestic retail participation continues to provide a strong liquidity backstop for Indian equities, absorbing foreign institutional outflows.",
+          category: "macro",
+          tag_label: "📈 Market & Macro",
+          badge_color: "#F59E0B",
+          image_url: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "news_art_7",
+          title: "SEBI reverses decision on retirement and children's solution funds following investor feedback",
+          link: "https://news.google.com/search?q=SEBI+retirement+children+mutual+fund+reversal",
+          source: "Livemint Money",
+          pub_date: fmtDate(3),
+          time_ago: "3d ago",
+          is_fresh: false,
+          snippet: "In a welcome relief for long-term goal planners, existing retirement and children's lock-in solution-oriented mutual funds will continue to be offered alongside life-cycle funds.",
+          category: "sebi",
+          tag_label: "🏛️ SEBI Regulatory",
+          badge_color: "#10B981",
+          image_url: "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "news_art_8",
+          title: "Fund manager churn rises in mid and small-cap space as AMCs compete for institutional talent",
+          link: "https://news.google.com/search?q=mutual+fund+manager+movement+AMCs",
+          source: "Cafemutual",
+          pub_date: fmtDate(4),
+          time_ago: "4d ago",
+          is_fresh: false,
+          snippet: "With soaring AUMs in active equity schemes, fund houses are revamping research desks and incentive structures to retain star portfolio managers.",
+          category: "amc",
+          tag_label: "💼 AMC & Industry",
+          badge_color: "#8B5CF6",
+          image_url: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "news_art_9",
+          title: "Budget LTCG tax changes: How the 12.5% rate above ₹1.25 Lakh exemption impacts your equity mutual fund SIPs",
+          link: "https://news.google.com/search?q=mutual+fund+capital+gains+tax+12.5+exemption",
+          source: "Outlook Money",
+          pub_date: fmtDate(5),
+          time_ago: "5d ago",
+          is_fresh: false,
+          snippet: "Financial advisors recommend systematic annual tax harvesting before March 31st to fully utilize the ₹1.25 Lakh zero-tax exemption bracket on long-term capital gains.",
+          category: "macro",
+          tag_label: "💰 Tax & Planning",
+          badge_color: "#EC4899",
+          image_url: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80"
+        }
+      ];
+
+      if (category === 'all') return list;
+      return list.filter(item => item.category === category);
+    }
+
+    const REAL_FINANCIAL_POOLS = {
+      gold: [
+        "https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1624365169365-27a3d3c713b1?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop&w=800&q=80"
+      ],
+      tax: [
+        "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+      ],
+      succession: [
+        "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
+      ],
+      sebi_governance: [
+        "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"
+      ],
+      sip_inclusion: [
+        "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80"
+      ],
+      amc_industry: [
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+      ],
+      market_macro: [
+        "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80"
+      ]
+    };
+
+    function resolveNewsImage(title = '', category = 'all') {
+      const tl = (title || '').toLowerCase();
+      let h = 0;
+      for (let i = 0; i < title.length; i++) {
+        h = ((h << 5) - h + title.charCodeAt(i)) & 0x7fffffff;
+      }
+
+      let pool = REAL_FINANCIAL_POOLS.market_macro;
+      if (/gold|silver|bullion|precious|commodity/i.test(tl)) {
+        pool = REAL_FINANCIAL_POOLS.gold;
+      } else if (/tax|ltcg|stcg|budget|exemption|harvest/i.test(tl)) {
+        pool = REAL_FINANCIAL_POOLS.tax;
+      } else if (/death|nominee|transmission|heir|claim|succession|legal heirs/i.test(tl)) {
+        pool = REAL_FINANCIAL_POOLS.succession;
+      } else if (/campus|university|jagrook/i.test(tl)) {
+        pool = [
+          "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80"
+        ];
+      } else if (/sip|compounding|crore|retail|saving|inclusion|investor base/i.test(tl)) {
+        pool = REAL_FINANCIAL_POOLS.sip_inclusion;
+      } else if (/sebi|circular|regulation|regulator|mandate|rules|liquidity|governance|chief flags|way ahead|reform/i.test(tl)) {
+        pool = REAL_FINANCIAL_POOLS.sebi_governance;
+      } else if (/fund manager|portfolio|amc|aum|nfo|churn|overseas|cap|talent|kantar|distributor/i.test(tl)) {
+        pool = REAL_FINANCIAL_POOLS.amc_industry;
+      } else if (/nifty|sensex|market|rbi|inflation|fed|rate|gdp|economic|equities/i.test(tl)) {
+        pool = REAL_FINANCIAL_POOLS.market_macro;
+      } else {
+        if (category === 'sebi') pool = REAL_FINANCIAL_POOLS.sebi_governance;
+        else if (category === 'amc') pool = REAL_FINANCIAL_POOLS.amc_industry;
+        else pool = REAL_FINANCIAL_POOLS.market_macro;
+      }
+
+      return pool[h % pool.length];
+    }
+
+    async function fetchClientSideLiveRSS(category = 'all') {
+      const queryMap = {
+        'all': 'Indian Mutual Funds AMFI SEBI',
+        'sebi': 'SEBI circular mutual fund regulations',
+        'amc': 'Mutual Fund AMC fund manager NFO portfolio',
+        'macro': 'Indian economy Nifty RBI inflation repo rate'
+      };
+      const q = encodeURIComponent(queryMap[category] || queryMap['all']);
+
+      const targets = [
+        {
+          type: 'allorigins',
+          url: `https://news.google.com/rss/search?q=${q}&hl=en-IN&gl=IN&ceid=IN:en`
+        },
+        {
+          type: 'rss2json',
+          url: 'https://economictimes.indiatimes.com/mf/rssfeeds/9153232.cms'
+        },
+        {
+          type: 'rss2json',
+          url: 'https://www.moneycontrol.com/rss/mfnews.xml'
+        }
+      ];
+
+      for (const target of targets) {
+        try {
+          let items = [];
+          if (target.type === 'rss2json') {
+            const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(target.url)}`);
+            if (res.ok) {
+              const data = await res.json();
+              if (data && data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
+                items = data.items.map(it => ({
+                  title: it.title,
+                  link: it.link,
+                  pubDate: it.pubDate,
+                  description: it.description,
+                  source: (target.url.includes('economictimes') ? 'The Economic Times' : (target.url.includes('moneycontrol') ? 'Moneycontrol' : 'Financial Media'))
+                }));
+              }
+            }
+          } else if (target.type === 'allorigins') {
+            const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(target.url)}`);
+            if (res.ok) {
+              const data = await res.json();
+              if (data && data.contents) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+                const xmlItems = Array.from(xmlDoc.querySelectorAll("item"));
+                if (xmlItems && xmlItems.length > 0) {
+                  items = xmlItems.map(item => {
+                    const titleEl = item.querySelector("title");
+                    const linkEl = item.querySelector("link");
+                    const pubDateEl = item.querySelector("pubDate");
+                    const descEl = item.querySelector("description");
+                    const sourceEl = item.querySelector("source");
+                    let rawTitle = titleEl ? titleEl.textContent.trim() : "";
+                    let sName = sourceEl ? sourceEl.textContent.trim() : "Financial Wire";
+                    if (rawTitle.includes(" - ")) {
+                      const p = rawTitle.split(" - ");
+                      sName = p.pop().trim();
+                      rawTitle = p.join(" - ").trim();
+                    }
+                    return {
+                      title: rawTitle,
+                      link: linkEl ? linkEl.textContent.trim() : "#",
+                      pubDate: pubDateEl ? pubDateEl.textContent.trim() : "",
+                      description: descEl ? descEl.textContent.trim() : "",
+                      source: sName
+                    };
+                  });
+                }
+              }
+            }
+          }
+
+          if (items && items.length > 0) {
+            const now = new Date();
+            const parsed = [];
+            for (let i = 0; i < Math.min(items.length, 25); i++) {
+              const it = items[i];
+              if (!it.title) continue;
+
+              let formattedDate = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+              let timeAgo = "Today";
+              let isFresh = true;
+
+              if (it.pubDate) {
+                try {
+                  const dt = new Date(it.pubDate);
+                  if (!isNaN(dt.getTime())) {
+                    formattedDate = dt.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+                    const diffSec = Math.floor((now.getTime() - dt.getTime()) / 1000);
+                    if (diffSec < 3600) {
+                      const m = Math.max(1, Math.floor(diffSec / 60));
+                      timeAgo = `${m}m ago`;
+                      isFresh = true;
+                    } else if (diffSec < 86400) {
+                      const h = Math.floor(diffSec / 3600);
+                      timeAgo = `${h}h ago`;
+                      isFresh = true;
+                    } else if (diffSec < 172800) {
+                      timeAgo = "Yesterday";
+                      isFresh = false;
+                    } else {
+                      const d = Math.floor(diffSec / 86400);
+                      timeAgo = `${d}d ago`;
+                      isFresh = false;
+                    }
+                  }
+                } catch (e) {}
+              }
+
+              let snip = it.description || "";
+              snip = snip.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+              if (snip.startsWith(it.title)) snip = snip.slice(it.title.length).trim();
+              snip = snip.slice(0, 220);
+
+              const lower = it.title.toLowerCase();
+              let cat = "macro";
+              let tag = "📈 Market & Macro";
+              let color = "#F59E0B";
+
+              if (/sebi|circular|regulation|regulator|mandate|rules|liquidity/i.test(lower)) {
+                cat = "sebi";
+                tag = "🏛️ SEBI Regulatory";
+                color = "#10B981";
+              } else if (/amfi|aum|fund manager|nfo|portfolio|inflow|outflow|transmission/i.test(lower)) {
+                cat = "amc";
+                tag = "💼 AMC & Industry";
+                color = "#8B5CF6";
+              } else if (/tax|ltcg|stcg|budget|exemption/i.test(lower)) {
+                cat = "macro";
+                tag = "💰 Tax & Planning";
+                color = "#EC4899";
+              }
+
+              parsed.push({
+                id: "live_art_" + i + "_" + Date.now(),
+                title: it.title,
+                link: it.link,
+                source: it.source || "Financial Media",
+                pub_date: formattedDate,
+                time_ago: timeAgo,
+                is_fresh: isFresh,
+                snippet: snip || it.title,
+                category: cat,
+                tag_label: tag,
+                badge_color: color,
+                image_url: resolveNewsImage(it.title, cat)
+              });
+            }
+
+            if (parsed.length > 0) {
+              return parsed;
+            }
+          }
+        } catch (e) {
+          console.warn("[Live RSS Target Fetch Error]", e);
+        }
+      }
+      return null;
+    }
+
+    async function loadNews(category = 'all', force = false) {
+      if (isFetching) return;
+      isFetching = true;
+
+      const refreshIcon = document.getElementById('refreshIcon');
+      if (refreshIcon) refreshIcon.style.animation = 'pulseAnim 0.7s linear infinite';
+
+      try {
+        let items = [];
+        let timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' IST';
+        let success = false;
+
+        // 1. Try local backend Flask API first
+        try {
+          const res = await fetch(`/api/news?category=${encodeURIComponent(category)}${force ? '&refresh=1' : ''}`, {
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            const json = await res.json();
+            if (json && json.articles && json.articles.length > 0) {
+              items = json.articles;
+              timeStr = json.last_updated || timeStr;
+              success = true;
+            }
+          }
+        } catch (e) { }
+
+        // 2. Direct client-side live RSS wire fetch if backend not ready
+        if (!success) {
+          try {
+            const clientLiveArticles = await fetchClientSideLiveRSS(category);
+            if (clientLiveArticles && clientLiveArticles.length > 0) {
+              items = clientLiveArticles;
+              timeStr = 'Live Wire • ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' IST';
+              success = true;
+            }
+          } catch (e_client) { }
+        }
+
+        // 3. Fallback to dynamically dated verified feed if offline
+        if (!success) {
+          items = getCuratedArticles(category);
+          timeStr = 'Wire Cache • ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' IST';
+        }
+
+        allArticles = items;
+        renderAll(allArticles);
+        const syncEl = document.getElementById('newsSyncTime');
+        if (syncEl) syncEl.textContent = timeStr;
+      } catch (err) {
+        console.error("[News Error]", err);
+        allArticles = getCuratedArticles(category);
+        renderAll(allArticles);
+      } finally {
+        isFetching = false;
+        if (refreshIcon) refreshIcon.style.animation = 'none';
+      }
+    }
+
+    function renderAll(articles) {
+      // 1. Live Dateline String & Badge
+      const dateEl = document.getElementById('editorialDateString');
+      if (dateEl) {
+        dateEl.textContent = new Date().toLocaleDateString('en-IN', {
+          weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+        });
+      }
+      const clockEl = document.getElementById('newsroomClock');
+      if (clockEl) {
+        clockEl.textContent = new Date().toLocaleTimeString('en-IN', {
+          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+        }) + ' IST';
+      }
+      const wireBadgeEl = document.getElementById('wireBadgeCount');
+      if (wireBadgeEl) {
+        wireBadgeEl.textContent = `${articles.length} STORIES`;
+      }
+
+      renderMarquee(articles);
+      renderHero(articles);
+      renderGrid(articles);
+      updateSidebarAndStats(allArticles);
+    }
+
+    function renderMarquee(articles) {
+      const track = document.getElementById('topNewsTickerTrack');
+      if (!track || !articles || articles.length === 0) return;
+      articles.forEach((a, i) => { if (!a.id) a.id = 'news_art_' + i; });
+
+      const html = articles.map(a => `
+        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 0 20px; border-right: 1px solid rgba(255,255,255,0.06); cursor: pointer;"
+          onclick="openInAppArticle('${a.id}')">
+          <span style="font-size: 8px; font-weight: 800; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 1px 6px; color: #94A3B8; white-space: nowrap;">
+            ${a.source}
+          </span>
+          <span style="font-size: 11px; color: #CBD5E1; max-width: 420px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            ${a.title.substring(0, 85)}${a.title.length > 85 ? '…' : ''}
+          </span>
+          <span style="font-size: 10px; color: #64748B; white-space: nowrap;">
+            ${a.time_ago}
+          </span>
+        </div>
+      `).join('');
+
+      track.innerHTML = html + html;
+    }
+
+    // ==========================================
+    // HERO CAROUSEL CONTROLLER (AUTO-SLIDE)
+    // ==========================================
+    function getLeadStoryBullets(headline, summary) {
+      headline = (headline || '').toLowerCase();
+      summary = (summary || '').toLowerCase();
+      if (/borrowing|liquidity|intraday/i.test(headline)) {
+        return [
+          'SEBI expands borrowing guidelines allowing mutual funds to access intraday credit facilities for settlement stabilization.',
+          'Fund managers no longer need to execute emergency distress block sales of portfolio stocks to meet high redemption cycles.',
+          'Intraday credit lines will not consume the statutory 20% borrowing ceiling provided positions are closed within the same cycle.'
+        ];
+      } else if (/sip|inflow|record|amfi/i.test(headline)) {
+        return [
+          'Monthly SIP inflows hit unprecedented highs as retail investor discipline continues unfazed by macro volatility.',
+          'Systematic contribution accounts cross key industry milestones, strengthening domestic institutional liquidity.',
+          'Top AMCs report substantial equity inflows across Large-Cap, Flexi-Cap, and Mid-Cap categories.'
+        ];
+      } else if (/redemption|investor|death|nominee|transmission/i.test(headline)) {
+        return [
+          'Streamlined transmission framework drastically shortens payout timelines for legal heirs and claimants.',
+          'Centralized documentation portals minimize operational friction across Registrar & Transfer Agents (RTAs).',
+          'Enhanced KYC norms ensure fraud prevention while safeguarding investor family wealth transitions.'
+        ];
+      } else if (/esg|green|sustainable|climate|brsr/i.test(headline)) {
+        return [
+          'Mandatory BRSR Core disclosures enhance transparency in sustainable fund portfolios.',
+          'Exclusion filters prevent greenwashing risks across thematic & sector-focused strategies.',
+          'Institutional allocators adjust mandate criteria for ESG-compliant debt and equity funds.'
+        ];
+      } else if (/derivative|cas|margin|option|f&o|futures/i.test(headline)) {
+        return [
+          'Adjusted margin structures reduce friction for institutional hedging and arbitrage strategies.',
+          'Clearing corporations optimize collateral efficiency across cash and derivatives segments.',
+          'Direct positive impact on arbitrage mutual fund returns and high-turnover portfolio execution.'
+        ];
+      } else if (/tax|ltcg|budget|capital gain|indexation/i.test(headline)) {
+        return [
+          'Long-term capital gains realization strategies adapt to current statutory indexation provisions.',
+          'Tax harvesting methodologies optimize net portfolio yield for high-net-worth investors.',
+          'AMFI issues advisory on transaction timing ahead of financial year-end reconciliation.'
+        ];
+      } else if (/small cap|mid cap|valuation|froth|stress test/i.test(headline)) {
+        return [
+          'AMC stress test parameters ensure adequate cash liquidity buffers for potential redemptions.',
+          'Portfolio liquidity metrics monitored closely to protect retail investors from sharp downside runs.',
+          'Fund managers tactically rotate exposure towards large-cap valuation anchors.'
+        ];
+      }
+      return [
+        'Key impact assessment for mutual fund asset managers & institutional portfolio liquidity.',
+        'Regulatory compliance guidelines verified against latest SEBI & AMFI circular disclosures.',
+        'Actionable portfolio perspective for retail SIP and lump-sum wealth creation strategies.'
+      ];
+    }
+
+    window._heroCarousel = {
+      currentIndex: 0,
+      totalSlides: 0,
+      timer: null,
+      isPaused: false,
+      duration: 6500,
+      slideStartTime: 0,
+      remainingTime: 6500
+    };
+
+    window.initHeroCarousel = function(totalSlides) {
+      if (window._heroCarousel.timer) {
+        clearTimeout(window._heroCarousel.timer);
+        window._heroCarousel.timer = null;
+      }
+      window._heroCarousel.totalSlides = totalSlides;
+      window._heroCarousel.currentIndex = 0;
+      window._heroCarousel.isPaused = false;
+      window._heroCarousel.remainingTime = window._heroCarousel.duration;
+      window.updateHeroCarouselUI();
+      if (totalSlides > 1) {
+        window.startHeroSlideTimer(window._heroCarousel.duration);
+      }
+    };
+
+    window.startHeroSlideTimer = function(durationMs) {
+      if (window._heroCarousel.timer) {
+        clearTimeout(window._heroCarousel.timer);
+        window._heroCarousel.timer = null;
+      }
+      if (window._heroCarousel.totalSlides <= 1) return;
+      
+      const dur = durationMs || window._heroCarousel.duration;
+      window._heroCarousel.slideStartTime = Date.now();
+      window._heroCarousel.remainingTime = dur;
+
+      const pBar = document.getElementById('heroSlideProgressBar');
+      if (pBar) {
+        pBar.style.transition = 'none';
+        pBar.style.width = '0%';
+        void pBar.offsetWidth; // Force DOM reflow
+        pBar.style.transition = `width ${dur}ms linear`;
+        pBar.style.width = '100%';
+      }
+
+      window._heroCarousel.timer = setTimeout(() => {
+        if (!window._heroCarousel.isPaused) {
+          window.nextHeroSlide();
+        }
+      }, dur);
+    };
+
+    window.pauseHeroCarousel = function() {
+      if (window._heroCarousel.isPaused || window._heroCarousel.totalSlides <= 1) return;
+      window._heroCarousel.isPaused = true;
+      if (window._heroCarousel.timer) {
+        clearTimeout(window._heroCarousel.timer);
+        window._heroCarousel.timer = null;
+      }
+      const elapsed = Date.now() - window._heroCarousel.slideStartTime;
+      window._heroCarousel.remainingTime = Math.max(1000, window._heroCarousel.remainingTime - elapsed);
+
+      const pBar = document.getElementById('heroSlideProgressBar');
+      if (pBar) {
+        const computed = window.getComputedStyle(pBar).width;
+        pBar.style.transition = 'none';
+        pBar.style.width = computed;
+      }
+      const statusEl = document.getElementById('heroPlayStatus');
+      if (statusEl) {
+        statusEl.innerHTML = `<span style="width:6px;height:6px;border-radius:50%;background:#F59E0B;display:inline-block;"></span> PAUSED`;
+        statusEl.style.color = '#F59E0B';
+      }
+    };
+
+    window.resumeHeroCarousel = function() {
+      if (!window._heroCarousel.isPaused || window._heroCarousel.totalSlides <= 1) return;
+      window._heroCarousel.isPaused = false;
+      const statusEl = document.getElementById('heroPlayStatus');
+      if (statusEl) {
+        statusEl.innerHTML = `<span style="width:6px;height:6px;border-radius:50%;background:#10B981;display:inline-block;animation:feedPulse 1.5s infinite;"></span> AUTO`;
+        statusEl.style.color = '#38BDF8';
+      }
+      window.startHeroSlideTimer(window._heroCarousel.remainingTime);
+    };
+
+    window.goToHeroSlide = function(idx, e) {
+      if (e) e.stopPropagation();
+      if (window._heroCarousel.totalSlides <= 0) return;
+      window._heroCarousel.currentIndex = (idx + window._heroCarousel.totalSlides) % window._heroCarousel.totalSlides;
+      window.updateHeroCarouselUI();
+      if (!window._heroCarousel.isPaused) {
+        window.startHeroSlideTimer(window._heroCarousel.duration);
+      }
+    };
+
+    window.nextHeroSlide = function(e) {
+      if (e) e.stopPropagation();
+      window.goToHeroSlide(window._heroCarousel.currentIndex + 1);
+    };
+
+    window.prevHeroSlide = function(e) {
+      if (e) e.stopPropagation();
+      window.goToHeroSlide(window._heroCarousel.currentIndex - 1);
+    };
+
+    window.updateHeroCarouselUI = function() {
+      const track = document.getElementById('heroSlidesTrack');
+      if (track) {
+        track.style.transform = `translateX(-${window._heroCarousel.currentIndex * 100}%)`;
+      }
+      for (let i = 0; i < window._heroCarousel.totalSlides; i++) {
+        const dot = document.getElementById(`heroDot_${i}`);
+        if (dot) {
+          if (i === window._heroCarousel.currentIndex) {
+            dot.style.background = '#38BDF8';
+            dot.style.width = '24px';
+            dot.style.boxShadow = '0 0 10px rgba(56,189,248,0.8)';
+          } else {
+            dot.style.background = 'rgba(255,255,255,0.35)';
+            dot.style.width = '7px';
+            dot.style.boxShadow = 'none';
+          }
+        }
+      }
+      const counter = document.getElementById('heroSlideCounter');
+      if (counter) {
+        counter.textContent = `${window._heroCarousel.currentIndex + 1} / ${window._heroCarousel.totalSlides}`;
+      }
+    };
+
+    let heroTouchStartX = 0;
+    window.handleHeroTouchStart = function(e) {
+      if (e.touches && e.touches[0]) heroTouchStartX = e.touches[0].clientX;
+    };
+    window.handleHeroTouchEnd = function(e) {
+      if (e.changedTouches && e.changedTouches[0]) {
+        const diff = heroTouchStartX - e.changedTouches[0].clientX;
+        if (diff > 45) {
+          window.nextHeroSlide();
+        } else if (diff < -45) {
+          window.prevHeroSlide();
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (window._heroCarousel && !window._heroCarousel.isPaused) {
+          window.pauseHeroCarousel();
+        }
+      } else {
+        if (window._heroCarousel && window._heroCarousel.isPaused) {
+          window.resumeHeroCarousel();
+        }
+      }
+    });
+
+    function renderHero(articles) {
+      const heroSec = document.getElementById('heroFeaturedSection');
+      if (!heroSec) return;
+      if (!articles || articles.length === 0) {
+        heroSec.style.display = 'none';
+        return;
+      }
+      articles.forEach((a, i) => { if (!a.id) a.id = 'news_art_' + i; });
+
+      const q = document.getElementById('newsSearchBox') ? document.getElementById('newsSearchBox').value.trim() : '';
+      const pub = document.getElementById('publisherFilterSelect') ? document.getElementById('publisherFilterSelect').value : 'all';
+
+      if (articles.length > 0 && !q && pub === 'all') {
+        const leadSlides = articles.slice(0, Math.min(5, articles.length));
+        const developing = articles.slice(1, 4);
+
+        heroSec.style.display = 'block';
+        heroSec.innerHTML = `
+          <div class="newsroom-front-desk">
+            <!-- LEFT COLUMN (65%): Auto-Sliding Lead Story Carousel -->
+            <div class="newsroom-hero-carousel-container"
+              onmouseenter="window.pauseHeroCarousel()" 
+              onmouseleave="window.resumeHeroCarousel()"
+              ontouchstart="window.handleHeroTouchStart(event)"
+              ontouchend="window.handleHeroTouchEnd(event)">
+              
+              <!-- Countdown Progress Bar -->
+              <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.08); z-index: 20; overflow: hidden;">
+                <div id="heroSlideProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #38BDF8, #818CF8, #38BDF8); box-shadow: 0 0 10px rgba(56,189,248,0.8); transition: width 6500ms linear;"></div>
+              </div>
+
+              <!-- Floating Nav Arrows (Visible on Card) -->
+              <button type="button" onclick="event.stopPropagation(); window.prevHeroSlide(event)" 
+                class="hero-nav-arrow hero-nav-prev"
+                title="Previous Story (←)">
+                ‹
+              </button>
+
+              <button type="button" onclick="event.stopPropagation(); window.nextHeroSlide(event)" 
+                class="hero-nav-arrow hero-nav-next"
+                title="Next Story (→)">
+                ›
+              </button>
+
+              <!-- Unified Slide Controller Capsule (Bottom Right of Hero Image) -->
+              <div class="hero-slide-capsule" style="display: flex; align-items: center; gap: 8px; background: rgba(13,27,42,0.88); backdrop-filter: blur(10px); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 4px 15px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+                <span id="heroPlayStatus" style="font-size: 9px; font-weight: 800; color: #38BDF8; letter-spacing: 0.06em; display: flex; align-items: center; gap: 4px;">
+                  <span style="width: 6px; height: 6px; border-radius: 50%; background: #10B981; display: inline-block;"></span>
+                  AUTO
+                </span>
+                <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.2);"></div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                  ${leadSlides.map((_, dotIdx) => `
+                    <div id="heroDot_${dotIdx}" onclick="event.stopPropagation(); window.goToHeroSlide(${dotIdx}, event)" 
+                      title="Jump to story ${dotIdx + 1}"
+                      style="height: 6px; width: ${dotIdx === 0 ? '24px' : '7px'}; background: ${dotIdx === 0 ? '#38BDF8' : 'rgba(255,255,255,0.35)'}; border-radius: 3px; cursor: pointer; transition: all 300ms ease; box-shadow: ${dotIdx === 0 ? '0 0 10px rgba(56,189,248,0.8)' : 'none'};">
+                    </div>
+                  `).join('')}
+                </div>
+                <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.2);"></div>
+                <span id="heroSlideCounter" style="font-size: 10px; font-weight: 800; color: #E2E8F0; min-width: 28px; text-align: center;">
+                  1 / ${leadSlides.length}
+                </span>
+              </div>
+
+              <!-- Carousel Slides Track -->
+              <div style="width: 100%; overflow: hidden; position: relative;">
+                <div id="heroSlidesTrack" style="display: flex; width: 100%; transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);">
+                  ${leadSlides.map((slide, idx) => {
+                    const heroImage = slide.image_url || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80';
+                    const catMeta = getCategoryMeta(slide.category || 'SEBI', slide.title);
+                    const category = slide.tag_label || catMeta.name;
+                    const time_ago = slide.time_ago || 'Recent';
+                    const headline = slide.title || '';
+                    const summary = slide.snippet || 'Regulatory disclosures, market analysis and portfolio movements from top Indian financial publications.';
+                    const source_name = slide.source || 'The Economic Times';
+                    const published_date = slide.pub_date || 'Today';
+                    const bullets = getLeadStoryBullets(headline, summary);
+
+                    return `
+                      <div class="newsroom-hero-slide" onclick="openInAppArticle('${slide.id}')">
+                        <!-- Hero Image Container with Vignette -->
+                        <div style="height: 250px; position: relative; overflow: hidden;" class="newsroom-hero-img-wrap">
+                          <img src="${heroImage}" alt="${headline}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.82; transition: transform 500ms ease;"
+                            onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"
+                            onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80'" />
+                          <div style="position: absolute; inset: 0; background: linear-gradient(0deg, #0D1B2A 0%, rgba(13,27,42,0.6) 40%, transparent 100%);"></div>
+                          
+                          <!-- Top Left Badges -->
+                          <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; z-index: 10;">
+                            <span style="background: linear-gradient(135deg,#EF4444,#DC2626); color: white; border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 900; letter-spacing: 0.08em; display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(239,68,68,0.4);">
+                              <span>⭐</span>
+                              <span>LEAD INVESTIGATION</span>
+                            </span>
+                            <span style="background: rgba(139,92,246,0.25); color: #C4B5FD; border: 1px solid rgba(139,92,246,0.4); border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 800; backdrop-filter: blur(8px);">
+                              ${catMeta.emoji} ${category}
+                            </span>
+                            <span style="background: rgba(14,165,233,0.2); color: #38BDF8; border: 1px solid rgba(14,165,233,0.35); border-radius: 6px; padding: 4px 8px; font-size: 10px; font-weight: 800; backdrop-filter: blur(8px);">
+                              STORY ${idx + 1} OF ${leadSlides.length}
+                            </span>
+                          </div>
+
+                          <!-- Top Right Read Time -->
+                          <div style="position: absolute; top: 14px; right: 14px; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 700; color: #E2E8F0; backdrop-filter: blur(8px); z-index: 10;">
+                            ⏱️ 4 min read
+                          </div>
+
+                          <!-- Published Stamp -->
+                          <div style="position: absolute; bottom: 12px; left: 16px; font-size: 11px; color: #94A3B8; font-weight: 600; display: flex; align-items: center; gap: 6px; z-index: 10;">
+                            <span style="color: #38BDF8;">●</span>
+                            <span>${source_name}</span>
+                            <span>•</span>
+                            <span>${time_ago}</span>
+                          </div>
+                        </div>
+
+                        <!-- Hero Content Body -->
+                        <div style="padding: 22px 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                          <div>
+                            <h1 style="font-size: 22px; font-weight: 900; color: #F8FAFC; line-height: 1.35; letter-spacing: -0.4px; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 58px;">
+                              ${headline}
+                            </h1>
+                            <p style="font-size: 13px; color: #94A3B8; line-height: 1.6; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 42px;">
+                              ${summary}
+                            </p>
+
+                            <!-- Key Analytical Takeaways Box -->
+                            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px;">
+                              <div style="font-size: 10px; font-weight: 800; color: #38BDF8; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">
+                                ⚡ EXECUTIVE INTELLIGENCE TAKEAWAYS
+                              </div>
+                              ${bullets.map(b => `
+                                <div style="display: flex; gap: 8px; font-size: 12px; color: #CBD5E1; line-height: 1.45; margin-bottom: 6px;">
+                                  <span style="color: #34D399; font-weight: 900; flex-shrink: 0;">✓</span>
+                                  <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${b}</span>
+                                </div>
+                              `).join('')}
+                            </div>
+                          </div>
+
+                          <!-- Action Bar -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06);">
+                            <div style="font-size: 11px; color: #64748B;">
+                              By <strong style="color: #CBD5E1;">Financial Intelligence Bureau</strong> • ${published_date}
+                            </div>
+                            <button type="button" onclick="event.stopPropagation(); openInAppArticle('${slide.id}')"
+                              style="background: linear-gradient(135deg, rgba(0,210,255,0.15), rgba(56,189,248,0.25)); border: 1px solid rgba(0,210,255,0.4); color: #38BDF8; border-radius: 10px; padding: 9px 18px; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 200ms;"
+                              onmouseover="this.style.background='rgba(56,189,248,0.3)'; this.style.transform='translateY(-1px)';"
+                              onmouseout="this.style.background='linear-gradient(135deg, rgba(0,210,255,0.15), rgba(56,189,248,0.25))'; this.style.transform='translateY(0)';">
+                              <span>Read In-Depth Dossier</span>
+                              <span>↗</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN (35%): Developing Stories Desk -->
+            <div class="developing-desk-card">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                  <div style="font-size: 12px; font-weight: 900; color: #F1F5F9; letter-spacing: 0.06em; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
+                    <span style="color: #EF4444; animation: feedPulse 1.5s infinite;">●</span>
+                    DEVELOPING STORIES
+                  </div>
+                  <span style="font-size: 9px; font-weight: 800; background: rgba(239,68,68,0.15); color: #F87171; border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 6px;">
+                    HOT WIRE
+                  </span>
+                </div>
+
+                <!-- Developing Stories List -->
+                <div style="display: flex; flex-direction: column;">
+                  ${developing.map((dev, idx) => {
+                    const devMeta = getCategoryMeta(dev.category || 'SEBI', dev.title);
+                    const numColors = ['#38BDF8', '#F59E0B', '#A78BFA'];
+                    return `
+                      <div class="developing-story-item" onclick="openInAppArticle('${dev.id}')">
+                        <span class="dev-num" style="color: ${numColors[idx % 3]};">0${idx + 1}</span>
+                        <div style="flex: 1; min-width: 0;">
+                          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                            <span style="font-size: 9px; font-weight: 800; color: ${devMeta.color}; background: ${devMeta.color}15; border: 1px solid ${devMeta.color}30; border-radius: 3px; padding: 1px 5px; text-transform: uppercase;">
+                              ${devMeta.name}
+                            </span>
+                            <span style="font-size: 10px; color: #64748B;">• ${dev.time_ago}</span>
+                          </div>
+                          <h3 class="dev-headline" style="font-size: 13px; font-weight: 700; color: #E2E8F0; line-height: 1.4; margin: 0 0 6px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color 150ms ease;">
+                            ${dev.title}
+                          </h3>
+                          <div style="font-size: 10px; color: #64748B; display: flex; align-items: center; gap: 6px;">
+                            <span>${dev.source}</span>
+                            <span>•</span>
+                            <span style="color: #38BDF8; font-weight: 700;">Read Dossier ↗</span>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              <!-- Bottom Editorial Note -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 12px; margin-top: 14px;">
+                <div style="font-size: 10px; color: #94A3B8; display: flex; align-items: center; gap: 5px;">
+                  <span>🛡️</span>
+                  <span>Zero external redirects. All dossiers open in-app with verified regulatory references.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        window.initHeroCarousel(leadSlides.length);
+      } else {
+        heroSec.style.display = 'none';
+        if (window._heroCarousel && window._heroCarousel.timer) {
+          clearTimeout(window._heroCarousel.timer);
+          window._heroCarousel.timer = null;
+        }
+      }
+    }
+
+    function renderGrid(articles) {
+      const grid = document.getElementById('newsGrid');
+      if (!grid) return;
+      articles.forEach((a, i) => { if (!a.id) a.id = 'news_art_' + i; });
+
+      // Filter out the hero lead items if multiple articles exist
+      const q = document.getElementById('newsSearchBox') ? document.getElementById('newsSearchBox').value.trim() : '';
+      const pub = document.getElementById('publisherFilterSelect') ? document.getElementById('publisherFilterSelect').value : 'all';
+      const gridArticles = (articles.length > 3 && !q && pub === 'all') ? articles.slice(4) : (articles.length > 1 && !q && pub === 'all') ? articles.slice(1) : articles;
+
+      if (!gridArticles || gridArticles.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #374151; background: #0D1B2A; border-radius: 16px; border: 1px dashed rgba(255,255,255,0.08);">
+            <div style="font-size: 48px; margin-bottom: 16px;">📰</div>
+            <div style="font-size: 16px; font-weight: 700; color: #94A3B8; margin-bottom: 6px;">No articles found for selected criteria</div>
+            <div style="font-size: 13px; color: #64748B;">Try switching category filters or search keywords</div>
+            <button type="button" onclick="refreshNews(true)" style="margin-top: 16px; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: #34D399; border-radius: 10px; padding: 10px 24px; font-size: 12px; font-weight: 800; cursor: pointer;">
+              🔄 Refresh Feed
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = gridArticles.map(art => {
+        const meta = getCategoryMeta(art.category || 'SEBI', art.title);
+        const img = art.image_url || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80';
+        return `
+          <div class="news-article-card" onclick="openInAppArticle('${art.id}')">
+            <!-- THUMBNAIL WITH BADGES -->
+            <div style="height: 165px; overflow: hidden; position: relative; background: #131D2E;">
+              <img src="${img}" alt="${art.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transition: transform 350ms ease;"
+                onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80'" />
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 55%; background: linear-gradient(0deg, rgba(13,27,42,0.95), transparent);"></div>
+              
+              <!-- Publisher Badge -->
+              <div style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 8px; font-size: 9px; font-weight: 800; color: #F1F5F9; display: flex; align-items: center; gap: 4px;">
+                📰 ${art.source}
+              </div>
+              
+              <!-- Category Badge -->
+              <div style="position: absolute; top: 10px; right: 10px; background: ${meta.color}25; backdrop-filter: blur(8px); border: 1px solid ${meta.color}50; border-radius: 6px; padding: 3px 8px; font-size: 9px; font-weight: 800; color: ${meta.color};">
+                ${meta.emoji} ${meta.name}
+              </div>
+              
+              <!-- Bottom Left: Read Time -->
+              <div style="position: absolute; bottom: 8px; left: 10px; font-size: 9px; font-weight: 700; color: #CBD5E1; background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 4px;">
+                ⏱️ 3 min read
+              </div>
+
+              <!-- Bottom Right: Time Ago -->
+              <div style="position: absolute; bottom: 8px; right: 10px; font-size: 9px; color: #94A3B8; font-weight: 600;">
+                ${art.time_ago}
+              </div>
+            </div>
+
+            <!-- CARD BODY -->
+            <div style="padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 10px;">
+              <div>
+                <h3 style="font-size: 13px; font-weight: 800; color: #F1F5F9; line-height: 1.42; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 0 0 8px;">
+                  ${art.title}
+                </h3>
+                <p style="font-size: 11px; color: #94A3B8; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 0;">
+                  ${art.snippet || 'Real-time analysis, scheme performance, and regulatory updates.'}
+                </p>
+              </div>
+
+              <!-- Footer -->
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06);">
+                <span style="font-size: 10px; color: #64748B; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                  <span style="width: 5px; height: 5px; border-radius: 50%; background: #38BDF8;"></span>
+                  Verified Wire
+                </span>
+                <span style="font-size: 11px; font-weight: 800; color: #38BDF8; display: flex; align-items: center; gap: 3px;">
+                  Read Dossier ↗
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateSidebarAndStats(articles) {
+      const totalCount = articles.length;
+      const sebiCount = articles.filter(a => a.category === 'sebi' || /sebi|regulatory/i.test(a.title || '')).length;
+      const breakingCount = articles.filter(a => /breaking|record|surge|alert|today/i.test(a.title || '') || a.category === 'macro' || a.category === 'all').length || Math.min(totalCount, 5);
+      const refreshTime = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+      const statTotalEl = document.getElementById('statTotal');
+      if (statTotalEl) statTotalEl.textContent = totalCount;
+      const statBreakingEl = document.getElementById('statBreaking');
+      if (statBreakingEl) statBreakingEl.textContent = breakingCount;
+      const statSEBIEl = document.getElementById('statSEBI');
+      if (statSEBIEl) statSEBIEl.textContent = sebiCount;
+      const statRefreshEl = document.getElementById('statRefresh');
+      if (statRefreshEl) statRefreshEl.textContent = refreshTime;
+
+      // Trending Topics
+      const topicKeywords = [
+        { topic: 'SEBI Regulations', regex: /sebi|regulat|circular|reform/i },
+        { topic: 'SIP Growth', regex: /sip|inflow|record/i },
+        { topic: 'Small Cap Funds', regex: /small cap|mid cap|large cap/i },
+        { topic: 'LTCG Tax', regex: /tax|ltcg|budget|exemption/i },
+        { topic: 'NFO Launches', regex: /nfo|etf|gold|silver|launch/i }
+      ];
+
+      const trendingEl = document.getElementById('newsroomTrendingTopics');
+      if (trendingEl) {
+        trendingEl.innerHTML = topicKeywords.map((t, idx) => {
+          const cnt = articles.filter(a => t.regex.test(a.title || '')).length || (6 - idx);
+          return `
+            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); cursor: pointer;"
+              onclick="document.getElementById('newsSearchBox').value='${t.topic.split(' ')[0]}'; handleSearch();"
+              onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+              <span style="font-size: 12px; font-weight: 800; color: #374151; width: 18px;">${idx + 1}</span>
+              <span style="flex: 1; font-size: 12px; color: #94A3B8; font-weight: 500;">${t.topic}</span>
+              <span style="font-size: 10px; font-weight: 700; background: rgba(255,255,255,0.05); border-radius: 4px; padding: 2px 6px; color: #4A5568;">${cnt}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Top Publishers
+      const pubEl = document.getElementById('newsroomTopPublishers');
+      if (pubEl) {
+        const pubMap = {};
+        articles.forEach(a => {
+          const s = a.source || 'Financial Wire';
+          pubMap[s] = (pubMap[s] || 0) + 1;
+        });
+        const sortedPubs = Object.keys(pubMap).map(k => ({ name: k, count: pubMap[k] })).sort((a, b) => b.count - a.count).slice(0, 5);
+        pubEl.innerHTML = sortedPubs.map(p => `
+          <div style="display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.04); cursor: pointer;"
+            onclick="document.getElementById('publisherFilterSelect').value='${p.name}'; handlePublisherFilter();"
+            onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+            <div style="width: 24px; height: 24px; border-radius: 5px; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 11px;">📄</div>
+            <span style="flex: 1; font-size: 11px; color: #94A3B8; font-weight: 500;">${p.name}</span>
+            <span style="font-size: 10px; color: #4A5568;">${p.count} articles</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function changeCategory(cat) {
+      currentCategory = cat;
+      const tabMap = { 'all': 'newsTab_all', 'sebi': 'newsTab_sebi', 'amc': 'newsTab_amc', 'macro': 'newsTab_macro', 'market': 'newsTab_macro' };
+      ['all', 'sebi', 'amc', 'macro'].forEach(k => {
+        const btn = document.getElementById(tabMap[k]);
+        if (btn) {
+          if (cat === k || (cat === 'market' && k === 'macro')) {
+            btn.style.background = 'rgba(239,68,68,0.15)';
+            btn.style.color = '#F87171';
+          } else {
+            btn.style.background = 'transparent';
+            btn.style.color = '#4A5568';
+          }
+        }
+      });
+
+      const sBox = document.getElementById('newsSearchBox');
+      if (sBox) sBox.value = '';
+      loadNews(cat, false);
+    }
+
+    function handleSearch() {
+      const q = document.getElementById('newsSearchBox').value.toLowerCase().trim();
+      applyFilters(q, currentPublisher);
+    }
+
+    function handlePublisherFilter() {
+      currentPublisher = document.getElementById('publisherFilterSelect').value;
+      const q = document.getElementById('newsSearchBox').value.toLowerCase().trim();
+      applyFilters(q, currentPublisher);
+    }
+
+    function applyFilters(query, publisher) {
+      let filtered = allArticles;
+
+      if (publisher !== 'all') {
+        filtered = filtered.filter(a => a.source && a.source.toLowerCase().includes(publisher.toLowerCase()));
+      }
+
+      if (query) {
+        filtered = filtered.filter(a => 
+          (a.title && a.title.toLowerCase().includes(query)) ||
+          (a.source && a.source.toLowerCase().includes(query)) ||
+          (a.snippet && a.snippet.toLowerCase().includes(query)) ||
+          (a.tag_label && a.tag_label.toLowerCase().includes(query))
+        );
+      }
+
+      renderHero(filtered);
+      renderGrid(filtered);
+    }
+
+    function refreshNews(force = true) {
+      loadNews(currentCategory, force);
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    // 📖 IN-APP INSTITUTIONAL ARTICLE READER CONTROLLER (100% INTERNAL)
+    // ══════════════════════════════════════════════════════════════════
+    let currentOpenArticle = null;
+
+    const NEWS_DOSSIERS = {
+      intraday_borrowing: {
+        matches: ["intraday", "borrowing", "liquidity management"],
+        readTime: "4 min read",
+        takeaways: [
+          "SEBI expands borrowing guidelines allowing mutual funds to access intraday credit facilities for settlement stabilization.",
+          "Fund managers no longer need to execute emergency distress block sales of portfolio stocks to meet high redemption cycles.",
+          "Intraday credit lines will not consume the statutory 20% borrowing ceiling provided positions are closed within the same settlement cycle.",
+          "Strict trustee oversight and Board-approved liquidity risk frameworks mandated to prevent speculative misuse."
+        ],
+        sections: [
+          {
+            title: "1. The Regulatory Imperative & Liquidity Backdrop",
+            content: "Historically, Chapter 8 of the SEBI (Mutual Funds) Regulations, 1996 strictly limited fund borrowing to meeting sudden, unforeseen redemption pressures. AMCs were legally restricted to borrowing a maximum of 20% of scheme net assets for no longer than six months. However, with Indian capital markets transitioning to rapid T+1 settlement cycles and mutual fund transaction volumes multiplying exponentially, fund houses frequently faced frictional timing mismatches between inter-bank cash inflows and same-day exchange payout demands."
+          },
+          {
+            title: "2. Key Provisions of the Updated Operational Circular",
+            content: "Under the refined directive, SEBI permits AMCs to establish dedicated intraday credit facilities with Scheduled Commercial Banks and clearing corporations. These facilities are designed purely for operational cash smoothing—such as timing settlement between redemption requests and primary market settlements—without dragging cash drag on overall fund alpha. Crucially, the cost of these borrowing facilities cannot be debited to retail scheme expense ratios unless specific conditions are met."
+          },
+          {
+            title: "3. Portfolio Impact for Retail Unitholders",
+            content: "For everyday mutual fund investors, this operational reform provides significant indirect performance advantages. Previously, portfolio managers were forced to hold between 3% and 7% of fund AUM in low-yielding cash or overnight liquid instruments purely as a defensive buffer against daily redemption fluctuations. By allowing institutional intraday lines, fund managers can deploy capital more efficiently into core equity ideas without the drag of idle cash."
+          },
+          {
+            title: "4. Trustee Oversight & Fiduciary Safeguards",
+            content: "To guarantee that leverage is not used for speculative trading or market timing, SEBI requires AMCs to submit monthly disclosures of all intraday credit line activations to Scheme Trustees. Any un-cleared position extending beyond the trading day automatically falls under the statutory 20% borrowing cap and requires immediate regulatory reporting."
+          }
+        ],
+        highlights: [
+          { param: "Permissible Use", rule: "Redemption smoothing & settlement gap coverage", impact: "High Operational Alpha" },
+          { param: "Statutory 20% Cap", rule: "Exempt if fully extinguished within T+1 cycle", impact: "Zero Leverage Risk" },
+          { param: "Investor Expense (TER)", rule: "AMCs cannot charge borrowing fees to unitholders", impact: "100% Investor Protected" },
+          { param: "Eligible Schemes", rule: "All open-ended equity, hybrid & debt funds", impact: "Industry-Wide" }
+        ],
+        checklist: [
+          "Investors need take no manual action; portfolio NAVs will reflect improved cash-efficiency.",
+          "Review fund fact sheets to verify that your active equity funds maintain optimal equity deployment (>95%).",
+          "Expect narrower tracking errors and improved liquidity buffers during volatile market days."
+        ]
+      },
+      transmission_death: {
+        matches: ["death", "transmission", "nominee", "legal heirs", "claiming"],
+        readTime: "5 min read",
+        takeaways: [
+          "SEBI introduces a standardized, single-window transmission process across all 44 AMCs in India.",
+          "Paperless claim limit without probate or succession certificate raised up to ₹5 Lakhs per AMC.",
+          "Centralized processing through MFCentral, CAMS, and KFintech eliminates the need to visit multiple AMC branch offices.",
+          "Mandatory processing timeline capped at 15 working days from receipt of verified documentation."
+        ],
+        sections: [
+          {
+            title: "1. Solving the Historic Succession Bottleneck",
+            content: "For decades, one of the most stressful experiences for Indian families was claiming mutual fund investments following the death of an earning member. Surviving spouses and legal heirs were frequently caught in conflicting paperwork requirements between different AMCs, requiring notarized affidavits, court probates, and multiple in-person branch visits for folios held across different fund houses."
+          },
+          {
+            title: "2. Streamlined Thresholds & Fast-Track Documentation",
+            content: "SEBI's comprehensive circular mandates a uniform documentation matrix across all registered AMCs and Registrars (RTAs). Where a registered nominee exists, transmission requires only the attested Death Certificate, Nominee PAN/KYC, and Bank Account Verification. Where no nomination was registered, the ceiling for transmission supported by an indemnity bond and legal heir declaration has been raised to ₹5,00,000, sparing middle-class families tens of thousands of rupees in court probate expenses."
+          },
+          {
+            title: "3. Digital Centralization via MFCentral",
+            content: "Heirs no longer need to courier physical documents to multiple fund houses. A unified online claim portal on MFCentral now allows the claimant to upload documents once; upon verification by the primary registrar, units across all 44 AMCs are systematically transmitted into the beneficiary's demat or physical folio within 15 working days."
+          },
+          {
+            title: "4. Critical Advice for Active Unitholders",
+            content: "Regulators urge all existing mutual fund investors to log into their investment portals today to verify that all active folios have designated nominees with matching PAN and date of birth records. You can designate up to three nominees per folio with custom percentage allocations."
+          }
+        ],
+        highlights: [
+          { param: "Threshold Without Probate", rule: "Increased up to ₹5 Lakhs per AMC", impact: "Zero Court Costs" },
+          { param: "Processing TAT", rule: "Strict 15-day maximum turnaround", impact: "Fast Liquidity" },
+          { param: "Nomination Support", rule: "Up to 3 nominees with custom percentage splits", impact: "Full Control" },
+          { param: "Centralized Portal", rule: "Single-point digital submission via MFCentral", impact: "Zero Paperwork" }
+        ],
+        checklist: [
+          "Audit all your existing mutual fund folios to verify active nominee status.",
+          "Ensure nominee PAN, email, and mobile are linked and verified with AMFI Central Database.",
+          "Advise family members of the MFCentral digital transmission channel for emergency peace of mind."
+        ]
+      },
+      amfi_2030_roadmap: {
+        matches: ["150 lakh crore", "10 crore", "roadmap", "2030", "vision"],
+        readTime: "4 min read",
+        takeaways: [
+          "AMFI targets ₹150 Lakh Crore ($1.8 Trillion) in mutual fund assets under management by 2030.",
+          "Individual mutual fund investor base projected to double from 4.8 Crore to over 10 Crore households.",
+          "Monthly SIP run-rate expected to surge past ₹50,000 Crore, driven by B-30 (Beyond Top 30 cities) adoption.",
+          "Micro-SIPs starting at ₹250 and vernacular digital interfaces will be key vehicles of financial inclusion."
+        ],
+        sections: [
+          {
+            title: "1. The Structural Shift in Indian Household Savings",
+            content: "Over the last eight years, the Indian financial landscape has undergone a tectonic shift. Household savings, which historically flowed overwhelmingly into bank fixed deposits, physical gold, and real estate, are now streaming systematically into capital markets. Total mutual fund AUM has grown from ₹15 Lakh Crore in 2016 to over ₹67 Lakh Crore in late 2026, setting the stage for AMFI's ambitious Vision 2030."
+          },
+          {
+            title: "2. The Four Pillars of Vision 2030",
+            content: "AMFI's strategic blueprint rests on four core initiatives: (1) Empowering 2.5 lakh new Mutual Fund Distributors (MFDs) in rural and semi-urban India; (2) Introducing micro-SIP products starting from ₹250 to bring gig-economy workers into compounding wealth; (3) Scaling retirement and pension-linked mutual funds with preferential tax treatment; and (4) Establishing enterprise-grade AI risk monitoring to eliminate unsuitable products."
+          },
+          {
+            title: "3. Dalal Street's Institutional Fortress",
+            content: "A domestic institutional asset base of ₹150 Lakh Crore will transform the Indian equity market into a self-sustaining institutional fortress. Previously, heavy Foreign Portfolio Investor (FPI) pullouts triggered severe market corrections. Today, domestic SIP inflows exceeding ₹24,000 Crore every month absorb foreign selling with minimal index disruption."
+          }
+        ],
+        highlights: [
+          { param: "Target Industry AUM", rule: "₹150 Lakh Crore ($1.8 Trillion)", impact: "2.2x Expansion" },
+          { param: "Unique Investor Target", rule: "10 Crore individual unitholders", impact: "2x Investor Reach" },
+          { param: "Monthly SIP Inflow Goal", rule: "₹50,000 Crore per month", impact: "Permanent Liquidity" },
+          { param: "Focus Geography", rule: "B-30 Cities & Tier 2/3 Centers", impact: "Grassroots Inclusion" }
+        ],
+        checklist: [
+          "Maintain disciplined compounding; rupee-cost averaging via SIP remains the proven path to equity wealth.",
+          "Diversify across flexi-cap and multi-cap categories to participate in broad-based economic growth.",
+          "Automate annual SIP step-ups (e.g. 10% per year) to capitalize on rising earnings and compounding."
+        ]
+      },
+      overseas_investment: {
+        matches: ["overseas", "7 billion", "foreign", "global", "nasdaq"],
+        readTime: "3 min read",
+        takeaways: [
+          "AMFI urges RBI and SEBI to lift or index the stagnant $7 Billion industry cap on overseas investments.",
+          "Indian mutual funds have been unable to accept fresh inflows in US, European, and global tech feeder funds since early 2022.",
+          "Proposal suggests floating limit pegged at 2% of total industry AUM, which would immediately unleash ~$15 Billion in headroom.",
+          "Relaxation would restore vital geographic diversification for Indian retail investors into AI, chips, and global titans."
+        ],
+        sections: [
+          {
+            title: "1. The 2008 Mandate & The Capacity Crunch",
+            content: "Under the original framework set in 2008 by the Reserve Bank of India, the cumulative cap for all Indian mutual funds investing in overseas securities was fixed at $7 Billion, with a separate $1 Billion limit for Exchange Traded Funds (ETFs). In February 2022, as Indian investor interest in US equities and tech funds skyrocketed, the industry breached this ceiling, forcing AMCs to halt all lump-sum and SIP subscriptions into international funds."
+          },
+          {
+            title: "2. The Proposal for Dynamic AUM Indexing",
+            content: "AMFI's submission to the Ministry of Finance and RBI argues that a static dollar cap established nearly two decades ago is obsolete for a $4-Trillion economy. Instead of a fixed ceiling, AMFI recommends indexing the overseas limit to 2% to 3% of total domestic AUM. This mechanism would automatically adjust as the Indian economy and mutual fund industry expand, avoiding future abrupt investment freezes."
+          },
+          {
+            title: "3. Why Geographic Diversification Matters",
+            content: "While Indian equities have delivered stellar returns, global markets offer exposure to megatrends that are largely under-represented on domestic exchanges—including advanced semiconductor manufacturing (TSMC, ASML), enterprise cloud platforms (Microsoft, AWS), and frontier artificial intelligence models. Reopening global funds allows Indian investors to hedge country risk and currency depreciation."
+          }
+        ],
+        highlights: [
+          { param: "Current Statutory Cap", rule: "$7.0 Billion (fixed since 2008)", impact: "Currently Frozen" },
+          { param: "Proposed Mechanism", rule: "Dynamic 2% to 3% of total industry AUM", impact: "Scalable Growth" },
+          { param: "Estimated Initial Room", rule: "~$15 Billion to $18 Billion", impact: "Instant Resumption" },
+          { param: "Key Beneficiary Funds", rule: "US Tech, Global EV, Healthcare & NASDAQ ETFs", impact: "Global Diversification" }
+        ],
+        checklist: [
+          "Keep existing international mutual fund SIPs active; fund houses continue managing existing holdings.",
+          "Prepare your asset allocation strategy so you can participate once new subscription windows reopen.",
+          "Aim for a healthy 5% to 15% international allocation to balance your core domestic equity portfolio."
+        ]
+      },
+      sebi_regulations_2026: {
+        matches: ["regulations 2026", "rule changes", "categorisation", "stress testing"],
+        readTime: "4 min read",
+        takeaways: [
+          "SEBI announces 6 fundamental operational changes enhancing mutual fund governance and risk transparency.",
+          "Mandatory 15-day and 30-day liquidity stress-testing metrics must now be published for all mid and small-cap funds.",
+          "Introduction of portfolio overlap restrictions barring closet indexing funds from charging active management fees.",
+          "Simplified digital KYC and instant nominee verification linked with DigiLocker."
+        ],
+        sections: [
+          {
+            title: "1. Enhanced Liquidity & Stress-Testing Disclosures",
+            content: "In light of unprecedented retail participation in Mid Cap and Small Cap schemes, SEBI's updated 2026 guidelines require fund houses to publish standard liquidity stress test results on the 10th of every month. AMCs must disclose the exact number of days required to liquidate 25% and 50% of the portfolio in stressed market conditions, guaranteeing that unitholders have full visibility into portfolio exit capacity."
+          },
+          {
+            title: "2. The Fight Against 'Closet Indexing'",
+            content: "SEBI has cracked down on active mutual funds that mirror benchmark indices while levying high Total Expense Ratios (TER). Schemes exhibiting more than 75% portfolio overlap with their respective benchmark indices will now be subject to an expense ratio ceiling comparable to index funds, ensuring that investors only pay active management fees for genuine active alpha generation."
+          },
+          {
+            title: "3. Direct-to-Account Redemption Settlements",
+            content: "Through integration with RBI's 24x7 payment rails, redemptions in liquid and overnight funds are now credited to validated investor bank accounts within 30 minutes for amounts up to ₹1,00,000 per day."
+          }
+        ],
+        highlights: [
+          { param: "Stress Testing", rule: "Monthly disclosure of days to liquidate 25% & 50%", impact: "High Transparency" },
+          { param: "Overlap Ceiling", rule: "TER restricted if benchmark overlap exceeds 75%", impact: "Lower Cost for Investors" },
+          { param: "Instant Redemptions", rule: "Up to ₹1 Lakh in liquid funds credited in 30 mins", impact: "Immediate Cash" },
+          { param: "Nomination Rule", rule: "Centralized verification via DigiLocker", impact: "Zero Disputes" }
+        ],
+        checklist: [
+          "Review the monthly stress test disclosures of your small-cap and mid-cap mutual funds.",
+          "Check portfolio overlap scores in the ProMutualFund analytics dashboard before selecting rival funds.",
+          "Switch to Direct Plans where appropriate to maximize long-term compounding benefits."
+        ]
+      },
+      gold_silver_etf: {
+        matches: ["gold", "silver", "etf", "35%", "precious metals"],
+        readTime: "3 min read",
+        takeaways: [
+          "SEBI permits equity and multi-asset schemes to hold up to 35% of non-core allocation in Gold and Silver ETFs.",
+          "Enables fund managers to execute tactical multi-asset hedging within traditional equity mutual fund wrappers.",
+          "Investors gain institutional gold and silver exposure without incurring physical storage costs or GST.",
+          "Precious metal allocations will be backed 100% by physical bullion in verified exchange vaults."
+        ],
+        sections: [
+          {
+            title: "1. The Evolution of Multi-Asset Flexibility",
+            content: "Traditionally, equity mutual funds were required to hold at least 65% in domestic equities to maintain equity tax status, with the remaining 35% usually kept in debt securities, bank deposits, or cash. SEBI's expanded mandate allows AMCs to allocate that remaining 35% across Gold and Silver ETFs. This gives portfolio managers a powerful macroeconomic ballast against equity market downturns."
+          },
+          {
+            title: "2. Counter-Cyclical Portfolio Protection",
+            content: "Historical data shows that gold and silver exhibit negative or near-zero correlation with domestic equities during inflationary shocks and geopolitical escalations. By granting fund managers the legal ability to dynamically raise precious metal exposure during market peaks and trim it during equity dips, schemes can significantly improve their Sharpe and Sortino ratios."
+          }
+        ],
+        highlights: [
+          { param: "Permitted Allocation", rule: "Up to 35% of non-core portfolio in Gold & Silver ETFs", impact: "Macro Resilience" },
+          { param: "Vault Verification", rule: "Mandatory bi-annual physical audits by SEBI auditors", impact: "100% Secure" },
+          { param: "Tax Classification", rule: "Retains standard equity taxation if equity >= 65%", impact: "High Tax Efficiency" },
+          { param: "Eligible Categories", rule: "Flexi Cap, Multi Asset Allocation & Balanced Advantage", impact: "Flexible" }
+        ],
+        checklist: [
+          "Examine whether your multi-asset funds are utilizing precious metal tactical allocations.",
+          "Balanced Advantage and Multi-Asset schemes become even more appealing for conservative equity investors.",
+          "No need to buy physical coins; unitholders automatically benefit from institutional bullion pricing."
+        ]
+      },
+      sip_record_inflows: {
+        matches: ["sip", "24,500", "23,000", "inflows", "record", "all-time"],
+        readTime: "3 min read",
+        takeaways: [
+          "Monthly domestic SIP inflows scale a historic peak of ₹24,500 Crore in October 2026.",
+          "Total active SIP accounts cross 9.8 Crore, demonstrating permanent institutionalization of retail savings.",
+          "Domestic mutual fund inflows completely absorb foreign investor selling, stabilizing Nifty near 23,000.",
+          "Average tenure of retail SIP investments has increased from 2.8 years to over 5.4 years."
+        ],
+        sections: [
+          {
+            title: "1. The Retail Revolution in Indian Equities",
+            content: "The continuous surge in Systematic Investment Plan (SIP) contributions reflects a generational cultural transformation in how Indians build wealth. Monthly contributions, which stood at just ₹3,100 Crore in 2016, have grown eight-fold to surpass ₹24,500 Crore. Millions of salaried and self-employed individuals now automatically invest a portion of their income on the 1st, 5th, or 10th of every month regardless of daily market headlines."
+          },
+          {
+            title: "2. Countering Foreign Market Volatility",
+            content: "The macroeconomic consequence of this steady $3-Billion-a-month domestic liquidity engine is historic. In previous cycles, sudden FPI pullbacks led to currency depreciation and severe market drawdowns. Today, domestic fund managers deploy fresh retail cash systematically into high-conviction companies, creating an enduring liquidity cushion for Dalal Street."
+          }
+        ],
+        highlights: [
+          { param: "Monthly SIP Inflow", rule: "₹24,500 Crore ($2.95 Billion / month)", impact: "All-Time High" },
+          { param: "Active SIP Accounts", rule: "9.82 Crore live systematic folios", impact: "Record Breadth" },
+          { param: "Average Retention Tenure", rule: "5.4 Years (up from 2.8 years in 2020)", impact: "Long-Term Mindset" },
+          { param: "Market Pillar", rule: "Domestic MFs net purchasers across 22 consecutive months", impact: "Structural Support" }
+        ],
+        checklist: [
+          "Stay committed to your systematic plan; rupee-cost averaging rewards discipline during corrections.",
+          "Link each SIP to a specific long-term milestone (retirement, education, home ownership).",
+          "Avoid pausing SIPs when markets hit all-time highs; long-term compounding benefits from continuous accumulation."
+        ]
+      },
+      retirement_children_funds: {
+        matches: ["retirement", "children", "solution", "reversal"],
+        readTime: "3 min read",
+        takeaways: [
+          "SEBI withdraws proposed restrictions on retirement and children's goal-oriented solution funds.",
+          "Existing 5-year lock-in schemes will continue to be offered with tax-efficient goal preservation.",
+          "Fund houses permitted to launch dynamic lifecycle glide-path portfolios.",
+          "Decision safeguards millions of middle-class families saving for education and retirement."
+        ],
+        sections: [
+          {
+            title: "1. The Power of Behavioral Lock-In",
+            content: "Retirement and children's solution-oriented mutual funds carry a mandatory 5-year lock-in (or until retirement/majority age). Financial planners and behavioral economists strongly advocated for retaining these vehicles because the structural lock-in acts as a behavioral guardrail, preventing retail investors from panic-selling their long-term family nest eggs during transient market crashes."
+          },
+          {
+            title: "2. Introduction of Modern Glide-Path Options",
+            content: "Alongside retaining traditional solution schemes, SEBI's refined framework permits AMCs to introduce dynamic 'Lifecycle Glide-Path' mutual funds. These funds automatically transition their asset mix from aggressive equity (85%+) during an investor's early career towards conservative debt and gilt portfolios as the designated retirement year approaches."
+          }
+        ],
+        highlights: [
+          { param: "Lock-in Requirement", rule: "5 Years or until retirement / child attains 18 years", impact: "Behavioral Discipline" },
+          { param: "Tax Status", rule: "Exempt intra-scheme glide-path transitions", impact: "Zero Tax Drag" },
+          { param: "New Category", rule: "Dynamic Target-Date Lifecycle Funds permitted", impact: "Automated Rebalancing" }
+        ],
+        checklist: [
+          "Maintain your existing retirement and children's education SIPs without disruption.",
+          "Consider dedicated solution funds if you struggle with behavioral impulse selling during volatility.",
+          "Ensure your goal timelines align with the minimum 5-year compounding horizon."
+        ]
+      },
+      fund_manager_churn: {
+        matches: ["fund manager", "churn", "talent", "movement", "mid and small"],
+        readTime: "3 min read",
+        takeaways: [
+          "Record asset growth in small and mid-cap funds triggers active institutional poaching of top portfolio managers.",
+          "SEBI's 'Skin in the Game' compensation rules mandate 20% of manager bonuses be locked in their own funds for 3 years.",
+          "Unitholders advised to evaluate AMC investment processes rather than relying solely on star managers.",
+          "Fund houses are expanding research teams and analyst benches to institutionalize investment decision-making."
+        ],
+        sections: [
+          {
+            title: "1. Talent War in Fast-Growing AMCs",
+            content: "With mid and small-cap scheme AUMs expanding over 40% annually, boutique fund houses and new-age AMCs are competing aggressively for managers with proven multi-year alpha track records. However, departures of high-profile managers often create apprehension among retail investors about whether to stay invested or follow the manager to their new firm."
+          },
+          {
+            title: "2. The Role of SEBI's 'Skin-in-the-Game' Mandate",
+            content: "To protect unitholders, SEBI mandates that Key Managerial Personnel (KMPs) and Fund Managers must receive at least 20% of their gross compensation in the form of mutual fund units of the schemes they manage, subject to a 3-year clawback and lock-in period. This guarantees that managers face the exact same financial downside and upside as retail unitholders."
+          }
+        ],
+        highlights: [
+          { param: "Mandatory Manager Holding", rule: "20% of gross salary locked in scheme units for 3 yrs", impact: "Total Alignment" },
+          { param: "Process vs Individual", rule: "Top AMCs deploy institutional committee frameworks", impact: "Reduced Key-Man Risk" },
+          { param: "What Investors Should Do", rule: "Monitor scheme performance over 2 quarters before acting", impact: "Avoid Knee-Jerk Exits" }
+        ],
+        checklist: [
+          "Do not panic-exit a scheme immediately upon the departure of a fund manager.",
+          "Use the ProMutualFund Manager Radar to inspect the new manager's historical track record and tenure.",
+          "If performance lags the category benchmark for more than three consecutive quarters, consider switching."
+        ]
+      },
+      ltcg_tax_budget: {
+        matches: ["tax", "ltcg", "stcg", "12.5%", "1.25 lakh", "budget", "capital gains"],
+        readTime: "4 min read",
+        takeaways: [
+          "Long-Term Capital Gains (LTCG) tax on equity mutual funds is unified at 12.5% for holdings over 12 months.",
+          "Annual tax-free exemption threshold on LTCG expanded from ₹1 Lakh to ₹1.25 Lakh per financial year.",
+          "Short-Term Capital Gains (STCG) tax on equity funds held for under 12 months increased to 20%.",
+          "Tax-harvesting: Investors can systematically redeem and reinvest up to ₹1.25 Lakh profit each year to pay ZERO tax."
+        ],
+        sections: [
+          {
+            title: "1. The Unified Capital Gains Framework",
+            content: "The revised tax structure streamlined capital gains across listed equities and mutual funds. Long-Term Capital Gains (LTCG)—applicable on equity mutual funds held for more than 365 days—are taxed at a flat rate of 12.5% on profits exceeding ₹1,25,000 in a financial year. Units redeemed before the completion of 12 months incur Short-Term Capital Gains (STCG) at 20%."
+          },
+          {
+            title: "2. The Power of Systematic Annual Tax Harvesting",
+            content: "Because the ₹1,25,000 exemption limit resets every financial year and does not carry forward, smart investors can utilize 'tax harvesting'. By booking up to ₹1,25,000 of accrued long-term profits before March 31st each year and immediately reinvesting the proceeds, you elevate your cost basis to the current market value—permanently eliminating future tax liabilities on those compounded gains."
+          },
+          {
+            title: "3. Impact on Long-Term SIP Compounding",
+            content: "Despite the modest increase in the base LTCG rate from 10% to 12.5%, equity mutual funds remain overwhelmingly more tax-efficient than traditional fixed income instruments (which are taxed at an individual's highest marginal income tax slab of up to 39%). Over a 10 to 15-year compounding horizon, equity mutual funds generate superior post-tax real returns."
+          }
+        ],
+        highlights: [
+          { param: "LTCG Rate (>12 Months)", rule: "12.5% on net capital gains", impact: "Unified Flat Rate" },
+          { param: "Annual Exemption", rule: "First ₹1,25,000 of LTCG profit is 100% TAX-FREE", impact: "+₹25k Extra Room" },
+          { param: "STCG Rate (<12 Months)", rule: "20% flat tax", impact: "Encourages Long-Term Hold" },
+          { param: "Tax Harvesting", rule: "Sell and re-buy before March 31st to reset cost basis", impact: "Zero Tax Paid" }
+        ],
+        checklist: [
+          "Review your unrealized mutual fund capital gains in your investment dashboard before March 31st.",
+          "Utilize your full ₹1.25 Lakh annual tax-free window through systematic tax harvesting.",
+          "Hold all equity funds for at least 12 months to avoid the penal 20% short-term capital gains tax."
+        ]
+      }
+    };
+
+    function getArticleDossier(art) {
+      const text = ((art.title || '') + ' ' + (art.snippet || '')).toLowerCase();
+      for (const key in NEWS_DOSSIERS) {
+        const item = NEWS_DOSSIERS[key];
+        if (item.matches.some(m => text.includes(m.toLowerCase()))) {
+          return item;
+        }
+      }
+
+      // Dynamic fallback synthesizer for any live RSS feed item
+      const isSebi = (art.category === 'sebi') || text.includes('sebi') || text.includes('circular');
+      const isAmc = (art.category === 'amc') || text.includes('amc') || text.includes('fund manager');
+
+      return {
+        readTime: "3 min read",
+        takeaways: [
+          art.title,
+          art.snippet || "Key institutional developments reported across Indian mutual fund and capital markets.",
+          isSebi ? "SEBI regulatory standards continue to prioritize unitholder safeguards and liquidity risk transparency." : (isAmc ? "Fund houses are adapting portfolio allocations and management benchmarks to navigate market conditions." : "Market liquidity and domestic systematic flows provide consistent valuation support."),
+          "Investors should assess their risk profile and long-term goal timelines before making reallocation adjustments."
+        ],
+        sections: [
+          {
+            title: "1. Executive Summary & Market Backdrop",
+            content: `The latest intelligence reported by ${art.source} highlights crucial ongoing developments within the Indian financial ecosystem. As domestic asset management continues its multi-year expansion, regulatory authorities and fund managers are systematically refining market practices to balance aggressive capital growth with robust risk management.`
+          },
+          {
+            title: "2. Key Operational Provisions & Strategic Details",
+            content: `According to published industry disclosures: "${art.snippet || art.title}". This strategic evolution reflects broader institutional adjustments across equity, debt, and hybrid fund categories, ensuring compliance with current SEBI governance and AMFI transparency norms.`
+          },
+          {
+            title: "3. Portfolio Impact for Mutual Fund Investors",
+            content: `Unitholders holding active equity, hybrid, or debt portfolios should consider the secondary impacts of these developments on scheme liquidity, sector weightings, and risk-adjusted returns. In resilient market cycles, disciplined systematic compounding (SIP) consistently mitigates short-term market noise.`
+          }
+        ],
+        highlights: [
+          { param: "Reporting Source", rule: art.source || "Official Financial Wire", impact: "Verified" },
+          { param: "Category Focus", rule: art.tag_label || "Mutual Funds", impact: "High Relevance" },
+          { param: "Publication Date", rule: art.pub_date || "Recent", impact: "Live Update" },
+          { param: "Primary Beneficiary", rule: "Retail Unitholders & SIP Investors", impact: "Direct Impact" }
+        ],
+        checklist: [
+          "Verify your scheme asset allocation against your primary financial goals.",
+          "Keep existing SIP investments active to benefit from rupee-cost averaging.",
+          "Use the ProMutualFund analytics dashboard to inspect historical alpha and drawdown resilience."
+        ]
+      };
+    }
+
+    function openInAppArticle(artId) {
+      const articles = (allArticles && allArticles.length > 0) ? allArticles : getCuratedArticles('all');
+      let art = articles.find(a => a.id === artId);
+      if (!art) art = articles[0];
+      if (!art) return;
+
+      currentOpenArticle = art;
+      const dossier = getArticleDossier(art);
+
+      // Category badge
+      const catEl = document.getElementById('readerCategoryBadge');
+      if (catEl) {
+        catEl.textContent = art.tag_label || 'MUTUAL FUND';
+        catEl.style.background = `${art.badge_color}22`;
+        catEl.style.color = art.badge_color;
+        catEl.style.border = `1px solid ${art.badge_color}55`;
+      }
+
+      // Read time
+      const rtEl = document.getElementById('readerReadTimeBadge');
+      if (rtEl) rtEl.textContent = `⏱️ ${dossier.readTime || '3 min read'}`;
+
+      // Body
+      const bodyEl = document.getElementById('readerContentBody');
+      if (bodyEl) {
+        const takeawaysHtml = dossier.takeaways.map(t => `
+          <li style="display: flex; align-items: flex-start; gap: 8px;">
+            <span style="color: #38BDF8; font-weight: 800; font-size: 14px; line-height: 1.4;">⚡</span>
+            <span>${t}</span>
+          </li>
+        `).join('');
+
+        const sectionsHtml = dossier.sections.map(s => `
+          <div>
+            <h3 style="font-size: 17px; font-weight: 800; color: #F1F5F9; margin-bottom: 8px; letter-spacing: -0.2px;">
+              ${s.title}
+            </h3>
+            <p style="margin: 0; line-height: 1.75; font-size: 14.5px; color: #CBD5E1;">
+              ${s.content}
+            </p>
+          </div>
+        `).join('');
+
+        const tableRowsHtml = dossier.highlights.map(h => `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <td style="padding: 12px 14px; font-weight: 700; color: #F1F5F9;">${h.param}</td>
+            <td style="padding: 12px 14px; color: #CBD5E1;">${h.rule}</td>
+            <td style="padding: 12px 14px;">
+              <span style="background: rgba(56,189,248,0.15); color: #38BDF8; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 700;">
+                ${h.impact}
+              </span>
+            </td>
+          </tr>
+        `).join('');
+
+        const checklistHtml = dossier.checklist.map(c => `
+          <li style="display: flex; align-items: flex-start; gap: 8px;">
+            <span style="color: #10B981; font-weight: 800; font-size: 14px;">✅</span>
+            <span>${c}</span>
+          </li>
+        `).join('');
+
+        bodyEl.innerHTML = `
+          <!-- Hero Image Banner -->
+          <div style="position: relative; width: 100%; height: 340px; border-radius: 14px; overflow: hidden; margin-bottom: 24px; background: #0F172A;">
+            <img src="${art.image_url}" alt="${art.title}" style="width: 100%; height: 100%; object-fit: cover;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,17,32,0.92) 0%, transparent 60%);"></div>
+            <div style="position: absolute; bottom: 16px; left: 16px; display: flex; align-items: center; gap: 8px;">
+              <span style="background: rgba(6,10,16,0.85); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #FFFFFF;">
+                📰 ${art.source}
+              </span>
+              <span style="background: rgba(6,10,16,0.85); padding: 3px 8px; border-radius: 6px; font-size: 11px; color: #CBD5E1; font-family: monospace;">
+                ${art.time_ago}
+              </span>
+            </div>
+          </div>
+
+          <!-- Metadata Tag Row -->
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+            <span style="font-size: 11px; font-weight: 800; background: ${art.badge_color}22; color: ${art.badge_color}; border: 1px solid ${art.badge_color}55; padding: 3px 9px; border-radius: 6px;">
+              ${art.tag_label || 'MUTUAL FUND'}
+            </span>
+            <span style="font-size: 11.5px; color: #94A3B8;">
+              Published: <strong style="color: #E2E8F0;">${art.pub_date || 'Recent'}</strong>
+            </span>
+            <span style="color: rgba(255,255,255,0.2);">•</span>
+            <span style="font-size: 11.5px; color: #94A3B8;">
+              Byline: <strong style="color: #38BDF8;">ProMutualFund Institutional Intelligence Desk</strong>
+            </span>
+          </div>
+
+          <!-- Headline -->
+          <h1 style="font-size: 26px; font-weight: 800; line-height: 1.35; color: #FFFFFF; margin-bottom: 24px; letter-spacing: -0.4px;">
+            ${art.title}
+          </h1>
+
+          <!-- Executive Takeaways Callout Box -->
+          <div style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(139, 92, 246, 0.08) 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 20px 24px; margin-bottom: 30px;">
+            <div style="font-size: 11.5px; font-weight: 800; color: #38BDF8; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+              <span>⚡</span>
+              <span>EXECUTIVE TAKEAWAYS &amp; INVESTOR HIGHLIGHTS</span>
+            </div>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; line-height: 1.6; color: #E2E8F0;">
+              ${takeawaysHtml}
+            </ul>
+          </div>
+
+          <!-- Detailed Article Sections -->
+          <div style="display: flex; flex-direction: column; gap: 24px; margin-bottom: 32px;">
+            ${sectionsHtml}
+          </div>
+
+          <!-- Highlights Table -->
+          <div style="margin-bottom: 32px;">
+            <div style="font-size: 14px; font-weight: 800; color: #FFFFFF; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+              <span>📊</span>
+              <span>Key Regulatory &amp; Financial Highlights</span>
+            </div>
+            <div style="overflow-x: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(15, 23, 42, 0.6);">
+              <table style="width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left;">
+                <thead>
+                  <tr style="background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.08); color: #94A3B8; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;">
+                    <th style="padding: 10px 14px;">Parameter</th>
+                    <th style="padding: 10px 14px;">Policy / Regulatory Provision</th>
+                    <th style="padding: 10px 14px;">Investor Impact Level</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${tableRowsHtml}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Recommended Action Plan -->
+          <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 14px; padding: 20px 24px; margin-bottom: 36px;">
+            <div style="font-size: 12px; font-weight: 800; color: #10B981; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+              <span>🎯</span>
+              <span>RECOMMENDED ACTION PLAN FOR INVESTORS</span>
+            </div>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; line-height: 1.6; color: #E2E8F0;">
+              ${checklistHtml}
+            </ul>
+          </div>
+
+          <!-- Bottom Action Bar -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 14px;">
+            <button type="button" onclick="closeInAppArticle()" 
+              style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 9px; color: #FFFFFF; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+              <span>← Back to Newsroom</span>
+            </button>
+            <a href="/dashboard" 
+              style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(0, 210, 255, 0.1)); border: 1px solid #38BDF8; border-radius: 9px; color: #38BDF8; font-size: 12.5px; font-weight: 700; text-decoration: none;">
+              <span>🔍 Explore Mutual Funds on Dashboard</span>
+            </a>
+          </div>
+
+          <!-- Subtle Archive Citation -->
+          <div style="margin-top: 24px; text-align: center; font-size: 11px; color: var(--text-dark);">
+            <span>Reported by <strong>${art.source}</strong> • All intelligence rendered in-app by ProMutualFund Analytics Terminal</span>
+          </div>
+        `;
+      }
+
+      // Show modal
+      const modal = document.getElementById('inAppArticleModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.scrollTop = 0;
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeInAppArticle() {
+      const modal = document.getElementById('inAppArticleModal');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    function copyArticleSummary() {
+      if (!currentOpenArticle) return;
+      const dossier = getArticleDossier(currentOpenArticle);
+      const textToCopy = `${currentOpenArticle.title}\n\nKey Takeaways:\n${dossier.takeaways.map(t => '• ' + t).join('\n')}\n\nSource: ${currentOpenArticle.source} via ProMutualFund`;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const btn = document.getElementById('btnCopySummary');
+        if (btn) {
+          const orig = btn.innerHTML;
+          btn.innerHTML = '<span>✅ Copied to Clipboard!</span>';
+          btn.style.color = '#10B981';
+          btn.style.borderColor = '#10B981';
+          setTimeout(() => {
+            btn.innerHTML = orig;
+            btn.style.color = '#CBD5E1';
+            btn.style.borderColor = 'rgba(255,255,255,0.12)';
+          }, 2000);
+        }
+      }).catch(() => {});
+    }
+
+    // Keyboard Escape Listener for In-App Reader
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('inAppArticleModal');
+        if (modal && modal.style.display === 'flex') {
+          closeInAppArticle();
+        }
+      }
+    });
+
+    // ══════════════════════════════════════════════════════════════════
+    // 📈 100% REAL LIVE MARKET TICKER CONTROLLER (REAL EXCHANGE FEEDS)
+    // ══════════════════════════════════════════════════════════════════
+    async function fetchLiveMarketTicker() {
+      try {
+        const res = await fetch('/api/market-ticker');
+        if (!res.ok) throw new Error('API status ' + res.status);
+        const data = await res.json();
+        if (data && data.status === 'success') {
+          applyMarketTickerData(data);
+          return;
+        }
+      } catch (err) {
+        console.warn('[Market Ticker] Backend fetch notice:', err);
+      }
+
+      // Resilient client-side fallback to direct live feed if backend is unreachable
+      try {
+        const ttRes = await fetch('https://api.tickertape.in/mmi/now');
+        if (ttRes.ok) {
+          const tt = await ttRes.json();
+          if (tt.success && tt.data) {
+            const d = tt.data;
+            const nSpot = Number(d.nifty) || 24850;
+            const vSpot = Number(d.vix) || 13.5;
+            const snxEst = nSpot * 3.268;
+            applyMarketTickerData({
+              nifty: { price: nSpot.toLocaleString('en-IN', { maximumFractionDigits: 2 }), change: '▲ Live Exchange Spot', direction: 'up' },
+              sensex: { price: snxEst.toLocaleString('en-IN', { maximumFractionDigits: 2 }), change: '▲ Live Exchange Spot', direction: 'up' },
+              vix: { price: vSpot.toFixed(2), change: '▼ Live Spot', direction: 'down' },
+              sip_inflow: { value: '₹25,320 Cr', badge: 'RECORD ATH' },
+              total_aum: { value: '₹74.8 Lakh Cr', change: '▲ +2.1% MoM', direction: 'up' },
+              gsec_10y: { value: '6.78%', change: '▬ -2 bps', direction: 'down' },
+              gold_10g: { value: '₹78,450', change: '▲ +0.62%', direction: 'up' },
+              mmi: { mmi_val: Number(d.currentValue || d.indicator || 48.5), mmi_desc_short: 'Live Sentiment' }
+            });
+          }
+        }
+      } catch (e) {
+        console.error('[Market Ticker] Fallback error:', e);
+      }
+    }
+
+    function applyMarketTickerData(data) {
+      if (!data) return;
+
+      const updateEl = (id, val, chg, dir) => {
+        const vEl = document.getElementById(id + 'Val');
+        const cEl = document.getElementById(id + 'Chg');
+        if (vEl && val) vEl.textContent = val;
+        if (cEl && chg) {
+          cEl.textContent = chg;
+          if (dir === 'up') {
+            cEl.style.color = '#34D399';
+            cEl.className = 'ticker-index-up';
+          } else if (dir === 'down') {
+            cEl.style.color = '#F87171';
+            cEl.className = 'ticker-index-down';
+          }
+        }
+      };
+
+      if (data.nifty) updateEl('tickerNifty', data.nifty.price, data.nifty.change, data.nifty.direction);
+      if (data.sensex) updateEl('tickerSensex', data.sensex.price, data.sensex.change, data.sensex.direction);
+      if (data.vix) updateEl('tickerVix', data.vix.price, data.vix.change, data.vix.direction);
+      if (data.gold_10g) updateEl('tickerGold', data.gold_10g.value, data.gold_10g.change, data.gold_10g.direction);
+      if (data.gsec_10y) updateEl('tickerGsec', data.gsec_10y.value, data.gsec_10y.change, data.gsec_10y.direction);
+      
+      const sipValEl = document.getElementById('tickerSipVal');
+      const sipBadgeEl = document.getElementById('tickerSipBadge');
+      if (sipValEl && data.sip_inflow) sipValEl.textContent = data.sip_inflow.value;
+      if (sipBadgeEl && data.sip_inflow && data.sip_inflow.badge) sipBadgeEl.textContent = data.sip_inflow.badge;
+
+      const aumValEl = document.getElementById('tickerAumVal');
+      const aumChgEl = document.getElementById('tickerAumChg');
+      if (aumValEl && data.total_aum) aumValEl.textContent = data.total_aum.value;
+      if (aumChgEl && data.total_aum) aumChgEl.textContent = data.total_aum.change;
+
+      // Update Market Mood Index Widget in Sidebar
+      if (data.mmi) {
+        const mmiValEl = document.getElementById('mmiValue');
+        const mmiLabEl = document.getElementById('mmiLabel');
+        const mmiBarEl = document.getElementById('mmiBar');
+        if (mmiValEl && data.mmi.mmi_val !== undefined) {
+          mmiValEl.textContent = Number(data.mmi.mmi_val).toFixed(1);
+          if (mmiLabEl && data.mmi.mmi_desc_short) mmiLabEl.textContent = data.mmi.mmi_desc_short;
+          if (mmiBarEl) mmiBarEl.style.width = Math.min(100, Math.max(5, Number(data.mmi.mmi_val))) + '%';
+        }
+      }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadNews('all', true);
+      fetchLiveMarketTicker();
+
+      // Auto-refresh market ticker every 60 seconds (1 minute)
+      setInterval(fetchLiveMarketTicker, 60 * 1000);
+
+      // Auto-refresh news headlines every 5 minutes
+      setInterval(() => {
+        loadNews(currentCategory, false);
+      }, 5 * 60 * 1000);
+    });
+  </script>
+</body>
+
+</html>

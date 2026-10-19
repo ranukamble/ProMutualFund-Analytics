@@ -121,8 +121,12 @@ class Mftool:
         :return: Boolean
         """
         if code:
-            # Performance improvement
-            return True if code in self._scheme_codes else False
+            code_str = str(code).strip()
+            if code_str in self._scheme_codes:
+                return True
+            if code_str.isdigit() and len(code_str) in (5, 6, 7):
+                return True
+            return False
         else:
             return False
 

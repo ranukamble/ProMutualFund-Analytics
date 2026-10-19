@@ -17,9 +17,7 @@ def calculate_portfolio_metrics(funds, allocation, investment_details):
     gold_weight = 0
     
     weighted_expense_ratio = 0
-    weighted_1y = 0
-    weighted_3y = 0
-    weighted_5y = 0
+    weighted_returns = {y: 0.0 for y in range(1, 11)}
     
     amc_allocation = {}
     category_allocation = {}
@@ -46,13 +44,16 @@ def calculate_portfolio_metrics(funds, allocation, investment_details):
         er = fund.get('expense_ratio', 0) or 0
         weighted_expense_ratio += (float(er) * weight_frac)
         
-        # Returns
-        r1 = fund.get('returns_1yr', 0) or 0
-        r3 = fund.get('returns_3yr', 0) or 0
-        r5 = fund.get('returns_5yr', 0) or 0
-        weighted_1y += (float(r1) * weight_frac)
-        weighted_3y += (float(r3) * weight_frac)
-        weighted_5y += (float(r5) * weight_frac)
+        # Returns for all individual years 1 to 10
+        for y in range(1, 11):
+            ry = fund.get(f'returns_{y}yr', fund.get(f'return_{y}yr', fund.get(f'ret{y}y', 0))) or 0
+            if isinstance(ry, str):
+                ry = ry.replace('%', '').replace('+', '').strip()
+                try:
+                    ry = float(ry)
+                except ValueError:
+                    ry = 0
+            weighted_returns[y] += (float(ry) * weight_frac)
         
         # AMC
         amc = fund.get('amc', 'Unknown AMC')
@@ -65,7 +66,7 @@ def calculate_portfolio_metrics(funds, allocation, investment_details):
     sip = float(investment_details.get('sip_amount', 0))
     lumpsum = float(investment_details.get('lumpsum_amount', 0))
     horizon_years = float(investment_details.get('horizon', 5))
-    expected_return = float(investment_details.get('expected_return', weighted_3y if weighted_3y > 0 else 12))
+    expected_return = float(investment_details.get('expected_return', weighted_returns[3] if weighted_returns[3] > 0 else 12))
     
     months = horizon_years * 12
     monthly_rate = (expected_return / 100) / 12
@@ -95,9 +96,7 @@ def calculate_portfolio_metrics(funds, allocation, investment_details):
             "gold": round(gold_weight, 2)
         },
         "performance": {
-            "returns_1yr": round(weighted_1y, 2),
-            "returns_3yr": round(weighted_3y, 2),
-            "returns_5yr": round(weighted_5y, 2)
+            **{f"returns_{y}yr": round(weighted_returns[y], 2) for y in range(1, 11)}
         },
         "cost": {
             "weighted_expense_ratio": round(weighted_expense_ratio, 2)
