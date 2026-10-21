@@ -1,1 +1,80 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Core Wealth Allocation",
+    "created_at": "21 Oct 2026, 10:45",
+    "investment_amount": 24000,
+    "funds": [
+      {
+        "code": "118632",
+        "name": "Nippon India Large Cap Fund - Direct Plan - Growth Option",
+        "category": "Large Cap",
+        "amc": "Nippon",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 500,
+        "lumpsum_amount": 25000,
+        "sip_weight": 25,
+        "lumpsum_weight": 0,
+        "weight": 25
+      },
+      {
+        "code": "122639",
+        "name": "Parag Parikh Flexi Cap Fund - Direct Plan - Growth",
+        "category": "Flexi Cap",
+        "amc": "Parag Parikh",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 500,
+        "lumpsum_amount": 25000,
+        "sip_weight": 25,
+        "lumpsum_weight": 0,
+        "weight": 25
+      },
+      {
+        "code": "140088",
+        "name": "Nippon India ETF Gold BeES - Direct Plan",
+        "category": "ETF",
+        "amc": "Nippon",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 1000,
+        "lumpsum_amount": 25000,
+        "sip_weight": 50,
+        "lumpsum_weight": 0,
+        "weight": 50
+      }
+    ],
+    "summary": {
+      "total_sip": 2000,
+      "total_lumpsum": 0,
+      "fund_count": 3,
+      "health_status": "Moderate",
+      "health_observations": [
+        "\u2713 Healthy category distribution (Top: ETF 50%)",
+        "\u26a0\ufe0f Single fund concentration exceeds 40% (50%)",
+        "\u2713 Diversified across 2 mutual fund houses"
+      ],
+      "categories": [
+        {
+          "name": "ETF",
+          "amount": 1000,
+          "weight": 50
+        },
+        {
+          "name": "Large Cap",
+          "amount": 500,
+          "weight": 25
+        },
+        {
+          "name": "Flexi Cap",
+          "amount": 500,
+          "weight": 25
+        }
+      ]
+    }
+  }
+]

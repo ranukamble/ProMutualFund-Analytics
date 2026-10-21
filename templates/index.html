@@ -1345,56 +1345,99 @@
       margin-top: 8px;
     }
 
-    .category-select {
+    .category-select,
+    #pgFilterCategory,
+    #pgFilterAMC,
+    .pg-select {
       width: 100%;
-      background-color: #0E1726;
-      border: 1px solid rgba(0, 210, 255, 0.28);
-      border-radius: 10px;
-      padding: 8px 28px 8px 11px;
-      font-size: 11.5px;
-      font-weight: 700;
+      background-color: #0E1726 !important;
+      border: 1px solid rgba(0, 210, 255, 0.35) !important;
+      border-radius: 8px !important;
+      padding: 7px 26px 7px 10px !important;
+      font-size: 11.5px !important;
+      font-weight: 700 !important;
       color: #FFFFFF !important;
-      outline: none;
-      cursor: pointer;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      color-scheme: dark;
-      transition: all 180ms ease;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300D2FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 9px center;
-      background-size: 11px 11px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      outline: none !important;
+      cursor: pointer !important;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      color-scheme: dark !important;
+      transition: all 180ms ease !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300D2FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: right 8px center !important;
+      background-size: 11px 11px !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
     }
 
-    .category-select:hover {
-      border-color: rgba(0, 210, 255, 0.55);
-      background-color: #121F36;
+    .category-select:hover,
+    #pgFilterCategory:hover,
+    #pgFilterAMC:hover,
+    .pg-select:hover {
+      border-color: rgba(0, 210, 255, 0.65) !important;
+      background-color: #121F36 !important;
     }
 
-    .category-select:focus {
-      border-color: #00D2FF;
-      box-shadow: 0 0 0 2px rgba(0, 210, 255, 0.25);
+    .category-select:focus,
+    #pgFilterCategory:focus,
+    #pgFilterAMC:focus,
+    .pg-select:focus {
+      border-color: #00D2FF !important;
+      box-shadow: 0 0 0 2px rgba(0, 210, 255, 0.3) !important;
     }
 
-    .category-select option {
+    .category-select option,
+    #pgFilterCategory option,
+    #pgFilterAMC option,
+    .pg-select option,
+    select option {
       background-color: #0D1524 !important;
       color: #FFFFFF !important;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 9px 12px;
+      font-size: 12px !important;
+      font-weight: 600 !important;
+      padding: 10px 14px !important;
     }
 
-    .category-select option:checked {
+    .category-select option:checked,
+    #pgFilterCategory option:checked,
+    #pgFilterAMC option:checked,
+    .pg-select option:checked,
+    select option:checked {
       background-color: #0284C7 !important;
       color: #FFFFFF !important;
-      font-weight: 800;
+      font-weight: 800 !important;
     }
 
-    .category-select option:hover {
+    .category-select option:hover,
+    #pgFilterCategory option:hover,
+    #pgFilterAMC option:hover,
+    .pg-select option:hover,
+    select option:hover {
       background-color: #1E293B !important;
       color: #00D2FF !important;
+    }
+
+    select {
+      color-scheme: dark !important;
+    }
+
+    [data-theme="light"] select {
+      color-scheme: light !important;
+    }
+
+    [data-theme="light"] select option,
+    [data-theme="light"] .category-select option,
+    [data-theme="light"] #pgFilterCategory option,
+    [data-theme="light"] #pgFilterAMC option {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] select option:checked,
+    [data-theme="light"] .category-select option:checked {
+      background-color: #E0F2FE !important;
+      color: #0284C7 !important;
     }
 
     .results-count {
@@ -4332,6 +4375,41 @@
       }
     }
 
+    .pd-h-pill {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-alpha-8);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 150ms ease;
+    }
+
+    .pd-h-pill:hover {
+      border-color: var(--cyan);
+      color: var(--text-main);
+    }
+
+    .pd-h-pill.active {
+      background: rgba(0, 210, 255, 0.18);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    [data-theme="light"] .pd-h-pill {
+      background: #F1F5F9;
+      border-color: rgba(0, 0, 0, 0.08);
+      color: #475569;
+    }
+
+    [data-theme="light"] .pd-h-pill.active {
+      background: rgba(2, 132, 199, 0.12);
+      border-color: #0284C7;
+      color: #0284C7;
+    }
+
     [data-theme="light"] #portfolioDetailView {
       background: #F8FAFC !important;
     }
@@ -4708,6 +4786,12 @@
           style="text-decoration: none; color: #38BDF8; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
           <span>📰</span> NEWS
         </a>
+        <div style="width: 1px; height: 16px; background: rgba(255,255,255,0.08);"></div>
+        <a href="javascript:void(0)" onclick="openLiveVerifier()" class="btn-header-item"
+          title="Open Live Mutual Fund Verification & Audit Engine"
+          style="text-decoration: none; color: #34D399; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 5px 11px;">
+          <span>🛡️</span> VERIFY
+        </a>
       </div>
 
       <button onclick="pg.open()" class="btn-create-portfolio">
@@ -4834,6 +4918,12 @@
             style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2px 6px; font-size: 11px; color: #CBD5E1;">Ctrl+K</kbd>
           to search.
         </p>
+        <div style="margin-top: 18px; display: flex; gap: 10px; justify-content: center;">
+          <a href="/verify" target="_blank"
+            style="display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(0,210,255,0.22)); border: 1px solid rgba(16,185,129,0.45); color: #34D399; font-weight: 800; font-size: 12px; text-decoration: none; box-shadow: 0 4px 18px rgba(16,185,129,0.25); transition: all 180ms ease;">
+            <span>🛡️</span> Open Live Verification Engine
+          </a>
+        </div>
       </div>
 
       <div class="loader-spinner" id="loader"></div>
@@ -4854,6 +4944,13 @@
                 <span class="hero-tag" id="val-category-tag"
                   style="background-color: rgba(0,210,255,0.1); color: #67E8F9; border: 1px solid rgba(0,210,255,0.25);">--</span>
                 <span class="hero-tag" id="val-plan-tag" style="display: none; font-weight: 700;">--</span>
+                <button type="button" onclick="openLiveVerifier()"
+                  style="background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(52,211,153,0.25)); border: 1px solid rgba(52,211,153,0.45); color: #34D399; padding: 4px 14px; border-radius: 999px; font-weight: 800; font-size: 11px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 14px rgba(52,211,153,0.22); transition: all 180ms ease;"
+                  onmouseover="this.style.background='linear-gradient(135deg, rgba(16,185,129,0.32), rgba(52,211,153,0.4))'; this.style.transform='translateY(-1px)';"
+                  onmouseout="this.style.background='linear-gradient(135deg, rgba(16,185,129,0.2), rgba(52,211,153,0.25))'; this.style.transform='none';"
+                  title="Verify this fund's data against official AMFI live feeds">
+                  <span>🛡️</span> <span>Verify Live AMFI</span>
+                </button>
                 <button type="button" onclick="openCurrentOrSearchFundDetail()"
                   style="background: linear-gradient(135deg, rgba(0,210,255,0.18), rgba(139,92,246,0.25)); border: 1px solid rgba(0,210,255,0.45); color: #00D2FF; padding: 4px 14px; border-radius: 999px; font-weight: 800; font-size: 11px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 14px rgba(0,210,255,0.22); transition: all 180ms ease;"
                   onmouseover="this.style.background='linear-gradient(135deg, rgba(0,210,255,0.3), rgba(139,92,246,0.4))'; this.style.transform='translateY(-1px)';"
@@ -7274,8 +7371,7 @@
             <div>
               <label
                 style="font-size:9.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:3px; display:block;">Category</label>
-              <select id="pgFilterCategory" onchange="pg.onFilterChange()"
-                style="width:100%; background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); border-radius:7px; padding:6px 8px; font-size:11px; color:var(--text-main); outline:none;">
+              <select id="pgFilterCategory" class="category-select" onchange="pg.onFilterChange()">
                 <option value="All">All Categories</option>
                 <option value="Large Cap">Large Cap</option>
                 <option value="Flexi Cap">Flexi Cap</option>
@@ -7297,8 +7393,7 @@
               <label
                 style="font-size:9.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:3px; display:block;">Fund
                 House</label>
-              <select id="pgFilterAMC" onchange="pg.onFilterChange()"
-                style="width:100%; background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); border-radius:7px; padding:6px 8px; font-size:11px; color:var(--text-main); outline:none;">
+              <select id="pgFilterAMC" class="category-select" onchange="pg.onFilterChange()">
                 <option value="All">All AMCs</option>
               </select>
             </div>
@@ -7534,11 +7629,11 @@
 
   <!-- ── DEDICATED CREATED PORTFOLIO VIEWER VIEW (PAGE) ── -->
   <div class="main-container" id="portfolioDetailView"
-    style="display:none; flex:1; width:100%; min-height:calc(100vh - 65px); flex-direction:column; background:var(--bg-page); box-sizing:border-box; overflow-y:auto; padding-bottom:60px;">
+    style="display:none; flex:1; width:100%; min-height:calc(100vh - 65px); flex-direction:column; background:var(--bg-page); box-sizing:border-box; overflow-y:auto; padding-bottom:70px;">
 
     <!-- Top Action / Navigation Bar -->
     <div
-      style="background:var(--bg-card); border-bottom:1px solid var(--border-alpha-8); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);">
+      style="background:var(--bg-card); border-bottom:1px solid var(--border-alpha-8); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; position:sticky; top:0; z-index:20; backdrop-filter:blur(12px);">
       <div style="display:flex; align-items:center; gap:10px;">
         <button onclick="pg.backToSavedFromDetail()"
           style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); color:var(--text-main); padding:7px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 150ms;"
@@ -7558,12 +7653,18 @@
         </button>
       </div>
 
-      <div style="display:flex; align-items:center; gap:8px;">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <button id="pdEditBtn" onclick="pg.editCurrentDetailPortfolio()"
           style="background:rgba(0,210,255,0.12); border:1px solid var(--cyan); color:var(--cyan); padding:7px 14px; border-radius:8px; font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 150ms;"
           onmouseover="this.style.background='rgba(0,210,255,0.22)'"
           onmouseout="this.style.background='rgba(0,210,255,0.12)'">
           <span>✏️</span> Edit in Builder
+        </button>
+        <button id="pdVerifyAllBtn" onclick="pg.verifyPortfolioFunds()"
+          style="background:rgba(16,185,129,0.12); border:1px solid #10B981; color:#34D399; padding:7px 14px; border-radius:8px; font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 150ms;"
+          onmouseover="this.style.background='rgba(16,185,129,0.22)'"
+          onmouseout="this.style.background='rgba(16,185,129,0.12)'">
+          <span>🛡️</span> Verify with AMFI
         </button>
         <button onclick="pg.exportCurrentDetailCSV()"
           style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); color:var(--text-main); padding:7px 14px; border-radius:8px; font-size:11.5px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;"
@@ -7585,29 +7686,32 @@
       </div>
     </div>
 
-    <!-- Main Content Container (Max-Width 1320px Centered) -->
+    <!-- Main Content Container (Max-Width 1360px Centered) -->
     <div
-      style="max-width:1320px; width:100%; margin:0 auto; padding:24px 20px; display:flex; flex-direction:column; gap:20px; box-sizing:border-box;">
+      style="max-width:1360px; width:100%; margin:0 auto; padding:24px 20px; display:flex; flex-direction:column; gap:22px; box-sizing:border-box;">
 
       <!-- Portfolio Hero Banner Card -->
       <div
-        style="background:linear-gradient(135deg, rgba(13,21,36,0.9), rgba(19,31,56,0.9)); border:1px solid var(--border-alpha-8); border-radius:18px; padding:24px 28px; box-shadow:0 12px 40px rgba(0,0,0,0.3); position:relative; overflow:hidden;">
+        style="background:linear-gradient(135deg, rgba(13,21,36,0.95), rgba(19,31,56,0.95)); border:1px solid var(--border-alpha-8); border-radius:18px; padding:24px 28px; box-shadow:0 12px 40px rgba(0,0,0,0.35); position:relative; overflow:hidden;">
         <div
-          style="position:absolute; right:-30px; top:-30px; width:220px; height:220px; background:radial-gradient(circle, rgba(0,210,255,0.08) 0%, transparent 70%); border-radius:50%; pointer-events:none;">
+          style="position:absolute; right:-40px; top:-40px; width:260px; height:260px; background:radial-gradient(circle, rgba(0,210,255,0.1) 0%, transparent 70%); border-radius:50%; pointer-events:none;">
+        </div>
+        <div
+          style="position:absolute; left:40%; bottom:-60px; width:220px; height:220px; background:radial-gradient(circle, rgba(52,211,153,0.06) 0%, transparent 70%); border-radius:50%; pointer-events:none;">
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
           <div>
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap;">
               <span
-                style="font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:3px 8px; border-radius:4px; background:rgba(0,210,255,0.12); color:var(--cyan); border:1px solid rgba(0,210,255,0.25);">Institutional
-                Portfolio</span>
+                style="font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:3px 9px; border-radius:5px; background:rgba(0,210,255,0.12); color:var(--cyan); border:1px solid rgba(0,210,255,0.28);">Institutional Allocation</span>
               <span id="pdHealthTag"
-                style="font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:3px 8px; border-radius:4px; background:rgba(52,211,153,0.12); color:#34D399; border:1px solid rgba(52,211,153,0.25);">Optimal
-                Health</span>
+                style="font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:3px 9px; border-radius:5px; background:rgba(52,211,153,0.12); color:#34D399; border:1px solid rgba(52,211,153,0.28);">Optimal Health</span>
+              <span id="pdRiskTierTag"
+                style="font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:3px 9px; border-radius:5px; background:rgba(245,158,11,0.12); color:#FCD34D; border:1px solid rgba(245,158,11,0.28);">Very High Risk (Equity)</span>
             </div>
             <h1 id="pdTitle"
-              style="font-size:26px; font-weight:900; color:var(--text-main); margin:0 0 8px 0; letter-spacing:-0.5px;">
+              style="font-size:28px; font-weight:900; color:var(--text-main); margin:0 0 10px 0; letter-spacing:-0.6px; line-height:1.2;">
               Portfolio Name</h1>
             <div id="pdMeta"
               style="font-size:12px; color:var(--text-muted); display:flex; gap:18px; flex-wrap:wrap; align-items:center;">
@@ -7617,51 +7721,57 @@
         </div>
       </div>
 
-      <!-- KPI Executive Summary Cards (4 Columns) -->
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px;">
+      <!-- KPI Executive Summary Cards (5 Columns) -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px;">
         <!-- Card 1: Monthly SIP -->
         <div
-          style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:14px; padding:18px 20px;">
+          style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:14px; padding:18px 20px; position:relative; overflow:hidden;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
             <span
-              style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">Monthly
-              SIP</span>
+              style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">Monthly SIP</span>
             <span style="font-size:16px;">🔄</span>
           </div>
           <div id="pdKpiSip" style="font-size:24px; font-weight:900; color:#34D399; letter-spacing:-0.5px;">₹0</div>
-          <div id="pdKpiSipAnnual" style="font-size:11px; color:var(--text-muted); margin-top:4px;">Annual Commitment:
-            ₹0
-            / yr</div>
+          <div id="pdKpiSipAnnual" style="font-size:11px; color:var(--text-muted); margin-top:4px;">Annual: ₹0 / yr</div>
         </div>
 
-        <!-- Card 2: Lumpsum -->
+        <!-- Card 2: One-Time Lumpsum -->
         <div
           style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:14px; padding:18px 20px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
             <span
-              style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">One-Time
-              Lumpsum</span>
+              style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">One-Time Lumpsum</span>
             <span style="font-size:16px;">💼</span>
           </div>
-          <div id="pdKpiLump" style="font-size:24px; font-weight:900; color:var(--cyan); letter-spacing:-0.5px;">₹0
-          </div>
-          <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Immediate initial capital</div>
+          <div id="pdKpiLump" style="font-size:24px; font-weight:900; color:var(--cyan); letter-spacing:-0.5px;">₹0</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Immediate initial deployment</div>
         </div>
 
-        <!-- Card 3: Total First Year Commitment -->
+        <!-- Card 3: Year 1 Capital -->
         <div
           style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:14px; padding:18px 20px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
             <span
-              style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">Year
-              1 Capital</span>
+              style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">Year 1 Capital</span>
             <span style="font-size:16px;">📊</span>
           </div>
           <div id="pdKpiTotal" style="font-size:24px; font-weight:900; color:#C4B5FD; letter-spacing:-0.5px;">₹0</div>
           <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Lumpsum + 12 Months SIP</div>
         </div>
 
-        <!-- Card 4: Schemes & AMC Diversity -->
+        <!-- Card 4: Blended Expected CAGR -->
+        <div
+          style="background:linear-gradient(135deg, rgba(0,210,255,0.06), rgba(139,92,246,0.08)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:18px 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span
+              style="font-size:10.5px; font-weight:800; color:var(--cyan); text-transform:uppercase; letter-spacing:0.04em;">Blended Expected Return</span>
+            <span style="font-size:16px;">📈</span>
+          </div>
+          <div id="pdKpiCagr" style="font-size:24px; font-weight:900; color:#00D2FF; letter-spacing:-0.5px;">13.5% p.a.</div>
+          <div id="pdKpiCagrSub" style="font-size:11px; color:var(--text-muted); margin-top:4px;">Weighted Category Model</div>
+        </div>
+
+        <!-- Card 5: Diversification & Costs -->
         <div
           style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:14px; padding:18px 20px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
@@ -7669,21 +7779,185 @@
               style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">Diversification</span>
             <span style="font-size:16px;">🛡️</span>
           </div>
-          <div id="pdKpiDiversity"
-            style="font-size:24px; font-weight:900; color:var(--text-main); letter-spacing:-0.5px;">
-            0 Schemes</div>
-          <div id="pdKpiAmcCount" style="font-size:11px; color:var(--text-muted); margin-top:4px;">Across 0 Fund Houses
-          </div>
+          <div id="pdKpiDiversity" style="font-size:24px; font-weight:900; color:var(--text-main); letter-spacing:-0.5px;">0 Schemes</div>
+          <div id="pdKpiAmcCount" style="font-size:11px; color:var(--text-muted); margin-top:4px;">Across 0 Fund Houses</div>
         </div>
       </div>
 
-      <!-- Main Visual Grid: Left (Allocation & Holdings) / Right (Insights & Disclosures) -->
+      <!-- ── SECTION: EXPECTED RETURNS & WEALTH PROJECTION SIMULATOR ── -->
+      <div
+        style="background:linear-gradient(135deg, rgba(13,21,36,0.95), rgba(15,28,50,0.95)); border:1px solid rgba(0,210,255,0.22); border-radius:18px; padding:24px 26px; box-shadow:0 12px 40px rgba(0,0,0,0.35); position:relative; overflow:hidden;">
+        
+        <!-- Header & Description -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px; margin-bottom:20px; border-bottom:1px solid var(--border-alpha-8); padding-bottom:16px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:18px;">📈</span>
+              <h2 style="font-size:17px; font-weight:800; color:var(--text-main); margin:0; letter-spacing:-0.3px;">
+                Expected Returns &amp; Wealth Growth Projections
+              </h2>
+              <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; background:rgba(0,210,255,0.12); color:var(--cyan); border:1px solid rgba(0,210,255,0.3);">
+                Compound Simulation
+              </span>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); margin:4px 0 0 0;">
+              Model future compounded maturity corpus across varied time horizons and CAGR scenarios based on this portfolio's allocation.
+            </p>
+          </div>
+
+          <!-- Quick Preset Buttons -->
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="font-size:11px; color:var(--text-muted); font-weight:700; margin-right:4px;">Scenarios:</span>
+            <button type="button" onclick="pg.setProjectionPreset(10)" class="pg-chip" id="pdPreset10">Conservative (10%)</button>
+            <button type="button" onclick="pg.setProjectionPreset('blended')" class="pg-chip" id="pdPresetBlended" style="border-color:var(--cyan); color:var(--cyan); background:rgba(0,210,255,0.1);">Blended (~13.5%)</button>
+            <button type="button" onclick="pg.setProjectionPreset(16)" class="pg-chip" id="pdPreset16">High Growth (16%)</button>
+          </div>
+        </div>
+
+        <!-- Controls Row: Horizon Pills & CAGR Slider -->
+        <div style="display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:center; margin-bottom:24px; flex-wrap:wrap;">
+          
+          <!-- Horizon Selector Pills -->
+          <div>
+            <div style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;">
+              Investment Horizon:
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;" id="pdHorizonPills">
+              <button type="button" onclick="pg.setProjectionHorizon(1)" class="pd-h-pill" data-years="1">1 Yr</button>
+              <button type="button" onclick="pg.setProjectionHorizon(3)" class="pd-h-pill" data-years="3">3 Yrs</button>
+              <button type="button" onclick="pg.setProjectionHorizon(5)" class="pd-h-pill" data-years="5">5 Yrs</button>
+              <button type="button" onclick="pg.setProjectionHorizon(10)" class="pd-h-pill active" data-years="10">10 Yrs</button>
+              <button type="button" onclick="pg.setProjectionHorizon(15)" class="pd-h-pill" data-years="15">15 Yrs</button>
+              <button type="button" onclick="pg.setProjectionHorizon(20)" class="pd-h-pill" data-years="20">20 Yrs</button>
+            </div>
+          </div>
+
+          <!-- Return Rate Slider & Display -->
+          <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); border-radius:12px; padding:12px 18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:11px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.03em;">
+                Expected CAGR Rate:
+              </span>
+              <span id="pdProjRateLabel" style="font-size:15px; font-weight:900; color:var(--cyan);">13.5% p.a.</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:10px; color:var(--text-dark); font-weight:700;">6%</span>
+              <input type="range" id="pdProjRateSlider" min="6" max="25" step="0.5" value="13.5" oninput="pg.onProjectionRateInput(this.value)" style="flex:1; accent-color:var(--cyan); cursor:pointer;">
+              <span style="font-size:10px; color:var(--text-dark); font-weight:700;">25%</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Outcome Highlights 3-Card Grid -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:22px;">
+          
+          <!-- Box 1: Total Principal Invested -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:14px; padding:18px 20px;">
+            <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px;">
+              Total Principal Invested
+            </div>
+            <div id="pdProjInvested" style="font-size:26px; font-weight:900; color:var(--text-main); letter-spacing:-0.5px;">
+              ₹2,40,000
+            </div>
+            <div id="pdProjInvestedSub" style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">
+              Lumpsum + Cumulative SIPs
+            </div>
+          </div>
+
+          <!-- Box 2: Projected Future Corpus (Hero) -->
+          <div style="background:linear-gradient(135deg, rgba(16,185,129,0.12), rgba(0,210,255,0.08)); border:1px solid rgba(52,211,153,0.35); border-radius:14px; padding:18px 20px; box-shadow:0 6px 24px rgba(52,211,153,0.15);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <span style="font-size:11px; font-weight:800; color:#34D399; text-transform:uppercase;">
+                Projected Future Corpus
+              </span>
+              <span id="pdProjMultiplierBadge" style="font-size:10px; font-weight:800; padding:2px 7px; border-radius:4px; background:rgba(52,211,153,0.2); color:#34D399;">
+                2.4x Capital
+              </span>
+            </div>
+            <div id="pdProjCorpus" style="font-size:30px; font-weight:900; color:#34D399; letter-spacing:-0.8px;">
+              ₹5,84,320
+            </div>
+            <div id="pdProjCorpusSub" style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">
+              Maturity value after 10 years @ 13.5%
+            </div>
+          </div>
+
+          <!-- Box 3: Estimated Wealth Gain -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:14px; padding:18px 20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <span style="font-size:11px; font-weight:800; color:var(--cyan); text-transform:uppercase;">
+                Estimated Returns (Wealth Gain)
+              </span>
+              <span id="pdProjGainPct" style="font-size:10px; font-weight:800; padding:2px 7px; border-radius:4px; background:rgba(0,210,255,0.15); color:var(--cyan);">
+                +143.5% Gain
+              </span>
+            </div>
+            <div id="pdProjGain" style="font-size:26px; font-weight:900; color:var(--cyan); letter-spacing:-0.5px;">
+              +₹3,44,320
+            </div>
+            <div style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">
+              Pure compounding growth profit
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Visual Capital vs Wealth Gain Ratio Bar -->
+        <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); border-radius:14px; padding:16px 20px; margin-bottom:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; font-weight:800; margin-bottom:8px;">
+            <span style="color:var(--text-muted); text-transform:uppercase;">Capital Breakdown Ratio</span>
+            <div style="display:flex; gap:16px;">
+              <span style="display:flex; align-items:center; gap:5px; color:var(--text-muted);">
+                <span style="width:8px; height:8px; border-radius:50%; background:#3B82F6;"></span>
+                Principal Invested: <strong id="pdRatioInvPct" style="color:var(--text-main);">41%</strong>
+              </span>
+              <span style="display:flex; align-items:center; gap:5px; color:var(--text-muted);">
+                <span style="width:8px; height:8px; border-radius:50%; background:#34D399;"></span>
+                Wealth Gain: <strong id="pdRatioGainPct" style="color:#34D399;">59%</strong>
+              </span>
+            </div>
+          </div>
+          <div style="height:12px; border-radius:6px; background:var(--border-alpha-8); display:flex; overflow:hidden;">
+            <div id="pdRatioInvBar" style="width:41%; height:100%; background:#3B82F6; transition:width 300ms ease;"></div>
+            <div id="pdRatioGainBar" style="width:59%; height:100%; background:#34D399; transition:width 300ms ease;"></div>
+          </div>
+        </div>
+
+        <!-- Multi-Horizon Milestones Table -->
+        <div style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:14px; overflow:hidden;">
+          <div style="padding:12px 18px; border-bottom:1px solid var(--border-alpha-8); font-size:11.5px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.04em; display:flex; justify-content:space-between; align-items:center;">
+            <span>Growth Milestones Timeline</span>
+            <span style="font-size:10.5px; color:var(--text-muted); font-weight:600;">Compound growth trajectory across decades</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:11.5px; text-align:left;">
+              <thead>
+                <tr style="background:var(--hover-alpha); border-bottom:1px solid var(--border-alpha-8); color:var(--text-muted); font-size:10px; text-transform:uppercase; font-weight:700;">
+                  <th style="padding:10px 16px;">Milestone Horizon</th>
+                  <th style="padding:10px 16px; text-align:right;">Principal Invested</th>
+                  <th style="padding:10px 16px; text-align:right;">Wealth Gain (Profit)</th>
+                  <th style="padding:10px 16px; text-align:right;">Projected Corpus</th>
+                  <th style="padding:10px 16px; text-align:right;">Multiplier</th>
+                  <th style="padding:10px 16px; text-align:center;">Trajectory</th>
+                </tr>
+              </thead>
+              <tbody id="pdMilestonesTableBody">
+                <!-- Injected dynamically by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Main Visual Grid: Left (Allocation & Holdings) / Right (Insights, Costs & Disclosures) -->
       <div class="pd-grid-layout">
 
         <!-- Left Column: Asset Allocation Bar & Full Holdings Table -->
         <div style="display:flex; flex-direction:column; gap:20px;">
 
-          <!-- Category Allocation Card -->
+          <!-- Category Asset Allocation Card -->
           <div
             style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:16px; padding:20px 22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
@@ -7691,8 +7965,7 @@
                 style="font-size:13px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.04em; margin:0;">
                 Category Asset Allocation
               </h3>
-              <span id="pdAllocBasisTag" style="font-size:10.5px; color:var(--cyan); font-weight:700;">Portfolio
-                Split</span>
+              <span id="pdAllocBasisTag" style="font-size:10.5px; color:var(--cyan); font-weight:700;">Portfolio Split</span>
             </div>
 
             <!-- Stacked Color Bar -->
@@ -7707,7 +7980,7 @@
             </div>
           </div>
 
-          <!-- Holdings Table Card -->
+          <!-- Underlying Scheme Holdings Table Card -->
           <div
             style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:16px; overflow:hidden;">
             <div
@@ -7717,10 +7990,14 @@
                   style="font-size:13px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.04em; margin:0;">
                   Underlying Scheme Holdings (<span id="pdHoldingsCount" style="color:var(--cyan);">0</span>)
                 </h3>
-                <p style="font-size:11px; color:var(--text-muted); margin:2px 0 0 0;">Click on any scheme name to view
-                  live
-                  AMFI factsheet &amp; NAV chart</p>
+                <p style="font-size:11px; color:var(--text-muted); margin:2px 0 0 0;">
+                  Comprehensive fund breakdown with live AMFI data, mode split &amp; benchmark returns
+                </p>
               </div>
+              <button onclick="pg.verifyPortfolioFunds()"
+                style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); color:#34D399; font-size:11px; font-weight:700; padding:6px 12px; border-radius:8px; cursor:pointer;">
+                🛡️ Live AMFI Check All
+              </button>
             </div>
 
             <div style="overflow-x:auto;">
@@ -7729,13 +8006,15 @@
                   <tr
                     style="background:var(--hover-alpha); border-bottom:1px solid var(--border-alpha-8); color:var(--text-muted); font-size:10.5px; text-transform:uppercase; font-weight:700;">
                     <th style="padding:12px 16px;">#</th>
-                    <th style="padding:12px 16px;">Scheme Name</th>
+                    <th style="padding:12px 16px;">Scheme Details</th>
                     <th style="padding:12px 14px;">Category</th>
                     <th style="padding:12px 14px;">Plan / Opt</th>
                     <th style="padding:12px 14px;">Mode</th>
+                    <th style="padding:12px 14px; text-align:right;">Weight</th>
                     <th style="padding:12px 16px; text-align:right;">Monthly SIP</th>
                     <th style="padding:12px 16px; text-align:right;">Lumpsum</th>
-                    <th style="padding:12px 14px; text-align:center;">Factsheet</th>
+                    <th style="padding:12px 14px; text-align:right;">Exp. CAGR</th>
+                    <th style="padding:12px 14px; text-align:center;">Actions</th>
                   </tr>
                 </thead>
                 <tbody id="pdHoldingsTableBody">
@@ -7747,16 +8026,61 @@
 
         </div>
 
-        <!-- Right Column: AMC Exposure, Health Checks & Disclaimers -->
+        <!-- Right Column: AMC Exposure, Health Checks & Details Suite -->
         <div style="display:flex; flex-direction:column; gap:20px;">
+
+          <!-- Portfolio Cost & Efficiency Insights Card -->
+          <div
+            style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:16px; padding:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <h3
+                style="font-size:12px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.04em; margin:0;">
+                Cost &amp; Expense Analysis
+              </h3>
+              <span id="pdTerBadge" style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; background:rgba(0,210,255,0.12); color:var(--cyan); border:1px solid rgba(0,210,255,0.3);">
+                ~0.58% TER
+              </span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); border-radius:12px; padding:12px 14px;">
+                <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
+                  Direct Plan Advantage
+                </div>
+                <div id="pdDirectSavings" style="font-size:16px; font-weight:900; color:#34D399; margin:4px 0 2px;">
+                  ₹2,400+ / yr saved
+                </div>
+                <div style="font-size:10.5px; color:var(--text-dark);">
+                  Zero distributor commissions compounded directly in your portfolio
+                </div>
+              </div>
+
+              <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); border-radius:12px; padding:12px 14px;">
+                <div style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
+                  Tax Efficiency Profile
+                </div>
+                <div id="pdTaxStatus" style="font-size:13px; font-weight:800; color:var(--text-main); margin:4px 0 2px;">
+                  Sec 112A LTCG Eligible
+                </div>
+                <div style="font-size:10.5px; color:var(--text-dark);">
+                  ₹1.25 Lakh per FY capital gains are 100% tax-free
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- AMC / Fund House Spread Card -->
           <div
             style="background:var(--bg-card); border:1px solid var(--border-alpha-8); border-radius:16px; padding:20px;">
-            <h3
-              style="font-size:12px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.04em; margin:0 0 12px 0;">
-              AMC / Fund House Spread
-            </h3>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <h3
+                style="font-size:12px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.04em; margin:0;">
+                AMC / Fund House Spread
+              </h3>
+              <span id="pdAmcSpreadCountBadge" style="font-size:10px; color:var(--text-muted); font-weight:700;">
+                2 AMCs
+              </span>
+            </div>
             <div id="pdAmcSpreadList" style="display:flex; flex-direction:column; gap:10px;">
               <!-- AMCs injected by JS -->
             </div>
@@ -7782,11 +8106,9 @@
           <!-- Transaction Boundary & Compliance Notice -->
           <div
             style="background:rgba(255,255,255,0.02); border:1px solid var(--border-alpha-8); border-radius:14px; padding:16px; font-size:11px; color:var(--text-dark); line-height:1.6;">
-            🛡️ <strong>Institutional Portfolio Notice:</strong> This page presents the asset allocation and scheme
-            modeling
-            parameters saved in this terminal. Mutual fund investments are subject to market risks. Read all scheme
-            related
-            documents carefully.
+            🛡️ <strong>Institutional Portfolio Notice:</strong> This terminal tool simulates asset allocation, expected
+            returns and scheme modeling parameters saved in this platform. Mutual fund investments are subject to market
+            risks. Read all scheme related documents carefully.
           </div>
 
         </div>
@@ -9078,6 +9400,14 @@
   </div>
 
   <script>
+    function openLiveVerifier() {
+      if (typeof activeCode !== 'undefined' && activeCode) {
+        window.open('/verify/' + activeCode, '_blank');
+      } else {
+        window.open('/verify', '_blank');
+      }
+    }
+
     // --- Navigation System ---
     const VIEWS = { MAIN: 'main-view', BUILDER: 'portfolio-builder-view', SAVED: 'saved-portfolio-view' };
     let currentView = VIEWS.MAIN;
@@ -15920,6 +16250,200 @@
         viewPortfolio(p);
       }
 
+      function getExpectedCagr(cat) {
+        if (!cat) return 13.0;
+        const c = String(cat).toLowerCase();
+        if (c.includes('small')) return 17.5;
+        if (c.includes('mid')) return 16.0;
+        if (c.includes('flexi') || c.includes('multi') || c.includes('large & mid')) return 14.5;
+        if (c.includes('large') || c.includes('bluechip') || c.includes('top 100')) return 13.0;
+        if (c.includes('elss') || c.includes('tax')) return 14.5;
+        if (c.includes('sectoral') || c.includes('thematic')) return 16.0;
+        if (c.includes('hybrid') || c.includes('balanced')) return 11.5;
+        if (c.includes('conservative')) return 9.0;
+        if (c.includes('debt') || c.includes('liquid') || c.includes('money')) return 6.8;
+        if (c.includes('gold') || c.includes('etf')) return 11.0;
+        if (c.includes('index')) return 13.0;
+        if (c.includes('international')) return 12.0;
+        return 13.0;
+      }
+
+      function updatePortfolioProjections() {
+        const p = state.currentViewingPortfolio;
+        if (!p) return;
+
+        const funds = p.funds || [];
+        let totalSip = (p.summary && p.summary.total_sip !== undefined) ? Number(p.summary.total_sip) : 0;
+        let totalLump = (p.summary && p.summary.total_lumpsum !== undefined) ? Number(p.summary.total_lumpsum) : 0;
+        if (totalSip === 0 && totalLump === 0 && funds.length > 0) {
+          funds.forEach(f => {
+            if (f.sip_amount) totalSip += Number(f.sip_amount);
+            if (f.lumpsum_amount) totalLump += Number(f.lumpsum_amount);
+          });
+          if (totalSip === 0 && totalLump === 0 && Number(p.investment_amount) > 0) {
+            totalLump = Number(p.investment_amount);
+          }
+        }
+
+        const years = state.projYears || 10;
+        const rate = state.projRate !== undefined ? state.projRate : (state.blendedCagr || 13.5);
+
+        // Future Value math
+        const months = years * 12;
+        const monthlyRate = (rate / 100) / 12;
+
+        let fvSip = 0;
+        if (totalSip > 0) {
+          if (monthlyRate > 0) {
+            fvSip = totalSip * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+          } else {
+            fvSip = totalSip * months;
+          }
+        }
+
+        let fvLump = 0;
+        if (totalLump > 0) {
+          fvLump = totalLump * Math.pow(1 + rate / 100, years);
+        }
+
+        const totalInvested = totalLump + (totalSip * months);
+        const projectedCorpus = Math.round(fvSip + fvLump);
+        const wealthGain = Math.max(0, projectedCorpus - totalInvested);
+        const gainPct = totalInvested > 0 ? ((wealthGain / totalInvested) * 100) : 0;
+        const multiplier = totalInvested > 0 ? (projectedCorpus / totalInvested) : 1;
+
+        // Update Slider & Labels
+        const rateSlider = document.getElementById('pdProjRateSlider');
+        const rateLabel = document.getElementById('pdProjRateLabel');
+        if (rateSlider) rateSlider.value = rate;
+        if (rateLabel) rateLabel.textContent = `${rate.toFixed(1)}% p.a.`;
+
+        // Update active horizon pill
+        const pills = document.querySelectorAll('#pdHorizonPills .pd-h-pill');
+        pills.forEach(pill => {
+          const y = Number(pill.getAttribute('data-years'));
+          pill.classList.toggle('active', y === years);
+        });
+
+        // Preset buttons border highlighting
+        const pr10 = document.getElementById('pdPreset10');
+        const prBlended = document.getElementById('pdPresetBlended');
+        const pr16 = document.getElementById('pdPreset16');
+        if (pr10) pr10.style.borderColor = rate === 10 ? 'var(--cyan)' : 'var(--border-alpha-8)';
+        if (pr16) pr16.style.borderColor = rate === 16 ? 'var(--cyan)' : 'var(--border-alpha-8)';
+        if (prBlended) prBlended.style.borderColor = (Math.abs(rate - (state.blendedCagr || 13.5)) < 0.1) ? 'var(--cyan)' : 'var(--border-alpha-8)';
+
+        // Output figures
+        const elInvested = document.getElementById('pdProjInvested');
+        const elInvestedSub = document.getElementById('pdProjInvestedSub');
+        const elCorpus = document.getElementById('pdProjCorpus');
+        const elCorpusSub = document.getElementById('pdProjCorpusSub');
+        const elMultiplier = document.getElementById('pdProjMultiplierBadge');
+        const elGain = document.getElementById('pdProjGain');
+        const elGainPct = document.getElementById('pdProjGainPct');
+
+        if (elInvested) elInvested.textContent = fmtINR(totalInvested);
+        if (elInvestedSub) {
+          elInvestedSub.textContent = totalLump > 0
+            ? `${fmtINR(totalLump)} Lumpsum + ${fmtINR(totalSip * months)} (${years}y SIP)`
+            : `${fmtINR(totalSip * months)} (${years}y SIP commitment)`;
+        }
+        if (elCorpus) elCorpus.textContent = fmtINR(projectedCorpus);
+        if (elCorpusSub) elCorpusSub.textContent = `Maturity value after ${years} years @ ${rate.toFixed(1)}% p.a.`;
+        if (elMultiplier) elMultiplier.textContent = `${multiplier.toFixed(2)}x Capital`;
+        if (elGain) elGain.textContent = `+${fmtINR(wealthGain)}`;
+        if (elGainPct) elGainPct.textContent = `+${gainPct.toFixed(1)}% Gain`;
+
+        // Ratio Bar
+        const ratioInvPct = projectedCorpus > 0 ? Math.max(1, Math.min(99, Math.round((totalInvested / projectedCorpus) * 100))) : 50;
+        const ratioGainPct = Math.max(1, 100 - ratioInvPct);
+        const elRatioInv = document.getElementById('pdRatioInvPct');
+        const elRatioGain = document.getElementById('pdRatioGainPct');
+        const barInv = document.getElementById('pdRatioInvBar');
+        const barGain = document.getElementById('pdRatioGainBar');
+
+        if (elRatioInv) elRatioInv.textContent = `${ratioInvPct}%`;
+        if (elRatioGain) elRatioGain.textContent = `${ratioGainPct}%`;
+        if (barInv) barInv.style.width = `${ratioInvPct}%`;
+        if (barGain) barGain.style.width = `${ratioGainPct}%`;
+
+        // Milestones table
+        const milestonesBody = document.getElementById('pdMilestonesTableBody');
+        if (milestonesBody) {
+          const horizons = [1, 3, 5, 10, 15, 20];
+          milestonesBody.innerHTML = horizons.map(h => {
+            const mMonths = h * 12;
+            let mFvSip = 0;
+            if (totalSip > 0) {
+              mFvSip = monthlyRate > 0
+                ? totalSip * ((Math.pow(1 + monthlyRate, mMonths) - 1) / monthlyRate) * (1 + monthlyRate)
+                : totalSip * mMonths;
+            }
+            let mFvLump = totalLump > 0 ? totalLump * Math.pow(1 + rate / 100, h) : 0;
+            const mInvested = totalLump + (totalSip * mMonths);
+            const mCorpus = Math.round(mFvSip + mFvLump);
+            const mGain = Math.max(0, mCorpus - mInvested);
+            const mMult = mInvested > 0 ? (mCorpus / mInvested) : 1;
+            const isCurrent = h === years;
+
+            return `
+              <tr style="border-bottom:1px solid var(--border-alpha-8); background:${isCurrent ? 'rgba(0,210,255,0.08)' : 'transparent'}; font-weight:${isCurrent ? '800' : '500'};">
+                <td style="padding:10px 16px; color:var(--text-main); display:flex; align-items:center; gap:8px;">
+                  ${isCurrent ? '<span style="color:var(--cyan); font-size:14px;">●</span>' : '<span style="color:var(--text-dark); font-size:14px;">○</span>'}
+                  <span>${h} Year${h > 1 ? 's' : ''}</span>
+                  ${isCurrent ? '<span style="font-size:9.5px; padding:1px 6px; border-radius:4px; background:rgba(0,210,255,0.18); color:var(--cyan); border:1px solid rgba(0,210,255,0.3);">Selected</span>' : ''}
+                </td>
+                <td style="padding:10px 16px; text-align:right; color:var(--text-muted);">${fmtINR(mInvested)}</td>
+                <td style="padding:10px 16px; text-align:right; color:var(--cyan); font-weight:700;">+${fmtINR(mGain)}</td>
+                <td style="padding:10px 16px; text-align:right; color:#34D399; font-weight:800; font-size:12.5px;">${fmtINR(mCorpus)}</td>
+                <td style="padding:10px 16px; text-align:right; color:var(--text-main);">${mMult.toFixed(2)}x</td>
+                <td style="padding:10px 16px; text-align:center;">
+                  <button type="button" onclick="pg.setProjectionHorizon(${h})" style="background:${isCurrent ? 'var(--cyan)' : 'var(--bg-card-alt)'}; color:${isCurrent ? '#000' : 'var(--text-muted)'}; border:1px solid ${isCurrent ? 'var(--cyan)' : 'var(--border-alpha-8)'}; border-radius:6px; padding:3px 10px; font-size:10px; font-weight:700; cursor:pointer;">
+                    ${isCurrent ? 'Active' : 'Simulate'}
+                  </button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+
+      function setProjectionHorizon(years) {
+        state.projYears = Number(years);
+        updatePortfolioProjections();
+      }
+
+      function onProjectionRateInput(val) {
+        state.projRate = parseFloat(val) || 13.5;
+        updatePortfolioProjections();
+      }
+
+      function setProjectionPreset(preset) {
+        if (preset === 'blended') {
+          state.projRate = state.blendedCagr || 13.5;
+        } else {
+          state.projRate = Number(preset);
+        }
+        updatePortfolioProjections();
+      }
+
+      function verifyPortfolioFunds() {
+        const p = state.currentViewingPortfolio;
+        if (!p || !p.funds || p.funds.length === 0) {
+          window.location.href = '/verify';
+          return;
+        }
+        const codes = p.funds.map(f => f.code).filter(Boolean).join(',');
+        const pName = encodeURIComponent(p.name || 'Portfolio');
+        window.location.href = `/verify?codes=${codes}&portfolio=${pName}`;
+      }
+
+      function verifySingleScheme(code) {
+        if (code) {
+          window.location.href = `/verify/${code}`;
+        }
+      }
+
       function viewPortfolio(p) {
         state.currentViewingPortfolio = p;
         closeSavedPortfolios();
@@ -15942,6 +16466,7 @@
         const titleEl = document.getElementById('pdTitle');
         const metaEl = document.getElementById('pdMeta');
         const healthTag = document.getElementById('pdHealthTag');
+        const riskTierTag = document.getElementById('pdRiskTierTag');
 
         if (titleEl) titleEl.textContent = p.name || 'Untitled Portfolio';
         const funds = p.funds || [];
@@ -15982,19 +16507,35 @@
         const kpiAmcCount = document.getElementById('pdKpiAmcCount');
 
         if (kpiSip) kpiSip.textContent = fmtINR(totalSip) + ' / mo';
-        if (kpiSipAnnual) kpiSipAnnual.textContent = 'Annual Commitment: ' + fmtINR(totalSip * 12) + ' / yr';
+        if (kpiSipAnnual) kpiSipAnnual.textContent = 'Annual: ' + fmtINR(totalSip * 12) + ' / yr';
         if (kpiLump) kpiLump.textContent = fmtINR(totalLump);
         if (kpiTotal) kpiTotal.textContent = fmtINR(totalAnnualCommitment);
         if (kpiDiversity) kpiDiversity.textContent = `${fundCount} Schemes`;
-        if (kpiAmcCount) kpiAmcCount.textContent = `Across ${uniqueAmcs.size} Fund Houses`;
+        if (kpiAmcCount) kpiAmcCount.textContent = `Across ${uniqueAmcs.size} Fund House${uniqueAmcs.size > 1 ? 's' : ''}`;
 
-        // 3. Category Breakdown Bar & Legend
+        // 3. Category Breakdown Bar & Blended CAGR calculation
         const catMap = {};
+        let weightedCagrSum = 0;
+        let totalCommitmentVal = 0;
+
         funds.forEach(f => {
           const cat = f.category || 'Other';
           const amt = (Number(f.sip_amount) || 0) * 12 + (Number(f.lumpsum_amount) || 0) || (Number(f.weight) || 10);
           catMap[cat] = (catMap[cat] || 0) + amt;
+          const expCagr = getExpectedCagr(cat);
+          weightedCagrSum += expCagr * amt;
+          totalCommitmentVal += amt;
         });
+
+        const blendedCagr = totalCommitmentVal > 0 ? (weightedCagrSum / totalCommitmentVal) : 13.5;
+        state.blendedCagr = Math.round(blendedCagr * 10) / 10;
+        state.projRate = state.blendedCagr;
+        state.projYears = 10;
+
+        const kpiCagr = document.getElementById('pdKpiCagr');
+        if (kpiCagr) kpiCagr.textContent = `${state.blendedCagr}% p.a.`;
+        const presetBlended = document.getElementById('pdPresetBlended');
+        if (presetBlended) presetBlended.textContent = `Blended (${state.blendedCagr}%)`;
 
         const totalCatVal = Object.values(catMap).reduce((a, b) => a + b, 0) || 1;
         const categories = Object.entries(catMap).map(([cat, amt]) => ({
@@ -16027,14 +16568,60 @@
           `).join('');
         }
 
-        // 4. Underlying Holdings Table
+        // Equity weight & SEBI Riskometer evaluation
+        let equityWeight = 0;
+        categories.forEach(c => {
+          const cLow = c.category.toLowerCase();
+          if (!cLow.includes('debt') && !cLow.includes('gold') && !cLow.includes('liquid') && !cLow.includes('money')) {
+            equityWeight += c.pct;
+          }
+        });
+
+        if (riskTierTag) {
+          if (equityWeight >= 70) {
+            riskTierTag.textContent = `Very High Risk (${equityWeight.toFixed(0)}% Equity)`;
+            riskTierTag.style.color = '#FCD34D';
+            riskTierTag.style.background = 'rgba(245,158,11,0.12)';
+            riskTierTag.style.borderColor = 'rgba(245,158,11,0.3)';
+          } else if (equityWeight >= 40) {
+            riskTierTag.textContent = `Moderately High Risk (${equityWeight.toFixed(0)}% Equity)`;
+            riskTierTag.style.color = '#00D2FF';
+            riskTierTag.style.background = 'rgba(0,210,255,0.12)';
+            riskTierTag.style.borderColor = 'rgba(0,210,255,0.3)';
+          } else {
+            riskTierTag.textContent = `Moderate Risk (Balanced Allocation)`;
+            riskTierTag.style.color = '#34D399';
+            riskTierTag.style.background = 'rgba(52,211,153,0.12)';
+            riskTierTag.style.borderColor = 'rgba(52,211,153,0.3)';
+          }
+        }
+
+        // TER & Direct Savings
+        let directCount = 0;
+        funds.forEach(f => {
+          if (f.plan === 'Direct' || (f.name && f.name.toLowerCase().includes('direct'))) {
+            directCount++;
+          }
+        });
+        const isPredomDirect = fundCount > 0 ? (directCount / fundCount >= 0.5) : true;
+        const avgTer = isPredomDirect ? 0.56 : 1.78;
+        const terBadge = document.getElementById('pdTerBadge');
+        if (terBadge) terBadge.textContent = `~${avgTer}% Weighted TER`;
+
+        const directSavingsEl = document.getElementById('pdDirectSavings');
+        if (directSavingsEl) {
+          const annualCommissionSavings = Math.max(1200, Math.round(totalAnnualCommitment * 0.0115));
+          directSavingsEl.textContent = `₹${annualCommissionSavings.toLocaleString('en-IN')}+ / yr saved`;
+        }
+
+        // 4. Underlying Holdings Table with Expected Returns
         const holdingsBody = document.getElementById('pdHoldingsTableBody');
         const holdingsCount = document.getElementById('pdHoldingsCount');
         if (holdingsCount) holdingsCount.textContent = fundCount;
 
         if (holdingsBody) {
           if (funds.length === 0) {
-            holdingsBody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:30px; color:var(--text-dark);">No funds in this portfolio</td></tr>`;
+            holdingsBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:30px; color:var(--text-dark);">No funds in this portfolio</td></tr>`;
           } else {
             holdingsBody.innerHTML = funds.map((f, i) => {
               const code = String(f.code || '');
@@ -16048,41 +16635,59 @@
               const lumpVal = Number(f.lumpsum_amount) || 0;
               const sipWeight = f.sip_weight !== undefined ? Number(f.sip_weight) : (totalSip > 0 ? (sipVal / totalSip * 100) : 0);
               const lumpWeight = f.lumpsum_weight !== undefined ? Number(f.lumpsum_weight) : (totalLump > 0 ? (lumpVal / totalLump * 100) : (f.weight || 0));
+              const fundAnnualVal = (sipVal * 12) + lumpVal;
+              const fundWeight = totalAnnualCommitment > 0 ? (fundAnnualVal / totalAnnualCommitment * 100) : (100 / fundCount);
               const catColor = getCatColor(cat);
+              const expCagr = getExpectedCagr(cat);
 
               return `
                 <tr style="border-bottom:1px solid var(--border-alpha-8); transition:background 150ms;" onmouseover="this.style.background='var(--hover-alpha)'" onmouseout="this.style.background='transparent'">
-                  <td style="padding:12px 16px; color:var(--text-dark); font-weight:700;">${i + 1}</td>
-                  <td style="padding:12px 16px;">
-                    <div onclick="openFundDetailModal('${code}')" style="font-weight:700; color:var(--text-main); cursor:pointer; line-height:1.4;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-main)'" title="View Factsheet">
+                  <td style="padding:14px 16px; color:var(--text-dark); font-weight:700;">${i + 1}</td>
+                  <td style="padding:14px 16px;">
+                    <div onclick="openFundDetailModal('${code}')" style="font-weight:700; color:var(--text-main); cursor:pointer; line-height:1.4;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-main)'" title="View Scheme Factsheet & NAV history">
                       ${escapeHtml(name)}
                     </div>
-                    <div style="font-size:10.5px; color:var(--text-dark); margin-top:2px;">
-                      AMFI: <span style="font-family:monospace; color:var(--cyan);">${code}</span> · AMC: ${escapeHtml(amc)}
+                    <div style="font-size:10.5px; color:var(--text-dark); margin-top:3px; display:flex; gap:10px; align-items:center;">
+                      <span>AMFI: <span style="font-family:monospace; color:var(--cyan); font-weight:700;">${code}</span></span>
+                      <span>AMC: <strong style="color:var(--text-muted);">${escapeHtml(amc)}</strong></span>
                     </div>
                   </td>
-                  <td style="padding:12px 14px;">
-                    <span style="font-size:10px; font-weight:800; padding:2px 7px; border-radius:4px; background:${catColor}20; color:${catColor}; border:1px solid ${catColor}40;">
+                  <td style="padding:14px 14px;">
+                    <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; background:${catColor}20; color:${catColor}; border:1px solid ${catColor}40;">
                       ${escapeHtml(cat)}
                     </span>
                   </td>
-                  <td style="padding:12px 14px;">
+                  <td style="padding:14px 14px;">
                     <span style="font-size:9.5px; font-weight:700; padding:2px 5px; border-radius:3px; background:${plan === 'Direct' ? 'rgba(0,210,255,0.1)' : 'rgba(255,255,255,0.05)'}; color:${plan === 'Direct' ? 'var(--cyan)' : 'var(--text-muted)'}; margin-right:4px;">${plan}</span>
                     <span style="font-size:9.5px; font-weight:700; padding:2px 5px; border-radius:3px; background:rgba(255,255,255,0.05); color:var(--text-muted);">${opt}</span>
                   </td>
-                  <td style="padding:12px 14px;">
-                    <span style="font-size:10.5px; font-weight:700; color:var(--text-muted);">${mode}</span>
+                  <td style="padding:14px 14px;">
+                    <span style="font-size:11px; font-weight:700; color:var(--text-muted);">${mode}</span>
                   </td>
-                  <td style="padding:12px 16px; text-align:right;">
+                  <td style="padding:14px 14px; text-align:right;">
+                    <div style="font-weight:800; color:var(--text-main); font-size:12px;">${fundWeight.toFixed(1)}%</div>
+                    <div style="width:48px; height:3px; background:var(--border-alpha-8); border-radius:2px; margin:4px 0 0 auto; overflow:hidden;">
+                      <div style="width:${Math.min(100, fundWeight * 2)}%; height:100%; background:${catColor};"></div>
+                    </div>
+                  </td>
+                  <td style="padding:14px 16px; text-align:right;">
                     <div style="font-weight:800; color:${sipVal > 0 ? '#34D399' : 'var(--text-dark)'};">${fmtINR(sipVal)}</div>
-                    ${sipVal > 0 ? `<div style="font-size:10px; color:var(--text-muted);">${sipWeight.toFixed(1)}%</div>` : ''}
+                    ${sipVal > 0 ? `<div style="font-size:10px; color:var(--text-muted);">${sipWeight.toFixed(1)}% share</div>` : ''}
                   </td>
-                  <td style="padding:12px 16px; text-align:right;">
+                  <td style="padding:14px 16px; text-align:right;">
                     <div style="font-weight:800; color:${lumpVal > 0 ? 'var(--cyan)' : 'var(--text-dark)'};">${fmtINR(lumpVal)}</div>
-                    ${lumpVal > 0 ? `<div style="font-size:10px; color:var(--text-muted);">${lumpWeight.toFixed(1)}%</div>` : ''}
+                    ${lumpVal > 0 ? `<div style="font-size:10px; color:var(--text-muted);">${lumpWeight.toFixed(1)}% share</div>` : ''}
                   </td>
-                  <td style="padding:12px 14px; text-align:center;">
-                    <button onclick="openFundDetailModal('${code}')" style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); color:var(--text-muted); padding:4px 8px; border-radius:6px; font-size:11px; cursor:pointer;" onmouseover="this.style.color='var(--cyan)'; this.style.borderColor='var(--cyan)';" onmouseout="this.style.color='var(--text-muted)'; this.style.borderColor='var(--border-alpha-8)';" title="View Factsheet & NAV history">ℹ️</button>
+                  <td style="padding:14px 14px; text-align:right;">
+                    <span style="font-size:11px; font-weight:800; color:#00D2FF; background:rgba(0,210,255,0.08); padding:3px 7px; border-radius:5px;">
+                      ${expCagr.toFixed(1)}%
+                    </span>
+                  </td>
+                  <td style="padding:14px 14px; text-align:center;">
+                    <div style="display:flex; justify-content:center; gap:6px;">
+                      <button onclick="openFundDetailModal('${code}')" style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); color:var(--text-muted); padding:5px 8px; border-radius:6px; font-size:11px; cursor:pointer;" onmouseover="this.style.color='var(--cyan)'; this.style.borderColor='var(--cyan)';" onmouseout="this.style.color='var(--text-muted)'; this.style.borderColor='var(--border-alpha-8)';" title="View Factsheet & NAV history">ℹ️</button>
+                      <button onclick="pg.verifySingleScheme('${code}')" style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); color:#34D399; padding:5px 8px; border-radius:6px; font-size:11px; cursor:pointer;" onmouseover="this.style.borderColor='#10B981';" onmouseout="this.style.borderColor='rgba(16,185,129,0.25)';" title="Live AMFI Verification">🛡️</button>
+                    </div>
                   </td>
                 </tr>
               `;
@@ -16092,6 +16697,7 @@
 
         // 5. AMC Spread List
         const amcListEl = document.getElementById('pdAmcSpreadList');
+        const amcCountBadge = document.getElementById('pdAmcSpreadCountBadge');
         if (amcListEl) {
           const amcCounts = {};
           funds.forEach(f => {
@@ -16099,6 +16705,7 @@
             amcCounts[amc] = (amcCounts[amc] || 0) + 1;
           });
           const amcEntries = Object.entries(amcCounts).sort((a, b) => b[1] - a[1]);
+          if (amcCountBadge) amcCountBadge.textContent = `${amcEntries.length} AMC${amcEntries.length > 1 ? 's' : ''}`;
           amcListEl.innerHTML = amcEntries.map(([amc, count]) => `
             <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; padding:6px 0; border-bottom:1px solid var(--border-alpha-8);">
               <span style="font-weight:700; color:var(--text-main);">${escapeHtml(amc)}</span>
@@ -16129,7 +16736,8 @@
             : [
               `✓ Healthy category distribution (Top: ${categories[0]?.category || 'Equity'} ${categories[0]?.pct.toFixed(0) || 0}%)`,
               `✓ Exposure balanced across ${uniqueAmcs.size} fund houses`,
-              `✓ Institutional diversification profile maintained`
+              `✓ Direct Plan distribution optimization enabled (~${avgTer}% TER)`,
+              `✓ Institutional wealth compounding profile maintained`
             ];
 
           healthListEl.innerHTML = obs.map(o => `
@@ -16138,6 +16746,9 @@
             </div>
           `).join('');
         }
+
+        // 7. Render Expected Return Projections Simulator
+        updatePortfolioProjections();
 
         // Scroll to top of viewer
         if (detailView) detailView.scrollTop = 0;
@@ -16306,6 +16917,12 @@
         loadPortfolioById,
         viewPortfolioById,
         viewPortfolio,
+        updatePortfolioProjections,
+        setProjectionHorizon,
+        onProjectionRateInput,
+        setProjectionPreset,
+        verifyPortfolioFunds,
+        verifySingleScheme,
         backToSavedFromDetail,
         editCurrentDetailPortfolio,
         deleteCurrentDetailPortfolio,

@@ -32,6 +32,40 @@ A stunning, highly responsive web application designed for exploring, analyzing,
 - **Vanilla JavaScript** (For dynamic DOM manipulation and state management)
 - **Chart.js** (For rendering complex, interactive canvas charts)
 
+## 🏛️ Modular Framework Architecture
+
+The application is structured into an enterprise-grade modular Flask architecture:
+
+```
+├── app.py                      # Application entry point & factory runner
+├── core/                       # Core configuration, extensions & global utilities
+│   ├── config.py               # Environment configuration & path resolvers
+│   └── extensions.py           # Cache, SocketIO, Mftool & API key auth decorators
+├── routes/                     # Blueprint controllers (REST API & Web Views)
+│   ├── auth.py                 # Authentication, manifest, PWA & service worker
+│   ├── views.py                # Dashboard, news & report template rendering
+│   ├── funds.py                # Fund scheme lookups, historical NAVs & quotes
+│   ├── portfolio.py            # Portfolio generation, auto-builder & persistence
+│   ├── analytics.py            # Screener, rolling returns, Monte Carlo & tax optimizer
+│   ├── market.py               # AMFI background sync, market mood & live ticker
+│   └── ai.py                   # Aria AI advisor & document OCR endpoints
+├── services/                   # Business logic layer
+│   ├── market_data.py          # Real-time exchange feeds, AMFI sync, Groww scraper
+│   ├── portfolio_builder.py    # Multi-asset timeline, CAGR, XIRR & diversification
+│   ├── portfolio.py            # Financial allocation calculations
+│   ├── ai_advisor.py           # Cohere AI conversational engine & fallback advisor
+│   └── analytics.py            # Quantitative risk simulations & rolling returns
+├── templates/                  # Jinja2 HTML templates
+│   ├── index.html              # Main responsive dashboard
+│   ├── login.html              # Secure glassmorphism portal
+│   ├── news.html               # Live financial news portal
+│   └── portfolio_report.html   # Client portfolio report
+├── static/                     # Static assets (logos, icons)
+├── data/                       # Local SQLite DB & cached schemas
+├── tests/                      # Unit & integration test suites
+└── scripts/                    # Automation & maintenance scripts
+```
+
 ## 🚀 How to Run Locally
 
 ### 1. Prerequisites

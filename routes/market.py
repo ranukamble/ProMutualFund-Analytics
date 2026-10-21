@@ -1,0 +1,69 @@
+import os
+from datetime import datetime, timedelta
+from flask import Blueprint, jsonify, request
+from core.config import IST
+from services.market_data import (
+    AMFI_SYNC_STATE,
+    sync_amfi_nav_data,
+    get_real_market_mood,
+    get_real_market_ticker,
+    get_live_news_feed,
+    _news_cache
+)
+
+market_bp = Blueprint('market', __name__)
+
+@market_bp.route('/api/sync/status', methods=['GET'])
+def get_sync_status():
+    global AMFI_SYNC_STATE
+    enabled = os.getenv("ENABLE_BACKGROUND_SYNC", "false").strip().lower() in ("true", "1", "yes")
+    AMFI_SYNC_STATE["enabled"] = enabled
+    
+    if not AMFI_SYNC_STATE["next_sync"]:
+        sync_hour = int(os.getenv("AMFI_SYNC_HOUR_IST", "21"))
+        sync_minute = int(os.getenv("AMFI_SYNC_MINUTE_IST", "0"))
+        now_ist = datetime.now(IST)
+        target_ist = now_ist.replace(hour=sync_hour, minute=sync_minute, second=0, microsecond=0)
+        if now_ist >= target_ist:
+            target_ist += timedelta(days=1)
+        AMFI_SYNC_STATE["next_sync"] = target_ist.strftime("%d-%m-%Y %I:%M:%S %p IST")
+        
+    return jsonify({
+        "success": True,
+        "sync_state": AMFI_SYNC_STATE,
+        "schedule": "Daily at 9:00 PM IST (21:00 IST)"
+    })
+
+@market_bp.route('/api/sync/trigger', methods=['POST'])
+def trigger_manual_sync():
+    result = sync_amfi_nav_data(manual=True)
+    return jsonify(result)
+
+@market_bp.route('/api/market-mood')
+def get_market_mood_route():
+    try:
+        return jsonify(get_real_market_mood())
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@market_bp.route('/api/market-ticker')
+def get_market_ticker_route():
+    try:
+        return jsonify(get_real_market_ticker())
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@market_bp.route('/api/news')
+def get_news_route():
+    try:
+        cat = request.args.get('category', 'all').lower().strip()
+        query = request.args.get('q', '').strip() or None
+        force_refresh = request.args.get('refresh', '0') in ['1', 'true', 'True']
+        if force_refresh:
+            cache_key = f"{cat}:{query or ''}"
+            _news_cache["data"].pop(cache_key, None)
+            _news_cache["timestamp"].pop(cache_key, None)
+        data = get_live_news_feed(category=cat, custom_query=query)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"status": "error", "error": str(e), "articles": []}), 500
