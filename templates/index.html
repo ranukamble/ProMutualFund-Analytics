@@ -4919,7 +4919,7 @@
           to search.
         </p>
         <div style="margin-top: 18px; display: flex; gap: 10px; justify-content: center;">
-          <a href="/verify" target="_blank"
+          <a href="/verify"
             style="display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(0,210,255,0.22)); border: 1px solid rgba(16,185,129,0.45); color: #34D399; font-weight: 800; font-size: 12px; text-decoration: none; box-shadow: 0 4px 18px rgba(16,185,129,0.25); transition: all 180ms ease;">
             <span>🛡️</span> Open Live Verification Engine
           </a>
@@ -9402,9 +9402,9 @@
   <script>
     function openLiveVerifier() {
       if (typeof activeCode !== 'undefined' && activeCode) {
-        window.open('/verify/' + activeCode, '_blank');
+        window.location.href = '/verify/' + activeCode;
       } else {
-        window.open('/verify', '_blank');
+        window.location.href = '/verify';
       }
     }
 

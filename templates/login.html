@@ -3,310 +3,1226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Pro Mutual Fund Analytics</title>
+    <title>Pro Mutual Fund Analytics - Institutional Terminal Login</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/static/logo.png?v=3">
     <link rel="apple-touch-icon" href="/static/logo.png?v=3">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Outfit', sans-serif;
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        :root {
+            --bg-deep: #030712;
+            --bg-navy: #050C1B;
+            --accent-cyan: #00D2FF;
+            --accent-blue: #2563EB;
+            --accent-purple: #9333EA;
+            --accent-magenta: #C026D3;
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --text-dim: #64748B;
+            --border-glow: rgba(59, 130, 246, 0.35);
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+            background: var(--bg-deep);
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── BACKGROUND WRAPPER & CANVAS ── */
+        .page-wrapper {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            background: #0B0E14;
-            color: #E2E8F0;
+            background: radial-gradient(circle at 20% 30%, #081735 0%, #040915 60%, #02050D 100%);
             overflow: hidden;
-            position: relative;
-        }
-        /* Animated Background Blobs */
-        .blob {
-            position: absolute;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.6;
-            animation: float 10s infinite ease-in-out alternate;
-        }
-        .blob-1 {
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(59,130,246,0.8) 0%, rgba(59,130,246,0) 70%);
-            top: -100px; left: -100px;
-        }
-        .blob-2 {
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(139,92,246,0.6) 0%, rgba(139,92,246,0) 70%);
-            bottom: -150px; right: -100px;
-            animation-delay: -5s;
-        }
-        .blob-3 {
-            width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(14,165,233,0.5) 0%, rgba(14,165,233,0) 70%);
-            top: 40%; left: 60%;
-            animation-duration: 12s;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-30px) scale(1.1); }
         }
 
-        .login-container {
-            background: rgba(16, 24, 39, 0.4);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 48px;
+        /* Animated Ambient Nebulae */
+        .ambient-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .glow-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.15) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 70%);
+            top: 20%;
+            left: 10%;
+            animation: pulseGlow 12s infinite alternate ease-in-out;
+        }
+        .glow-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.18) 0%, rgba(192, 38, 211, 0.05) 50%, transparent 70%);
+            bottom: -50px;
+            right: 25%;
+            animation: pulseGlow 15s infinite alternate-reverse ease-in-out;
+        }
+        .glow-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
+            top: -100px;
+            right: 5%;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+            50% { transform: scale(1.15) translate(20px, -20px); opacity: 1; }
+            100% { transform: scale(0.95) translate(-15px, 20px); opacity: 0.6; }
+        }
+
+        /* Canvas for Particle Wave & Floating Star Dust */
+        #marketCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 440px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ── MAIN SPLIT CONTAINER ── */
+        .main-stage {
             position: relative;
             z-index: 10;
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            width: 100%;
+            max-width: 1540px;
+            min-height: 100vh;
+            padding: 40px 60px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 60px;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-        .logo-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        /* ══════════════════════════════════════════════════
+           LEFT HERO PANEL: LIVE MARKET & ANALYTICS VISUALS
+           ══════════════════════════════════════════════════ */
+        .hero-panel {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 680px;
+            padding-right: 20px;
+        }
+
+        /* Brand Header */
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 44px;
+        }
+
+        .brand-logo-coin {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #0e1e3e 0%, #060e20 100%);
+            border: 2.5px solid #F59E0B;
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.35), inset 0 0 15px rgba(245, 158, 11, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .brand-logo-coin img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-text h2 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: #FFFFFF;
+        }
+        .brand-text h2 span {
+            color: var(--accent-cyan);
+        }
+        .brand-text .brand-tagline {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94A3B8;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+        .brand-text .brand-subtag {
+            font-size: 10px;
+            font-weight: 700;
+            color: #475569;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        /* Hero Typography */
+        .hero-headline {
+            margin-bottom: 40px;
+            max-width: 580px;
+        }
+        .hero-headline h1 {
+            font-size: 54px;
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -1.2px;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+        }
+        .hero-headline h1 .text-gradient {
+            background: linear-gradient(135deg, #00D2FF 0%, #3B82F6 45%, #C026D3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        .hero-headline p {
+            font-size: 18px;
+            color: #94A3B8;
+            font-weight: 400;
+            letter-spacing: -0.2px;
+        }
+
+        /* ── INTERACTIVE FINANCIAL CHART WRAPPER ── */
+        .chart-scene-container {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            margin-top: 10px;
+        }
+
+        /* SVG Candlestick & Glowing Trajectory Line Chart */
+        .financial-svg-chart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* ── FLOATING GLASS INSIGHT CARDS ── */
+        .glass-card {
+            position: absolute;
+            background: rgba(10, 20, 42, 0.72);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 210, 255, 0.28);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 25px rgba(0, 210, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            z-index: 5;
+        }
+        .glass-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(0, 210, 255, 0.6);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(0, 210, 255, 0.25);
+        }
+
+        /* Card 1: Portfolio Growth (Top Right) */
+        .card-portfolio-growth {
+            top: 25px;
+            left: 48%;
+            animation: floatSlow 7s ease-in-out infinite alternate;
+        }
+        /* Card 2: Market Insights (Bottom Left) */
+        .card-market-insights {
+            bottom: 45px;
+            left: 0;
+            animation: floatSlow 8.5s ease-in-out infinite alternate-reverse;
+        }
+        /* Card 3: Risk Analytics (Bottom Right) */
+        .card-risk-analytics {
+            bottom: 30px;
+            right: 8%;
+            animation: floatSlow 6.5s ease-in-out infinite alternate 1s;
+        }
+
+        @keyframes floatSlow {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-12px); }
+        }
+
+        .card-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .icon-blue {
+            background: rgba(0, 210, 255, 0.12);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+        .icon-cyan {
+            background: rgba(14, 165, 233, 0.12);
+            color: #38BDF8;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+        .icon-purple {
+            background: rgba(147, 51, 234, 0.14);
+            color: #C084FC;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+        }
+
+        .card-content h4 {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: -0.2px;
+            margin-bottom: 3px;
+        }
+        .card-content p {
+            font-size: 11px;
+            color: #94A3B8;
+            font-weight: 500;
+        }
+
+        /* Mini Graphical Indicators inside Cards */
+        .mini-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 22px;
+            margin-left: 6px;
+        }
+        .mini-bar {
+            width: 4px;
+            border-radius: 2px;
+            background: var(--accent-cyan);
+            animation: barPulse 2.5s infinite ease-in-out;
+        }
+        .mini-bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+        .mini-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
+        .mini-bar:nth-child(3) { height: 18px; animation-delay: 0.5s; }
+        .mini-bar:nth-child(4) { height: 22px; animation-delay: 0.7s; }
+
+        .mini-purple-bars .mini-bar {
+            background: linear-gradient(to top, #7C3AED, #C084FC);
+        }
+        .mini-purple-bars .mini-bar:nth-child(1) { height: 6px; }
+        .mini-purple-bars .mini-bar:nth-child(2) { height: 12px; }
+        .mini-purple-bars .mini-bar:nth-child(3) { height: 16px; }
+        .mini-purple-bars .mini-bar:nth-child(4) { height: 20px; }
+
+        .mini-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-left: 8px;
+        }
+        .mini-line {
+            height: 3.5px;
+            border-radius: 2px;
+            background: rgba(0, 210, 255, 0.4);
+        }
+        .mini-line:nth-child(1) { width: 26px; background: var(--accent-cyan); }
+        .mini-line:nth-child(2) { width: 18px; background: rgba(0, 210, 255, 0.6); }
+
+        @keyframes barPulse {
+            0%, 100% { opacity: 0.6; transform: scaleY(0.9); }
+            50% { opacity: 1; transform: scaleY(1.15); }
+        }
+
+        /* ══════════════════════════════════════════════════
+           RIGHT PANEL: SLEEK, SECURE GLASS LOGIN CARD
+           ══════════════════════════════════════════════════ */
+        .login-panel-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(11, 20, 42, 0.82);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(59, 130, 246, 0.45);
+            border-radius: 24px;
+            padding: 44px 42px;
+            box-shadow: 
+                0 30px 70px -15px rgba(0, 0, 0, 0.85),
+                0 0 45px rgba(37, 99, 235, 0.22),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            position: relative;
+            z-index: 20;
+            overflow: hidden;
+            animation: cardEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Subtle Top Corner Light Glow */
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.35) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(30px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Card Header Logo */
+        .card-brand-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 34px;
+        }
+        .card-brand-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #0e1e3e 0%, #060e20 100%);
+            border: 2px solid #F59E0B;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.35), inset 0 0 12px rgba(245, 158, 11, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .card-brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-brand-text h3 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+            color: #FFFFFF;
+            line-height: 1.15;
+        }
+        .card-brand-text h3 span {
+            color: var(--accent-cyan);
+        }
+        .card-brand-text .brand-tagline {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #94A3B8;
+            letter-spacing: 2.8px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+        .card-brand-text .brand-subtag {
+            font-size: 9.5px;
+            font-weight: 700;
+            color: #475569;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #818CF8;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            width: 18px;
+            height: 18px;
+            color: #64748B;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(7, 15, 33, 0.75);
+            border: 1px solid rgba(59, 130, 246, 0.28);
+            border-radius: 12px;
+            padding: 14px 16px 14px 46px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #FFFFFF;
+            outline: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .form-input::placeholder {
+            color: #475569;
+            font-weight: 400;
+        }
+        .form-input:focus {
+            background: rgba(8, 18, 40, 0.95);
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 0 20px rgba(59, 130, 246, 0.2);
+            transform: translateY(-1px);
+        }
+        .form-input:focus + .input-icon,
+        .input-wrapper:focus-within .input-icon {
+            color: #38BDF8;
+        }
+
+        /* Password Eye Toggle */
+        .toggle-password-btn {
+            position: absolute;
+            right: 14px;
             background: transparent;
+            border: none;
+            color: #64748B;
+            cursor: pointer;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: color 0.2s;
+        }
+        .toggle-password-btn:hover {
+            color: #E2E8F0;
+        }
+
+        /* ── CAPTCHA ROW ── */
+        .captcha-row {
+            display: grid;
+            grid-template-columns: 110px 48px 1fr;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 26px;
+        }
+
+        /* Stylized Glowing Numeric Display */
+        .captcha-display {
+            height: 48px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(6, 11, 25, 0.95));
+            border: 1px solid rgba(0, 210, 255, 0.35);
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            letter-spacing: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-shadow: 0 0 12px rgba(0, 210, 255, 0.6);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+            position: relative;
             overflow: hidden;
         }
-        .logo-icon img { width: 100%; height: 100%; object-fit: cover; }
-        .logo-text h1 { font-size: 22px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; }
-        .logo-text p { font-size: 12px; color: #94A3B8; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px; }
-        
-        .form-group { margin-bottom: 24px; position: relative; }
-        .form-group label { 
-            display: block; 
-            font-size: 12px; 
-            font-weight: 600; 
-            color: #94A3B8; 
-            margin-bottom: 8px; 
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        /* Scanline effect */
+        .captcha-display::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 210, 255, 0.05) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
         }
-        .form-control {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255,255,255,0.1);
+
+        .captcha-refresh-btn {
+            height: 48px;
+            width: 48px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.28);
             border-radius: 12px;
-            color: #FFFFFF;
-            font-size: 15px;
-            font-family: inherit;
-            outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .form-control::placeholder { color: #475569; }
-        .form-control:focus { 
-            background: rgba(15, 23, 42, 0.8);
-            border-color: #3B82F6; 
-            box-shadow: 0 0 0 4px rgba(59,130,246,0.15); 
-            transform: translateY(-2px);
-        }
-        
-        .captcha-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-        .captcha-box {
-            background: linear-gradient(135deg, #1E293B, #0F172A);
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: 1px dashed rgba(255,255,255,0.2);
-            font-size: 24px;
-            font-weight: 800;
-            color: #3B82F6;
-            letter-spacing: 6px;
-            user-select: none;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        .refresh-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
             color: #94A3B8;
-            padding: 14px;
-            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.25s;
         }
-        .refresh-btn:hover { background: rgba(255,255,255,0.1); color: #FFFFFF; transform: rotate(15deg); }
-        .refresh-btn svg { width: 20px; height: 20px; }
-        
-        .login-btn {
+        .captcha-refresh-btn:hover {
+            background: rgba(30, 41, 59, 0.9);
+            color: #FFFFFF;
+            border-color: #38BDF8;
+            transform: rotate(45deg);
+        }
+        .captcha-refresh-btn:active {
+            transform: scale(0.92) rotate(180deg);
+        }
+
+        .captcha-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .captcha-input-wrapper .form-input {
+            padding-left: 42px;
+        }
+        .captcha-input-wrapper .input-icon {
+            left: 14px;
+        }
+
+        /* ── PROMINENT BLUE-TO-PURPLE LOGIN BUTTON ── */
+        .btn-secure-login {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            color: white;
+            padding: 15px 24px;
+            background: linear-gradient(90deg, #1D4ED8 0%, #2563EB 35%, #7C3AED 75%, #9333EA 100%);
             border: none;
             border-radius: 12px;
-            font-size: 16px;
+            font-family: inherit;
+            font-size: 15px;
             font-weight: 700;
+            color: #FFFFFF;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 
+                0 10px 25px -5px rgba(37, 99, 235, 0.5),
+                0 0 25px rgba(124, 58, 237, 0.35);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
+            margin-bottom: 22px;
         }
-        .login-btn::before {
+        .btn-secure-login::before {
             content: '';
             position: absolute;
             top: 0; left: -100%;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: all 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: all 0.6s ease;
         }
-        .login-btn:hover::before { left: 100%; }
-        .login-btn:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 10px 25px rgba(59,130,246,0.5); 
+        .btn-secure-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 14px 32px -5px rgba(37, 99, 235, 0.65),
+                0 0 35px rgba(147, 51, 234, 0.5);
+            background: linear-gradient(90deg, #2563EB 0%, #3B82F6 35%, #8B5CF6 75%, #A855F7 100%);
         }
-        .login-btn:active { transform: translateY(0); }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
+        .btn-secure-login:hover::before {
+            left: 100%;
         }
-        .footer-links a {
+        .btn-secure-login:active {
+            transform: translateY(0) scale(0.99);
+        }
+
+        /* ── FOOTER RECOVERY LINK ── */
+        .login-footer {
+            text-align: center;
+        }
+        .recovery-link {
             color: #94A3B8;
-            text-decoration: none;
             font-size: 13px;
             font-weight: 500;
-            transition: color 0.2s;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
         }
-        .footer-links a:hover { color: #FFFFFF; }
-        
-        #error-msg {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #FCA5A5;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 13px;
+        .recovery-link:hover {
+            color: #38BDF8;
+            text-decoration: underline;
+        }
+
+        /* ── NOTIFICATION / ERROR MESSAGE ── */
+        #alertMsg {
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 12.5px;
             font-weight: 600;
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 18px;
             display: none;
-            animation: shake 0.4s;
+            animation: shakeAlert 0.4s ease;
         }
-        @keyframes shake {
+        .alert-error {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            color: #FCA5A5;
+        }
+        .alert-info {
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            color: #93C5FD;
+        }
+
+        @keyframes shakeAlert {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        /* ── RESPONSIVE DESIGN ── */
+        @media (max-width: 1200px) {
+            .main-stage {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                padding: 40px 30px;
+            }
+            .hero-panel {
+                min-height: auto;
+                text-align: center;
+                align-items: center;
+                padding-right: 0;
+            }
+            .brand-header {
+                justify-content: center;
+            }
+            .hero-headline {
+                max-width: 100%;
+            }
+            .chart-scene-container {
+                display: none; /* Hide heavy chart overlays on smaller laptops to keep clean focus */
+            }
+        }
+
+        @media (max-width: 640px) {
+            .main-stage {
+                padding: 30px 16px;
+            }
+            .hero-headline h1 {
+                font-size: 38px;
+            }
+            .login-card {
+                padding: 32px 24px;
+            }
+            .captcha-row {
+                grid-template-columns: 95px 44px 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
 
-    <div class="login-container">
-        <div class="logo">
-            <div class="logo-icon">
-                <img src="/static/logo.png" alt="Logo">
+    <div class="page-wrapper">
+        <!-- Ambient Glowing Nebulae -->
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        <div class="ambient-glow glow-3"></div>
+
+        <!-- High-Performance Canvas for Particle Wave & Star Dust -->
+        <canvas id="marketCanvas"></canvas>
+
+        <!-- Main Stage Container -->
+        <div class="main-stage">
+
+            <!-- ══════════════════════════════════════════════════════
+                 LEFT HERO PANEL: LIVE MARKET ACTIVITY & BRANDING
+                 ══════════════════════════════════════════════════════ -->
+            <div class="hero-panel">
+
+                <!-- Brand Header -->
+                <div class="brand-header">
+                    <div class="brand-logo-coin">
+                        <img src="/static/logo.png" alt="Pro Mutual Fund Logo">
+                    </div>
+                    <div class="brand-text">
+                        <h2><span>Pro</span> Mutual Fund</h2>
+                        <div class="brand-tagline">ANALYTICS</div>
+                        <div class="brand-subtag">INSTITUTIONAL GRADE PORTFOLIO BUILDER</div>
+                    </div>
+                </div>
+
+                <!-- Hero Headlines -->
+                <div class="hero-headline">
+                    <h1>Smarter Mutual Fund<br><span class="text-gradient">Decisions</span></h1>
+                    <p>Research. Analyze. Build with confidence.</p>
+                </div>
+
+                <!-- Live Financial Chart Scene with Candlesticks & Floating Glass Cards -->
+                <div class="chart-scene-container">
+
+                    <!-- Live Glowing SVG Candlestick & Trajectory Chart -->
+                    <svg class="financial-svg-chart" viewBox="0 0 700 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- Glow Filter for Trajectory Line -->
+                            <filter id="neonCyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="6" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <linearGradient id="lineGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#00D2FF" />
+                                <stop offset="65%" stop-color="#3B82F6" />
+                                <stop offset="100%" stop-color="#9333EA" />
+                            </linearGradient>
+                            <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="rgba(0, 210, 255, 0.18)" />
+                                <stop offset="100%" stop-color="rgba(0, 210, 255, 0.0)" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Subtle Grid Reference Lines -->
+                        <line x1="20" y1="90" x2="680" y2="90" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4 4" />
+                        <line x1="20" y1="180" x2="680" y2="180" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4 4" />
+                        <line x1="20" y1="270" x2="680" y2="270" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4 4" />
+
+                        <!-- Candlestick Bars across the background -->
+                        <!-- Bar 1 -->
+                        <line x1="50" y1="280" x2="50" y2="340" stroke="rgba(37,99,235,0.5)" stroke-width="1.5" />
+                        <rect x="46" y="295" width="8" height="30" rx="2" fill="rgba(37,99,235,0.6)" />
+                        <!-- Bar 2 -->
+                        <line x1="85" y1="265" x2="85" y2="325" stroke="rgba(0,210,255,0.5)" stroke-width="1.5" />
+                        <rect x="81" y="275" width="8" height="35" rx="2" fill="rgba(0,210,255,0.6)" />
+                        <!-- Bar 3 -->
+                        <line x1="120" y1="250" x2="120" y2="305" stroke="rgba(147,51,234,0.5)" stroke-width="1.5" />
+                        <rect x="116" y="260" width="8" height="30" rx="2" fill="rgba(147,51,234,0.6)" />
+                        <!-- Bar 4 -->
+                        <line x1="160" y1="230" x2="160" y2="290" stroke="rgba(0,210,255,0.5)" stroke-width="1.5" />
+                        <rect x="156" y="240" width="8" height="35" rx="2" fill="rgba(0,210,255,0.7)" />
+                        <!-- Bar 5 -->
+                        <line x1="205" y1="210" x2="205" y2="280" stroke="rgba(37,99,235,0.5)" stroke-width="1.5" />
+                        <rect x="201" y="225" width="8" height="40" rx="2" fill="rgba(37,99,235,0.65)" />
+                        <!-- Bar 6 -->
+                        <line x1="250" y1="180" x2="250" y2="260" stroke="rgba(0,210,255,0.6)" stroke-width="1.5" />
+                        <rect x="246" y="195" width="8" height="45" rx="2" fill="rgba(0,210,255,0.75)" />
+                        <!-- Bar 7 -->
+                        <line x1="295" y1="165" x2="295" y2="240" stroke="rgba(147,51,234,0.6)" stroke-width="1.5" />
+                        <rect x="291" y="180" width="8" height="40" rx="2" fill="rgba(147,51,234,0.75)" />
+                        <!-- Bar 8 -->
+                        <line x1="340" y1="145" x2="340" y2="225" stroke="rgba(0,210,255,0.7)" stroke-width="1.5" />
+                        <rect x="336" y="155" width="8" height="50" rx="2" fill="rgba(0,210,255,0.8)" />
+                        <!-- Bar 9 -->
+                        <line x1="385" y1="130" x2="385" y2="210" stroke="rgba(37,99,235,0.6)" stroke-width="1.5" />
+                        <rect x="381" y="145" width="8" height="45" rx="2" fill="rgba(37,99,235,0.75)" />
+                        <!-- Bar 10 -->
+                        <line x1="430" y1="110" x2="430" y2="195" stroke="rgba(0,210,255,0.8)" stroke-width="1.5" />
+                        <rect x="426" y="125" width="8" height="55" rx="2" fill="rgba(0,210,255,0.85)" />
+                        <!-- Bar 11 -->
+                        <line x1="475" y1="95" x2="475" y2="180" stroke="rgba(147,51,234,0.7)" stroke-width="1.5" />
+                        <rect x="471" y="110" width="8" height="50" rx="2" fill="rgba(147,51,234,0.8)" />
+                        <!-- Bar 12 -->
+                        <line x1="520" y1="80" x2="520" y2="165" stroke="rgba(0,210,255,0.9)" stroke-width="1.5" />
+                        <rect x="516" y="95" width="8" height="55" rx="2" fill="rgba(0,210,255,0.9)" />
+                        <!-- Bar 13 -->
+                        <line x1="565" y1="65" x2="565" y2="150" stroke="rgba(37,99,235,0.8)" stroke-width="1.5" />
+                        <rect x="561" y="80" width="8" height="50" rx="2" fill="rgba(37,99,235,0.85)" />
+                        <!-- Bar 14 -->
+                        <line x1="610" y1="50" x2="610" y2="140" stroke="rgba(0,210,255,0.95)" stroke-width="1.5" />
+                        <rect x="606" y="65" width="8" height="55" rx="2" fill="rgba(0,210,255,0.95)" />
+                        <!-- Bar 15 -->
+                        <line x1="655" y1="35" x2="655" y2="125" stroke="rgba(147,51,234,0.9)" stroke-width="1.5" />
+                        <rect x="651" y="50" width="8" height="50" rx="2" fill="rgba(147,51,234,0.95)" />
+
+                        <!-- Area fill under upward trajectory -->
+                        <path d="M 20 330 Q 150 310, 240 260 T 430 180 T 560 110 T 670 45 L 670 360 L 20 360 Z" fill="url(#areaGrad)" />
+
+                        <!-- Glowing Primary Trend Curve -->
+                        <path d="M 20 330 Q 150 310, 240 260 T 430 180 T 560 110 T 670 45" 
+                              fill="none" 
+                              stroke="url(#lineGrad)" 
+                              stroke-width="4.5" 
+                              stroke-linecap="round"
+                              filter="url(#neonCyanGlow)" />
+
+                        <!-- Pulsing Marker Nodes along the line -->
+                        <circle cx="240" cy="260" r="5" fill="#00D2FF" filter="url(#neonCyanGlow)" />
+                        <circle cx="430" cy="180" r="5" fill="#3B82F6" filter="url(#neonCyanGlow)" />
+                        <circle cx="560" cy="110" r="5.5" fill="#9333EA" filter="url(#neonCyanGlow)" />
+                        <circle cx="670" cy="45" r="7" fill="#FFFFFF" stroke="#00D2FF" stroke-width="3" filter="url(#neonCyanGlow)" />
+                    </svg>
+
+                    <!-- Card 1: Portfolio Growth -->
+                    <div class="glass-card card-portfolio-growth">
+                        <div class="card-icon-box icon-blue">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h4>Portfolio Growth</h4>
+                            <p>Track performance across time</p>
+                        </div>
+                        <div class="mini-bars">
+                            <div class="mini-bar"></div>
+                            <div class="mini-bar"></div>
+                            <div class="mini-bar"></div>
+                            <div class="mini-bar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Market Insights -->
+                    <div class="glass-card card-market-insights">
+                        <div class="card-icon-box icon-cyan">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h4>Market Insights</h4>
+                            <p>Stay ahead with real-time data</p>
+                        </div>
+                        <div class="mini-lines">
+                            <div class="mini-line"></div>
+                            <div class="mini-line"></div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Risk Analytics -->
+                    <div class="glass-card card-risk-analytics">
+                        <div class="card-icon-box icon-purple">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h4>Risk Analytics</h4>
+                            <p>Make informed risk decisions</p>
+                        </div>
+                        <div class="mini-bars mini-purple-bars">
+                            <div class="mini-bar"></div>
+                            <div class="mini-bar"></div>
+                            <div class="mini-bar"></div>
+                            <div class="mini-bar"></div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-            <div class="logo-text">
-                <h1>Pro Mutual Fund</h1>
-                <p>Institutional Grade Portfolio Builder</p>
+
+            <!-- ══════════════════════════════════════════════════════
+                 RIGHT PANEL: SLEEK, SECURE GLASS LOGIN PANEL
+                 ══════════════════════════════════════════════════════ -->
+            <div class="login-panel-wrapper">
+                <div class="login-card">
+
+                    <!-- Card Brand Header -->
+                    <div class="card-brand-header">
+                        <div class="card-brand-logo">
+                            <img src="/static/logo.png" alt="Pro Mutual Fund Logo">
+                        </div>
+                        <div class="card-brand-text">
+                            <h3><span>Pro</span> Mutual Fund</h3>
+                            <div class="brand-tagline">ANALYTICS</div>
+                            <div class="brand-subtag">INSTITUTIONAL GRADE PORTFOLIO BUILDER</div>
+                        </div>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm" onsubmit="handleLogin(event)" autocomplete="off">
+
+                        <!-- Partner ID -->
+                        <div class="form-group">
+                            <label class="form-label" for="partnerId">Partner ID</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </span>
+                                <input type="text" id="partnerId" class="form-input" placeholder="e.g. PRO2026" required autocomplete="username">
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label class="form-label" for="password">Password</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </span>
+                                <input type="password" id="password" class="form-input" placeholder="Enter your password" required autocomplete="current-password">
+                                <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility()" title="Toggle password visibility">
+                                    <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Alert / Notification Message -->
+                        <div id="alertMsg"></div>
+
+                        <!-- Captcha Row -->
+                        <div class="captcha-row">
+                            <!-- Numeric Glowing Captcha -->
+                            <div class="captcha-display" id="captchaText" title="Security Captcha Code">20996</div>
+
+                            <!-- Refresh Button -->
+                            <button type="button" class="captcha-refresh-btn" onclick="generateCaptcha()" title="Refresh Captcha">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <polyline points="1 20 1 14 7 14"></polyline>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                                </svg>
+                            </button>
+
+                            <!-- Captcha Input Field -->
+                            <div class="captcha-input-wrapper">
+                                <span class="input-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                </span>
+                                <input type="text" id="captchaInput" class="form-input" placeholder="Enter Captcha" required maxlength="6">
+                            </div>
+                        </div>
+
+                        <!-- Secure Login Button -->
+                        <button type="submit" class="btn-secure-login" id="loginBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <polyline points="9 12 11 14 15 10"></polyline>
+                            </svg>
+                            <span>Secure Login</span>
+                        </button>
+
+                        <!-- Recovery Link -->
+                        <div class="login-footer">
+                            <a href="#" class="recovery-link" onclick="handleForgotPassword(event)">Forgot Your Password?</a>
+                        </div>
+
+                    </form>
+                </div>
             </div>
+
         </div>
-        <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label>Partner ID</label>
-                <input type="text" id="partnerId" class="form-control" placeholder="e.g. PRO2026" required>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
-            </div>
-            <div id="error-msg"></div>
-            <div class="captcha-row">
-                <div class="captcha-box" id="captchaText">32330</div>
-                <button type="button" class="refresh-btn" onclick="generateCaptcha()" title="Refresh Captcha">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                </button>
-                <input type="text" id="captchaInput" class="form-control" placeholder="Enter Captcha" required style="flex:1;">
-            </div>
-            <button type="submit" class="login-btn">Secure Login</button>
-            <div class="footer-links">
-                <a href="#" onclick="handleForgotPassword(event)">Forgot Your Password?</a>
-            </div>
-        </form>
     </div>
+
+    <!-- ── SCRIPT: INTERACTIVE CANVAS PARTICLES & SECURE AUTH LOGIC ── -->
     <script>
+        // ── 1. CAPTCHA & PASSWORD MANAGEMENT ──
         let currentCaptcha = "";
+
         function generateCaptcha() {
             currentCaptcha = Math.floor(10000 + Math.random() * 90000).toString();
-            document.getElementById('captchaText').textContent = currentCaptcha;
-            document.getElementById('captchaInput').value = "";
+            const captchaEl = document.getElementById('captchaText');
+            if (captchaEl) {
+                captchaEl.textContent = currentCaptcha;
+            }
+            const captchaInp = document.getElementById('captchaInput');
+            if (captchaInp) {
+                captchaInp.value = "";
+            }
         }
-        
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (!passwordInput || !eyeIcon) return;
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = `
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                `;
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                `;
+            }
+        }
+
         function handleForgotPassword(e) {
             e.preventDefault();
-            const errorMsg = document.getElementById('error-msg');
-            errorMsg.textContent = "Please contact the system administrator to reset your password. (Default: PRO2026 / admin)";
-            errorMsg.style.display = 'block';
-            errorMsg.style.color = '#60A5FA';
-            errorMsg.style.background = 'rgba(59, 130, 246, 0.1)';
-            errorMsg.style.borderColor = 'rgba(59, 130, 246, 0.3)';
-            errorMsg.style.animation = 'none';
+            const alertMsg = document.getElementById('alertMsg');
+            alertMsg.className = 'alert-info';
+            alertMsg.innerHTML = '<strong>Account Recovery:</strong> Default Partner ID is <code>PRO2026</code> and Password is <code>admin</code>. For password resets, contact your institutional admin.';
+            alertMsg.style.display = 'block';
         }
-        
+
         function handleLogin(e) {
             e.preventDefault();
-            const partnerId = document.getElementById('partnerId').value;
-            const password = document.getElementById('password').value;
-            const input = document.getElementById('captchaInput').value;
-            const errorMsg = document.getElementById('error-msg');
-            
-            errorMsg.style.display = 'none';
+            const partnerId = document.getElementById('partnerId').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const captchaInput = document.getElementById('captchaInput').value.trim();
+            const alertMsg = document.getElementById('alertMsg');
+            const loginBtn = document.getElementById('loginBtn');
 
+            alertMsg.style.display = 'none';
+
+            // Validate Partner ID and Password
             if (partnerId !== "PRO2026" || password !== "admin") {
-                errorMsg.textContent = "Invalid Partner ID or Password.";
-                errorMsg.style.display = 'block';
+                alertMsg.className = 'alert-error';
+                alertMsg.textContent = "Invalid Partner ID or Password. (Hint: PRO2026 / admin)";
+                alertMsg.style.display = 'block';
                 return;
             }
 
-            if (input !== currentCaptcha) {
-                errorMsg.textContent = "Incorrect Captcha. Please try again.";
-                errorMsg.style.display = 'block';
+            // Validate Captcha
+            if (captchaInput !== currentCaptcha) {
+                alertMsg.className = 'alert-error';
+                alertMsg.textContent = "Incorrect Security CAPTCHA code. Please re-enter.";
+                alertMsg.style.display = 'block';
                 generateCaptcha();
                 return;
             }
-            window.location.href = "/dashboard";
+
+            // Success feedback & redirect
+            loginBtn.innerHTML = `
+                <span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                <span>Authenticating Terminal...</span>
+            `;
+            loginBtn.style.opacity = '0.85';
+            loginBtn.style.pointerEvents = 'none';
+
+            setTimeout(() => {
+                window.location.href = "/dashboard";
+            }, 600);
         }
-        
-        generateCaptcha();
+
+        // ── 2. HIGH-PERFORMANCE CANVAS: GLOWING PARTICLE WAVE & STAR DUST ──
+        const canvas = document.getElementById('marketCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let waveDots = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initWaveGrid();
+        }
+
+        // Generate glowing grid wave points at bottom
+        function initWaveGrid() {
+            waveDots = [];
+            const cols = 55;
+            const rows = 14;
+            const xSpacing = width / cols;
+            const startY = height * 0.72;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    waveDots.push({
+                        baseX: c * xSpacing,
+                        baseY: startY + r * 14,
+                        col: c,
+                        row: r,
+                        alpha: 0.15 + (r / rows) * 0.65,
+                        size: 1.2 + (r / rows) * 1.5,
+                        color: r % 3 === 0 ? '#9333EA' : (r % 2 === 0 ? '#00D2FF' : '#2563EB')
+                    });
+                }
+            }
+
+            // Floating star dust
+            particles = [];
+            for (let i = 0; i < 40; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2 + 0.8,
+                    speedY: -Math.random() * 0.4 - 0.1,
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    alpha: Math.random() * 0.6 + 0.2,
+                    color: Math.random() > 0.5 ? '#00D2FF' : '#9333EA'
+                });
+            }
+        }
+
+        let time = 0;
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            time += 0.025;
+
+            // Render Particle Wave
+            for (let i = 0; i < waveDots.length; i++) {
+                const dot = waveDots[i];
+                // 3D perspective undulating wave formula
+                const wave = Math.sin(time + dot.col * 0.18 + dot.row * 0.3) * 16 * (1 + dot.row * 0.1);
+                const curY = dot.baseY + wave;
+
+                ctx.beginPath();
+                ctx.arc(dot.baseX, curY, dot.size, 0, Math.PI * 2);
+                ctx.fillStyle = dot.color;
+                ctx.globalAlpha = dot.alpha;
+                ctx.shadowColor = dot.color;
+                ctx.shadowBlur = dot.row > 8 ? 8 : 4;
+                ctx.fill();
+            }
+
+            // Render Floating Star Dust
+            ctx.shadowBlur = 6;
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.y += p.speedY;
+                p.x += p.speedX;
+
+                if (p.y < 0) p.y = height;
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+            }
+
+            ctx.globalAlpha = 1.0;
+            ctx.shadowBlur = 0;
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('DOMContentLoaded', () => {
+            resizeCanvas();
+            animateCanvas();
+            generateCaptcha();
+        });
     </script>
 </body>
 </html>
