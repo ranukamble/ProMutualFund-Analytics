@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Global i18n Translation Engine (Hindi, English, Marathi) -->
+    <script src="/static/i18n.js"></script>
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -743,6 +745,34 @@
 <body>
 
     <div class="page-wrapper">
+        <!-- Top Right Language Switcher (Fixed Position in Header) -->
+        <div style="position: fixed; top: 24px; right: 32px; z-index: 1000;">
+            <div id="siteLanguageSelectorContainer" style="position: relative; display: inline-flex; align-items: center;">
+                <button type="button" id="siteBtnLangDropdown" onclick="window.toggleSiteLanguageMenu(event)"
+                    style="background: rgba(11,20,42,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(59,130,246,0.35); border-radius: 10px; color: #F1F5F9; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; transition: all 150ms; box-shadow: 0 4px 20px rgba(0,0,0,0.4);"
+                    title="Translate Website (Hindi, English, Marathi)">
+                    <span style="font-size: 14px;">🌐</span>
+                    <span class="site-current-lang-text" id="siteCurrentLangLabel">English</span>
+                    <span style="font-size: 8px; color: #94A3B8;">▼</span>
+                </button>
+                <div id="siteLanguageDropdownMenu" style="display: none; position: absolute; right: 0; top: calc(100% + 6px); background: #0D1B2A; border: 1px solid rgba(56,189,248,0.3); border-radius: 12px; padding: 6px; min-width: 175px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); z-index: 9999;">
+                    <div style="font-size: 9px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px 6px;">SELECT LANGUAGE</div>
+                    <button type="button" onclick="window.setSiteLanguage('en')" class="site-lang-opt lang-option-btn active" data-lang="en" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left;">
+                        <span>🇬🇧 English</span>
+                        <span class="lang-check" style="font-size: 11px; color: #38BDF8;">✓</span>
+                    </button>
+                    <button type="button" onclick="window.setSiteLanguage('mr')" class="site-lang-opt lang-option-btn" data-lang="mr" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left; margin-top: 2px;">
+                        <span>🇮🇳 मराठी (Marathi)</span>
+                        <span class="lang-check" style="font-size: 11px; color: #38BDF8; display: none;">✓</span>
+                    </button>
+                    <button type="button" onclick="window.setSiteLanguage('hi')" class="site-lang-opt lang-option-btn" data-lang="hi" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left; margin-top: 2px;">
+                        <span>🇮🇳 हिंदी (Hindi)</span>
+                        <span class="lang-check" style="font-size: 11px; color: #38BDF8; display: none;">✓</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Ambient Glowing Nebulae -->
         <div class="ambient-glow glow-1"></div>
         <div class="ambient-glow glow-2"></div>

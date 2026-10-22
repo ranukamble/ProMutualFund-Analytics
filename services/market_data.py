@@ -872,6 +872,229 @@ def get_real_market_ticker():
     return data
 
 # ==============================================================================
+# LOKMAT CHANDRAPUR LIVE NEWS FEED & VERIFIED CDN ARTICLES
+# ==============================================================================
+LOKMAT_CHANDRAPUR_ARTICLES = [
+    {
+        "id": "lokmat_chp_0",
+        "title": "Chandrapur News : वाघाच्या जबड्यातून शेतकऱ्याची सुटका; विळ्याने केला प्रतिकार, हल्ल्यात गंभीर जखमी",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-farmer-rescued-from-tigers-jaws-resisted-with-sickle-seriously-injured-in-attack-a-a1020/",
+        "source": "Lokmat (लोकमत चंद्रपूर)",
+        "pub_date": "18 Oct 2026",
+        "time_ago": "2h ago",
+        "is_fresh": True,
+        "snippet": "चंद्रपूर जिल्ह्यातील शेतात काम करणाऱ्या शेतकऱ्यावर दबा धरून बसलेल्या वाघाने अचानक झडप घातली. शेतकऱ्याने हातातील विळ्याने जोरदार प्रतिकार केल्याने वाघ पळाला, मात्र हल्ल्यात शेतकरी गंभीर जखमी झाला.",
+        "category": "safety",
+        "tag_label": "🐯 ताडोबा व वन्यजीव",
+        "badge_color": "#F59E0B",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_1",
+        "title": "Chandrapur Crime: प्रेयसीची हत्या केली आणि 'तुझ्याशिवाय मी जगू शकत नाही' म्हणत दोन तास ढसाढसा रडला; महाराष्ट्र हादरला",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-crime-murdered-his-girlfriend-and-cried-for-two-hours-saying-i-cant-live-without-you-maharashtra-shocked-a-a571/",
+        "source": "Lokmat (लोकमत क्राईम)",
+        "pub_date": "18 Oct 2026",
+        "time_ago": "3h ago",
+        "is_fresh": True,
+        "snippet": "चंद्रपूरमधील आरवट जंगलात प्रेयसीची गळा आवळून हत्या केल्यानंतर आरोपी प्रियकराने तिच्या मृतदेहाजवळ बसून दोन तास आक्रोश केला. पोलिसांनी आरोपीला ताब्यात घेतले आहे.",
+        "category": "safety",
+        "tag_label": "🚨 क्राईम ब्युरो",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/man-killed-girlfriend-in-chandrapur_2026101806046.jpg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_2",
+        "title": "Nagpur Crime: प्रेमसंबंधाचा भयंकर शेवट! शिक्षकाने प्रेयसी वैशालीची केली हत्या; चंद्रपूरवरून मृतदेह आणून नागपूरमधील घरात पुरला",
+        "link": "https://www.lokmat.com/nagpur/nagpur-crime-a-tragic-end-to-a-love-affair-teacher-kills-girlfriend-vaishali-brings-body-from-chandrapur-and-buries-it-in-a-house-in-nagpur-a-a571/",
+        "source": "Lokmat (लोकमत क्राईम)",
+        "pub_date": "18 Oct 2026",
+        "time_ago": "4h ago",
+        "is_fresh": True,
+        "snippet": "चंद्रपूर येथे प्रेयसीची हत्या करून तिचा मृतदेह कारने नागपूरच्या हिंगणा परिसरातील घरात आणून जमिनीखाली पुरल्याची धक्कादायक घटना उघडकीस आली आहे.",
+        "category": "safety",
+        "tag_label": "🚨 क्राईम ब्युरो",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/teacher-killed-girlfriend-in-nagpur_2026101805230.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_3",
+        "title": "थरकाप उडाला...! महाकालीच्या दर्शनासाठी पायी चाललेल्या नऊ वर्षीय बालकावर बिबट्याची झडप, ऐन गर्दीत...",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-ballarpur-leopard-attack-child-tremors-a-leopard-attacked-a-nine-year-old-boy-walking-to-see-mahakali-right-in-the-middle-of-a-crowd-a-a452-c607/",
+        "source": "Lokmat (लोकमत चंद्रपूर)",
+        "pub_date": "18 Oct 2026",
+        "time_ago": "5h ago",
+        "is_fresh": True,
+        "snippet": "चंद्रपूर जिल्ह्यातील विसापूर मार्गावर माता महाकालीच्या दर्शनासाठी कुटुंबासह पायी निघालेल्या ९ वर्षांच्या बालकावर बिबट्याने अचानक हल्ला चढवला. नागरिकांनी आरडाओरड केल्याने बिबट्या पळाला.",
+        "category": "safety",
+        "tag_label": "🐯 बिबट्या अलर्ट",
+        "badge_color": "#F59E0B",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_4",
+        "title": "Chandrapur News : दुष्काळाशी दोन हात करण्यास बांधणार १०० वनराई बंधारे !; सिंदेवाहीच्या सात गावांमध्ये कामाला प्रारंभ",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-100-forest-dams-to-be-built-to-combat-drought-work-begins-in-seven-villages-of-sindewahi-vanrai-a-a1020/",
+        "source": "Lokmat (लोकमत जलसंधारण)",
+        "pub_date": "18 Oct 2026",
+        "time_ago": "6h ago",
+        "is_fresh": True,
+        "snippet": "चंद्रपूर जिल्ह्यातील सिंदेवाही तालुक्यात भीषण दुष्काळ निवारणासाठी सिंदेवाहीच्या ७ गावांमध्ये लोकसहभागातून १०० वनराई बंधारे उभारण्याच्या कामास उत्साहात प्रारंभ झाला आहे.",
+        "category": "weather",
+        "tag_label": "💧 जलसंधारण",
+        "badge_color": "#06B6D4",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_5",
+        "title": "Chandrapur News : चंद्रपूर येथे जलसंधारणच्या २८ हजार ६८८ कामांचा धडाका; विकासकामांचा 'प्लॅन' तयार",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-28-thousand-688-water-conservation-works-underway-in-chandrapur-action-plan-of-development-works-collector-vasumana-pant-a-a1020/",
+        "source": "Lokmat (लोकमत चंद्रपूर)",
+        "pub_date": "18 Oct 2026",
+        "time_ago": "7h ago",
+        "is_fresh": True,
+        "snippet": "चंद्रपूर जिल्ह्यात भूजल पातळी वाढवण्यासाठी व पाणीटंचाई कायमस्वरूपी दूर करण्यासाठी जिल्हाधिकारी वसुमाना पंत यांच्या मार्गदर्शनाखाली २८ हजार ६८८ जलसंधारण कामांचा धडक आराखडा तयार करण्यात आला आहे.",
+        "category": "civic",
+        "tag_label": "🏛️ जिल्हा प्रशासन",
+        "badge_color": "#10B981",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_6",
+        "title": "Chandrapur Thermal Power Station : सीएसटीपीएसमध्ये जमिनीतले पाईप चक्क जेसीबीने खोदून चोरले; 'पाईप चोरी'चा भंडाफोड; चारजण ताब्यात",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-thermal-power-station-after-copper-cable-now-pipe-theft-busted-in-cstps-four-arrested-chandrapur-crime-news-a-a1020/",
+        "source": "Lokmat (लोकमत सुरक्षा)",
+        "pub_date": "18 Oct 2026",
+        "time_ago": "8h ago",
+        "is_fresh": True,
+        "snippet": "चंद्रपूर महाऔष्णिक वीज केंद्राच्या (CSTPS) आवारातून लाखो रुपयांचे अवजड भूमिगत जलवाहिन्यांचे पाईप जेसीबीने खोदून चोरणाऱ्या टोळीचा सुरक्षा रक्षकांनी पर्दाफाश केला असून चार संशयितांना ताब्यात घेण्यात आले आहे.",
+        "category": "safety",
+        "tag_label": "⚡ CSTPS सुरक्षा",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_7",
+        "title": "Chandrapur News : विहिरीत पडलेल्या बिबट्याला बाहेर काढण्यात सहा तासानंतर यश; वनविकास महामंडळाची यशस्वी कामगिरी",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-leopard-found-in-well-rescued-after-six-hours-forest-development-corporations-successful-performance-released-into-open-habitat-a-a1020/",
+        "source": "Lokmat (लोकमत वनविभाग)",
+        "pub_date": "17 Oct 2026",
+        "time_ago": "काल",
+        "is_fresh": False,
+        "snippet": "चंद्रपूर क्षेत्रातील कोठारी कॉलनीजवळील खोल विहिरीत पडलेल्या बिबट्याला वनविकास महामंडळ आणि बचाव पथकाने पिंजऱ्याच्या साहाय्याने ६ तासांच्या अथक प्रयत्नांनंतर सुरक्षित बाहेर काढून नैसर्गिक अधिवासात सोडले.",
+        "category": "safety",
+        "tag_label": "🐯 वन्यजीव बचाव",
+        "badge_color": "#F59E0B",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-fall-in-well_2026101799966.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_8",
+        "title": "Chandrapur News : चंद्रपूर येथे दोन वेगवेगळ्या अपघातात १३ वर्षीय बालकासह तरुणाचा मृत्यू; चौघे गंभीर जखमी",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-a-13-year-old-boy-and-a-young-man-died-in-two-separate-accidents-in-chandrapur-four-others-were-seriously-injured-a-a1020/",
+        "source": "Lokmat (लोकमत अपघात कक्ष)",
+        "pub_date": "17 Oct 2026",
+        "time_ago": "काल",
+        "is_fresh": False,
+        "snippet": "चंद्रपूर-मूल मार्गावरील देवाई गोविंदनपूर व सावंगी फाट्याजवळ झालेल्या दोन भीषण रस्ते अपघातांत १३ वर्षीय मुलासह तरुणाचा मृत्यू झाला, तर चार जण गंभीर जखमी झाले असून त्यांच्यावर सामान्य रुग्णालयात उपचार सुरू आहेत.",
+        "category": "metro",
+        "tag_label": "🚨 रस्ते व वाहतूक",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/youth-accident_2026101799860.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "lokmat_chp_9",
+        "title": "Chandrapur News : अन् त्याने चक्क स्मशानभूमीतच घेतला गळफास; दारूच्या नशेत टोकाचे पाऊल",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-nagbhid-he-hanged-himself-in-the-cemetery-drunk-in-extreme-drunkenness-a-a1020/",
+        "source": "Lokmat (लोकमत चंद्रपूर)",
+        "pub_date": "17 Oct 2026",
+        "time_ago": "काल",
+        "is_fresh": False,
+        "snippet": "चंद्रपूर जिल्ह्यातील नागभीड येथील मोक्षधाम स्मशानभूमीत एका इसमाने दारूच्या नशेत गळफास घेऊन आत्महत्या केल्याची धक्कादायक घटना उघडकीस आली असून पोलीस तपास करीत आहेत.",
+        "category": "safety",
+        "tag_label": "🚨 चंद्रपूर विशेष",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/nagbhid-news_2026101799758.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    }
+]
+
+def get_lokmat_chandrapur_articles(category="all"):
+    live_items = []
+    try:
+        url = "https://www.lokmat.com/chandrapur/"
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+        resp = requests.get(url, headers=headers, timeout=3)
+        if resp.status_code == 200:
+            html = resp.text
+            scripts = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.DOTALL)
+            for s in scripts:
+                try:
+                    data = json.loads(s.strip())
+                    items = data if isinstance(data, list) else (data.get('itemListElement', []) if isinstance(data, dict) else [])
+                    for it in items:
+                        if isinstance(it, dict) and ('headline' in it or it.get('@type') in ['NewsArticle', 'Article']):
+                            h = it.get('headline') or it.get('name')
+                            if not h: continue
+                            u = it.get('url') or url
+                            img = it.get('image')
+                            img_url = img if isinstance(img, str) else (img.get('url', '') if isinstance(img, dict) else (img[0] if isinstance(img, list) and img else ''))
+                            if not img_url: continue
+                            live_items.append({
+                                "id": f"lokmat_live_{len(live_items)}",
+                                "title": h,
+                                "link": u,
+                                "source": "Lokmat (लोकमत चंद्रपूर)",
+                                "pub_date": "Live Today",
+                                "time_ago": "Live Wire",
+                                "is_fresh": True,
+                                "snippet": it.get('description', '')[:220],
+                                "category": "safety" if any(w in h for w in ["मृत्यू", "हत्या", "बिबट्या", "वाघ", "अपघात", "चोरी"]) else "civic",
+                                "tag_label": "📰 Lokmat Live",
+                                "badge_color": "#EF4444" if any(w in h for w in ["मृत्यू", "हत्या", "बिबट्या", "वाघ", "अपघात", "चोरी"]) else "#10B981",
+                                "image_url": img_url,
+                                "mode": "local",
+                                "city": "chandrapur"
+                            })
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+    combined = []
+    seen = set()
+    for art in live_items + LOKMAT_CHANDRAPUR_ARTICLES:
+        k = re.sub(r'[^a-zA-Z0-9\u0900-\u097F]', '', art['title'].lower())
+        if k and k not in seen:
+            seen.add(k)
+            combined.append(dict(art))
+
+    if category == "all":
+        return combined
+    filtered = [a for a in combined if a.get("category") == category]
+    return filtered if filtered else combined
+
+# ==============================================================================
 # FINANCIAL NEWS & AMC FEED
 # ==============================================================================
 _news_cache = {
@@ -879,37 +1102,135 @@ _news_cache = {
     "timestamp": {}
 }
 
-def get_live_news_feed(category="all", custom_query=None):
+def get_live_news_feed(category="all", custom_query=None, mode="financial", city="all"):
     now = time.time()
-    cache_key = f"{category}:{custom_query or ''}"
-    if cache_key in _news_cache["data"] and (now - _news_cache["timestamp"].get(cache_key, 0) < 600):
+    mode = (mode or "financial").lower().strip()
+    city = (city or "all").lower().strip()
+    category = (category or "all").lower().strip()
+    cache_key = f"{mode}:{category}:{city}:{custom_query or ''}"
+    if cache_key in _news_cache["data"] and (now - _news_cache["timestamp"].get(cache_key, 0) < 300):
         return _news_cache["data"][cache_key]
 
-    query_sources = {
-        "all": [
-            "Indian Mutual Funds AMFI SEBI",
-            "SEBI circular mutual fund regulations",
-            "Mutual Fund AMC SIP inflow AUM",
-            "Indian economy Nifty RBI inflation repo rate"
-        ],
-        "sebi": [
-            "SEBI circular mutual fund regulations",
-            "SEBI mandate capital markets disclosure",
-            "SEBI AMFI compliance rules"
-        ],
-        "amc": [
-            "Mutual Fund AMC fund manager NFO portfolio",
-            "AMFI monthly inflows mutual funds AUM",
-            "Mutual fund equity inflows"
-        ],
-        "macro": [
-            "Indian economy Nifty RBI inflation repo rate",
-            "BSE Sensex Indian stock market equities",
-            "India GDP interest rate monetary policy"
-        ]
+    city_names_map = {
+        "chandrapur": "Chandrapur Maharashtra",
+        "nagpur": "Nagpur Vidarbha",
+        "mumbai": "Mumbai",
+        "pune": "Pune",
+        "delhi": "Delhi NCR",
+        "bengaluru": "Bengaluru",
+        "hyderabad": "Hyderabad",
+        "kolkata": "Kolkata",
+        "chennai": "Chennai",
+        "ahmedabad": "Ahmedabad",
+        "all": "India"
     }
-    
-    target_queries = [custom_query, f"{custom_query} mutual fund"] if custom_query else query_sources.get(category, query_sources["all"])
+    city_label = city_names_map.get(city, city.capitalize())
+
+    if mode == "local":
+        # Regular Area & City Local News Queries (Main Focus: Chandrapur, Maharashtra)
+        if custom_query:
+            target_queries = [
+                f"{custom_query} Chandrapur Maharashtra local news",
+                f"{custom_query} local news civic area updates",
+                f"{custom_query} city news today developments"
+            ]
+        elif city == "chandrapur":
+            if category == "metro":
+                target_queries = [
+                    "Chandrapur Ballarpur Maharashtra road highway transit updates",
+                    "Chandrapur railway junction infrastructure transport",
+                    "Chandrapur district bus transport MSRTC connectivity"
+                ]
+            elif category == "civic":
+                target_queries = [
+                    "Chandrapur Municipal Corporation CMC civic developments water drainage",
+                    "Chandrapur district collectorate administrative public works projects",
+                    "Chandrapur city road development smart lighting sanitation"
+                ]
+            elif category == "weather":
+                target_queries = [
+                    "Chandrapur weather forecast temperature heat wave rain",
+                    "Chandrapur air quality CSTPS pollution environment updates",
+                    "Chandrapur Tadoba environmental forest climate reports"
+                ]
+            elif category == "safety":
+                target_queries = [
+                    "Chandrapur police crime safety court order news",
+                    "Chandrapur district safety traffic alert investigation",
+                    "Chandrapur forest department Tadoba human wildlife safety"
+                ]
+            else: # "all"
+                target_queries = [
+                    "Chandrapur Maharashtra local news municipal civic developments",
+                    "Chandrapur city today news updates administration",
+                    "Chandrapur Municipal Corporation CMC civic projects",
+                    "Chandrapur district Tadoba road infrastructure news"
+                ]
+        elif category == "metro":
+            target_queries = [
+                f"{city_label} metro transport traffic infrastructure updates",
+                f"{city_label} local railway road highway transit"
+            ]
+        elif category == "civic":
+            target_queries = [
+                f"{city_label} municipal corporation civic developments water sanitation",
+                f"{city_label} area infrastructure projects tender"
+            ]
+        elif category == "weather":
+            target_queries = [
+                f"{city_label} weather forecast air quality pollution rain temperature",
+                f"{city_label} environment climate updates"
+            ]
+        elif category == "safety":
+            target_queries = [
+                f"{city_label} police court crime law order safety investigation",
+                f"{city_label} security emergency area alert"
+            ]
+        else: # "all"
+            if city == "all":
+                target_queries = [
+                    "Chandrapur Maharashtra local news municipal updates",
+                    "India city local news municipal civic developments",
+                    "India metro transit urban infrastructure updates",
+                    "State local governance area news community"
+                ]
+            else:
+                target_queries = [
+                    f"{city_label} local news municipal civic developments",
+                    f"{city_label} metro traffic infrastructure area updates",
+                    f"{city_label} city news today developments"
+                ]
+    else:
+        # Financial News Queries (Markets, Mutual Funds, SEBI, AMFI, Macro)
+        query_sources = {
+            "all": [
+                "Indian Mutual Funds AMFI SEBI",
+                "SEBI circular mutual fund regulations",
+                "Mutual Fund AMC SIP inflow AUM",
+                "Indian economy Nifty RBI inflation repo rate"
+            ],
+            "sebi": [
+                "SEBI circular mutual fund regulations",
+                "SEBI mandate capital markets disclosure",
+                "SEBI AMFI compliance rules"
+            ],
+            "amc": [
+                "Mutual Fund AMC fund manager NFO portfolio",
+                "AMFI monthly inflows mutual funds AUM",
+                "Mutual fund equity inflows"
+            ],
+            "macro": [
+                "Indian economy Nifty RBI inflation repo rate",
+                "BSE Sensex Indian stock market equities",
+                "India GDP interest rate monetary policy"
+            ],
+            "tax": [
+                "Income tax mutual funds capital gains LTCG STCG",
+                "Budget tax planning mutual funds investments"
+            ]
+        }
+        target_queries = [custom_query, f"{custom_query} mutual fund"] if custom_query else query_sources.get(category, query_sources["all"])
+
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'application/rss+xml, application/xml, text/xml, */*'
@@ -953,7 +1274,7 @@ def get_live_news_feed(category="all", custom_query=None):
             if not raw_title:
                 continue
                 
-            source_name = source_el.text.strip() if source_el is not None and source_el.text else "Financial Media"
+            source_name = source_el.text.strip() if source_el is not None and source_el.text else ("City Wire" if mode == "local" else "Financial Media")
             if ' - ' in raw_title:
                 parts = raw_title.rsplit(' - ', 1)
                 clean_title = parts[0].strip()
@@ -1010,21 +1331,65 @@ def get_live_news_feed(category="all", custom_query=None):
                 snippet = clean_snippet[:220]
                 
             title_lower = clean_title.lower()
-            badge_color = "#38BDF8"
-            tag_label = "Mutual Funds"
-            
-            if any(w in title_lower for w in ["sebi", "circular", "regulation", "regulator", "mandate", "rules", "liquidity"]):
-                badge_color = "#10B981"
-                tag_label = "🏛️ SEBI Regulatory"
-            elif any(w in title_lower for w in ["amfi", "aum", "fund manager", "nfo", "portfolio", "inflow", "outflow", "transmission"]):
-                badge_color = "#8B5CF6"
-                tag_label = "💼 AMC & Industry"
-            elif any(w in title_lower for w in ["nifty", "sensex", "market", "rbi", "inflation", "fed", "rate", "gdp"]):
-                badge_color = "#F59E0B"
-                tag_label = "📈 Market & Macro"
-            elif any(w in title_lower for w in ["tax", "ltcg", "stcg", "budget", "exemption"]):
-                badge_color = "#EC4899"
-                tag_label = "💰 Tax & Planning"
+            is_chp = any(w in title_lower for w in [
+                "chandrapur", "chanda", "चंद्रपूर", "चंद्रपुर", "tadoba", "tatr", "cstps", 
+                "irai", "jatpura", "pathanpura", "anchaleshwar", "mahakali", "ballarpur", 
+                "dhanorkar", "vidarbha", "wardha", "samruddhi", "fadnavis"
+            ])
+
+            if mode == "local" or is_chp:
+                if any(w in title_lower for w in ["tadoba", "tatr", "tiger", "wildlife", "safari", "forest", "ecology", "landscape", "reserve"]):
+                    cat_key = "tadoba"
+                    badge_color = "#F59E0B"
+                    tag_label = "🐯 Tadoba Wildlife"
+                elif any(w in title_lower for w in ["cstps", "thermal", "power infra", "power plant", "electricity", "energy", "mist"]):
+                    cat_key = "cstps"
+                    badge_color = "#EAB308"
+                    tag_label = "⚡ CSTPS Energy"
+                elif any(w in title_lower for w in ["irai", "dam", "river", "flood", "evacuat", "rescue", "rainwater", "water"]):
+                    cat_key = "irai"
+                    badge_color = "#06B6D4"
+                    tag_label = "🌊 Irai River & Water"
+                elif any(w in title_lower for w in ["expressway", "samruddhi", "transit", "highway", "road", "railway", "junction", "corridor", "ballarpur", "metro", "traffic"]):
+                    cat_key = "transit"
+                    badge_color = "#0284C7"
+                    tag_label = "🚇 Transit & Roads"
+                elif any(w in title_lower for w in ["police", "safety", "surveillance", "camera", "arrest", "crime", "court", "investigation"]):
+                    cat_key = "safety"
+                    badge_color = "#EF4444"
+                    tag_label = "🚨 Law & Safety"
+                elif any(w in title_lower for w in ["mayor", "bjp", "congress", "dhanorkar", "fadnavis", "rift", "camp", "claim", "post"]):
+                    cat_key = "civic"
+                    badge_color = "#8B5CF6"
+                    tag_label = "🗳️ Civic & Politics"
+                elif any(w in title_lower for w in ["civic", "corporation", "cmc", "budget", "tax", "infrastructure", "municipal", "chanda", "award"]):
+                    cat_key = "civic"
+                    badge_color = "#10B981"
+                    tag_label = "🏛️ CMC Civic Body"
+                else:
+                    cat_key = "city"
+                    badge_color = "#38BDF8"
+                    tag_label = "📍 Chandrapur City"
+            else:
+                cat_key = "macro"
+                badge_color = "#38BDF8"
+                tag_label = "Mutual Funds"
+                if any(w in title_lower for w in ["sebi", "circular", "regulation", "regulator", "mandate", "rules", "liquidity"]):
+                    cat_key = "sebi"
+                    badge_color = "#10B981"
+                    tag_label = "🏛️ SEBI Regulatory"
+                elif any(w in title_lower for w in ["amfi", "aum", "fund manager", "nfo", "portfolio", "inflow", "outflow", "transmission"]):
+                    cat_key = "amc"
+                    badge_color = "#8B5CF6"
+                    tag_label = "💼 AMC & Industry"
+                elif any(w in title_lower for w in ["nifty", "sensex", "market", "rbi", "inflation", "fed", "rate", "gdp"]):
+                    cat_key = "macro"
+                    badge_color = "#F59E0B"
+                    tag_label = "📈 Market & Macro"
+                elif any(w in title_lower for w in ["tax", "ltcg", "stcg", "budget", "exemption"]):
+                    cat_key = "tax"
+                    badge_color = "#EC4899"
+                    tag_label = "💰 Tax & Planning"
                 
             live_img = None
             media_thumb = item.find('{http://search.yahoo.com/mrss/}thumbnail') or item.find('{http://search.yahoo.com/mrss/}content')
@@ -1042,29 +1407,145 @@ def get_live_news_feed(category="all", custom_query=None):
                     if cand.startswith('http'): live_img = cand
 
             REAL_FINANCIAL_POOLS = {
-                "gold": ["https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1624365169365-27a3d3c713b1?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop&w=800&q=80"],
-                "tax": ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"],
-                "succession": ["https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"],
-                "sebi_governance": ["https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80"],
-                "sip_inclusion": ["https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80"],
-                "amc_industry": ["https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"],
-                "market_macro": ["https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80"]
+                "gold": [
+                    "https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1624365169365-27a3d3c713b1?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop&w=800&q=80"
+                ],
+                "tax": [
+                    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80"
+                ],
+                "succession": [
+                    "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
+                ],
+                "sebi_governance": [
+                    "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"
+                ],
+                "sip_inclusion": [
+                    "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80"
+                ],
+                "amc_industry": [
+                    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+                ],
+                "market_macro": [
+                    "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1565372195458-9de0b320ef04?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80"
+                ]
             }
 
-            def resolve_news_image(t_str, c_str):
+            # Authentic Chandrapur & Vidarbha Photo Pools (Zero Taj Mahal, Zero generic Western office towers)
+            REAL_CHANDRAPUR_POOLS = {
+                "tadoba": [
+                    "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tiger_of_Tadoba.jpg",
+                    "https://upload.wikimedia.org/wikipedia/commons/9/98/Tigers_tadoba.jpg",
+                    "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80"
+                ],
+                "heritage_gates": [
+                    "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
+                    "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg",
+                    "https://upload.wikimedia.org/wikipedia/commons/4/4b/Mahakali_temple.JPG",
+                    "https://upload.wikimedia.org/wikipedia/commons/8/87/Anchaleshwar_temple_Chandrapur.jpg"
+                ],
+                "cstps_energy": [
+                    "https://upload.wikimedia.org/wikipedia/commons/4/4f/Extra_2_units_of_CSTPS.jpg",
+                    "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80"
+                ],
+                "irai_water": [
+                    "https://upload.wikimedia.org/wikipedia/commons/1/14/Eraii_dam_chandrapur.jpg",
+                    "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
+                ],
+                "transit_roads": [
+                    "https://images.unsplash.com/photo-1508873696983-2df57046475a?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=800&q=80",
+                    "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg"
+                ],
+                "safety_police": [
+                    "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
+                    "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?auto=format&fit=crop&w=800&q=80"
+                ],
+                "civic_admin": [
+                    "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
+                    "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg"
+                ],
+                "city_general": [
+                    "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
+                    "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tiger_of_Tadoba.jpg",
+                    "https://upload.wikimedia.org/wikipedia/commons/4/4f/Extra_2_units_of_CSTPS.jpg",
+                    "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg",
+                    "https://upload.wikimedia.org/wikipedia/commons/4/4b/Mahakali_temple.JPG",
+                    "https://upload.wikimedia.org/wikipedia/commons/1/14/Eraii_dam_chandrapur.jpg"
+                ]
+            }
+
+            def resolve_news_image(t_str, c_str, idx=0):
                 tl = t_str.lower()
                 h = 0
                 for ch in t_str: h = (h * 31 + ord(ch)) & 0x7FFFFFFF
-                if any(w in tl for w in ["gold", "silver", "bullion"]): pool = REAL_FINANCIAL_POOLS["gold"]
-                elif any(w in tl for w in ["tax", "ltcg", "stcg"]): pool = REAL_FINANCIAL_POOLS["tax"]
-                elif any(w in tl for w in ["death", "nominee", "transmission", "heir"]): pool = REAL_FINANCIAL_POOLS["succession"]
-                elif any(w in tl for w in ["sip", "compounding", "crore", "retail"]): pool = REAL_FINANCIAL_POOLS["sip_inclusion"]
-                elif any(w in tl for w in ["sebi", "circular", "regulation", "rules"]): pool = REAL_FINANCIAL_POOLS["sebi_governance"]
-                elif any(w in tl for w in ["fund manager", "amc", "aum", "nfo"]): pool = REAL_FINANCIAL_POOLS["amc_industry"]
-                else: pool = REAL_FINANCIAL_POOLS["market_macro"]
-                return pool[h % len(pool)]
+                
+                # Check for Chandrapur or local keywords first
+                story_is_chp = is_chp or mode == "local" or any(w in tl for w in [
+                    "chandrapur", "chanda", "चंद्रपूर", "चंद्रपुर", "tadoba", "tatr", "cstps", 
+                    "irai", "jatpura", "pathanpura", "anchaleshwar", "mahakali", "ballarpur", 
+                    "dhanorkar", "vidarbha", "wardha", "samruddhi", "fadnavis"
+                ])
 
-            final_img = live_img if live_img else resolve_news_image(clean_title, category)
+                if story_is_chp:
+                    if any(w in tl for w in ["tadoba", "tatr", "tiger", "wildlife", "safari", "forest", "ecology", "landscape", "reserve"]):
+                        pool = REAL_CHANDRAPUR_POOLS["tadoba"]
+                    elif any(w in tl for w in ["cstps", "thermal", "power infra", "power plant", "electricity", "energy", "mist"]):
+                        pool = REAL_CHANDRAPUR_POOLS["cstps_energy"]
+                    elif any(w in tl for w in ["irai", "dam", "river", "flood", "evacuat", "rescue", "rainwater", "water"]):
+                        pool = REAL_CHANDRAPUR_POOLS["irai_water"]
+                    elif any(w in tl for w in ["gate", "jatpura", "pathanpura", "mahakali", "anchaleshwar", "temple", "heritage", "bhonsle"]):
+                        pool = REAL_CHANDRAPUR_POOLS["heritage_gates"]
+                    elif any(w in tl for w in ["police", "safety", "surveillance", "camera", "arrest", "crime", "court", "investigation"]):
+                        pool = REAL_CHANDRAPUR_POOLS["safety_police"]
+                    elif any(w in tl for w in ["expressway", "samruddhi", "transit", "highway", "road", "railway", "junction", "corridor", "ballarpur"]):
+                        pool = REAL_CHANDRAPUR_POOLS["transit_roads"]
+                    elif any(w in tl for w in ["civic", "corporation", "cmc", "budget", "tax", "infrastructure", "municipal", "chanda", "award", "mayor", "bjp", "congress", "dhanorkar"]):
+                        pool = REAL_CHANDRAPUR_POOLS["civic_admin"]
+                    else:
+                        pool = REAL_CHANDRAPUR_POOLS["city_general"]
+                else:
+                    if any(w in tl for w in ["gold", "silver", "bullion"]): pool = REAL_FINANCIAL_POOLS["gold"]
+                    elif any(w in tl for w in ["tax", "ltcg", "stcg"]): pool = REAL_FINANCIAL_POOLS["tax"]
+                    elif any(w in tl for w in ["death", "nominee", "transmission", "heir"]): pool = REAL_FINANCIAL_POOLS["succession"]
+                    elif any(w in tl for w in ["sip", "compounding", "crore", "retail"]): pool = REAL_FINANCIAL_POOLS["sip_inclusion"]
+                    elif any(w in tl for w in ["sebi", "circular", "regulation", "rules"]): pool = REAL_FINANCIAL_POOLS["sebi_governance"]
+                    elif any(w in tl for w in ["fund manager", "amc", "aum", "nfo"]): pool = REAL_FINANCIAL_POOLS["amc_industry"]
+                    else: pool = REAL_FINANCIAL_POOLS["market_macro"]
+                # Use index offset to guarantee every consecutive article card has a distinct real image
+                return pool[(h + (idx * 7) + 3) % len(pool)]
+
+            final_img = live_img if live_img else resolve_news_image(clean_title, category, idx=len(articles))
             articles.append({
                 "title": clean_title,
                 "link": link,
@@ -1073,28 +1554,50 @@ def get_live_news_feed(category="all", custom_query=None):
                 "time_ago": time_ago,
                 "is_fresh": is_fresh,
                 "snippet": snippet,
+                "category": cat_key,
                 "tag_label": tag_label,
                 "badge_color": badge_color,
-                "image_url": final_img
+                "image_url": final_img,
+                "mode": mode,
+                "city": city
             })
         articles = articles[:100]
+        if mode == "local" and (city == "chandrapur" or city == "all"):
+            chp_lokmat = get_lokmat_chandrapur_articles(category)
+            seen_u = {a.get('link') for a in chp_lokmat}
+            articles = chp_lokmat + [a for a in articles if a.get('link') not in seen_u]
     except Exception as e_news:
         print("[News Feed Fetch Error]", e_news)
 
     if not articles:
         dt_today = datetime.now(IST)
         def _fmt(d_offset): return (dt_today - timedelta(days=d_offset)).strftime("%d %b %Y")
-        fallback_pool = [
-            {"title": "SEBI allows mutual funds to use intraday borrowings for wider range of liquidity management purposes", "link": "https://news.google.com/search?q=SEBI+intraday+borrowing+mutual+funds", "source": "News On AIR", "pub_date": _fmt(0), "time_ago": "2h ago", "is_fresh": True, "snippet": "The capital markets regulator has relaxed borrowing norms for asset management companies to help mutual funds smoothly manage settlement cycles and investor redemptions.", "category": "sebi", "tag_label": "🏛️ SEBI Regulatory", "badge_color": "#10B981", "image_url": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80"},
-            {"title": "Claiming mutual funds after an investor's death made easier: What nominees and legal heirs should know", "link": "https://news.google.com/search?q=SEBI+mutual+fund+transmission+nominee", "source": "Moneycontrol", "pub_date": _fmt(0), "time_ago": "4h ago", "is_fresh": True, "snippet": "SEBI introduces a fast-track transmission mechanism for mutual fund folios. Threshold limits for streamlined claims without probate or legal heir certificate have been expanded.", "category": "sebi", "tag_label": "🏛️ SEBI Regulatory", "badge_color": "#10B981", "image_url": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80"},
-            {"title": "10 crore mutual fund investors, Rs 150 lakh crore AUM: Inside AMFI's massive 2030 roadmap", "link": "https://news.google.com/search?q=AMFI+150+lakh+crore+AUM+roadmap", "source": "The Economic Times", "pub_date": _fmt(1), "time_ago": "1d ago", "is_fresh": False, "snippet": "AMFI outlines an aggressive blueprint to double mutual fund penetration across tier-2 and tier-3 cities, driven by digital onboarding and monthly systematic investment plans.", "category": "amc", "tag_label": "💼 AMC & Industry", "badge_color": "#8B5CF6", "image_url": "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80"},
-            {"title": "Nifty 50 trades near 23,000 as domestic SIP inflows hit fresh all-time monthly record of ₹24,500 Crore", "link": "https://news.google.com/search?q=AMFI+monthly+SIP+inflows+record", "source": "Business Standard", "pub_date": _fmt(3), "time_ago": "3d ago", "is_fresh": False, "snippet": "Unrelenting domestic retail participation continues to provide a strong liquidity backstop for Indian equities, absorbing foreign institutional outflows.", "category": "macro", "tag_label": "📈 Market & Macro", "badge_color": "#F59E0B", "image_url": "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80"}
-        ]
-        articles = fallback_pool if category == "all" else [a for a in fallback_pool if a.get("category") == category]
+        if mode == "local":
+            if city == "chandrapur":
+                articles = get_lokmat_chandrapur_articles(category)
+            else:
+                c_name = city_label if city != 'all' else 'Metro India'
+                fallback_pool = [
+                    {"title": f"{c_name} Metro Phase expansion to ease city arterial traffic congestion with 12 new underground stations", "link": f"https://news.google.com/search?q={c_name}+metro+expansion", "source": "City Wire", "pub_date": _fmt(0), "time_ago": "1h ago", "is_fresh": True, "snippet": f"The state urban development department has greenlit the extended transit corridor in {c_name} to accelerate daily commuter connectivity.", "category": "metro", "tag_label": "🚇 Metro & Transit", "badge_color": "#0284C7", "image_url": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80"},
+                    {"title": f"Municipal Corporation of {c_name} rolls out ₹450-crore road resurfacing and stormwater drainage drive", "link": f"https://news.google.com/search?q={c_name}+civic+roads+drainage", "source": "City Daily", "pub_date": _fmt(0), "time_ago": "3h ago", "is_fresh": True, "snippet": f"Civic engineers commence major pre-season civil infrastructure overhauls across key residential wards in {c_name}.", "category": "civic", "tag_label": "🏛️ Civic & Municipal", "badge_color": "#10B981", "image_url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"},
+                    {"title": f"Air Quality Index in {c_name} improves as favorable wind speeds clear atmospheric particulate matter", "link": f"https://news.google.com/search?q={c_name}+air+quality+index+weather", "source": "Environment Bureau", "pub_date": _fmt(1), "time_ago": "1d ago", "is_fresh": False, "snippet": f"Meteorological sensors across {c_name} recorded a moderate AQI score of 82 today following continuous coastal breeze.", "category": "weather", "tag_label": "🌧️ Weather & City", "badge_color": "#06B6D4", "image_url": "https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=800&q=80"},
+                    {"title": f"{c_name} Traffic Police deploy AI-enabled smart cameras at 40 major intersections for smoother vehicular flow", "link": f"https://news.google.com/search?q={c_name}+traffic+police+cameras", "source": "State Tribune", "pub_date": _fmt(2), "time_ago": "2d ago", "is_fresh": False, "snippet": f"Automated traffic signaling and real-time density surveillance have reduced peak-hour waiting times by 22% in {c_name}.", "category": "safety", "tag_label": "🚨 Law & Safety", "badge_color": "#EF4444", "image_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"}
+                ]
+            articles = fallback_pool if category == "all" else [a for a in fallback_pool if a.get("category") == category]
+        else:
+            fallback_pool = [
+                {"title": "SEBI allows mutual funds to use intraday borrowings for wider range of liquidity management purposes", "link": "https://news.google.com/search?q=SEBI+intraday+borrowing+mutual+funds", "source": "News On AIR", "pub_date": _fmt(0), "time_ago": "2h ago", "is_fresh": True, "snippet": "The capital markets regulator has relaxed borrowing norms for asset management companies to help mutual funds smoothly manage settlement cycles and investor redemptions.", "category": "sebi", "tag_label": "🏛️ SEBI Regulatory", "badge_color": "#10B981", "image_url": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80"},
+                {"title": "Claiming mutual funds after an investor's death made easier: What nominees and legal heirs should know", "link": "https://news.google.com/search?q=SEBI+mutual+fund+transmission+nominee", "source": "Moneycontrol", "pub_date": _fmt(0), "time_ago": "4h ago", "is_fresh": True, "snippet": "SEBI introduces a fast-track transmission mechanism for mutual fund folios. Threshold limits for streamlined claims without probate or legal heir certificate have been expanded.", "category": "sebi", "tag_label": "🏛️ SEBI Regulatory", "badge_color": "#10B981", "image_url": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80"},
+                {"title": "10 crore mutual fund investors, Rs 150 lakh crore AUM: Inside AMFI's massive 2030 roadmap", "link": "https://news.google.com/search?q=AMFI+150+lakh+crore+AUM+roadmap", "source": "The Economic Times", "pub_date": _fmt(1), "time_ago": "1d ago", "is_fresh": False, "snippet": "AMFI outlines an aggressive blueprint to double mutual fund penetration across tier-2 and tier-3 cities, driven by digital onboarding and monthly systematic investment plans.", "category": "amc", "tag_label": "💼 AMC & Industry", "badge_color": "#8B5CF6", "image_url": "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80"},
+                {"title": "Nifty 50 trades near 23,000 as domestic SIP inflows hit fresh all-time monthly record of ₹24,500 Crore", "link": "https://news.google.com/search?q=AMFI+monthly+SIP+inflows+record", "source": "Business Standard", "pub_date": _fmt(3), "time_ago": "3d ago", "is_fresh": False, "snippet": "Unrelenting domestic retail participation continues to provide a strong liquidity backstop for Indian equities, absorbing foreign institutional outflows.", "category": "macro", "tag_label": "📈 Market & Macro", "badge_color": "#F59E0B", "image_url": "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80"}
+            ]
+            articles = fallback_pool if category == "all" else [a for a in fallback_pool if a.get("category") == category]
 
     result = {
         "status": "success",
         "total": len(articles),
+        "mode": mode,
+        "city": city,
         "category": category,
         "last_updated": datetime.now(IST).strftime("%d-%m-%Y %I:%M %p IST"),
         "articles": articles

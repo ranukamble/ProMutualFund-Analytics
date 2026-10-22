@@ -9,6 +9,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Global i18n Translation Engine (Hindi, English, Marathi) -->
+  <script src="/static/i18n.js"></script>
+
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 
   <style>
     :root {
@@ -30,6 +39,235 @@
       --font-mono: 'JetBrains Mono', monospace;
     }
 
+    /* ── LIGHT THEME OVERRIDES FOR NEWS TERMINAL ── */
+    html[data-theme="light"],
+    html[data-theme="light"] body {
+      --bg-main: #F8FAFC;
+      --bg-secondary: #F1F5F9;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F8FAFC;
+      --border-light: #E2E8F0;
+      --border-hover: rgba(2, 132, 199, 0.4);
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-dark: #64748B;
+      --cyan: #0284C7;
+      background-color: #F8FAFC !important;
+      background-image: none !important;
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] .editorial-masthead-dateline {
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      color: #64748B !important;
+    }
+    html[data-theme="light"] #editorialDateString {
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] nav {
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+    html[data-theme="light"] nav div {
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] nav div[style*="color: #64748B"],
+    html[data-theme="light"] nav div[style*="color:#64748B"] {
+      color: #64748B !important;
+    }
+    html[data-theme="light"] #newsroomClock {
+      color: #334155 !important;
+    }
+    html[data-theme="light"] nav div[style*="background: rgba(255,255,255,0.03)"],
+    html[data-theme="light"] nav div[style*="background:rgba(255,255,255,0.03)"] {
+      background: #F1F5F9 !important;
+      border-color: #CBD5E1 !important;
+    }
+
+    html[data-theme="light"] nav button[onclick*="dashboard"],
+    html[data-theme="light"] .back-btn {
+      background: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    }
+    html[data-theme="light"] nav button[onclick*="dashboard"]:hover,
+    html[data-theme="light"] .back-btn:hover {
+      background: #F1F5F9 !important;
+      color: #0284C7 !important;
+      border-color: #0284C7 !important;
+    }
+
+    html[data-theme="light"] #newsThemeToggleBtn {
+      background: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    }
+    html[data-theme="light"] #newsThemeToggleBtn:hover {
+      background: #F1F5F9 !important;
+    }
+
+    html[data-theme="light"] .market-ticker-ribbon {
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+    html[data-theme="light"] .ticker-index-item span[style*="color: #F1F5F9"],
+    html[data-theme="light"] .ticker-index-item span[style*="color:#F1F5F9"] {
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] div[style*="background: #0A0F1A"],
+    html[data-theme="light"] div[style*="background:#0A0F1A"],
+    html[data-theme="light"] .news-ticker-strip {
+      background: #F1F5F9 !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+    html[data-theme="light"] #topNewsTickerTrack span {
+      color: #334155 !important;
+    }
+
+    html[data-theme="light"] .newsroom-hero-carousel-container,
+    html[data-theme="light"] .newsroom-hero-slide {
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+    }
+    html[data-theme="light"] .newsroom-hero-slide h1 {
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] .newsroom-hero-slide p {
+      color: #475569 !important;
+    }
+    html[data-theme="light"] .newsroom-hero-slide div[style*="background: rgba(0,0,0,0.3)"],
+    html[data-theme="light"] .newsroom-hero-slide div[style*="background:rgba(0,0,0,0.3)"] {
+      background: #F8FAFC !important;
+      border: 1px solid #CBD5E1 !important;
+    }
+    html[data-theme="light"] .newsroom-hero-slide div[style*="background: rgba(0,0,0,0.3)"] div,
+    html[data-theme="light"] .newsroom-hero-slide div[style*="background:rgba(0,0,0,0.3)"] span {
+      color: #1E293B !important;
+    }
+    html[data-theme="light"] .newsroom-hero-img-wrap div[style*="linear-gradient"] {
+      background: linear-gradient(0deg, #FFFFFF 0%, rgba(255,255,255,0.4) 40%, transparent 100%) !important;
+    }
+
+    html[data-theme="light"] .developing-desk-card,
+    html[data-theme="light"] .news-article-card,
+    html[data-theme="light"] .middle-hub-card,
+    html[data-theme="light"] div[style*="background: #0D1B2A"],
+    html[data-theme="light"] div[style*="background:#0D1B2A"],
+    html[data-theme="light"] div[style*="rgba(13,27,42"] {
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    html[data-theme="light"] .developing-desk-card h2,
+    html[data-theme="light"] .developing-desk-card h3,
+    html[data-theme="light"] .news-article-card h2,
+    html[data-theme="light"] .news-article-card h3,
+    html[data-theme="light"] .middle-hub-card h2,
+    html[data-theme="light"] .middle-hub-card h3,
+    html[data-theme="light"] .dev-headline,
+    html[data-theme="light"] .article-title,
+    html[data-theme="light"] h1,
+    html[data-theme="light"] h2,
+    html[data-theme="light"] h3,
+    html[data-theme="light"] h4 {
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] .article-snippet,
+    html[data-theme="light"] .news-article-card p,
+    html[data-theme="light"] .middle-hub-card p,
+    html[data-theme="light"] .developing-desk-card p {
+      color: #475569 !important;
+    }
+
+    html[data-theme="light"] .developing-story-item {
+      border-bottom-color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] .dev-num {
+      color: #0284C7 !important;
+    }
+
+    html[data-theme="light"] .hero-slide-capsule {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+    }
+    html[data-theme="light"] #heroSlideCounter {
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] .middle-hub-card div[style*="background: rgba(255,255,255,0.02)"],
+    html[data-theme="light"] .middle-hub-card div[style*="background: rgba(255,255,255,0.03)"],
+    html[data-theme="light"] .middle-hub-card div[style*="background:rgba(255,255,255,0.02)"],
+    html[data-theme="light"] .middle-hub-card div[style*="background:rgba(255,255,255,0.03)"] {
+      background: #F8FAFC !important;
+      border-color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] .middle-hub-card div[style*="color: #F1F5F9"],
+    html[data-theme="light"] .middle-hub-card span[style*="color: #F1F5F9"],
+    html[data-theme="light"] .middle-hub-card span[style*="color: #E2E8F0"],
+    html[data-theme="light"] .middle-hub-card div[style*="color: #E2E8F0"] {
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] div[style*="background: rgba(255,255,255,0.03)"] {
+      background: #F1F5F9 !important;
+      border-color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] .cat-tab-btn {
+      color: #475569 !important;
+    }
+    html[data-theme="light"] .cat-tab-btn[style*="rgba(239,68,68"] {
+      color: #EF4444 !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+    }
+
+    html[data-theme="light"] input[type="text"],
+    html[data-theme="light"] input[type="search"],
+    html[data-theme="light"] #dedicatedNewsSearchInput,
+    html[data-theme="light"] #newsSearchBox,
+    html[data-theme="light"] select,
+    html[data-theme="light"] #publisherFilterSelect {
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] #inAppArticleModal > div {
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12) !important;
+    }
+    html[data-theme="light"] #inAppArticleModal h1,
+    html[data-theme="light"] #inAppArticleModal h2,
+    html[data-theme="light"] #inAppArticleModal h3 {
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] #inAppArticleModal p,
+    html[data-theme="light"] #inAppArticleModal li,
+    html[data-theme="light"] #inAppArticleModal td {
+      color: #334155 !important;
+    }
+    html[data-theme="light"] #inAppArticleModal th {
+      color: #64748B !important;
+    }
+    html[data-theme="light"] #inAppArticleModal div[style*="position: sticky"] {
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+    html[data-theme="light"] #inAppArticleModal div[style*="rgba(15, 23, 42"] {
+      background: #F8FAFC !important;
+      border-color: #E2E8F0 !important;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -44,10 +282,20 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
       background-image: 
         radial-gradient(ellipse at 20% -10%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
         radial-gradient(ellipse at 80% 10%, rgba(139, 92, 246, 0.06) 0%, transparent 60%);
-      background-attachment: fixed;
+      pointer-events: none;
+      z-index: -1;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     a {
@@ -227,15 +475,43 @@
     .ticker-track {
       display: inline-flex;
       animation: marqueeScroll 45s linear infinite;
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .ticker-track:hover {
       animation-play-state: paused;
     }
 
+    #topNewsTickerTrack {
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    #topNewsTickerTrack:hover {
+      animation-play-state: paused;
+    }
+
     @keyframes marqueeScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @keyframes tickerMove {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @keyframes feedPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.85); }
+    }
+
+    @keyframes tickerBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
     .ticker-item {
@@ -261,12 +537,13 @@
       font-family: var(--font-mono);
     }
 
-    /* Page Container */
+    /* Page Container - Full Bleed Width */
     .news-container {
-      max-width: 1480px;
       width: 100%;
-      margin: 0 auto;
-      padding: 24px 28px 60px;
+      max-width: 100%;
+      margin: 0;
+      padding: 20px 28px 60px;
+      box-sizing: border-box;
       flex: 1;
     }
 
@@ -776,6 +1053,111 @@
         }
       }
 
+      /* NEWS MODE SWITCHER & AREA SELECTOR */
+      .news-edition-mode-container {
+        transition: all 0.25s ease;
+      }
+      .news-mode-toggle-btn {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+      }
+      .news-mode-toggle-btn:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #FFFFFF !important;
+      }
+      .city-pill-btn {
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+      }
+      .city-pill-btn:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #FFFFFF !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
+      }
+      html[data-theme="light"] .news-edition-mode-container {
+        background: #FFFFFF !important;
+        border-color: #E2E8F0 !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+      }
+      html[data-theme="light"] .news-edition-mode-container > div:first-child {
+        background: #F1F5F9 !important;
+        border-color: #E2E8F0 !important;
+      }
+      html[data-theme="light"] .news-mode-toggle-btn:not(.active) {
+        color: #64748B !important;
+      }
+      html[data-theme="light"] #modeStatusDescription span:last-child {
+        color: #64748B !important;
+      }
+      html[data-theme="light"] #localAreaSelectorBar {
+        background: #F8FAFC !important;
+        border-color: #BAE6FD !important;
+        box-shadow: 0 4px 16px rgba(14, 165, 233, 0.08) !important;
+      }
+      html[data-theme="light"] #localAreaSelectorBar span {
+        color: #0F172A !important;
+      }
+      html[data-theme="light"] .city-pill-btn:not(.active) {
+        background: #FFFFFF !important;
+        border-color: #CBD5E1 !important;
+        color: #475569 !important;
+      }
+      html[data-theme="light"] .city-pill-btn:hover:not(.active) {
+        background: #F1F5F9 !important;
+        color: #0F172A !important;
+      }
+      html[data-theme="light"] #customAreaInput {
+        background: #FFFFFF !important;
+        border-color: #CBD5E1 !important;
+        color: #0F172A !important;
+      }
+
+      /* LANGUAGE SELECTOR STYLES */
+      .lang-option-btn {
+        width: 100%;
+        text-align: left;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        color: #CBD5E1;
+        font-size: 11.5px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 150ms ease;
+      }
+      .lang-option-btn:hover:not(.active) {
+        background: rgba(255,255,255,0.06);
+        color: #FFFFFF;
+      }
+      .lang-option-btn.active {
+        background: rgba(56,189,248,0.18) !important;
+        color: #38BDF8 !important;
+      }
+      html[data-theme="light"] #btnLangDropdownToggle {
+        background: #FFFFFF !important;
+        border-color: #CBD5E1 !important;
+        color: #0F172A !important;
+      }
+      html[data-theme="light"] #languageDropdownMenu {
+        background: #FFFFFF !important;
+        border-color: #BAE6FD !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12) !important;
+      }
+      html[data-theme="light"] .lang-option-btn:not(.active) {
+        color: #334155 !important;
+      }
+      html[data-theme="light"] .lang-option-btn:hover:not(.active) {
+        background: #F1F5F9 !important;
+        color: #0F172A !important;
+      }
+
       /* HERO SLIDER CAROUSEL STYLES */
       .newsroom-hero-carousel-container {
         position: relative;
@@ -859,7 +1241,7 @@
       .editorial-masthead-dateline {
         background: #040711;
         border-bottom: 1px solid rgba(255,255,255,0.06);
-        padding: 6px 20px;
+        padding: 6px 28px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -870,7 +1252,7 @@
       .market-ticker-ribbon {
         background: #080D1A;
         border-bottom: 1px solid rgba(255,255,255,0.06);
-        padding: 7px 20px;
+        padding: 7px 28px;
         overflow-x: auto;
         scrollbar-width: none;
         display: flex;
@@ -929,17 +1311,20 @@
         border-radius: 16px;
         overflow: hidden;
         cursor: pointer;
-        transition: all 220ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease;
         display: flex;
         flex-direction: column;
+        content-visibility: auto;
+        contain-intrinsic-size: 340px 380px;
+        will-change: transform;
       }
       .news-article-card:hover {
         transform: translateY(-4px);
         border-color: rgba(56,189,248,0.3);
         box-shadow: 0 16px 36px rgba(0,0,0,0.4), 0 0 20px rgba(56,189,248,0.1);
       }
-      .news-article-card:hover img {
-        transform: scale(1.05);
+      .news-article-card img {
+        will-change: transform;
       }
   </style>
 </head>
@@ -998,6 +1383,39 @@
       <div style="width: 6px; height: 6px; border-radius: 50%; background: #34D399; animation: feedPulse 2s infinite;"></div>
       <span style="font-size: 10px; font-weight: 800; color: #34D399; letter-spacing: 0.04em;">FEED CONNECTED</span>
     </div>
+
+    <!-- Language Translator Switcher (Hindi, English, Marathi) -->
+    <div style="position: relative; flex-shrink: 0;" id="languageSelectorContainer">
+      <button type="button" id="btnLangDropdownToggle" onclick="toggleLanguageMenu()"
+        style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; color: #F1F5F9; padding: 7px 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 180ms;"
+        title="Change Language / भाषा बदला / भाषा बदलें">
+        <span style="font-size: 13px;">🌐</span>
+        <span id="currentLangLabel">English</span>
+        <span style="font-size: 8px; color: #94A3B8;">▼</span>
+      </button>
+
+      <!-- Dropdown Menu -->
+      <div id="languageDropdownMenu" style="display: none; position: absolute; right: 0; top: calc(100% + 6px); background: #0D1B2A; border: 1px solid rgba(56,189,248,0.25); border-radius: 12px; padding: 6px; min-width: 165px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 150;">
+        <div style="font-size: 9px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px 6px;">SELECT LANGUAGE</div>
+        <button type="button" onclick="selectLanguage('en')" class="lang-option-btn active" id="langOpt_en">
+          <span>🇬🇧 English</span>
+          <span class="lang-check" style="font-size: 11px; color: #38BDF8;">✓</span>
+        </button>
+        <button type="button" onclick="selectLanguage('mr')" class="lang-option-btn" id="langOpt_mr" style="margin-top: 3px;">
+          <span>🇮🇳 मराठी (Marathi)</span>
+          <span class="lang-check" style="font-size: 11px; color: #38BDF8; display: none;">✓</span>
+        </button>
+        <button type="button" onclick="selectLanguage('hi')" class="lang-option-btn" id="langOpt_hi" style="margin-top: 3px;">
+          <span>🇮🇳 हिंदी (Hindi)</span>
+          <span class="lang-check" style="font-size: 11px; color: #38BDF8; display: none;">✓</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Theme Toggle button -->
+    <button type="button" id="newsThemeToggleBtn" onclick="toggleNewsTheme()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #E2E8F0; width: 34px; height: 34px; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 150ms; flex-shrink: 0;" title="Toggle Dark/Light Theme">
+      ☀️
+    </button>
 
     <!-- Back button -->
     <button type="button" onclick="window.location='/dashboard';" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #E2E8F0; padding: 7px 15px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 150ms; flex-shrink: 0;"
@@ -1079,8 +1497,73 @@
     <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 40px; background: linear-gradient(90deg,transparent,#0A0F1A); z-index: 1; pointer-events: none;"></div>
   </div>
 
-  <!-- 4. COMPLETE BALANCED PAGE LAYOUT (Full-Width Centered, No Side Column) -->
-  <div style="width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 20px 32px; box-sizing: border-box;" id="newsroomMainLayout">
+  <!-- 4. COMPLETE BALANCED PAGE LAYOUT (Full-Width Edge-to-Edge Responsive Grid) -->
+  <div style="width: 100%; max-width: 100%; margin: 0; padding: 0 28px 36px; box-sizing: border-box;" id="newsroomMainLayout">
+    
+    <!-- ── TOP-LEVEL DUAL-MODE SWITCHER (Financial News vs Regular/Local News) ── -->
+    <div class="news-edition-mode-container" style="margin: 18px 0 16px; padding: 10px 14px; background: rgba(13,27,42,0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.35);">
+      <!-- Mode Toggle Buttons -->
+      <div style="display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);">
+        <button type="button" id="btnModeFinancial" onclick="switchNewsMode('financial')" class="news-mode-toggle-btn active" style="padding: 10px 20px; border-radius: 10px; border: none; font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 200ms; background: linear-gradient(135deg, #2563EB, #3B82F6); color: #FFFFFF; box-shadow: 0 4px 14px rgba(37,99,235,0.4);">
+          <span style="font-size: 16px;">📊</span>
+          <span>Financial News</span>
+          <span class="mode-badge" style="font-size: 9px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">Current Markets</span>
+        </button>
+
+        <button type="button" id="btnModeLocal" onclick="switchNewsMode('local')" class="news-mode-toggle-btn" style="padding: 10px 20px; border-radius: 10px; border: none; font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 200ms; background: transparent; color: #94A3B8;">
+          <span style="font-size: 16px;">📍</span>
+          <span>Regular News</span>
+          <span class="mode-badge" style="font-size: 9px; font-weight: 800; background: rgba(255,255,255,0.07); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">Area &amp; Local</span>
+        </button>
+      </div>
+
+      <!-- Quick Mode Description & Active Feed Tag -->
+      <div id="modeStatusDescription" style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #94A3B8; flex-wrap: wrap;">
+        <span style="color: #38BDF8; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+          <span style="width: 7px; height: 7px; border-radius: 50%; background: #38BDF8; animation: feedPulse 1.8s infinite;"></span>
+          <span id="activeModeTitle">Live Financial &amp; AMFI Desk</span>
+        </span>
+        <span style="color: #334155;">•</span>
+        <span id="activeModeSummary" style="font-size: 11px; color: #64748B;">Real-time stock markets, mutual funds, SEBI regulatory mandates &amp; economy</span>
+      </div>
+    </div>
+
+    <!-- ── LOCAL AREA / CITY SELECTOR BAR (Visible when Regular/Local News is selected) ── -->
+    <div id="localAreaSelectorBar" style="display: none; margin: 0 0 20px; padding: 14px 18px; background: linear-gradient(135deg, rgba(14,165,233,0.08), rgba(13,27,42,0.95)); border: 1px solid rgba(56,189,248,0.25); border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 15px;">🏙️</span>
+          <span style="font-size: 12px; font-weight: 800; color: #E2E8F0; text-transform: uppercase; letter-spacing: 0.05em;">Select Area / City:</span>
+        </div>
+
+        <!-- City Filter Pills -->
+        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;" id="cityPillsContainer">
+          <button type="button" onclick="selectCityFilter('chandrapur', this)" id="cityBtn_chandrapur" class="city-pill-btn active" style="padding: 6px 14px; border-radius: 8px; border: 1px solid #F59E0B; background: rgba(245,158,11,0.2); color: #FCD34D; font-size: 11px; font-weight: 800; cursor: pointer; transition: all 150ms; display: inline-flex; align-items: center; gap: 5px;">
+            <span>📍</span>
+            <span>Chandrapur (MH)</span>
+            <span style="font-size: 8px; background: rgba(245,158,11,0.3); border-radius: 3px; padding: 1px 5px; color: #FFF; font-weight: 800; letter-spacing: 0.05em;">HOME FOCUS</span>
+          </button>
+          <button type="button" onclick="selectCityFilter('nagpur', this)" id="cityBtn_nagpur" class="city-pill-btn" style="padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94A3B8; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms;">🍊 Nagpur (Vidarbha)</button>
+          <button type="button" onclick="selectCityFilter('pune', this)" id="cityBtn_pune" class="city-pill-btn" style="padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94A3B8; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms;">🌆 Pune</button>
+          <button type="button" onclick="selectCityFilter('mumbai', this)" id="cityBtn_mumbai" class="city-pill-btn" style="padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94A3B8; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms;">🏙️ Mumbai</button>
+          <button type="button" onclick="selectCityFilter('all', this)" id="cityBtn_all" class="city-pill-btn" style="padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94A3B8; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms;">📍 All India</button>
+          <button type="button" onclick="selectCityFilter('delhi', this)" id="cityBtn_delhi" class="city-pill-btn" style="padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94A3B8; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms;">🏛️ Delhi-NCR</button>
+          <button type="button" onclick="selectCityFilter('bengaluru', this)" id="cityBtn_bengaluru" class="city-pill-btn" style="padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94A3B8; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms;">💻 Bengaluru</button>
+          <button type="button" onclick="selectCityFilter('hyderabad', this)" id="cityBtn_hyderabad" class="city-pill-btn" style="padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94A3B8; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms;">🕌 Hyderabad</button>
+        </div>
+
+        <!-- Custom Area / Suburb Input -->
+        <div style="position: relative; display: flex; align-items: center;">
+          <input type="text" id="customAreaInput" placeholder="Area (e.g. Ramnagar, Ballarpur, Warora)..." 
+            onkeydown="if(event.key==='Enter') applyCustomAreaFilter(this.value)"
+            style="background: rgba(10,15,29,0.9); border: 1px solid rgba(56,189,248,0.3); border-radius: 8px; padding: 6px 30px 6px 12px; font-size: 11px; color: #FFFFFF; outline: none; width: 220px;" />
+          <button type="button" onclick="applyCustomAreaFilter(document.getElementById('customAreaInput').value)" 
+            style="position: absolute; right: 6px; background: none; border: none; color: #38BDF8; cursor: pointer; font-size: 12px;" title="Search Area">
+            ➔
+          </button>
+        </div>
+      </div>
+    </div>
     
     <!-- 1. HERO FRONT DESK (Lead Story Carousel 65% + Top Developing Stories 35%) -->
     <div id="heroFeaturedSection"></div>
@@ -1191,14 +1674,14 @@
     <div style="display: flex; align-items: center; justify-content: space-between; margin: 24px 0 14px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 10px;">
       <div style="display: flex; align-items: center; gap: 10px;">
         <div style="width: 4px; height: 18px; background: linear-gradient(180deg, #EF4444, #F59E0B); border-radius: 2px;"></div>
-        <h2 style="font-size: 14px; font-weight: 800; color: #F1F5F9; letter-spacing: 0.05em; text-transform: uppercase; margin: 0;">
+        <h2 id="sectionDividerHeading" style="font-size: 14px; font-weight: 800; color: #F1F5F9; letter-spacing: 0.05em; text-transform: uppercase; margin: 0;">
           LATEST REGULATORY &amp; INDUSTRY WIRE
         </h2>
         <span id="wireBadgeCount" style="font-size: 10px; font-weight: 800; background: rgba(56,189,248,0.15); color: #38BDF8; border: 1px solid rgba(56,189,248,0.25); border-radius: 20px; padding: 2px 9px;">
           LIVE
         </span>
       </div>
-      <div style="font-size: 11px; color: #64748B; font-weight: 500;">
+      <div id="sectionDividerSubtext" style="font-size: 11px; color: #64748B; font-weight: 500;">
         Continuous Institutional Wire Feed • Verified Indian Sources
       </div>
     </div>
@@ -1206,7 +1689,7 @@
     <!-- 4. FILTER & SEARCH BAR -->
     <div style="margin: 0 0 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
       <!-- Category tabs -->
-      <div style="display: flex; gap: 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 4px; flex-shrink: 0;">
+      <div id="modeCategoryTabsContainer" style="display: flex; gap: 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 4px; flex-shrink: 0;">
         <button type="button" onclick="changeCategory('all')" id="newsTab_all" class="cat-tab-btn"
           style="padding: 7px 14px; border-radius: 9px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms; background: rgba(239,68,68,0.15); color: #F87171;">
           🔥 All Breaking News
@@ -1308,7 +1791,7 @@
   </div>
 
   <!-- Footer -->
-  <footer style="width: 100%; box-sizing: border-box; margin: 20px 0 40px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; color: #4A5568; font-size: 11px; flex-wrap: wrap; gap: 12px;">
+  <footer style="width: 100%; box-sizing: border-box; margin: 20px 0 40px; padding: 24px 28px 40px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; color: #4A5568; font-size: 11px; flex-wrap: wrap; gap: 12px;">
     <div>
       <span>Institutional Wire Sources: </span>
       <strong style="color: #94A3B8;">The Economic Times, Moneycontrol, Livemint, Business Standard, Value Research, SEBI Disclosures</strong>
@@ -1320,7 +1803,7 @@
 
   <!-- IN-APP INSTITUTIONAL ARTICLE READER MODAL (ZERO EXTERNAL REDIRECTS) -->
   <div id="inAppArticleModal"
-    style="display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 3500; overflow-y: auto; padding: 24px 16px; align-items: flex-start; justify-content: center;">
+    style="display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.96); z-index: 3500; overflow-y: auto; padding: 24px 16px; align-items: flex-start; justify-content: center;">
     <div style="max-width: 920px; width: 100%; margin: 24px auto 60px; background: #0B1120; border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; overflow: hidden; box-shadow: 0 25px 70px rgba(0,0,0,0.85), 0 0 35px rgba(56,189,248,0.15); display: flex; flex-direction: column;">
       
       <!-- Sticky Reader Top Navigation Header -->
@@ -1361,15 +1844,806 @@
   </div>
 
   <script>
+    let currentMode = 'financial';
+    let currentCity = 'all';
+    let currentCustomArea = '';
     let currentCategory = 'all';
     let currentPublisher = 'all';
     let allArticles = [];
     let isFetching = false;
     let visibleGridLimit = 24;
-    let lastRenderedGridArticles = [];
+    let currentLang = localStorage.getItem('news_lang') || 'en';
+    let newsClientCache = {};
+    let searchDebounceTimer = null;
+
+    // ══════════════════════════════════════════════════════════════════
+    // 🌐 LANGUAGE TRANSLATOR PACK (English, Marathi / मराठी, Hindi / हिंदी)
+    // ══════════════════════════════════════════════════════════════════
+    const LANG_PACK = {
+      en: {
+        code: 'en',
+        name: 'English',
+        flag: '🇬🇧',
+        btn_financial: '💼 Financial News',
+        btn_local: '📍 Regular News (Area Local)',
+        search_placeholder: 'Search news, topics, keywords...',
+        financial_title: 'Live Financial & AMFI Desk',
+        financial_summary: 'Real-time stock markets, mutual funds, SEBI regulatory mandates & economy',
+        financial_section_heading: 'LATEST REGULATORY & INDUSTRY WIRE',
+        financial_section_subtext: 'Continuous Institutional Wire Feed • Verified Indian Sources',
+        local_title: 'Live Area News Desk • Chandrapur, Maharashtra',
+        local_summary: 'Hyper-local coverage of Chandrapur municipal projects, Tadoba eco-transit, weather & district updates (Lokmat)',
+        local_section_heading: 'CHANDRAPUR & VIDARBHA LOCAL WIRE (LOKMAT)',
+        local_section_subtext: 'Continuous Local Field Wire • Chandrapur Municipal Corporation, Tadoba & District Authorities',
+        feed_status: 'FEED CONNECTED',
+        back_dashboard: '← Back to Dashboard',
+        stories_badge: 'STORIES',
+        stat_dispatches: 'Total Dispatches',
+        stat_alerts: 'Breaking Alerts',
+        stat_regulatory: 'SEBI Regulatory',
+        stat_civic: 'Civic & Transit',
+        stat_sync: 'Sync Timestamp',
+        sentiment_title: 'MARKET SENTIMENT',
+        trending_title: 'TRENDING TOPICS',
+        publishers_title: 'TOP NEWSROOM DESKS',
+        editorial_title: 'EDITORIAL BRIEFING',
+        editorial_body: "SEBI's expanded liquidity guidelines allow mutual funds intraday credit lines to stabilize redemptions without fire-sales. Meanwhile, domestic monthly SIP inflows approach historic milestones, cementing retail market resilience.",
+        read_modal_back: 'Back to Newsroom',
+        read_copy_btn: '📋 Copy Summary',
+        read_time_prefix: '⏱️',
+        read_takeaways_title: 'EXECUTIVE TAKEAWAYS & HIGHLIGHTS',
+        read_deepdive_title: 'COMPREHENSIVE DEEP DIVE',
+        read_impact_title: 'STRATEGIC IMPACT METRICS',
+        read_checklist_title: 'ACTIONABLE CITIZEN & INVESTOR CHECKLIST',
+        tabs_fin: [
+          { id: 'all', label: '🔥 All Breaking News', color: '#F87171', bg: 'rgba(239,68,68,0.15)' },
+          { id: 'sebi', label: '🏛️ SEBI & Regulations', color: '#10B981', bg: 'rgba(16,185,129,0.15)' },
+          { id: 'amc', label: '🏢 AMC & Industry', color: '#8B5CF6', bg: 'rgba(139,92,246,0.15)' },
+          { id: 'macro', label: '📊 Market & Macro', color: '#F59E0B', bg: 'rgba(245,158,11,0.15)' }
+        ],
+        tabs_local: [
+          { id: 'all', label: '📍 All Local News', color: '#38BDF8', bg: 'rgba(56,189,248,0.18)' },
+          { id: 'civic', label: '🏛️ Civic & Municipal', color: '#10B981', bg: 'rgba(16,185,129,0.18)' },
+          { id: 'metro', label: '🚇 Transit & Roads', color: '#06B6D4', bg: 'rgba(6,182,212,0.18)' },
+          { id: 'weather', label: '🌧️ Weather & Environment', color: '#3B82F6', bg: 'rgba(59,130,246,0.18)' },
+          { id: 'safety', label: '🚨 Law & Safety', color: '#EF4444', bg: 'rgba(239,68,68,0.18)' }
+        ]
+      },
+      mr: {
+        code: 'mr',
+        name: 'मराठी',
+        flag: '🇮🇳',
+        btn_financial: '💼 वित्तीय बातम्या',
+        btn_local: '📍 स्थानिक बातम्या (चंद्रपूर/विदर्भ)',
+        search_placeholder: 'बातम्या, विषय, कीवर्ड शोधा...',
+        financial_title: 'थेट वित्तीय व AMFI डेस्क',
+        financial_summary: 'शेअर बाजार, म्युच्युअल फंड, सेबी नियम व अर्थव्यवस्थेच्या ताज्या घडामोडी',
+        financial_section_heading: 'ताज्या नियामक व उद्योग बातम्या',
+        financial_section_subtext: 'संस्थात्मक थेट वृत्त सेवा • विश्वसनीय भारतीय स्रोत',
+        local_title: 'थेट स्थानिक बातमी डेस्क • चंद्रपूर, महाराष्ट्र',
+        local_summary: 'चंद्रपूर मनपा विकासकामे, ताडोबा सफारी, रस्ते वाहतूक व जिल्हा घडामोडींची सविस्तर माहिती (लोकमत)',
+        local_section_heading: 'चंद्रपूर व विदर्भ स्थानिक वृत्त (लोकमत)',
+        local_section_subtext: 'थेट स्थानिक बातमी सेवा • चंद्रपूर महानगरपालिका, ताडोबा व जिल्हा प्रशासन',
+        feed_status: 'फीड कनेक्टेड',
+        back_dashboard: '← डॅशबोर्डवर परत जा',
+        stories_badge: 'बातम्या',
+        stat_dispatches: 'एकूण बातम्या',
+        stat_alerts: 'महत्त्वाच्या घडामोडी',
+        stat_regulatory: 'सेबी नियम',
+        stat_civic: 'मनपा व विकास',
+        stat_sync: 'अद्ययावत वेळ',
+        sentiment_title: 'बाजार कल (सेन्टिमेंट)',
+        trending_title: 'सध्या चर्चेत असलेले विषय',
+        publishers_title: 'प्रमुख वृत्त स्रोत',
+        editorial_title: 'संपादकीय आढावा',
+        editorial_body: 'सेबीच्या नवीन तरतुदींमुळे म्युच्युअल फंडांना तात्काळ तरलता उपलब्ध होऊन विक्रीचा दबाव कमी होईल. दुसरीकडे, देशांतर्गत एसआयपी गुंतवणुकीचा नवा उच्चांक भारतीय शेअर बाजाराला बळकट आधार देत आहे.',
+        read_modal_back: 'न्यूजरूमवर परत जा',
+        read_copy_btn: '📋 सारांश कॉपी करा',
+        read_time_prefix: '⏱️',
+        read_takeaways_title: 'महत्त्वाचे मुख्य मुद्दे व विश्लेषण',
+        read_deepdive_title: 'सविस्तर बातमी व पार्श्वभूमी',
+        read_impact_title: 'महत्त्वपूर्ण प्रभाव निर्देशक',
+        read_checklist_title: 'नागरिकांसाठी कृती आराखडा',
+        tabs_fin: [
+          { id: 'all', label: '🔥 सर्व ताज्या बातम्या', color: '#F87171', bg: 'rgba(239,68,68,0.15)' },
+          { id: 'sebi', label: '🏛️ सेबी व नियमावली', color: '#10B981', bg: 'rgba(16,185,129,0.15)' },
+          { id: 'amc', label: '🏢 म्युच्युअल फंड उद्योग', color: '#8B5CF6', bg: 'rgba(139,92,246,0.15)' },
+          { id: 'macro', label: '📊 बाजार व अर्थव्यवस्था', color: '#F59E0B', bg: 'rgba(245,158,11,0.15)' }
+        ],
+        tabs_local: [
+          { id: 'all', label: '📍 सर्व स्थानिक बातम्या', color: '#38BDF8', bg: 'rgba(56,189,248,0.18)' },
+          { id: 'civic', label: '🏛️ मनपा व विकासकामे', color: '#10B981', bg: 'rgba(16,185,129,0.18)' },
+          { id: 'metro', label: '🚇 रस्ते व वाहतूक', color: '#06B6D4', bg: 'rgba(6,182,212,0.18)' },
+          { id: 'weather', label: '🌧️ हवामान व पर्यावरण', color: '#3B82F6', bg: 'rgba(59,130,246,0.18)' },
+          { id: 'safety', label: '🚨 कायदा व सुव्यवस्था', color: '#EF4444', bg: 'rgba(239,68,68,0.18)' }
+        ]
+      },
+      hi: {
+        code: 'hi',
+        name: 'हिंदी',
+        flag: '🇮🇳',
+        btn_financial: '💼 वित्तीय समाचार',
+        btn_local: '📍 स्थानीय समाचार (चंद्रपुर/विदर्भ)',
+        search_placeholder: 'समाचार, विषय, कीवर्ड खोजें...',
+        financial_title: 'लाइव वित्तीय एवं AMFI डेस्क',
+        financial_summary: 'शेयर बाजार, म्यूचुअल फंड, सेबी नियम और अर्थव्यवस्था की ताजा खबरें',
+        financial_section_heading: 'ताजा नियामक एवं उद्योग समाचार',
+        financial_section_subtext: 'संस्थागत लाइव समाचार फ़ीड • सत्यापित भारतीय स्रोत',
+        local_title: 'लाइव स्थानीय समाचार डेस्क • चंद्रपुर, महाराष्ट्र',
+        local_summary: 'चंद्रपुर नगर निगम विकास कार्य, ताडोबा सफारी, सड़क परिवहन और जिला की मुख्य खबरें (लोकमत)',
+        local_section_heading: 'चंद्रपुर एवं विदर्भ स्थानीय समाचार (लोकमत)',
+        local_section_subtext: 'लाइव स्थानीय समाचार सेवा • चंद्रपुर नगर निगम, ताडोबा और जिला प्रशासन',
+        feed_status: 'फ़ीड कनेक्टेड',
+        back_dashboard: '← डैशबोर्ड पर वापस जाएं',
+        stories_badge: 'समाचार',
+        stat_dispatches: 'कुल समाचार',
+        stat_alerts: 'प्रमुख अलर्ट',
+        stat_regulatory: 'सेबी नियम',
+        stat_civic: 'नगर निगम व विकास',
+        stat_sync: 'अपडेट समय',
+        sentiment_title: 'बाजार का रुझान',
+        trending_title: 'ट्रेंडिंग विषय',
+        publishers_title: 'प्रमुख समाचार स्रोत',
+        editorial_title: 'संपादकीय समीक्षा',
+        editorial_body: 'सेबी के नए नियमों से म्यूचुअल फंडों को तत्काल नकदी मिलेगी जिससे परिसंपत्ति बेचने का दबाव घटेगा। वहीं घरेलू एसआईपी निवेश का रिकॉर्ड स्तर भारतीय बाजार को मजबूत सहारा दे रहा है।',
+        read_modal_back: 'न्यूज़रूम पर वापस जाएं',
+        read_copy_btn: '📋 सारांश कॉपी करें',
+        read_time_prefix: '⏱️',
+        read_takeaways_title: 'प्रमुख मुख्य बिंदु एवं विश्लेषण',
+        read_deepdive_title: 'विस्तृत समाचार एवं पृष्ठभूमि',
+        read_impact_title: 'महत्वपूर्ण प्रभाव मैट्रिक्स',
+        read_checklist_title: 'नागरिकों के लिए कार्य योजना',
+        tabs_fin: [
+          { id: 'all', label: '🔥 सभी ब्रेकिंग न्यूज़', color: '#F87171', bg: 'rgba(239,68,68,0.15)' },
+          { id: 'sebi', label: '🏛️ सेबी और नियम', color: '#10B981', bg: 'rgba(16,185,129,0.15)' },
+          { id: 'amc', label: '🏢 म्यूचुअल फंड उद्योग', color: '#8B5CF6', bg: 'rgba(139,92,246,0.15)' },
+          { id: 'macro', label: '📊 बाजार और मैक्रो', color: '#F59E0B', bg: 'rgba(245,158,11,0.15)' }
+        ],
+        tabs_local: [
+          { id: 'all', label: '📍 सभी स्थानीय समाचार', color: '#38BDF8', bg: 'rgba(56,189,248,0.18)' },
+          { id: 'civic', label: '🏛️ नगर निगम व विकास', color: '#10B981', bg: 'rgba(16,185,129,0.18)' },
+          { id: 'metro', label: '🚇 सड़क व परिवहन', color: '#06B6D4', bg: 'rgba(6,182,212,0.18)' },
+          { id: 'weather', label: '🌧️ मौसम व पर्यावरण', color: '#3B82F6', bg: 'rgba(59,130,246,0.18)' },
+          { id: 'safety', label: '🚨 कानून और सुरक्षा', color: '#EF4444', bg: 'rgba(239,68,68,0.18)' }
+        ]
+      }
+    };
+
+    function toggleLanguageMenu() {
+      const menu = document.getElementById('languageDropdownMenu');
+      if (!menu) return;
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+
+    document.addEventListener('click', (e) => {
+      const container = document.getElementById('languageSelectorContainer');
+      const menu = document.getElementById('languageDropdownMenu');
+      if (container && menu && !container.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+
+    function selectLanguage(lang) {
+      if (!LANG_PACK[lang]) lang = 'en';
+      currentLang = lang;
+      localStorage.setItem('news_lang', lang);
+      localStorage.setItem('site_lang', lang);
+
+      const lp = LANG_PACK[lang];
+
+      // Update button label
+      const labelEl = document.getElementById('currentLangLabel');
+      if (labelEl) labelEl.textContent = `${lp.name}`;
+
+      // Update dropdown checkmarks & active classes
+      ['en', 'mr', 'hi'].forEach(l => {
+        const btn = document.getElementById(`langOpt_${l}`);
+        if (btn) {
+          const check = btn.querySelector('.lang-check');
+          if (l === lang) {
+            btn.classList.add('active');
+            if (check) check.style.display = 'inline-block';
+          } else {
+            btn.classList.remove('active');
+            if (check) check.style.display = 'none';
+          }
+        }
+      });
+
+      // Hide dropdown
+      const menu = document.getElementById('languageDropdownMenu');
+      if (menu) menu.style.display = 'none';
+
+      // Update Mode Toggle Buttons
+      const btnFin = document.getElementById('btnModeFinancial');
+      if (btnFin) btnFin.textContent = lp.btn_financial;
+      const btnLoc = document.getElementById('btnModeLocal');
+      if (btnLoc) btnLoc.textContent = lp.btn_local;
+
+      // Update Search Placeholder
+      const sBox = document.getElementById('newsSearchBox');
+      if (sBox) sBox.placeholder = lp.search_placeholder;
+
+      // Update Headings according to current active mode
+      const activeTitle = document.getElementById('activeModeTitle');
+      const activeSummary = document.getElementById('activeModeSummary');
+      const sectionHeading = document.getElementById('sectionDividerHeading');
+      const sectionSubtext = document.getElementById('sectionDividerSubtext');
+
+      if (currentMode === 'local') {
+        if (activeTitle) activeTitle.textContent = lp.local_title;
+        if (activeSummary) activeSummary.textContent = lp.local_summary;
+        if (sectionHeading) sectionHeading.textContent = lp.local_section_heading;
+        if (sectionSubtext) sectionSubtext.textContent = lp.local_section_subtext;
+      } else {
+        if (activeTitle) activeTitle.textContent = lp.financial_title;
+        if (activeSummary) activeSummary.textContent = lp.financial_summary;
+        if (sectionHeading) sectionHeading.textContent = lp.financial_section_heading;
+        if (sectionSubtext) sectionSubtext.textContent = lp.financial_section_subtext;
+      }
+
+      // Re-render category tabs with localized labels
+      renderCategoryTabsForMode(currentMode, currentCategory);
+
+      // Re-load articles to reflect language
+      loadNews(currentCategory, false);
+    }
+
+    window.addEventListener('siteLanguageChanged', (e) => {
+      if (e.detail && e.detail.lang && e.detail.lang !== currentLang) {
+        selectLanguage(e.detail.lang);
+      }
+    });
+
+    // Verified Local & Area News Fallback Data (Real Indian Regional Imagery & Updates)
+    function getCuratedLocalArticles(category = 'all') {
+      const now = new Date();
+      const fmtDate = (daysAgo) => {
+        const d = new Date(now.getTime() - daysAgo * 86400000);
+        return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      };
+
+      const cityPrefix = (currentCity && currentCity !== 'all') 
+        ? (currentCity.charAt(0).toUpperCase() + currentCity.slice(1)) 
+        : (currentCustomArea || 'Regional');
+
+      // Primary Focus: Chandrapur, Maharashtra (Live Lokmat Chandrapur News Portal Feed & CDN Photos)
+      if (currentCity === 'chandrapur' || cityPrefix.toLowerCase().includes('chandrapur')) {
+        let chpList = [];
+
+        if (currentLang === 'mr') {
+          chpList = [
+            {
+              id: "local_chp_0",
+              title: "Chandrapur News : वाघाच्या जबड्यातून शेतकऱ्याची सुटका; विळ्याने केला प्रतिकार, हल्ल्यात गंभीर जखमी",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-farmer-rescued-from-tigers-jaws-resisted-with-sickle-seriously-injured-in-attack-a-a1020/",
+              source: "Lokmat (लोकमत चंद्रपूर)",
+              pub_date: fmtDate(0),
+              time_ago: "२ तास आधी",
+              is_fresh: true,
+              snippet: "चंद्रपूर जिल्ह्यातील शेतात काम करणाऱ्या शेतकऱ्यावर दबा धरून बसलेल्या वाघाने अचानक झडप घातली. शेतकऱ्याने हातातील विळ्याने जोरदार प्रतिकार केल्याने वाघ पळाला, मात्र हल्ल्यात शेतकरी गंभीर जखमी झाला.",
+              category: "safety",
+              tag_label: "🐯 ताडोबा व वन्यजीव",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg"
+            },
+            {
+              id: "local_chp_1",
+              title: "Chandrapur Crime: प्रेयसीची हत्या केली आणि 'तुझ्याशिवाय मी जगू शकत नाही' म्हणत दोन तास ढसाढसा रडला; महाराष्ट्र हादरला",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-crime-murdered-his-girlfriend-and-cried-for-two-hours-saying-i-cant-live-without-you-maharashtra-shocked-a-a571/",
+              source: "Lokmat (लोकमत क्राईम)",
+              pub_date: fmtDate(0),
+              time_ago: "३ तास आधी",
+              is_fresh: true,
+              snippet: "चंद्रपूरमधील आरवट जंगलात प्रेयसीची गळा आवळून हत्या केल्यानंतर आरोपी प्रियकराने तिच्या मृतदेहाजवळ बसून दोन तास आक्रोश केला. पोलिसांनी आरोपीला ताब्यात घेतले आहे.",
+              category: "safety",
+              tag_label: "🚨 क्राईम ब्युरो",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/man-killed-girlfriend-in-chandrapur_2026101806046.jpg"
+            },
+            {
+              id: "local_chp_2",
+              title: "Nagpur Crime: प्रेमसंबंधाचा भयंकर शेवट! शिक्षकाने प्रेयसी वैशालीची केली हत्या; चंद्रपूरवरून मृतदेह आणून नागपूरमधील घरात पुरला",
+              link: "https://www.lokmat.com/nagpur/nagpur-crime-a-tragic-end-to-a-love-affair-teacher-kills-girlfriend-vaishali-brings-body-from-chandrapur-and-buries-it-in-a-house-in-nagpur-a-a571/",
+              source: "Lokmat (लोकमत क्राईम)",
+              pub_date: fmtDate(0),
+              time_ago: "४ तास आधी",
+              is_fresh: true,
+              snippet: "चंद्रपूर येथे प्रेयसीची हत्या करून तिचा मृतदेह कारने नागपूरच्या हिंगणा परिसरातील घरात आणून जमिनीखाली पुरल्याची धक्कादायक घटना उघडकीस आली आहे.",
+              category: "safety",
+              tag_label: "🚨 क्राईम ब्युरो",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/teacher-killed-girlfriend-in-nagpur_2026101805230.jpeg"
+            },
+            {
+              id: "local_chp_3",
+              title: "थरकाप उडाला...! महाकालीच्या दर्शनासाठी पायी चाललेल्या नऊ वर्षीय बालकावर बिबट्याची झडप, ऐन गर्दीत...",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-ballarpur-leopard-attack-child-tremors-a-leopard-attacked-a-nine-year-old-boy-walking-to-see-mahakali-right-in-the-middle-of-a-crowd-a-a452-c607/",
+              source: "Lokmat (लोकमत चंद्रपूर)",
+              pub_date: fmtDate(0),
+              time_ago: "५ तास आधी",
+              is_fresh: true,
+              snippet: "चंद्रपूर जिल्ह्यातील विसापूर मार्गावर माता महाकालीच्या दर्शनासाठी कुटुंबासह पायी निघालेल्या ९ वर्षांच्या बालकावर बिबट्याने अचानक हल्ला चढवला. नागरिकांनी आरडाओरड केल्याने बिबट्या पळाला.",
+              category: "safety",
+              tag_label: "🐯 बिबट्या अलर्ट",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg"
+            },
+            {
+              id: "local_chp_4",
+              title: "Chandrapur News : दुष्काळाशी दोन हात करण्यास बांधणार १०० वनराई बंधारे !; सिंदेवाहीच्या सात गावांमध्ये कामाला प्रारंभ",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-100-forest-dams-to-be-built-to-combat-drought-work-begins-in-seven-villages-of-sindewahi-vanrai-a-a1020/",
+              source: "Lokmat (लोकमत जलसंधारण)",
+              pub_date: fmtDate(0),
+              time_ago: "६ तास आधी",
+              is_fresh: true,
+              snippet: "चंद्रपूर जिल्ह्यातील सिंदेवाही तालुक्यात भीषण दुष्काळ निवारणासाठी सिंदेवाहीच्या ७ गावांमध्ये लोकसहभागातून १०० वनराई बंधारे उभारण्याच्या कामास उत्साहात प्रारंभ झाला आहे.",
+              category: "weather",
+              tag_label: "💧 जलसंधारण",
+              badge_color: "#06B6D4",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg"
+            },
+            {
+              id: "local_chp_5",
+              title: "Chandrapur News : चंद्रपूर येथे जलसंधारणच्या २८ हजार ६८८ कामांचा धडाका; विकासकामांचा 'प्लॅन' तयार",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-28-thousand-688-water-conservation-works-underway-in-chandrapur-action-plan-of-development-works-collector-vasumana-pant-a-a1020/",
+              source: "Lokmat (लोकमत चंद्रपूर)",
+              pub_date: fmtDate(0),
+              time_ago: "७ तास आधी",
+              is_fresh: true,
+              snippet: "चंद्रपूर जिल्ह्यात भूजल पातळी वाढवण्यासाठी व पाणीटंचाई कायमस्वरूपी दूर करण्यासाठी जिल्हाधिकारी वसुमाना पंत यांच्या मार्गदर्शनाखाली २८ हजार ६८८ जलसंधारण कामांचा धडक आराखडा तयार करण्यात आला आहे.",
+              category: "civic",
+              tag_label: "🏛️ जिल्हा प्रशासन",
+              badge_color: "#10B981",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"
+            },
+            {
+              id: "local_chp_6",
+              title: "Chandrapur Thermal Power Station : सीएसटीपीएसमध्ये जमिनीतले पाईप चक्क जेसीबीने खोदून चोरले; 'पाईप चोरी'चा भंडाफोड; चारजण ताब्यात",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-thermal-power-station-after-copper-cable-now-pipe-theft-busted-in-cstps-four-arrested-chandrapur-crime-news-a-a1020/",
+              source: "Lokmat (लोकमत सुरक्षा)",
+              pub_date: fmtDate(0),
+              time_ago: "८ तास आधी",
+              is_fresh: true,
+              snippet: "चंद्रपूर महाऔष्णिक वीज केंद्राच्या (CSTPS) आवारातून लाखो रुपयांचे अवजड भूमिगत जलवाहिन्यांचे पाईप जेसीबीने खोदून चोरणाऱ्या टोळीचा सुरक्षा रक्षकांनी पर्दाफाश केला असून चार संशयितांना ताब्यात घेण्यात आले आहे.",
+              category: "safety",
+              tag_label: "⚡ CSTPS सुरक्षा",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"
+            },
+            {
+              id: "local_chp_7",
+              title: "Chandrapur News : विहिरीत पडलेल्या बिबट्याला बाहेर काढण्यात सहा तासानंतर यश; वनविकास महामंडळाची यशस्वी कामगिरी",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-leopard-found-in-well-rescued-after-six-hours-forest-development-corporations-successful-performance-released-into-open-habitat-a-a1020/",
+              source: "Lokmat (लोकमत वनविभाग)",
+              pub_date: fmtDate(1),
+              time_ago: "काल",
+              is_fresh: false,
+              snippet: "चंद्रपूर क्षेत्रातील कोठारी कॉलनीजवळील खोल विहिरीत पडलेल्या बिबट्याला वनविकास महामंडळ आणि बचाव पथकाने पिंजऱ्याच्या साहाय्याने ६ तासांच्या अथक प्रयत्नांनंतर सुरक्षित बाहेर काढून नैसर्गिक अधिवासात सोडले.",
+              category: "safety",
+              tag_label: "🐯 वन्यजीव बचाव",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-fall-in-well_2026101799966.jpeg"
+            },
+            {
+              id: "local_chp_8",
+              title: "Chandrapur News : चंद्रपूर येथे दोन वेगवेगळ्या अपघातात १३ वर्षीय बालकासह तरुणाचा मृत्यू; चौघे गंभीर जखमी",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-a-13-year-old-boy-and-a-young-man-died-in-two-separate-accidents-in-chandrapur-four-others-were-seriously-injured-a-a1020/",
+              source: "Lokmat (लोकमत अपघात कक्ष)",
+              pub_date: fmtDate(1),
+              time_ago: "काल",
+              is_fresh: false,
+              snippet: "चंद्रपूर-मूल मार्गावरील देवाई गोविंदनपूर व सावंगी फाट्याजवळ झालेल्या दोन भीषण रस्ते अपघातांत १३ वर्षीय मुलासह तरुणाचा मृत्यू झाला, तर चार जण गंभीर जखमी झाले असून त्यांच्यावर सामान्य रुग्णालयात उपचार सुरू आहेत.",
+              category: "metro",
+              tag_label: "🚨 रस्ते व वाहतूक",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/youth-accident_2026101799860.jpeg"
+            },
+            {
+              id: "local_chp_9",
+              title: "Chandrapur News : अन् त्याने चक्क स्मशानभूमीतच घेतला गळफास; दारूच्या नशेत टोकाचे पाऊल",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-nagbhid-he-hanged-himself-in-the-cemetery-drunk-in-extreme-drunkenness-a-a1020/",
+              source: "Lokmat (लोकमत चंद्रपूर)",
+              pub_date: fmtDate(1),
+              time_ago: "काल",
+              is_fresh: false,
+              snippet: "चंद्रपूर जिल्ह्यातील नागभीड येथील मोक्षधाम स्मशानभूमीत एका इसमाने दारूच्या नशेत गळफास घेऊन आत्महत्या केल्याची धक्कादायक घटना उघडकीस आली असून पोलीस तपास करीत आहेत.",
+              category: "safety",
+              tag_label: "🚨 चंद्रपूर विशेष",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/nagbhid-news_2026101799758.jpeg"
+            }
+          ];
+        } else if (currentLang === 'hi') {
+          chpList = [
+            {
+              id: "local_chp_0",
+              title: "Chandrapur News : बाघ के जबड़े से किसान की बाल-बाल जान बची; हंसिये से किया मुकाबला, हमले में गंभीर घायल",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-farmer-rescued-from-tigers-jaws-resisted-with-sickle-seriously-injured-in-attack-a-a1020/",
+              source: "लोकमत (चंद्रपुर ब्यूरो)",
+              pub_date: fmtDate(0),
+              time_ago: "2 घंटे पहले",
+              is_fresh: true,
+              snippet: "चंद्रपुर जिले में खेत में काम कर रहे किसान पर अचानक बाघ ने हमला कर दिया। किसान ने हंसिये से बहादुरी से मुकाबला किया, जिसके बाद बाघ जंगल में भाग गया।",
+              category: "safety",
+              tag_label: "🐯 ताडोबा व वन्यजीव",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg"
+            },
+            {
+              id: "local_chp_1",
+              title: "Chandrapur Crime: प्रेमिका की हत्या के बाद बोला 'तेरे बिना जी नहीं सकता' और दो घंटे रोया; महाराष्ट्र स्तब्ध",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-crime-murdered-his-girlfriend-and-cried-for-two-hours-saying-i-cant-live-without-you-maharashtra-shocked-a-a571/",
+              source: "लोकमत क्राइम डेस्क",
+              pub_date: fmtDate(0),
+              time_ago: "3 घंटे पहले",
+              is_fresh: true,
+              snippet: "चंद्रपुर के आरवट जंगल में प्रेमिका की हत्या करने के बाद आरोपी प्रेमी शव के पास बैठकर दो घंटे तक रोता रहा। पुलिस ने आरोपी को गिरफ्तार कर लिया है।",
+              category: "safety",
+              tag_label: "🚨 क्राइम रिपोर्टर",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/man-killed-girlfriend-in-chandrapur_2026101806046.jpg"
+            },
+            {
+              id: "local_chp_2",
+              title: "Nagpur Crime: शिक्षक ने प्रेमिका वैशाली की हत्या की; चंद्रपुर से शव लाकर नागपुर के घर में दफनाया",
+              link: "https://www.lokmat.com/nagpur/nagpur-crime-a-tragic-end-to-a-love-affair-teacher-kills-girlfriend-vaishali-brings-body-from-chandrapur-and-buries-it-in-a-house-in-nagpur-a-a571/",
+              source: "लोकमत क्राइम डेस्क",
+              pub_date: fmtDate(0),
+              time_ago: "4 घंटे पहले",
+              is_fresh: true,
+              snippet: "चंद्रपुर में प्रेमिका की हत्या कर उसका शव कार से नागपुर के हिंगना स्थित घर में लाकर जमीन के नीचे दफनाने का सनसनीखेज मामला सामने आया है।",
+              category: "safety",
+              tag_label: "🚨 क्राइम रिपोर्टर",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/teacher-killed-girlfriend-in-nagpur_2026101805230.jpeg"
+            },
+            {
+              id: "local_chp_3",
+              title: "दहशत...! महाकाली दर्शन के लिए पैदल जा रहे 9 वर्षीय बालक पर तेंदुए का हमला, भारी भीड़ के बीच...",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-ballarpur-leopard-attack-child-tremors-a-leopard-attacked-a-nine-year-old-boy-walking-to-see-mahakali-right-in-the-middle-of-a-crowd-a-a452-c607/",
+              source: "लोकमत (चंद्रपुर ब्यूरो)",
+              pub_date: fmtDate(0),
+              time_ago: "5 घंटे पहले",
+              is_fresh: true,
+              snippet: "चंद्रपुर के विसापुर मार्ग पर माता महाकाली के दर्शन के लिए पैदल जा रहे 9 वर्षीय बालक पर अचानक झाड़ियों से तेंदुए ने हमला बोल दिया।",
+              category: "safety",
+              tag_label: "🐯 तेंदुआ अलर्ट",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg"
+            },
+            {
+              id: "local_chp_4",
+              title: "Chandrapur News : सूखे से निपटने के लिए बनाए जाएंगे 100 वनराई बांध!; सिंदेवाही के 7 गांवों में कार्य शुरू",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-100-forest-dams-to-be-built-to-combat-drought-work-begins-in-seven-villages-of-sindewahi-vanrai-a-a1020/",
+              source: "लोकमत जल संरक्षण",
+              pub_date: fmtDate(0),
+              time_ago: "6 घंटे पहले",
+              is_fresh: true,
+              snippet: "चंद्रपुर जिले के सिंदेवाही तालुका में जल संकट से निपटने के लिए 7 गांवों में जनभागीदारी से 100 वनराई बांध बनाने का कार्य शुरू हो गया है।",
+              category: "weather",
+              tag_label: "💧 जल संरक्षण",
+              badge_color: "#06B6D4",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg"
+            },
+            {
+              id: "local_chp_5",
+              title: "Chandrapur News : चंद्रपुर में जल संरक्षण के 28,688 कार्यों की झड़ी; कलेक्टर वसुमाना पंत ने तैयार किया एक्शन प्लान",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-28-thousand-688-water-conservation-works-underway-in-chandrapur-action-plan-of-development-works-collector-vasumana-pant-a-a1020/",
+              source: "लोकमत (चंद्रपुर ब्यूरो)",
+              pub_date: fmtDate(0),
+              time_ago: "7 घंटे पहले",
+              is_fresh: true,
+              snippet: "चंद्रपुर जिले में भूजल स्तर बढ़ाने के लिए कलेक्टर वसुमाना पंत के नेतृत्व में 28,688 जल संरक्षण कार्यों का व्यापक एक्शन प्लान लागू किया गया।",
+              category: "civic",
+              tag_label: "🏛️ जिला प्रशासन",
+              badge_color: "#10B981",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"
+            },
+            {
+              id: "local_chp_6",
+              title: "Chandrapur Thermal Power Station : CSTPS में जमीन के पाइप जेसीबी से खोदकर चुराए; पाइप चोरी का पर्दाफाश, 4 हिरासत में",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-thermal-power-station-after-copper-cable-now-pipe-theft-busted-in-cstps-four-arrested-chandrapur-crime-news-a-a1020/",
+              source: "लोकमत सुरक्षा डेस्क",
+              pub_date: fmtDate(0),
+              time_ago: "8 घंटे पहले",
+              is_fresh: true,
+              snippet: "चंद्रपुर सुपर थर्मल पावर स्टेशन (CSTPS) परिसर से भारी पाइप जेसीबी से खोदकर चुराने वाले गिरोह का भंडाफोड़ हुआ, सुरक्षा बलों ने 4 लोगों को दबोचा।",
+              category: "safety",
+              tag_label: "⚡ CSTPS सुरक्षा",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"
+            },
+            {
+              id: "local_chp_7",
+              title: "Chandrapur News : कुएं में गिरे तेंदुए को 6 घंटे बाद सुरक्षित निकाला; वन विकास निगम का सफल रेस्क्यू ऑपरेशन",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-leopard-found-in-well-rescued-after-six-hours-forest-development-corporations-successful-performance-released-into-open-habitat-a-a1020/",
+              source: "लोकमत वनविभाग",
+              pub_date: fmtDate(1),
+              time_ago: "कल",
+              is_fresh: false,
+              snippet: "चंद्रपुर के कोठारी कॉलोनी के पास गहरे कुएं में गिरे तेंदुए को वन विभाग की रेस्क्यू टीम ने 6 घंटे की कड़ी मशक्कत के बाद सुरक्षित बाहर निकाला।",
+              category: "safety",
+              tag_label: "🐯 वन्यजीव रेस्क्यू",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-fall-in-well_2026101799966.jpeg"
+            },
+            {
+              id: "local_chp_8",
+              title: "Chandrapur News : चंद्रपुर में दो अलग-अलग सड़क हादसों में 13 वर्षीय बालक समेत युवक की मौत; 4 गंभीर घायल",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-a-13-year-old-boy-and-a-young-man-died-in-two-separate-accidents-in-chandrapur-four-others-were-seriously-injured-a-a1020/",
+              source: "लोकमत समाचार",
+              pub_date: fmtDate(1),
+              time_ago: "कल",
+              is_fresh: false,
+              snippet: "चंद्रपुर-मूल मार्ग पर देवाई गोविंदनपुर और सावंगी फाटा के पास हुए दो भीषण सड़क हादसों में 13 वर्षीय बालक व एक युवक की दर्दनाक मौत हो गई, 4 लोग गंभीर रूप से घायल हैं।",
+              category: "metro",
+              tag_label: "🚨 सड़क दुर्घटना",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/youth-accident_2026101799860.jpeg"
+            },
+            {
+              id: "local_chp_9",
+              title: "Chandrapur News : नागभीड में नशे की हालत में व्यक्ति ने श्मशान घाट में लगाई फांसी; पुलिस जांच शुरू",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-nagbhid-he-hanged-himself-in-the-cemetery-drunk-in-extreme-drunkenness-a-a1020/",
+              source: "लोकमत (चंद्रपुर ब्यूरो)",
+              pub_date: fmtDate(1),
+              time_ago: "कल",
+              is_fresh: false,
+              snippet: "चंद्रपुर जिले के नागभीड स्थित श्मशान घाट में एक व्यक्ति ने अत्यधिक नशे की हालत में फांसी लगाकर आत्महत्या कर ली। पुलिस जांच कर रही है।",
+              category: "safety",
+              tag_label: "🚨 चंद्रपुर समाचार",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/nagbhid-news_2026101799758.jpeg"
+            }
+          ];
+        } else {
+          // English (Exact Lokmat Chandrapur Stories & CloudFront Real Images)
+          chpList = [
+            {
+              id: "local_chp_0",
+              title: "Chandrapur News : Farmer rescued from tiger's jaws; resisted with sickle, seriously injured in attack",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-farmer-rescued-from-tigers-jaws-resisted-with-sickle-seriously-injured-in-attack-a-a1020/",
+              source: "Lokmat Chandrapur (लोकमत)",
+              pub_date: fmtDate(0),
+              time_ago: "2h ago",
+              is_fresh: true,
+              snippet: "A farmer working in a field in Chandrapur district was ambushed by a tiger lurking in the bushes. The farmer bravely retaliated with his sickle, driving the predator away.",
+              category: "safety",
+              tag_label: "🐯 Tadoba Wildlife",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg"
+            },
+            {
+              id: "local_chp_1",
+              title: "Chandrapur Crime: Murdered girlfriend and cried for two hours saying 'I cannot live without you'; Maharashtra shocked",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-crime-murdered-his-girlfriend-and-cried-for-two-hours-saying-i-cant-live-without-you-maharashtra-shocked-a-a571/",
+              source: "Lokmat Crime Desk (लोकमत)",
+              pub_date: fmtDate(0),
+              time_ago: "3h ago",
+              is_fresh: true,
+              snippet: "In Chandrapur's Arwat forest area, the accused strangled his partner following a dispute and sat weeping beside the body for two hours before police arrested him.",
+              category: "safety",
+              tag_label: "🚨 Crime & Police",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/man-killed-girlfriend-in-chandrapur_2026101806046.jpg"
+            },
+            {
+              id: "local_chp_2",
+              title: "Nagpur Crime: Teacher murders girlfriend Vaishali; brings body from Chandrapur and buries it inside Nagpur house",
+              link: "https://www.lokmat.com/nagpur/nagpur-crime-a-tragic-end-to-a-love-affair-teacher-kills-girlfriend-vaishali-brings-body-from-chandrapur-and-buries-it-in-a-house-in-nagpur-a-a571/",
+              source: "Lokmat Crime Desk (लोकमत)",
+              pub_date: fmtDate(0),
+              time_ago: "4h ago",
+              is_fresh: true,
+              snippet: "A gruesome crime unraveled after a teacher murdered his partner in Chandrapur, transported the body inside his car to Hingna, Nagpur, and buried it under the floor.",
+              category: "safety",
+              tag_label: "🚨 Crime & Police",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/teacher-killed-girlfriend-in-nagpur_2026101805230.jpeg"
+            },
+            {
+              id: "local_chp_3",
+              title: "Chandrapur: Leopard leaps onto nine-year-old child walking for Mahakali pilgrimage in middle of crowd",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-ballarpur-leopard-attack-child-tremors-a-leopard-attacked-a-nine-year-old-boy-walking-to-see-mahakali-right-in-the-middle-of-a-crowd-a-a452-c607/",
+              source: "Lokmat Chandrapur (लोकमत)",
+              pub_date: fmtDate(0),
+              time_ago: "5h ago",
+              is_fresh: true,
+              snippet: "On the Visapur pilgrimage route, a leopard sprang out of roadside brush and grabbed a 9-year-old walking to Shree Mahakali Temple with his family; pilgrims raised alarms to rescue him.",
+              category: "safety",
+              tag_label: "🐯 Leopard Alert",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg"
+            },
+            {
+              id: "local_chp_4",
+              title: "Chandrapur News : 100 Vanrai check dams to be built to combat drought; work begins across seven villages of Sindewahi",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-100-forest-dams-to-be-built-to-combat-drought-work-begins-in-seven-villages-of-sindewahi-vanrai-a-a1020/",
+              source: "Lokmat Environment (लोकमत)",
+              pub_date: fmtDate(0),
+              time_ago: "6h ago",
+              is_fresh: true,
+              snippet: "To prevent seasonal water table depletion across Sindewahi taluka in Chandrapur, construction of 100 community-built Vanrai check dams commenced across 7 villages.",
+              category: "weather",
+              tag_label: "💧 Water Conservation",
+              badge_color: "#06B6D4",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg"
+            },
+            {
+              id: "local_chp_5",
+              title: "Chandrapur News : 28,688 water conservation works underway in Chandrapur; Collector Vasumana Pant finalizes action plan",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-28-thousand-688-water-conservation-works-underway-in-chandrapur-action-plan-of-development-works-collector-vasumana-pant-a-a1020/",
+              source: "Lokmat Chandrapur (लोकमत)",
+              pub_date: fmtDate(0),
+              time_ago: "7h ago",
+              is_fresh: true,
+              snippet: "District Collector Vasumana Pant greenlit an ambitious 28,688-project watershed management and irrigation action plan to recharge groundwater across Chandrapur district.",
+              category: "civic",
+              tag_label: "🏛️ District Admin",
+              badge_color: "#10B981",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"
+            },
+            {
+              id: "local_chp_6",
+              title: "Chandrapur Thermal Power Station : Underground pipes stolen using JCB excavation inside CSTPS; theft busted, 4 detained",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-thermal-power-station-after-copper-cable-now-pipe-theft-busted-in-cstps-four-arrested-chandrapur-crime-news-a-a1020/",
+              source: "Lokmat Crime Desk (लोकमत)",
+              pub_date: fmtDate(0),
+              time_ago: "8h ago",
+              is_fresh: true,
+              snippet: "Industrial security guards caught four operatives red-handed using a JCB excavator to dig up and loot valuable subterranean pipelines from Chandrapur Super Thermal Power Station.",
+              category: "safety",
+              tag_label: "⚡ CSTPS Security",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"
+            },
+            {
+              id: "local_chp_7",
+              title: "Chandrapur News : Leopard trapped in well successfully rescued after six-hour operation; Forest Development Corporation lauded",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-leopard-found-in-well-rescued-after-six-hours-forest-development-corporations-successful-performance-released-into-open-habitat-a-a1020/",
+              source: "Lokmat Wildlife Bureau (लोकमत)",
+              pub_date: fmtDate(1),
+              time_ago: "1d ago",
+              is_fresh: false,
+              snippet: "A wild leopard that slipped into an agricultural well near Kothari Colony in Chandrapur was hauled up safely in a specialized cage after an intense six-hour rescue operation.",
+              category: "safety",
+              tag_label: "🐯 Wildlife Rescue",
+              badge_color: "#F59E0B",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-fall-in-well_2026101799966.jpeg"
+            },
+            {
+              id: "local_chp_8",
+              title: "Chandrapur News : 13-year-old boy and youth killed in two separate road accidents in Chandrapur; 4 critically injured",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-a-13-year-old-boy-and-a-young-man-died-in-two-separate-accidents-in-chandrapur-four-others-were-seriously-injured-a-a1020/",
+              source: "Lokmat Times (Chandrapur)",
+              pub_date: fmtDate(1),
+              time_ago: "1d ago",
+              is_fresh: false,
+              snippet: "Two deadly road collisions occurred near Devai Govindanpur and Sawangi Phata along the Chandrapur-Mul corridor, resulting in two fatalities and four critical injuries.",
+              category: "metro",
+              tag_label: "🚨 Road Safety",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/youth-accident_2026101799860.jpeg"
+            },
+            {
+              id: "local_chp_9",
+              title: "Chandrapur News : Drunk man commits suicide by hanging inside cemetery in Nagbhid; police probe initiated",
+              link: "https://www.lokmat.com/chandrapur/chandrapur-news-nagbhid-he-hanged-himself-in-the-cemetery-drunk-in-extreme-drunkenness-a-a1020/",
+              source: "Lokmat Chandrapur (लोकमत)",
+              pub_date: fmtDate(1),
+              time_ago: "1d ago",
+              is_fresh: false,
+              snippet: "An individual in Nagbhid, Chandrapur took his own life at the local Mokshadham cremation grounds under heavy intoxication; local police have registered an accidental death case.",
+              category: "safety",
+              tag_label: "🚨 Chandrapur News",
+              badge_color: "#EF4444",
+              image_url: "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/nagbhid-news_2026101799758.jpeg"
+            }
+          ];
+        }
+
+        if (category === 'all') return chpList;
+        return chpList.filter(item => item.category === category);
+      }
+
+      const list = [
+        {
+          id: "local_art_0",
+          title: `${cityPrefix} corridor accelerates transit frequency with additional rolling stock during peak commuter hours`,
+          link: "https://news.google.com/search?q=metro+transit+updates",
+          source: `${cityPrefix} Express`,
+          pub_date: fmtDate(0),
+          time_ago: "1h ago",
+          is_fresh: true,
+          snippet: "Urban transit authorities have deployed additional high-speed services across key interchange junctions to reduce platform headway.",
+          category: "metro",
+          tag_label: "🚇 Metro & Transit",
+          badge_color: "#06B6D4",
+          image_url: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "local_art_1",
+          title: `Municipal Corporation initiates ₹450 Crore smart drainage and road resurfacing drive across western sectors`,
+          link: "https://news.google.com/search?q=municipal+corporation+road+drainage",
+          source: "City Chronicle",
+          pub_date: fmtDate(0),
+          time_ago: "3h ago",
+          is_fresh: true,
+          snippet: "Civic engineering teams have commenced micro-tunneling and storm-water drain reconstruction to eliminate chronic water-logging bottlenecks ahead of seasonal rains.",
+          category: "civic",
+          tag_label: "🏛️ Civic & Municipal",
+          badge_color: "#10B981",
+          image_url: "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "local_art_2",
+          title: `${cityPrefix} Air Quality Index records noticeable improvement following continuous mist cannon deployments`,
+          link: "https://news.google.com/search?q=city+air+quality+index+weather",
+          source: "Environment Wire",
+          pub_date: fmtDate(1),
+          time_ago: "1d ago",
+          is_fresh: false,
+          snippet: "Municipal pollution control boards confirm particulate matter levels dropped by 24% after anti-smog water sprinklers were operated continuously along industrial and transit belts.",
+          category: "weather",
+          tag_label: "🌧️ Weather & City",
+          badge_color: "#3B82F6",
+          image_url: "https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "local_art_3",
+          title: `Traffic Police deploys AI integrated speed sensors and adaptive traffic signaling across 45 major crossroads`,
+          link: "https://news.google.com/search?q=traffic+police+adaptive+signals",
+          source: "Police & Citizen Bureau",
+          pub_date: fmtDate(1),
+          time_ago: "1d ago",
+          is_fresh: false,
+          snippet: "Automated real-time sensor cameras will dynamically alter green signal timings based on vehicular density, reducing average commuter travel times by 18%.",
+          category: "safety",
+          tag_label: "🚨 Law & Safety",
+          badge_color: "#EF4444",
+          image_url: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "local_art_4",
+          title: `City Development Authority approves suburban connectivity ring road phase linking expanding residential layouts`,
+          link: "https://news.google.com/search?q=city+ring+road+infrastructure",
+          source: `${cityPrefix} Times`,
+          pub_date: fmtDate(2),
+          time_ago: "2d ago",
+          is_fresh: false,
+          snippet: "The 32-km elevated arterial corridor will provide direct highway bypass access, decongesting central city traffic and boosting local commercial hubs.",
+          category: "metro",
+          tag_label: "🚇 Metro & Transit",
+          badge_color: "#06B6D4",
+          image_url: "https://images.unsplash.com/photo-1508873696983-2df57046475a?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "local_art_5",
+          title: `State Electricity Distribution Board schedules automated smart meter installation drive for residential societies`,
+          link: "https://news.google.com/search?q=smart+meter+electricity+drive",
+          source: "State Utility Digest",
+          pub_date: fmtDate(2),
+          time_ago: "2d ago",
+          is_fresh: false,
+          snippet: "Consumers will get granular half-hourly electricity consumption analytics on their smartphones with automated outage detection and instantaneous reconnection.",
+          category: "civic",
+          tag_label: "🏛️ Civic & Municipal",
+          badge_color: "#10B981",
+          image_url: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80"
+        }
+      ];
+
+      if (category === 'all') return list;
+      return list.filter(item => item.category === category);
+    }
 
     // Authentic fallback data with dynamic live day-by-day dates and real high-resolution financial imagery
     function getCuratedArticles(category = 'all') {
+      if (currentMode === 'local') {
+        return getCuratedLocalArticles(category);
+      }
+
       const now = new Date();
       const fmtDate = (daysAgo) => {
         const d = new Date(now.getTime() - daysAgo * 86400000);
@@ -1532,7 +2806,8 @@
       tax: [
         "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80"
       ],
       succession: [
         "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
@@ -1544,16 +2819,15 @@
         "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
       ],
       sip_inclusion: [
         "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80"
       ],
       amc_industry: [
         "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
@@ -1565,59 +2839,156 @@
       ],
       market_macro: [
         "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1565372195458-9de0b320ef04?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80"
       ]
     };
 
-    function resolveNewsImage(title = '', category = 'all') {
+    // Authentic Chandrapur & Vidarbha Photo Pools (Zero Taj Mahal, Zero generic Western office towers)
+    const REAL_CHANDRAPUR_POOLS = {
+      tadoba: [
+        "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tiger_of_Tadoba.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/9/98/Tigers_tadoba.jpg",
+        "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80"
+      ],
+      heritage_gates: [
+        "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/4b/Mahakali_temple.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/8/87/Anchaleshwar_temple_Chandrapur.jpg"
+      ],
+      cstps_energy: [
+        "https://upload.wikimedia.org/wikipedia/commons/4/4f/Extra_2_units_of_CSTPS.jpg",
+        "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80"
+      ],
+      irai_water: [
+        "https://upload.wikimedia.org/wikipedia/commons/1/14/Eraii_dam_chandrapur.jpg",
+        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
+      ],
+      transit_roads: [
+        "https://images.unsplash.com/photo-1508873696983-2df57046475a?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=800&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg"
+      ],
+      safety_police: [
+        "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
+        "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?auto=format&fit=crop&w=800&q=80"
+      ],
+      civic_admin: [
+        "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg"
+      ],
+      city_general: [
+        "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tiger_of_Tadoba.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/4f/Extra_2_units_of_CSTPS.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/4b/Mahakali_temple.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/1/14/Eraii_dam_chandrapur.jpg"
+      ]
+    };
+
+    function resolveNewsImage(title = '', category = 'all', idx = 0) {
       const tl = (title || '').toLowerCase();
       let h = 0;
       for (let i = 0; i < title.length; i++) {
         h = ((h << 5) - h + title.charCodeAt(i)) & 0x7fffffff;
       }
 
+      // Check for Chandrapur or local keywords first
+      const isChp = currentMode === 'local' || /chandrapur|chanda|चंद्रपूर|चंद्रपुर|tadoba|tatr|cstps|irai|jatpura|pathanpura|anchaleshwar|mahakali|ballarpur|dhanorkar|vidarbha|wardha|samruddhi|fadnavis/i.test(tl);
+
       let pool = REAL_FINANCIAL_POOLS.market_macro;
-      if (/gold|silver|bullion|precious|commodity/i.test(tl)) {
-        pool = REAL_FINANCIAL_POOLS.gold;
-      } else if (/tax|ltcg|stcg|budget|exemption|harvest/i.test(tl)) {
-        pool = REAL_FINANCIAL_POOLS.tax;
-      } else if (/death|nominee|transmission|heir|claim|succession|legal heirs/i.test(tl)) {
-        pool = REAL_FINANCIAL_POOLS.succession;
-      } else if (/campus|university|jagrook/i.test(tl)) {
-        pool = [
-          "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80"
-        ];
-      } else if (/sip|compounding|crore|retail|saving|inclusion|investor base/i.test(tl)) {
-        pool = REAL_FINANCIAL_POOLS.sip_inclusion;
-      } else if (/sebi|circular|regulation|regulator|mandate|rules|liquidity|governance|chief flags|way ahead|reform/i.test(tl)) {
-        pool = REAL_FINANCIAL_POOLS.sebi_governance;
-      } else if (/fund manager|portfolio|amc|aum|nfo|churn|overseas|cap|talent|kantar|distributor/i.test(tl)) {
-        pool = REAL_FINANCIAL_POOLS.amc_industry;
-      } else if (/nifty|sensex|market|rbi|inflation|fed|rate|gdp|economic|equities/i.test(tl)) {
-        pool = REAL_FINANCIAL_POOLS.market_macro;
+      if (isChp) {
+        if (/tadoba|tatr|tiger|wildlife|safari|forest|ecology|landscape|reserve/i.test(tl)) {
+          pool = REAL_CHANDRAPUR_POOLS.tadoba;
+        } else if (/cstps|thermal|power infra|power plant|electricity|energy|mist/i.test(tl)) {
+          pool = REAL_CHANDRAPUR_POOLS.cstps_energy;
+        } else if (/irai|dam|river|flood|evacuat|rescue|rainwater|water/i.test(tl)) {
+          pool = REAL_CHANDRAPUR_POOLS.irai_water;
+        } else if (/gate|jatpura|pathanpura|mahakali|anchaleshwar|temple|heritage|bhonsle/i.test(tl)) {
+          pool = REAL_CHANDRAPUR_POOLS.heritage_gates;
+        } else if (/police|safety|surveillance|camera|arrest|crime|court|investigation/i.test(tl)) {
+          pool = REAL_CHANDRAPUR_POOLS.safety_police;
+        } else if (/expressway|samruddhi|transit|highway|road|railway|junction|corridor|ballarpur/i.test(tl)) {
+          pool = REAL_CHANDRAPUR_POOLS.transit_roads;
+        } else if (/civic|corporation|cmc|budget|tax|infrastructure|municipal|chanda|award|mayor|bjp|congress|dhanorkar/i.test(tl)) {
+          pool = REAL_CHANDRAPUR_POOLS.civic_admin;
+        } else {
+          pool = REAL_CHANDRAPUR_POOLS.city_general;
+        }
       } else {
-        if (category === 'sebi') pool = REAL_FINANCIAL_POOLS.sebi_governance;
-        else if (category === 'amc') pool = REAL_FINANCIAL_POOLS.amc_industry;
-        else pool = REAL_FINANCIAL_POOLS.market_macro;
+        if (/gold|silver|bullion|precious|commodity/i.test(tl)) {
+          pool = REAL_FINANCIAL_POOLS.gold;
+        } else if (/tax|ltcg|stcg|budget|exemption|harvest/i.test(tl)) {
+          pool = REAL_FINANCIAL_POOLS.tax;
+        } else if (/death|nominee|transmission|heir|claim|succession|legal heirs/i.test(tl)) {
+          pool = REAL_FINANCIAL_POOLS.succession;
+        } else if (/sip|compounding|crore|retail|saving|inclusion|investor base/i.test(tl)) {
+          pool = REAL_FINANCIAL_POOLS.sip_inclusion;
+        } else if (/sebi|circular|regulation|regulator|mandate|rules|liquidity|governance|chief flags|way ahead|reform/i.test(tl)) {
+          pool = REAL_FINANCIAL_POOLS.sebi_governance;
+        } else if (/fund manager|portfolio|amc|aum|nfo|churn|overseas|cap|talent|kantar|distributor/i.test(tl)) {
+          pool = REAL_FINANCIAL_POOLS.amc_industry;
+        } else if (/nifty|sensex|market|rbi|inflation|fed|rate|gdp|economic|equities/i.test(tl)) {
+          pool = REAL_FINANCIAL_POOLS.market_macro;
+        } else {
+          if (category === 'sebi') pool = REAL_FINANCIAL_POOLS.sebi_governance;
+          else if (category === 'amc') pool = REAL_FINANCIAL_POOLS.amc_industry;
+          else pool = REAL_FINANCIAL_POOLS.market_macro;
+        }
       }
 
-      return pool[h % pool.length];
+      // Use index offset so every card has a distinct real photo
+      return pool[(h + (idx || 0) * 7 + 3) % pool.length];
     }
 
     async function fetchClientSideLiveRSS(category = 'all') {
-      const queryMap = {
-        'all': 'Indian Mutual Funds AMFI SEBI',
-        'sebi': 'SEBI circular mutual fund regulations',
-        'amc': 'Mutual Fund AMC fund manager NFO portfolio',
-        'macro': 'Indian economy Nifty RBI inflation repo rate'
-      };
-      const q = encodeURIComponent(queryMap[category] || queryMap['all']);
+      let qStr = '';
+      if (currentMode === 'local') {
+        const cityMap = {
+          'all': 'India city municipal local news developments',
+          'mumbai': 'Mumbai local news civic metro traffic updates',
+          'delhi': 'Delhi NCR local news municipal metro traffic air quality',
+          'bengaluru': 'Bengaluru local news civic BBMP traffic metro updates',
+          'pune': 'Pune local news civic municipal PMC metro traffic',
+          'hyderabad': 'Hyderabad local news GHMC traffic metro developments',
+          'kolkata': 'Kolkata local news civic KMC metro updates',
+          'chennai': 'Chennai local news civic GCC traffic weather updates',
+          'ahmedabad': 'Ahmedabad local news AMC civic metro infrastructure'
+        };
+        if (currentCustomArea) {
+          qStr = `${currentCustomArea} local news civic updates`;
+        } else if (category === 'metro') {
+          qStr = `${cityMap[currentCity] || currentCity} metro transit traffic`;
+        } else if (category === 'civic') {
+          qStr = `${cityMap[currentCity] || currentCity} municipal corporation civic`;
+        } else if (category === 'weather') {
+          qStr = `${cityMap[currentCity] || currentCity} weather pollution air quality`;
+        } else if (category === 'safety') {
+          qStr = `${cityMap[currentCity] || currentCity} police court crime safety`;
+        } else {
+          qStr = cityMap[currentCity] || `${currentCity} local news civic updates`;
+        }
+      } else {
+        const queryMap = {
+          'all': 'Indian Mutual Funds AMFI SEBI',
+          'sebi': 'SEBI circular mutual fund regulations',
+          'amc': 'Mutual Fund AMC fund manager NFO portfolio',
+          'macro': 'Indian economy Nifty RBI inflation repo rate'
+        };
+        qStr = queryMap[category] || queryMap['all'];
+      }
+      const q = encodeURIComponent(qStr);
 
       const targets = [
         {
@@ -1759,7 +3130,7 @@
                 category: cat,
                 tag_label: tag,
                 badge_color: color,
-                image_url: resolveNewsImage(it.title, cat)
+                image_url: resolveNewsImage(it.title, cat, i)
               });
             }
 
@@ -1776,6 +3147,20 @@
 
     async function loadNews(category = 'all', force = false) {
       if (isFetching) return;
+
+      const cacheKey = `${currentMode}_${category}_${currentCity}_${currentCustomArea}_${currentLang}_v3`;
+      const nowTs = Date.now();
+
+      // Instant cache display for seamless tab switching
+      if (!force && newsClientCache[cacheKey] && (nowTs - newsClientCache[cacheKey].timestamp < 3 * 60 * 1000)) {
+        allArticles = newsClientCache[cacheKey].articles;
+        visibleGridLimit = 24;
+        renderAll(allArticles);
+        const syncEl = document.getElementById('newsSyncTime');
+        if (syncEl) syncEl.textContent = newsClientCache[cacheKey].timeStr;
+        return;
+      }
+
       isFetching = true;
 
       const refreshIcon = document.getElementById('refreshIcon');
@@ -1788,7 +3173,15 @@
 
         // 1. Try local backend Flask API first
         try {
-          const res = await fetch(`/api/news?category=${encodeURIComponent(category)}${force ? '&refresh=1' : ''}`, {
+          const params = new URLSearchParams({
+            category: category,
+            mode: currentMode,
+            city: currentCity
+          });
+          if (currentCustomArea) params.set('q', currentCustomArea);
+          if (force) params.set('refresh', '1');
+
+          const res = await fetch(`/api/news?${params.toString()}`, {
             headers: { 'Accept': 'application/json' }
           });
           if (res.ok) {
@@ -1819,8 +3212,36 @@
           timeStr = 'Wire Cache • ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' IST';
         }
 
+        if (currentMode === 'local' && (currentCity === 'chandrapur' || currentCity === 'all')) {
+          const curated = getCuratedLocalArticles(category);
+          items = [...curated, ...items.filter(it => !it.id || !it.id.startsWith('local_chp_'))];
+        } else if (currentLang !== 'en') {
+          const curated = getCuratedArticles(category);
+          items = [...curated, ...items.filter(it => !it.id || !it.id.startsWith('news_art_'))];
+        }
+
+        // Guarantee all items have distinct authentic photos and zero repeating candlestick demo images
+        if (items && items.length > 0) {
+          items.forEach((it, idx) => {
+            const isChpArt = currentMode === 'local' || /chandrapur|chanda|चंद्रपूर|चंद्रपुर|tadoba|tatr|cstps|irai|jatpura|pathanpura|anchaleshwar|mahakali|ballarpur|dhanorkar|vidarbha|wardha|samruddhi|fadnavis/i.test(it.title || '');
+            const isGenericImg = !it.image_url || it.image_url.includes('1590283603385') || it.image_url.includes('1524492412937') || it.image_url.includes('demo');
+            if (isChpArt) {
+              if (isGenericImg || it.image_url.includes('1486406146926') || it.image_url.includes('155422415') || it.image_url.includes('1567157577867') || it.image_url.includes('1535320903710')) {
+                it.image_url = resolveNewsImage(it.title, it.category, idx);
+              }
+            } else if (isGenericImg) {
+              it.image_url = resolveNewsImage(it.title, it.category, idx);
+            }
+          });
+        }
+
         allArticles = items;
         visibleGridLimit = 24;
+        newsClientCache[cacheKey] = {
+          articles: items,
+          timeStr: timeStr,
+          timestamp: Date.now()
+        };
         renderAll(allArticles);
         const syncEl = document.getElementById('newsSyncTime');
         if (syncEl) syncEl.textContent = timeStr;
@@ -1864,7 +3285,8 @@
       if (!track || !articles || articles.length === 0) return;
       articles.forEach((a, i) => { if (!a.id) a.id = 'news_art_' + i; });
 
-      const html = articles.map(a => `
+      const marqueeSlice = articles.slice(0, 12);
+      const html = marqueeSlice.map(a => `
         <div style="display: inline-flex; align-items: center; gap: 8px; padding: 0 20px; border-right: 1px solid rgba(255,255,255,0.06); cursor: pointer;"
           onclick="openInAppArticle('${a.id}')">
           <span style="font-size: 8px; font-weight: 800; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 1px 6px; color: #94A3B8; white-space: nowrap;">
@@ -1977,10 +3399,13 @@
       const pBar = document.getElementById('heroSlideProgressBar');
       if (pBar) {
         pBar.style.transition = 'none';
-        pBar.style.width = '0%';
-        void pBar.offsetWidth; // Force DOM reflow
-        pBar.style.transition = `width ${dur}ms linear`;
-        pBar.style.width = '100%';
+        pBar.style.transform = 'scaleX(0)';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            pBar.style.transition = `transform ${dur}ms linear`;
+            pBar.style.transform = 'scaleX(1)';
+          });
+        });
       }
 
       window._heroCarousel.timer = setTimeout(() => {
@@ -2002,9 +3427,9 @@
 
       const pBar = document.getElementById('heroSlideProgressBar');
       if (pBar) {
-        const computed = window.getComputedStyle(pBar).width;
+        const computed = window.getComputedStyle(pBar).transform;
         pBar.style.transition = 'none';
-        pBar.style.width = computed;
+        pBar.style.transform = computed;
       }
       const statusEl = document.getElementById('heroPlayStatus');
       if (statusEl) {
@@ -2096,9 +3521,43 @@
       }
     });
 
-    function getCategoryMeta(category, title = '') {
+    function getCategoryMeta(category, title = '', art = null) {
+      if (art && art.tag_label && art.badge_color) {
+        const parts = art.tag_label.trim().split(' ');
+        const emoji = parts[0] || '📍';
+        const name = parts.slice(1).join(' ') || art.tag_label;
+        return { name: name, emoji: emoji, color: art.badge_color };
+      }
       const c = (category || '').toLowerCase();
       const t = (title || '').toLowerCase();
+
+      // Check for Chandrapur / Vidarbha / Local news first!
+      const isChp = currentMode === 'local' || /chandrapur|chanda|चंद्रपूर|चंद्रपुर|tadoba|tatr|cstps|irai|jatpura|pathanpura|anchaleshwar|mahakali|ballarpur|dhanorkar|vidarbha|wardha|samruddhi|fadnavis/i.test(t);
+
+      if (isChp) {
+        if (/tadoba|tatr|tiger|wildlife|safari|forest|ecology|landscape|reserve/i.test(t)) {
+          return { name: 'Tadoba Wildlife', emoji: '🐯', color: '#F59E0B' };
+        }
+        if (/cstps|thermal|power infra|power plant|electricity|energy|mist/i.test(t)) {
+          return { name: 'CSTPS Energy', emoji: '⚡', color: '#EAB308' };
+        }
+        if (/irai|dam|river|flood|evacuat|rescue|rainwater|water/i.test(t)) {
+          return { name: 'Irai River & Water', emoji: '🌊', color: '#06B6D4' };
+        }
+        if (/expressway|samruddhi|transit|highway|road|railway|junction|corridor|ballarpur|metro|traffic/i.test(t)) {
+          return { name: 'Transit & Roads', emoji: '🚇', color: '#0284C7' };
+        }
+        if (/police|safety|surveillance|camera|arrest|crime|court|investigation/i.test(t)) {
+          return { name: 'Law & Safety', emoji: '🚨', color: '#EF4444' };
+        }
+        if (/mayor|bjp|congress|dhanorkar|fadnavis|rift|camp|claim|post/i.test(t)) {
+          return { name: 'Civic & Politics', emoji: '🗳️', color: '#8B5CF6' };
+        }
+        if (/civic|corporation|cmc|budget|tax|infrastructure|municipal|chanda|award/i.test(t)) {
+          return { name: 'CMC Civic Body', emoji: '🏛️', color: '#10B981' };
+        }
+        return { name: 'Chandrapur City', emoji: '📍', color: '#38BDF8' };
+      }
 
       if (c === 'sebi' || /sebi|circular|regulation|regulator|mandate|rules|liquidity/i.test(t)) {
         return { name: 'SEBI Regulatory', emoji: '🏛️', color: '#10B981' };
@@ -2143,7 +3602,7 @@
               
               <!-- Countdown Progress Bar -->
               <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.08); z-index: 20; overflow: hidden;">
-                <div id="heroSlideProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #38BDF8, #818CF8, #38BDF8); box-shadow: 0 0 10px rgba(56,189,248,0.8); transition: width 6500ms linear;"></div>
+                <div id="heroSlideProgressBar" style="height: 100%; width: 100%; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, #38BDF8, #818CF8, #38BDF8); box-shadow: 0 0 10px rgba(56,189,248,0.8); will-change: transform;"></div>
               </div>
 
               <!-- Floating Nav Arrows (Visible on Card) -->
@@ -2160,7 +3619,7 @@
               </button>
 
               <!-- Unified Slide Controller Capsule (Bottom Right of Hero Image) -->
-              <div class="hero-slide-capsule" style="display: flex; align-items: center; gap: 8px; background: rgba(13,27,42,0.88); backdrop-filter: blur(10px); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 4px 15px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+              <div class="hero-slide-capsule" style="display: flex; align-items: center; gap: 8px; background: rgba(13,27,42,0.92); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 4px 15px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
                 <span id="heroPlayStatus" style="font-size: 9px; font-weight: 800; color: #38BDF8; letter-spacing: 0.06em; display: flex; align-items: center; gap: 4px;">
                   <span style="width: 6px; height: 6px; border-radius: 50%; background: #10B981; display: inline-block;"></span>
                   AUTO
@@ -2182,10 +3641,19 @@
 
               <!-- Carousel Slides Track -->
               <div style="width: 100%; overflow: hidden; position: relative;">
-                <div id="heroSlidesTrack" style="display: flex; width: 100%; transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);">
+                <div id="heroSlidesTrack" style="display: flex; width: 100%; transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; transform: translateZ(0);">
                   ${leadSlides.map((slide, idx) => {
-                    const heroImage = slide.image_url || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80';
-                    const catMeta = getCategoryMeta(slide.category || 'SEBI', slide.title);
+                    const fallbackImg = resolveNewsImage(slide.title, slide.category, idx);
+                    const isChpSlide = currentMode === 'local' || /chandrapur|chanda|चंद्रपूर|चंद्रपुर|tadoba|tatr|cstps|irai|jatpura|pathanpura|anchaleshwar|mahakali|ballarpur|dhanorkar|vidarbha|wardha|samruddhi|fadnavis/i.test(slide.title || '');
+                    let heroImage = slide.image_url;
+                    if (isChpSlide) {
+                      if (!heroImage || heroImage.includes('1524492412937') || heroImage.includes('1486406146926') || heroImage.includes('155422415') || heroImage.includes('1567157577867') || heroImage.includes('1535320903710') || heroImage.includes('1611974789855') || heroImage.includes('1590283603385') || heroImage.includes('demo')) {
+                        heroImage = fallbackImg;
+                      }
+                    } else if (!heroImage || heroImage.includes('1590283603385') || heroImage.includes('demo')) {
+                      heroImage = fallbackImg;
+                    }
+                    const catMeta = getCategoryMeta(slide.category, slide.title, slide);
                     const category = slide.tag_label || catMeta.name;
                     const time_ago = slide.time_ago || 'Recent';
                     const headline = slide.title || '';
@@ -2198,9 +3666,9 @@
                       <div class="newsroom-hero-slide" onclick="openInAppArticle('${slide.id}')">
                         <!-- Hero Image Container with Vignette -->
                         <div style="height: 250px; position: relative; overflow: hidden;" class="newsroom-hero-img-wrap">
-                          <img src="${heroImage}" alt="${headline}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.82; transition: transform 500ms ease;"
+                          <img src="${heroImage}" alt="${headline}" referrerpolicy="no-referrer" decoding="async" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transition: transform 500ms ease;"
                             onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"
-                            onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80'" />
+                            onerror="this.src='${fallbackImg}'; this.onerror=null;" />
                           <div style="position: absolute; inset: 0; background: linear-gradient(0deg, #0D1B2A 0%, rgba(13,27,42,0.6) 40%, transparent 100%);"></div>
                           
                           <!-- Top Left Badges -->
@@ -2209,16 +3677,16 @@
                               <span>⭐</span>
                               <span>LEAD INVESTIGATION</span>
                             </span>
-                            <span style="background: rgba(139,92,246,0.25); color: #C4B5FD; border: 1px solid rgba(139,92,246,0.4); border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 800; backdrop-filter: blur(8px);">
+                            <span style="background: rgba(139,92,246,0.3); color: #C4B5FD; border: 1px solid rgba(139,92,246,0.45); border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 800;">
                               ${catMeta.emoji} ${category}
                             </span>
-                            <span style="background: rgba(14,165,233,0.2); color: #38BDF8; border: 1px solid rgba(14,165,233,0.35); border-radius: 6px; padding: 4px 8px; font-size: 10px; font-weight: 800; backdrop-filter: blur(8px);">
+                            <span style="background: rgba(14,165,233,0.25); color: #38BDF8; border: 1px solid rgba(14,165,233,0.4); border-radius: 6px; padding: 4px 8px; font-size: 10px; font-weight: 800;">
                               STORY ${idx + 1} OF ${leadSlides.length}
                             </span>
                           </div>
 
                           <!-- Top Right Read Time -->
-                          <div style="position: absolute; top: 14px; right: 14px; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 700; color: #E2E8F0; backdrop-filter: blur(8px); z-index: 10;">
+                          <div style="position: absolute; top: 14px; right: 14px; background: rgba(0,0,0,0.75); border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 700; color: #E2E8F0; z-index: 10;">
                             ⏱️ 4 min read
                           </div>
 
@@ -2292,7 +3760,7 @@
                 <!-- Developing Stories List -->
                 <div style="display: flex; flex-direction: column;">
                   ${developing.map((dev, idx) => {
-                    const devMeta = getCategoryMeta(dev.category || 'SEBI', dev.title);
+                    const devMeta = getCategoryMeta(dev.category, dev.title, dev);
                     const numColors = ['#38BDF8', '#F59E0B', '#A78BFA'];
                     return `
                       <div class="developing-story-item" onclick="openInAppArticle('${dev.id}')">
@@ -2344,10 +3812,10 @@
       if (!grid) return;
       articles.forEach((a, i) => { if (!a.id) a.id = 'news_art_' + i; });
 
-      // Filter out the hero lead items if multiple articles exist
+      // In local mode or filtered view, show all articles including primary local focus
       const q = document.getElementById('newsSearchBox') ? document.getElementById('newsSearchBox').value.trim() : '';
       const pub = document.getElementById('publisherFilterSelect') ? document.getElementById('publisherFilterSelect').value : 'all';
-      const gridArticles = (articles.length > 3 && !q && pub === 'all') ? articles.slice(4) : (articles.length > 1 && !q && pub === 'all') ? articles.slice(1) : articles;
+      const gridArticles = (currentMode === 'local' || q || pub !== 'all') ? articles : ((articles.length > 3) ? articles.slice(4) : (articles.length > 1 ? articles.slice(1) : articles));
       lastRenderedGridArticles = gridArticles;
 
       if (!gridArticles || gridArticles.length === 0) {
@@ -2367,24 +3835,33 @@
 
       const visibleSlice = gridArticles.slice(0, visibleGridLimit);
 
-      grid.innerHTML = visibleSlice.map(art => {
-        const meta = getCategoryMeta(art.category || 'SEBI', art.title);
-        const img = art.image_url || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80';
+      grid.innerHTML = visibleSlice.map((art, idx) => {
+        const meta = getCategoryMeta(art.category, art.title, art);
+        const fallbackCardImg = resolveNewsImage(art.title, art.category, idx + 5);
+        const isChpArt = currentMode === 'local' || /chandrapur|chanda|चंद्रपूर|चंद्रपुर|tadoba|tatr|cstps|irai|jatpura|pathanpura|anchaleshwar|mahakali|ballarpur|dhanorkar|vidarbha|wardha|samruddhi|fadnavis/i.test(art.title || '');
+        let img = art.image_url;
+        if (isChpArt) {
+          if (!img || img.includes('1524492412937') || img.includes('1486406146926') || img.includes('155422415') || img.includes('1567157577867') || img.includes('1535320903710') || img.includes('1611974789855') || img.includes('1590283603385') || img.includes('demo')) {
+            img = fallbackCardImg;
+          }
+        } else if (!img || img.includes('1590283603385') || img.includes('demo')) {
+          img = fallbackCardImg;
+        }
         return `
           <div class="news-article-card" onclick="openInAppArticle('${art.id}')">
             <!-- THUMBNAIL WITH BADGES -->
             <div style="height: 165px; overflow: hidden; position: relative; background: #131D2E;">
-              <img src="${img}" alt="${art.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transition: transform 350ms ease;"
-                onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80'" />
+              <img src="${img}" alt="${art.title}" referrerpolicy="no-referrer" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transition: transform 350ms ease;"
+                onerror="this.src='${fallbackCardImg}'; this.onerror=null;" />
               <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 55%; background: linear-gradient(0deg, rgba(13,27,42,0.95), transparent);"></div>
               
               <!-- Publisher Badge -->
-              <div style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 8px; font-size: 9px; font-weight: 800; color: #F1F5F9; display: flex; align-items: center; gap: 4px;">
+              <div style="position: absolute; top: 10px; left: 10px; background: rgba(8,12,22,0.88); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 8px; font-size: 9px; font-weight: 800; color: #F1F5F9; display: flex; align-items: center; gap: 4px;">
                 📰 ${art.source}
               </div>
               
               <!-- Category Badge -->
-              <div style="position: absolute; top: 10px; right: 10px; background: ${meta.color}25; backdrop-filter: blur(8px); border: 1px solid ${meta.color}50; border-radius: 6px; padding: 3px 8px; font-size: 9px; font-weight: 800; color: ${meta.color};">
+              <div style="position: absolute; top: 10px; right: 10px; background: rgba(13,27,42,0.92); border: 1px solid ${meta.color}60; border-radius: 6px; padding: 3px 8px; font-size: 9px; font-weight: 800; color: ${meta.color};">
                 ${meta.emoji} ${meta.name}
               </div>
               
@@ -2485,19 +3962,50 @@
       if (statTotalEl) statTotalEl.textContent = totalCount;
       const statBreakingEl = document.getElementById('statBreaking');
       if (statBreakingEl) statBreakingEl.textContent = breakingCount;
+      
       const statSEBIEl = document.getElementById('statSEBI');
-      if (statSEBIEl) statSEBIEl.textContent = sebiCount;
+      const stat3LabelEl = document.querySelector('#statSEBI + div');
+      if (currentMode === 'local') {
+        const localCivicCount = articles.filter(a => (a.category === 'metro' || a.category === 'civic' || a.category === 'weather' || a.category === 'safety')).length;
+        if (statSEBIEl) statSEBIEl.textContent = localCivicCount || Math.round(totalCount * 0.7);
+        if (stat3LabelEl) stat3LabelEl.textContent = "Civic & Transit";
+      } else {
+        if (statSEBIEl) statSEBIEl.textContent = sebiCount;
+        if (stat3LabelEl) stat3LabelEl.textContent = "SEBI Updates";
+      }
+
       const statRefreshEl = document.getElementById('statRefresh');
       if (statRefreshEl) statRefreshEl.textContent = refreshTime;
 
-      // Trending Topics
-      const topicKeywords = [
-        { topic: 'SEBI Regulations', regex: /sebi|regulat|circular|reform/i },
-        { topic: 'SIP Growth', regex: /sip|inflow|record/i },
-        { topic: 'Small Cap Funds', regex: /small cap|mid cap|large cap/i },
-        { topic: 'LTCG Tax', regex: /tax|ltcg|budget|exemption/i },
-        { topic: 'NFO Launches', regex: /nfo|etf|gold|silver|launch/i }
-      ];
+      // Trending Topics adapted per mode (Main Focus: Chandrapur, Maharashtra)
+      let topicKeywords = [];
+      if (currentMode === 'local') {
+        if (currentCity === 'chandrapur') {
+          topicKeywords = [
+            { topic: 'Chandrapur Civic & CMC', regex: /chandrapur|municipal|corporation|cmc|civic/i },
+            { topic: 'Tadoba Eco-Tourism & Safari', regex: /tadoba|tiger|safari|forest|wildlife/i },
+            { topic: 'Ballarpur Transit Corridor', regex: /ballarpur|highway|transit|road|railway/i },
+            { topic: 'Air Quality & CSTPS', regex: /air quality|cstps|pollution|weather|rain/i },
+            { topic: 'District Safety & Police', regex: /police|safety|alert|surveillance/i }
+          ];
+        } else {
+          topicKeywords = [
+            { topic: 'Metro & Transit', regex: /metro|transit|rail|traffic|transport/i },
+            { topic: 'Civic & Municipal', regex: /municipal|corporation|civic|drainage|road/i },
+            { topic: 'Air Quality & Weather', regex: /air quality|pollution|weather|rain|temperature/i },
+            { topic: 'Smart City Projects', regex: /smart city|development|infrastructure|ring road/i },
+            { topic: 'Safety & Traffic Alerts', regex: /police|safety|alert|signal|speed/i }
+          ];
+        }
+      } else {
+        topicKeywords = [
+          { topic: 'SEBI Regulations', regex: /sebi|regulat|circular|reform/i },
+          { topic: 'SIP Growth', regex: /sip|inflow|record/i },
+          { topic: 'Small Cap Funds', regex: /small cap|mid cap|large cap/i },
+          { topic: 'LTCG Tax', regex: /tax|ltcg|budget|exemption/i },
+          { topic: 'NFO Launches', regex: /nfo|etf|gold|silver|launch/i }
+        ];
+      }
 
       const trendingEl = document.getElementById('newsroomTrendingTopics');
       if (trendingEl) {
@@ -2520,7 +4028,7 @@
       if (pubEl) {
         const pubMap = {};
         articles.forEach(a => {
-          const s = a.source || 'Financial Wire';
+          const s = a.source || (currentMode === 'local' ? 'Local Wire' : 'Financial Wire');
           pubMap[s] = (pubMap[s] || 0) + 1;
         });
         const sortedPubs = Object.keys(pubMap).map(k => ({ name: k, count: pubMap[k] })).sort((a, b) => b.count - a.count).slice(0, 5);
@@ -2536,21 +4044,190 @@
       }
     }
 
+    // ══════════════════════════════════════════════════════════════════
+    // 🧭 DUAL-MODE NEWS CONTROLLER (Financial vs Regular/Area Local News)
+    // ══════════════════════════════════════════════════════════════════
+    function renderCategoryTabsForMode(mode, activeCat = 'all') {
+      const container = document.getElementById('modeCategoryTabsContainer');
+      if (!container) return;
+
+      const lp = LANG_PACK[currentLang] || LANG_PACK.en;
+      const tabs = (mode === 'local') ? lp.tabs_local : lp.tabs_fin;
+
+      container.innerHTML = tabs.map(tab => {
+        const isActive = (tab.id === activeCat);
+        const bgStyle = isActive ? tab.bg : 'transparent';
+        const colorStyle = isActive ? tab.color : '#94A3B8';
+        return `
+          <button type="button" onclick="changeCategory('${tab.id}')" id="newsTab_${tab.id}" class="cat-tab-btn ${isActive ? 'active' : ''}"
+            style="padding: 7px 14px; border-radius: 9px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 150ms; background: ${bgStyle}; color: ${colorStyle};">
+            ${tab.label}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function switchNewsMode(mode) {
+      if (currentMode === mode) return;
+      currentMode = mode;
+      currentCategory = 'all';
+
+      const lp = LANG_PACK[currentLang] || LANG_PACK.en;
+      const btnFinancial = document.getElementById('btnModeFinancial');
+      const btnLocal = document.getElementById('btnModeLocal');
+      const localBar = document.getElementById('localAreaSelectorBar');
+      const activeTitle = document.getElementById('activeModeTitle');
+      const activeSummary = document.getElementById('activeModeSummary');
+      const sectionHeading = document.getElementById('sectionDividerHeading');
+      const sectionSubtext = document.getElementById('sectionDividerSubtext');
+      const pubSelect = document.getElementById('publisherFilterSelect');
+
+      if (mode === 'local') {
+        currentCity = 'chandrapur';
+        if (btnLocal) {
+          btnLocal.classList.add('active');
+          btnLocal.style.background = 'linear-gradient(135deg, #0EA5E9, #10B981)';
+          btnLocal.style.color = '#FFFFFF';
+          btnLocal.style.boxShadow = '0 4px 14px rgba(14,165,233,0.4)';
+        }
+        if (btnFinancial) {
+          btnFinancial.classList.remove('active');
+          btnFinancial.style.background = 'transparent';
+          btnFinancial.style.color = '#94A3B8';
+          btnFinancial.style.boxShadow = 'none';
+        }
+        if (localBar) localBar.style.display = 'block';
+        if (activeTitle) activeTitle.textContent = lp.local_title;
+        if (activeSummary) activeSummary.textContent = lp.local_summary;
+        if (sectionHeading) sectionHeading.textContent = lp.local_section_heading;
+        if (sectionSubtext) sectionSubtext.textContent = lp.local_section_subtext;
+
+        // Select the Chandrapur city button as primary
+        const allPills = document.querySelectorAll('.city-pill-btn');
+        allPills.forEach(p => {
+          p.classList.remove('active');
+          p.style.border = '1px solid rgba(255,255,255,0.08)';
+          p.style.background = 'rgba(255,255,255,0.04)';
+          p.style.color = '#94A3B8';
+        });
+        const cpBtn = document.getElementById('cityBtn_chandrapur');
+        if (cpBtn) {
+          cpBtn.classList.add('active');
+          cpBtn.style.border = '1px solid #F59E0B';
+          cpBtn.style.background = 'rgba(245,158,11,0.2)';
+          cpBtn.style.color = '#FCD34D';
+        }
+
+        // Update publishers for local mode
+        if (pubSelect) {
+          pubSelect.innerHTML = `
+            <option value="all">All Regional Outlets / लोकमत</option>
+            <option value="Lokmat">Lokmat (लोकमत चंद्रपूर/विदर्भ)</option>
+            <option value="Chandrapur Live">Chandrapur Live</option>
+            <option value="Tadoba">Tadoba Bureau</option>
+            <option value="Vidarbha">Vidarbha Regional Desk</option>
+          `;
+          pubSelect.value = 'all';
+          currentPublisher = 'all';
+        }
+      } else {
+        currentCity = 'all';
+        if (btnFinancial) {
+          btnFinancial.classList.add('active');
+          btnFinancial.style.background = 'linear-gradient(135deg, #2563EB, #3B82F6)';
+          btnFinancial.style.color = '#FFFFFF';
+          btnFinancial.style.boxShadow = '0 4px 14px rgba(37,99,235,0.4)';
+        }
+        if (btnLocal) {
+          btnLocal.classList.remove('active');
+          btnLocal.style.background = 'transparent';
+          btnLocal.style.color = '#94A3B8';
+          btnLocal.style.boxShadow = 'none';
+        }
+        if (localBar) localBar.style.display = 'none';
+        if (activeTitle) activeTitle.textContent = lp.financial_title;
+        if (activeSummary) activeSummary.textContent = lp.financial_summary;
+        if (sectionHeading) sectionHeading.textContent = lp.financial_section_heading;
+        if (sectionSubtext) sectionSubtext.textContent = lp.financial_section_subtext;
+
+        // Update publishers for financial mode
+        if (pubSelect) {
+          pubSelect.innerHTML = `
+            <option value="all">All Publishers</option>
+            <option value="Economic Times">The Economic Times</option>
+            <option value="Mint">Livemint</option>
+            <option value="Moneycontrol">Moneycontrol</option>
+            <option value="Business Standard">Business Standard</option>
+            <option value="SEBI">SEBI Official</option>
+          `;
+          pubSelect.value = 'all';
+          currentPublisher = 'all';
+        }
+      }
+
+      renderCategoryTabsForMode(mode, 'all');
+      const searchBox = document.getElementById('newsSearchBox');
+      if (searchBox) searchBox.value = '';
+
+      loadNews('all', false);
+    }
+
+    function selectCityFilter(city, btn) {
+      currentCity = city;
+      currentCustomArea = '';
+      const lp = LANG_PACK[currentLang] || LANG_PACK.en;
+      const input = document.getElementById('customAreaInput');
+      if (input) input.value = '';
+
+      const pills = document.querySelectorAll('.city-pill-btn');
+      pills.forEach(p => {
+        p.classList.remove('active');
+        p.style.border = '1px solid rgba(255,255,255,0.08)';
+        p.style.background = 'rgba(255,255,255,0.04)';
+        p.style.color = '#94A3B8';
+      });
+
+      const sectionHeading = document.getElementById('sectionDividerHeading');
+      const sectionSubtext = document.getElementById('sectionDividerSubtext');
+
+      if (btn) {
+        btn.classList.add('active');
+        if (city === 'chandrapur') {
+          btn.style.border = '1px solid #F59E0B';
+          btn.style.background = 'rgba(245,158,11,0.2)';
+          btn.style.color = '#FCD34D';
+          if (sectionHeading) sectionHeading.textContent = lp.local_section_heading;
+          if (sectionSubtext) sectionSubtext.textContent = lp.local_section_subtext;
+        } else {
+          btn.style.border = '1px solid #38BDF8';
+          btn.style.background = 'rgba(56,189,248,0.2)';
+          btn.style.color = '#38BDF8';
+          if (sectionHeading) sectionHeading.textContent = `${city.toUpperCase()} & REGIONAL AREA WIRE`;
+          if (sectionSubtext) sectionSubtext.textContent = `Continuous Local Wire Feed • ${city.charAt(0).toUpperCase() + city.slice(1)} Regional Desks`;
+        }
+      }
+
+      loadNews(currentCategory, false);
+    }
+
+    function applyCustomAreaFilter(val) {
+      if (!val || !val.trim()) return;
+      currentCustomArea = val.trim();
+      const pills = document.querySelectorAll('.city-pill-btn');
+      pills.forEach(p => {
+        p.classList.remove('active');
+        p.style.border = '1px solid rgba(255,255,255,0.08)';
+        p.style.background = 'rgba(255,255,255,0.04)';
+        p.style.color = '#94A3B8';
+      });
+      const sectionHeading = document.getElementById('sectionDividerHeading');
+      if (sectionHeading) sectionHeading.textContent = `${currentCustomArea.toUpperCase()} LOCAL AREA WIRE`;
+      loadNews(currentCategory, false);
+    }
+
     function changeCategory(cat) {
       currentCategory = cat;
-      const tabMap = { 'all': 'newsTab_all', 'sebi': 'newsTab_sebi', 'amc': 'newsTab_amc', 'macro': 'newsTab_macro', 'market': 'newsTab_macro' };
-      ['all', 'sebi', 'amc', 'macro'].forEach(k => {
-        const btn = document.getElementById(tabMap[k]);
-        if (btn) {
-          if (cat === k || (cat === 'market' && k === 'macro')) {
-            btn.style.background = 'rgba(239,68,68,0.15)';
-            btn.style.color = '#F87171';
-          } else {
-            btn.style.background = 'transparent';
-            btn.style.color = '#4A5568';
-          }
-        }
-      });
+      renderCategoryTabsForMode(currentMode, cat);
 
       const sBox = document.getElementById('newsSearchBox');
       if (sBox) sBox.value = '';
@@ -2558,8 +4235,11 @@
     }
 
     function handleSearch() {
-      const q = document.getElementById('newsSearchBox').value.toLowerCase().trim();
-      applyFilters(q, currentPublisher);
+      if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        const q = document.getElementById('newsSearchBox').value.toLowerCase().trim();
+        applyFilters(q, currentPublisher);
+      }, 150);
     }
 
     function handlePublisherFilter() {
@@ -2951,6 +4631,115 @@
       }
 
       // Dynamic fallback synthesizer for any live RSS feed item
+      if (currentMode === 'local' || art.category === 'metro' || art.category === 'civic' || art.category === 'weather' || art.category === 'safety') {
+        if (currentLang === 'mr') {
+          return {
+            readTime: "३ मिनिटे वाचन",
+            takeaways: [
+              art.title,
+              art.snippet || "चंद्रपूर मनपा व स्थानिक प्रशासनाकडून विकासकामांना वेग.",
+              "स्थानिक रहिवासी, प्रवासी आणि नागरिकांच्या सोयीसाठी अत्याधुनिक पायाभूत सुविधा उपलब्ध केल्या जात आहेत.",
+              "रस्ते रुंदीकरण, ड्रेनेज व्यवस्था, ताडोबा पर्यावरण व वाहतूक सुरक्षेवर विशेष भर देण्यात आला आहे."
+            ],
+            sections: [
+              {
+                title: "१. स्थानिक वृत्तांत व पार्श्वभूमी (लोकमत विशेष)",
+                content: `${art.source || 'लोकमत चंद्रपूर'} च्या वृत्तानुसार, चंद्रपूर शहर व परिसरामध्ये विविध नागरी व पायाभूत विकास योजना वेगाने राबविण्यात येत आहेत. वाढत्या लोकसंख्येच्या पार्श्वभूमीवर जनजीवन अधिक सुखकर व सुरक्षित करण्यासाठी प्रशासनाने ठोस पावले उचलली आहेत.`
+              },
+              {
+                title: "२. प्रकल्प तपशील व थेट स्थानिक प्रभाव",
+                content: `प्रशासकीय नोंदी व क्षेत्रीय माहितीनुसार: "${art.snippet || art.title}". यामुळे वाहतूक कोंडी फुटण्यास मदत होईल, प्रदूषण नियंत्रण सुधारेल आणि नागरिकांना दर्जेदार नागरी सुविधा मिळतील.`
+              },
+              {
+                title: "३. नागरिक व प्रवाशांसाठी मार्गदर्शक सूचना",
+                content: `नागरिकांनी सुरू असलेल्या विकासकामांच्या काळात वाहतूक पोलिसांच्या सूचनांचे पालन करावे, पर्यायी मार्गांचा अवलंब करावा आणि मनपाच्या नियमांचे सहकार्य करावे.`
+              }
+            ],
+            highlights: [
+              { param: "वृत्त स्रोत", rule: art.source || "लोकमत चंद्रपूर", impact: "सत्यापित स्थानिक" },
+              { param: "विषय क्षेत्र", rule: art.tag_label || "मनपा व विकास", impact: "महत्त्वाचे" },
+              { param: "प्रकाशन दिनांक", rule: art.pub_date || "आज", impact: "थेट अपडेट" },
+              { param: "लाभार्थी वर्ग", rule: "चंद्रपूर शहर व जिल्हावासीय", impact: "थेट लाभ" }
+            ],
+            checklist: [
+              "चंद्रपूर मनपाच्या अधिकृत पोर्टलवरून नागरी सेवांची माहिती मिळवावी.",
+              "सुरू असलेल्या रस्ते व पायाभूत कामांची नोंद घेऊन दैनंदिन प्रवासाचे नियोजन करावे.",
+              "सार्वजनिक समस्या व तक्रारींसाठी महापालिकेच्या हेल्पलाईनवर संपर्क साधावा."
+            ]
+          };
+        } else if (currentLang === 'hi') {
+          return {
+            readTime: "3 मिनट पठन",
+            takeaways: [
+              art.title,
+              art.snippet || "चंद्रपुर नगर निगम और स्थानीय प्रशासन द्वारा विकास कार्यों में तेजी।",
+              "स्थानीय नागरिकों, यात्रियों और निवासियों की सुविधा हेतु आधुनिक बुनियादी ढांचे का विस्तार किया जा रहा है।",
+              "सड़क चौड़ीकरण, जल निकासी, ताडोबा पर्यावरण और सुरक्षा व्यवस्था पर विशेष ध्यान दिया जा रहा है।"
+            ],
+            sections: [
+              {
+                title: "1. क्षेत्रीय रिपोर्ट एवं पृष्ठभूमि (लोकमत विशेष)",
+                content: `${art.source || 'लोकमत समाचार'} की रिपोर्ट के अनुसार, चंद्रपुर शहर और आसपास के क्षेत्रों में महत्वपूर्ण नागरिक और ढांचागत विकास परियोजनाएं जारी हैं। शहरी विस्तार को देखते हुए जनजीवन को सुगम बनाने के लिए प्रशासन ने ठोस कदम उठाए हैं।`
+              },
+              {
+                title: "2. परियोजना विवरण एवं स्थानीय प्रभाव",
+                content: `प्रशासनिक जानकारी के अनुसार: "${art.snippet || art.title}". इन पहलों से यातायात जाम से राहत मिलेगी और क्षेत्रीय कनेक्टिविटी में सुधार होगा।`
+              },
+              {
+                title: "3. नागरिक एवं यात्री दिशा-निर्देश",
+                content: `नागरिकों और दैनिक यात्रियों से अनुरोध है कि वे नगर निगम व ट्रैफिक पुलिस के निर्देशों का पालन करें तथा वैकल्पिक मार्गों का प्रयोग करें।`
+              }
+            ],
+            highlights: [
+              { param: "समाचार स्रोत", rule: art.source || "लोकमत चंद्रपुर", impact: "सत्यापित स्थानीय" },
+              { param: "कार्य क्षेत्र", rule: art.tag_label || "नगर निगम व विकास", impact: "प्राथमिकता" },
+              { param: "प्रकाशन तिथि", rule: art.pub_date || "आज", impact: "लाइव अपडेट" },
+              { param: "लाभार्थी वर्ग", rule: "चंद्रपुर व जिला के निवासी", impact: "प्रत्यक्ष लाभ" }
+            ],
+            checklist: [
+              "नगर निगम के आधिकारिक पोर्टल से नागरिक सुविधाओं की जानकारी प्राप्त करें।",
+              "सड़क निर्माण कार्य को ध्यान में रखकर दैनिक यात्रा की योजना बनाएं।",
+              "स्थानीय समस्याओं के निवारण हेतु नगर निगम हेल्पलाइन पर संपर्क करें।"
+            ]
+          };
+        }
+
+        return {
+          readTime: "3 min read",
+          takeaways: [
+            art.title,
+            art.snippet || "Key localized civic, infrastructure, or transit developments reported across urban administrative zones.",
+            "Municipal authorities, town planners, and transit corporations are coordinating focused interventions for regional commuters.",
+            "Local residents can look forward to improved public utility reliability and enhanced road/transit connectivity."
+          ],
+          sections: [
+            {
+              title: "1. Area Report & Regional Context (Lokmat Special)",
+              content: `The latest field reporting from ${art.source || 'Lokmat Chandrapur Bureau'} highlights crucial ongoing civic and infrastructure developments. As urban centers and suburban areas expand, municipal bodies and transport authorities are deploying targeted measures to improve ease of living, road safety, and civic infrastructure.`
+            },
+            {
+              title: "2. Project Specifications & Area Impact",
+              content: `According to local administrative records and wire dispatches: "${art.snippet || art.title}". These localized initiatives address pressing regional needs such as traffic decongestion, municipal service reliability, and suburban connectivity.`
+            },
+            {
+              title: "3. Resident & Commuter Action Points",
+              content: `Citizens, daily commuters, and neighborhood associations are encouraged to stay informed on municipal guidelines, transit schedule adjustments, and local public utility timelines as the rollout progresses.`
+            }
+          ],
+          highlights: [
+            { param: "Regional Bureau", rule: art.source || "Lokmat Chandrapur", impact: "Verified Local" },
+            { param: "Civic Domain", rule: art.tag_label || "Municipal & Area", impact: "High Priority" },
+            { param: "Dispatch Date", rule: art.pub_date || "Recent", impact: "Live Update" },
+            { param: "Target Beneficiary", rule: "Area Residents & Daily Commuters", impact: "Direct Impact" }
+          ],
+          checklist: [
+            "Consult designated municipal or traffic authority handles for real-time corridor alerts.",
+            "Account for ongoing infrastructure work in your daily travel schedules.",
+            "Report local public utility or civic maintenance issues directly to municipal portals."
+          ]
+        };
+      }
+
       const isSebi = (art.category === 'sebi') || text.includes('sebi') || text.includes('circular');
       const isAmc = (art.category === 'amc') || text.includes('amc') || text.includes('fund manager');
 
@@ -3055,7 +4844,7 @@
         bodyEl.innerHTML = `
           <!-- Hero Image Banner -->
           <div style="position: relative; width: 100%; height: 340px; border-radius: 14px; overflow: hidden; margin-bottom: 24px; background: #0F172A;">
-            <img src="${art.image_url}" alt="${art.title}" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="${art.image_url || resolveNewsImage(art.title, art.category, 0)}" alt="${art.title}" referrerpolicy="no-referrer" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='${resolveNewsImage(art.title, art.category, 1)}'; this.onerror=null;">
             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,17,32,0.92) 0%, transparent 60%);"></div>
             <div style="position: absolute; bottom: 16px; left: 16px; display: flex; align-items: center; gap: 8px;">
               <span style="background: rgba(6,10,16,0.85); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #FFFFFF;">
@@ -3293,9 +5082,36 @@
       }
     }
 
+    function applyNewsTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const btn = document.getElementById('newsThemeToggleBtn');
+      if (btn) btn.innerHTML = theme === 'light' ? '🌙' : '☀️';
+    }
+
+    function toggleNewsTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', next);
+      applyNewsTheme(next);
+    }
+
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
-      loadNews('all', true);
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      applyNewsTheme(savedTheme);
+
+      selectLanguage(currentLang);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const reqMode = urlParams.get('mode');
+      const reqCat = urlParams.get('cat') || 'all';
+
+      if (reqMode === 'local' || reqMode === 'regular') {
+        switchNewsMode('local');
+      } else {
+        renderCategoryTabsForMode(currentMode, reqCat);
+        loadNews(reqCat, true);
+      }
       fetchLiveMarketTicker();
 
       // Auto-refresh market ticker every 60 seconds (1 minute)

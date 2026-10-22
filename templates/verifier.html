@@ -10,6 +10,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Global i18n Translation Engine (Hindi, English, Marathi) -->
+  <script src="/static/i18n.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -23,6 +25,17 @@
       }
     }
   </script>
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   <style>
     body { font-family: 'Outfit', sans-serif; }
     .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
@@ -33,12 +46,183 @@
       border-color: #60a5fa !important;
       box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
     }
+
+    /* ── LIGHT THEME STYLES FOR VERIFIER ── */
+    html[data-theme="light"],
+    html[data-theme="light"] body {
+      background-color: #F8FAFC !important;
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] header,
+    html[data-theme="light"] #emptyStateContainer,
+    html[data-theme="light"] #portfolioTabsContainer > div,
+    html[data-theme="light"] .bg-\[\#111726\]\/80,
+    html[data-theme="light"] .bg-\[\#111726\]\/60,
+    html[data-theme="light"] .bg-\[\#111726\]\/90,
+    html[data-theme="light"] .bg-\[\#111726\] {
+      background-color: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    html[data-theme="light"] #backToDashBtn {
+      background-color: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    }
+    html[data-theme="light"] #backToDashBtn:hover {
+      background-color: #F1F5F9 !important;
+      color: #0284C7 !important;
+    }
+
+    html[data-theme="light"] #themeToggle {
+      background-color: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    }
+    html[data-theme="light"] #themeToggle:hover {
+      background-color: #F1F5F9 !important;
+    }
+
+    html[data-theme="light"] #fundSearchInput {
+      background-color: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] #fundSearchInput::placeholder {
+      color: #94A3B8 !important;
+    }
+
+    html[data-theme="light"] #schemeInput {
+      background-color: #F1F5F9 !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] #searchResultsDropdown {
+      background-color: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    html[data-theme="light"] #searchResultsDropdown > div {
+      border-color: #F1F5F9 !important;
+    }
+
+    html[data-theme="light"] #searchResultsDropdown > div:hover {
+      background-color: #F8FAFC !important;
+    }
+
+    html[data-theme="light"] .text-white,
+    html[data-theme="light"] h1,
+    html[data-theme="light"] h2,
+    html[data-theme="light"] h3,
+    html[data-theme="light"] .font-bold.text-white {
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] .text-slate-400,
+    html[data-theme="light"] .text-slate-300 {
+      color: #475569 !important;
+    }
+
+    html[data-theme="light"] .bg-slate-900\/60,
+    html[data-theme="light"] .bg-slate-800\/70,
+    html[data-theme="light"] .bg-slate-800\/80,
+    html[data-theme="light"] .bg-slate-900\/80,
+    html[data-theme="light"] .bg-slate-900\/90 {
+      background-color: #F8FAFC !important;
+      border-color: #CBD5E1 !important;
+      color: #1E293B !important;
+    }
+
+    html[data-theme="light"] button.bg-slate-800\/70:hover,
+    html[data-theme="light"] button.bg-slate-900\/60:hover {
+      background-color: #EFF6FF !important;
+      border-color: #93C5FD !important;
+      color: #1D4ED8 !important;
+    }
+
+    html[data-theme="light"] .border-slate-800,
+    html[data-theme="light"] .border-slate-800\/80,
+    html[data-theme="light"] .border-slate-800\/60,
+    html[data-theme="light"] .border-slate-800\/40,
+    html[data-theme="light"] .border-slate-700,
+    html[data-theme="light"] .border-slate-700\/60,
+    html[data-theme="light"] .border-slate-700\/80 {
+      border-color: #E2E8F0 !important;
+    }
+
+    html[data-theme="light"] #emptyStateContainer,
+    html[data-theme="light"] #singleFundContent > div,
+    html[data-theme="light"] #singleFundContent .bg-\[\#111726\]\/60 {
+      background-color: #FFFFFF !important;
+      border-color: #E2E8F0 !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    html[data-theme="light"] .popular-fund-card {
+      background-color: #FFFFFF !important;
+      border-color: #E2E8F0 !important;
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] .popular-fund-card:hover {
+      background-color: #F8FAFC !important;
+      border-color: #3B82F6 !important;
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.1) !important;
+    }
+
+    html[data-theme="light"] .popular-filter-btn {
+      background-color: #F1F5F9 !important;
+      border-color: #CBD5E1 !important;
+      color: #475569 !important;
+    }
+
+    html[data-theme="light"] .popular-filter-btn.active {
+      background-color: #2563EB !important;
+      border-color: #2563EB !important;
+      color: #FFFFFF !important;
+    }
+
+    html[data-theme="light"] .popular-filter-btn:hover:not(.active) {
+      background-color: #E2E8F0 !important;
+      color: #0F172A !important;
+    }
+
+    html[data-theme="light"] #multiFundView table,
+    html[data-theme="light"] #singleFundView table {
+      background-color: #FFFFFF !important;
+    }
+
+    html[data-theme="light"] thead tr {
+      background-color: #F1F5F9 !important;
+      color: #334155 !important;
+    }
+
+    html[data-theme="light"] tbody tr {
+      border-color: #E2E8F0 !important;
+    }
+
+    html[data-theme="light"] tbody tr:hover {
+      background-color: #F8FAFC !important;
+    }
+
+    .verifier-page-container {
+      width: 100% !important;
+      max-width: 1780px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
   </style>
 </head>
 <body class="bg-[#090D16] text-slate-100 min-h-screen transition-colors duration-300 antialiased selection:bg-blue-600 selection:text-white">
 
-  <!-- Main Container -->
-  <div class="max-w-6xl mx-auto p-4 md:p-8 space-y-6">
+  <!-- Main Container (Expanded to fill space on desktop displays) -->
+  <div class="verifier-page-container w-full mx-auto p-4 md:p-6 lg:p-8 space-y-6">
 
     <!-- Top Navigation & Return to Dashboard -->
     <div class="flex items-center justify-between">
@@ -52,6 +236,32 @@
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>AMFI Official Feed Active</span>
         </div>
+        <!-- Global Language Translator (Hindi, English, Marathi) -->
+        <div id="siteLanguageSelectorContainer" style="position: relative; display: inline-flex; align-items: center; z-index: 1000;">
+          <button type="button" id="siteBtnLangDropdown" onclick="window.toggleSiteLanguageMenu(event)"
+            class="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white transition-colors bg-slate-900/80 border border-slate-800 px-3 py-2 rounded-xl hover:border-slate-700"
+            title="Translate Website (Hindi, English, Marathi)">
+            <span style="font-size: 13px;">🌐</span>
+            <span class="site-current-lang-text" id="siteCurrentLangLabel">English</span>
+            <span style="font-size: 8px; color: #94A3B8;">▼</span>
+          </button>
+          <div id="siteLanguageDropdownMenu" style="display: none; position: absolute; right: 0; top: calc(100% + 6px); background: #0D1B2A; border: 1px solid rgba(56,189,248,0.25); border-radius: 12px; padding: 6px; min-width: 175px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 9999;">
+            <div style="font-size: 9px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px 6px;">SELECT LANGUAGE</div>
+            <button type="button" onclick="window.setSiteLanguage('en')" class="site-lang-opt lang-option-btn active" data-lang="en" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left;">
+              <span>🇬🇧 English</span>
+              <span class="lang-check" style="font-size: 11px; color: #38BDF8;">✓</span>
+            </button>
+            <button type="button" onclick="window.setSiteLanguage('mr')" class="site-lang-opt lang-option-btn" data-lang="mr" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left; margin-top: 2px;">
+              <span>🇮🇳 मराठी (Marathi)</span>
+              <span class="lang-check" style="font-size: 11px; color: #38BDF8; display: none;">✓</span>
+            </button>
+            <button type="button" onclick="window.setSiteLanguage('hi')" class="site-lang-opt lang-option-btn" data-lang="hi" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left; margin-top: 2px;">
+              <span>🇮🇳 हिंदी (Hindi)</span>
+              <span class="lang-check" style="font-size: 11px; color: #38BDF8; display: none;">✓</span>
+            </button>
+          </div>
+        </div>
+
         <button id="themeToggle" onclick="toggleTheme()" class="p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
           <i data-lucide="sun" id="themeIcon" class="w-4 h-4 text-amber-400"></i>
         </button>
@@ -258,7 +468,7 @@
           <!-- Scheme Search Bar & Re-Verify Button -->
           <div class="flex flex-col md:flex-row md:items-center gap-3 w-full md:w-auto">
             <!-- Autocomplete Search Input -->
-            <div class="relative w-full md:w-80 lg:w-96" id="searchContainer">
+            <div class="relative w-full md:w-96 lg:w-[460px] xl:w-[520px]" id="searchContainer">
               <div class="relative flex items-center">
                 <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none"></i>
                 <input 
@@ -320,6 +530,18 @@
           <button onclick="selectFundAndAudit('118632', 'Nippon India Large Cap Fund - Direct Plan - Growth Option')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/60 transition-all">
             Nippon India Large Cap
           </button>
+          <button onclick="selectFundAndAudit('120716', 'Motilal Oswal Midcap Fund - Direct Plan - Growth Option')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/60 transition-all">
+            Motilal Midcap
+          </button>
+          <button onclick="selectFundAndAudit('120752', 'UTI Nifty 50 Index Fund - Direct Plan - Growth Option')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/60 transition-all">
+            UTI Nifty 50
+          </button>
+          <button onclick="selectFundAndAudit('120465', 'Tata Digital India Fund - Direct Plan - Growth')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/60 transition-all">
+            Tata Digital
+          </button>
+          <button onclick="selectFundAndAudit('120744', 'Mirae Asset ELSS Tax Saver Fund - Direct Plan - Growth')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/60 transition-all">
+            Mirae ELSS
+          </button>
         </div>
 
         <div class="mt-6 pt-4 border-t border-slate-800/60 flex flex-wrap items-center justify-between text-xs text-slate-400">
@@ -332,68 +554,419 @@
       </header>
 
       <!-- ── EMPTY STATE VIEW (Shown when user lands on /verify with no fund pre-selected) ── -->
-      <div id="emptyStateContainer" class="p-8 md:p-14 rounded-2xl border border-slate-800/80 bg-[#111726]/60 backdrop-blur-xl text-center space-y-6">
-        <div class="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mx-auto shadow-lg shadow-blue-500/10">
-          <i data-lucide="shield-search" class="w-8 h-8 text-blue-400"></i>
-        </div>
-
-        <div class="max-w-md mx-auto space-y-2">
+      <div id="emptyStateContainer" class="p-6 md:p-8 lg:p-10 rounded-2xl border border-slate-800/80 bg-[#111726]/60 backdrop-blur-xl space-y-6">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mx-auto shadow-lg shadow-blue-500/10">
+            <i data-lucide="shield-search" class="w-7 h-7 text-blue-400"></i>
+          </div>
           <h2 class="text-xl md:text-2xl font-extrabold text-white tracking-tight">Select or Search a Fund to Verify</h2>
           <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
-            No fund is currently selected. Use the search bar above to look up any mutual fund by name, enter a scheme code, or click any popular fund below to run an instant live official audit.
+            No fund is currently selected. Use the search bar above to look up any mutual fund by name, enter a scheme code, or click any popular fund below to run an instant live official AMFI audit.
           </p>
         </div>
 
         <!-- Quick popular scheme cards inside empty state -->
-        <div class="pt-2">
-          <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">Quick Audit Popular Schemes</div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-w-2xl mx-auto text-left">
-            <button type="button" onclick="selectFundAndAudit('122639', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth')" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-blue-500/50 transition-all group">
-              <div class="font-semibold text-white text-xs group-hover:text-blue-300 transition-colors">Parag Parikh Flexi Cap</div>
-              <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5 font-mono">
-                <span class="text-blue-400">122639</span>
-                <span>•</span>
-                <span class="text-slate-400">Flexi Cap</span>
+        <div class="pt-4 border-t border-slate-800/60">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5">
+            <div>
+              <div class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
+                <span>Quick Audit Popular Schemes (<span id="popularFundsCount">20</span> Funds)</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-0.5">Click any fund to immediately perform an official AMFI NAV integrity check</p>
+            </div>
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap items-center gap-1.5" id="popularCategoryFilters">
+              <button type="button" onclick="filterPopularFunds('all', this)" class="popular-filter-btn active px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white border border-blue-500 transition-all">All (20)</button>
+              <button type="button" onclick="filterPopularFunds('flexi', this)" class="popular-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60 transition-all">Flexi Cap</button>
+              <button type="button" onclick="filterPopularFunds('small', this)" class="popular-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60 transition-all">Small Cap</button>
+              <button type="button" onclick="filterPopularFunds('mid', this)" class="popular-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60 transition-all">Mid Cap</button>
+              <button type="button" onclick="filterPopularFunds('large', this)" class="popular-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60 transition-all">Large &amp; Mid</button>
+              <button type="button" onclick="filterPopularFunds('hybrid', this)" class="popular-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60 transition-all">Hybrid</button>
+              <button type="button" onclick="filterPopularFunds('index', this)" class="popular-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60 transition-all">Index &amp; Tech</button>
+              <button type="button" onclick="filterPopularFunds('elss', this)" class="popular-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60 transition-all">ELSS / Tax</button>
+            </div>
+          </div>
+
+          <!-- 20 Schemes Responsive Grid filling the container -->
+          <div id="popularFundsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3.5 w-full">
+            <!-- 1. Parag Parikh Flexi Cap -->
+            <button type="button" data-category="flexi" onclick="selectFundAndAudit('122639', 'Parag Parikh Flexi Cap Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">122639</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Flexi Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Parag Parikh Flexi Cap Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">PPFAS AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
               </div>
             </button>
-            <button type="button" onclick="selectFundAndAudit('120828', 'Quant Small Cap Fund - Growth Option - Direct Plan')" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-blue-500/50 transition-all group">
-              <div class="font-semibold text-white text-xs group-hover:text-blue-300 transition-colors">Quant Small Cap</div>
-              <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5 font-mono">
-                <span class="text-blue-400">120828</span>
-                <span>•</span>
-                <span class="text-slate-400">Small Cap</span>
+
+            <!-- 2. Quant Small Cap -->
+            <button type="button" data-category="small" onclick="selectFundAndAudit('120828', 'Quant Small Cap Fund - Growth Option - Direct Plan')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120828</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Small Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Quant Small Cap Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Quant AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
               </div>
             </button>
-            <button type="button" onclick="selectFundAndAudit('118989', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth')" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-blue-500/50 transition-all group">
-              <div class="font-semibold text-white text-xs group-hover:text-blue-300 transition-colors">HDFC Mid-Cap Opp.</div>
-              <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5 font-mono">
-                <span class="text-blue-400">118989</span>
-                <span>•</span>
-                <span class="text-slate-400">Mid Cap</span>
+
+            <!-- 3. HDFC Mid-Cap Opportunities -->
+            <button type="button" data-category="mid" onclick="selectFundAndAudit('118989', 'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">118989</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Mid Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  HDFC Mid-Cap Opportunities
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">HDFC AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
               </div>
             </button>
-            <button type="button" onclick="selectFundAndAudit('120586', 'ICICI Prudential Large & Mid Cap Fund - Direct Plan - Growth')" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-blue-500/50 transition-all group">
-              <div class="font-semibold text-white text-xs group-hover:text-blue-300 transition-colors">ICICI Large &amp; Mid Cap</div>
-              <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5 font-mono">
-                <span class="text-blue-400">120586</span>
-                <span>•</span>
-                <span class="text-slate-400">Large &amp; Mid</span>
+
+            <!-- 4. ICICI Prudential Large & Mid Cap -->
+            <button type="button" data-category="large" onclick="selectFundAndAudit('120586', 'ICICI Prudential Large & Mid Cap Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120586</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Large &amp; Mid</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  ICICI Pru Large &amp; Mid Cap
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">ICICI Pru AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
               </div>
             </button>
-            <button type="button" onclick="selectFundAndAudit('119609', 'SBI Aggressive Hybrid Fund - Direct Plan - Growth')" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-blue-500/50 transition-all group">
-              <div class="font-semibold text-white text-xs group-hover:text-blue-300 transition-colors">SBI Aggressive Hybrid</div>
-              <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5 font-mono">
-                <span class="text-blue-400">119609</span>
-                <span>•</span>
-                <span class="text-slate-400">Hybrid</span>
+
+            <!-- 5. SBI Aggressive Hybrid -->
+            <button type="button" data-category="hybrid" onclick="selectFundAndAudit('119609', 'SBI Aggressive Hybrid Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">119609</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Hybrid</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  SBI Aggressive Hybrid Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">SBI Funds</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
               </div>
             </button>
-            <button type="button" onclick="selectFundAndAudit('118632', 'Nippon India Large Cap Fund - Direct Plan - Growth Option')" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-blue-500/50 transition-all group">
-              <div class="font-semibold text-white text-xs group-hover:text-blue-300 transition-colors">Nippon India Large Cap</div>
-              <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5 font-mono">
-                <span class="text-blue-400">118632</span>
-                <span>•</span>
-                <span class="text-slate-400">Large Cap</span>
+
+            <!-- 6. Nippon India Large Cap -->
+            <button type="button" data-category="large" onclick="selectFundAndAudit('118632', 'Nippon India Large Cap Fund - Direct Plan - Growth Option')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">118632</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Large Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Nippon India Large Cap Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Nippon India</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 7. Axis Small Cap -->
+            <button type="button" data-category="small" onclick="selectFundAndAudit('120564', 'Axis Small Cap Fund - Direct Plan - Growth Option')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120564</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Small Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Axis Small Cap Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Axis AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 8. Mirae Asset Large & Midcap -->
+            <button type="button" data-category="large" onclick="selectFundAndAudit('120505', 'Mirae Asset Large & Midcap Fund - Direct Plan - Growth Option')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120505</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Large &amp; Mid</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Mirae Asset Large &amp; Midcap
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Mirae Asset</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 9. Motilal Oswal Midcap -->
+            <button type="button" data-category="mid" onclick="selectFundAndAudit('120716', 'Motilal Oswal Midcap Fund - Direct Plan - Growth Option')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120716</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Mid Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Motilal Oswal Midcap Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Motilal Oswal</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 10. UTI Nifty 50 Index -->
+            <button type="button" data-category="index" onclick="selectFundAndAudit('120752', 'UTI Nifty 50 Index Fund - Direct Plan - Growth Option')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120752</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Index 50</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  UTI Nifty 50 Index Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">UTI AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 11. Kotak Emerging Equity -->
+            <button type="button" data-category="mid" onclick="selectFundAndAudit('120152', 'Kotak Emerging Equity Fund - Direct Plan - Growth Option')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120152</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Mid Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Kotak Emerging Equity Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Kotak Mahindra</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 12. SBI Bluechip -->
+            <button type="button" data-category="large" onclick="selectFundAndAudit('119598', 'SBI Bluechip Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">119598</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Large Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  SBI Bluechip Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">SBI Funds</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 13. Tata Digital India -->
+            <button type="button" data-category="index" onclick="selectFundAndAudit('120465', 'Tata Digital India Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120465</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Tech / Sector</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Tata Digital India Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Tata AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 14. Mirae Asset ELSS Tax Saver -->
+            <button type="button" data-category="elss" onclick="selectFundAndAudit('120744', 'Mirae Asset ELSS Tax Saver Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120744</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">ELSS (80C)</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Mirae Asset ELSS Tax Saver
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Mirae Asset</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 15. HDFC Balanced Advantage -->
+            <button type="button" data-category="hybrid" onclick="selectFundAndAudit('118525', 'HDFC Balanced Advantage Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">118525</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Balanced Adv.</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  HDFC Balanced Advantage
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">HDFC AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 16. Bandhan Sterling Value -->
+            <button type="button" data-category="flexi" onclick="selectFundAndAudit('120847', 'Bandhan Sterling Value Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120847</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Value / Flexi</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Bandhan Sterling Value Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Bandhan AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 17. Canara Robeco Small Cap -->
+            <button type="button" data-category="small" onclick="selectFundAndAudit('125354', 'Canara Robeco Small Cap Fund - Direct Plan - Growth Option')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">125354</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Small Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Canara Robeco Small Cap
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Canara Robeco</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 18. DSP Flexi Cap -->
+            <button type="button" data-category="flexi" onclick="selectFundAndAudit('119062', 'DSP Flexi Cap Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">119062</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Flexi Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  DSP Flexi Cap Fund
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">DSP Mutual Fund</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 19. ICICI Prudential Balanced Advantage -->
+            <button type="button" data-category="hybrid" onclick="selectFundAndAudit('120593', 'ICICI Prudential Balanced Advantage Fund - Direct Plan - Growth')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">120593</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Balanced Adv.</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  ICICI Pru Balanced Adv.
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">ICICI Pru AMC</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
+              </div>
+            </button>
+
+            <!-- 20. Nippon India Small Cap -->
+            <button type="button" data-category="small" onclick="selectFundAndAudit('125497', 'Nippon India Small Cap Fund - Direct Plan - Growth Plan')" class="popular-fund-card group p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/90 hover:border-blue-500/60 transition-all duration-200 text-left flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-blue-500/5">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-bold tracking-wider uppercase text-blue-400 font-mono bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded">125497</span>
+                  <span class="text-[10px] font-medium text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/50">Small Cap</span>
+                </div>
+                <div class="font-semibold text-white text-xs leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
+                  Nippon India Small Cap
+                </div>
+              </div>
+              <div class="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="text-[10px] text-slate-400">Nippon India</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-400 group-hover:translate-x-0.5 transition-transform">
+                  Audit <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </span>
               </div>
             </button>
           </div>
@@ -661,20 +1234,44 @@
     let verifiedPortfolioFunds = [];
     let activeInspectedCode = null;
 
-    // Toggle Dark / Light Theme
-    function toggleTheme() {
-      const isDark = document.documentElement.classList.toggle('dark');
+    // Toggle Dark / Light Theme & Sync with localStorage
+    function applyTheme(theme) {
+      const html = document.documentElement;
+      const body = document.body;
       const icon = document.getElementById('themeIcon');
-      if (isDark) {
-        document.body.classList.remove('bg-slate-50', 'text-slate-900');
-        document.body.classList.add('bg-[#090D16]', 'text-slate-100');
-        if (icon) icon.className = 'w-4 h-4 text-amber-400';
+      html.setAttribute('data-theme', theme);
+      if (theme === 'light') {
+        html.classList.remove('dark');
+        body.classList.remove('bg-[#090D16]', 'text-slate-100');
+        body.classList.add('bg-slate-50', 'text-slate-900');
+        if (icon) {
+          icon.setAttribute('data-lucide', 'moon');
+          icon.className = 'w-4 h-4 text-slate-700';
+        }
       } else {
-        document.body.classList.remove('bg-[#090D16]', 'text-slate-100');
-        document.body.classList.add('bg-slate-50', 'text-slate-900');
-        if (icon) icon.className = 'w-4 h-4 text-slate-700';
+        html.classList.add('dark');
+        body.classList.remove('bg-slate-50', 'text-slate-900');
+        body.classList.add('bg-[#090D16]', 'text-slate-100');
+        if (icon) {
+          icon.setAttribute('data-lucide', 'sun');
+          icon.className = 'w-4 h-4 text-amber-400';
+        }
       }
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || (document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      applyTheme(newTheme);
+    }
+
+    // Apply saved theme on initial script execution
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      applyTheme(savedTheme);
+    });
 
     // Load full schemes list from backend or AMFI for instant name autocomplete
     async function loadAllSchemesIndex() {
@@ -797,7 +1394,32 @@
       }
     }
 
-    // Close dropdown on click outside
+    // Filter popular funds in empty state by category
+    function filterPopularFunds(category, btn) {
+      const cards = document.querySelectorAll('.popular-fund-card');
+      let visibleCount = 0;
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      const countEl = document.getElementById('popularFundsCount');
+      if (countEl) countEl.textContent = visibleCount;
+
+      // Update active filter button styles
+      document.querySelectorAll('.popular-filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-blue-600', 'text-white', 'border-blue-500');
+        b.classList.add('bg-slate-800/80', 'text-slate-400', 'border-slate-700/60');
+      });
+      if (btn) {
+        btn.classList.add('active', 'bg-blue-600', 'text-white', 'border-blue-500');
+        btn.classList.remove('bg-slate-800/80', 'text-slate-400', 'border-slate-700/60');
+      }
+    }
     document.addEventListener('click', (e) => {
       const container = document.getElementById('searchContainer');
       const dropdown = document.getElementById('searchResultsDropdown');

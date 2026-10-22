@@ -31,6 +31,8 @@
     // Initialize WebSocket connection
     const socket = io();
   </script>
+  <!-- Global i18n Translation Engine (Hindi, English, Marathi) -->
+  <script src="/static/i18n.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <style>
@@ -222,6 +224,620 @@
 
     [data-theme="light"] .btn-header-item:hover {
       background: rgba(0, 0, 0, 0.06) !important;
+    }
+
+    /* ── SEASONALITY HEATMAP BASE & LIGHT THEME OVERRIDES ── */
+    .heatmap-table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      background: rgba(10, 15, 30, 0.45);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .hm-cell {
+      border-radius: 6px;
+      padding: 6px 3px;
+      font-weight: 700;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+      cursor: default;
+      user-select: none;
+    }
+
+    .hm-cell:hover {
+      transform: scale(1.08);
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Dark Mode Defaults */
+    .hm-pos-strong {
+      background: #10B981;
+      color: #FFFFFF;
+      border: 1px solid rgba(52, 211, 153, 0.6);
+    }
+    .hm-pos-light {
+      background: rgba(52, 211, 153, 0.22);
+      color: #34D399;
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+    .hm-zero {
+      background: rgba(255, 255, 255, 0.04);
+      color: #94A3B8;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .hm-neg-light {
+      background: rgba(248, 113, 113, 0.18);
+      color: #F87171;
+      border: 1px solid rgba(248, 113, 113, 0.3);
+    }
+    .hm-neg-strong {
+      background: #EF4444;
+      color: #FFFFFF;
+      border: 1px solid rgba(239, 68, 68, 0.6);
+    }
+    .hm-ytd-pos {
+      background: rgba(52, 211, 153, 0.12);
+      color: #34D399;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      font-weight: 800;
+    }
+    .hm-ytd-neg {
+      background: rgba(248, 113, 113, 0.12);
+      color: #F87171;
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      font-weight: 800;
+    }
+    .hm-data-row {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    .hm-data-row:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .hm-year-cell {
+      color: var(--text-main);
+      font-weight: 800;
+    }
+
+    /* ── LIGHT THEME HIGH CONTRAST ACCESSIBILITY FIXES ── */
+    [data-theme="light"] #seasonalityHeatmapCard {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] #seasonalityHeatmapCard .analysis-title {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] .hm-kpi-card {
+      background: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02) !important;
+    }
+
+    [data-theme="light"] .hm-kpi-label {
+      color: #475569 !important;
+      font-weight: 700 !important;
+    }
+
+    [data-theme="light"] #hmWinRate,
+    [data-theme="light"] .hm-kpi-val-win {
+      color: #059669 !important; /* High contrast emerald */
+    }
+
+    [data-theme="light"] #hmBestMonth {
+      color: #0284C7 !important; /* Sharp Bloomberg cyan-blue */
+    }
+
+    [data-theme="light"] #hmWorstMonth {
+      color: #DC2626 !important; /* Bold crimson red */
+    }
+
+    [data-theme="light"] #hmBestQuarter {
+      color: #D97706 !important; /* Deep amber */
+    }
+
+    [data-theme="light"] .hm-kpi-sub,
+    [data-theme="light"] #hmWinRatio,
+    [data-theme="light"] #hmBestMonthDate,
+    [data-theme="light"] #hmWorstMonthDate,
+    [data-theme="light"] #hmBestQuarterAvg {
+      color: #64748B !important;
+      font-weight: 600 !important;
+    }
+
+    [data-theme="light"] .heatmap-table-container {
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    [data-theme="light"] #seasonalityTable thead tr,
+    [data-theme="light"] .hm-thead-tr {
+      background: #F1F5F9 !important;
+      border-bottom: 2px solid #CBD5E1 !important;
+    }
+
+    [data-theme="light"] #seasonalityTable th {
+      color: #1E293B !important;
+      font-weight: 800 !important;
+    }
+
+    [data-theme="light"] .hm-th-ytd {
+      background: #E0F2FE !important;
+      color: #0369A1 !important;
+      border-left: 1px solid #BAE6FD !important;
+    }
+
+    [data-theme="light"] .hm-data-row {
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+
+    [data-theme="light"] .hm-data-row:hover {
+      background: #F8FAFC !important;
+    }
+
+    [data-theme="light"] .hm-year-cell {
+      color: #0F172A !important;
+      font-weight: 800 !important;
+    }
+
+    /* Crisp, High-Contrast Cell Colors in Light Theme */
+    [data-theme="light"] .hm-pos-strong {
+      background: #059669 !important;
+      color: #FFFFFF !important;
+      border: 1px solid #047857 !important;
+      font-weight: 800 !important;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25) !important;
+    }
+
+    [data-theme="light"] .hm-pos-light {
+      background: #DCFCE7 !important;
+      color: #14532D !important; /* Deep forest green - maximum contrast */
+      border: 1px solid #86EFAC !important;
+      font-weight: 800 !important;
+    }
+
+    [data-theme="light"] .hm-zero {
+      background: #F1F5F9 !important;
+      color: #475569 !important;
+      border: 1px solid #E2E8F0 !important;
+      font-weight: 700 !important;
+    }
+
+    [data-theme="light"] .hm-neg-light {
+      background: #FEE2E2 !important;
+      color: #7F1D1D !important; /* Deep dark crimson - maximum contrast */
+      border: 1px solid #FCA5A5 !important;
+      font-weight: 800 !important;
+    }
+
+    [data-theme="light"] .hm-neg-strong {
+      background: #DC2626 !important;
+      color: #FFFFFF !important;
+      border: 1px solid #B91C1C !important;
+      font-weight: 800 !important;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25) !important;
+    }
+
+    [data-theme="light"] .hm-ytd-pos {
+      background: #ECFDF5 !important;
+      color: #047857 !important;
+      border: 1.5px solid #6EE7B7 !important;
+      font-weight: 900 !important;
+    }
+
+    [data-theme="light"] .hm-ytd-neg {
+      background: #FEF2F2 !important;
+      color: #B91C1C !important;
+      border: 1.5px solid #FCA5A5 !important;
+      font-weight: 900 !important;
+    }
+
+    [data-theme="light"] .hm-empty-cell {
+      color: #94A3B8 !important;
+      font-weight: 600 !important;
+    }
+
+    [data-theme="light"] .hm-legend {
+      color: #475569 !important;
+    }
+
+    [data-theme="light"] .hm-legend-pos-strong {
+      background: #059669 !important;
+    }
+
+    [data-theme="light"] .hm-legend-pos-light {
+      background: #DCFCE7 !important;
+      border: 1px solid #86EFAC !important;
+    }
+
+    [data-theme="light"] .hm-legend-neg-light {
+      background: #FEE2E2 !important;
+      border: 1px solid #FCA5A5 !important;
+    }
+
+    [data-theme="light"] .hm-legend-neg-strong {
+      background: #DC2626 !important;
+    }
+
+    [data-theme="light"] .hm-legend-sub {
+      color: #64748B !important;
+    }
+
+    /* ── LIGHT THEME SIDEBAR FUND CARDS & BADGES ── */
+    [data-theme="light"] .fund-item {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      border-left: 3px solid transparent !important;
+      margin-bottom: 5px !important;
+    }
+
+    [data-theme="light"] .fund-item:hover {
+      background: #F1F5F9 !important;
+      border-color: #CBD5E1 !important;
+      border-left-color: #94A3B8 !important;
+    }
+
+    [data-theme="light"] .fund-item.active {
+      background: linear-gradient(90deg, #EFF6FF 0%, #FFFFFF 100%) !important;
+      border: 1px solid #93C5FD !important;
+      border-left: 4px solid #2563EB !important;
+      box-shadow: 0 3px 12px rgba(37, 99, 235, 0.12) !important;
+    }
+
+    [data-theme="light"] .fund-item.active .fund-item-name {
+      color: #0F172A !important;
+      font-weight: 700 !important;
+    }
+
+    [data-theme="light"] .fund-item-name {
+      color: #1E293B !important;
+      font-weight: 600 !important;
+    }
+
+    [data-theme="light"] .fund-item-code {
+      color: #64748B !important;
+    }
+
+    [data-theme="light"] .fund-item.active .fund-item-nav {
+      color: #2563EB !important;
+      font-weight: 800 !important;
+    }
+
+    [data-theme="light"] .fund-item-amc-pill {
+      background: #DBEAFE !important;
+      border-color: #93C5FD !important;
+      color: #1D4ED8 !important;
+      font-weight: 800 !important;
+    }
+
+    [data-theme="light"] .badge-equity {
+      background-color: #F3E8FF !important;
+      color: #7E22CE !important;
+      border-color: #D8B4FE !important;
+      font-weight: 700 !important;
+    }
+
+    [data-theme="light"] .badge-debt {
+      background-color: #EFF6FF !important;
+      color: #1D4ED8 !important;
+      border-color: #BFDBFE !important;
+      font-weight: 700 !important;
+    }
+
+    [data-theme="light"] .badge-hybrid {
+      background-color: #FEF3C7 !important;
+      color: #B45309 !important;
+      border-color: #FDE68A !important;
+      font-weight: 700 !important;
+    }
+
+    [data-theme="light"] .badge-index {
+      background-color: #D1FAE5 !important;
+      color: #047857 !important;
+      border-color: #A7F3D0 !important;
+      font-weight: 700 !important;
+    }
+
+    [data-theme="light"] .badge-other {
+      background-color: #F1F5F9 !important;
+      color: #475569 !important;
+      border-color: #CBD5E1 !important;
+      font-weight: 700 !important;
+    }
+
+    /* ── EMPTY STATE PLACEHOLDER LIGHT THEME ── */
+    [data-theme="light"] #placeholderMsg .empty-state-title {
+      color: #0F172A !important;
+    }
+    [data-theme="light"] #placeholderMsg .empty-state-sub {
+      color: #475569 !important;
+    }
+    [data-theme="light"] #placeholderMsg strong {
+      color: #0F172A !important;
+    }
+    [data-theme="light"] #placeholderMsg .empty-state-kbd {
+      background: #E2E8F0 !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+
+    /* ── DEDICATED NEWS TERMINAL LIGHT THEME ── */
+    [data-theme="light"] #dedicatedNewsView {
+      background: #F8FAFC !important;
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] #dedicatedNewsView nav {
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+
+    [data-theme="light"] .editorial-masthead-dateline {
+      background: #F1F5F9 !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      color: #475569 !important;
+    }
+
+    [data-theme="light"] #editorialDateString {
+      color: #1E293B !important;
+    }
+
+    [data-theme="light"] .market-ticker-ribbon {
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+
+    [data-theme="light"] .ticker-index-item {
+      color: #1E293B !important;
+    }
+
+    [data-theme="light"] .middle-hub-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] .middle-hub-card h3,
+    [data-theme="light"] .middle-hub-card h4,
+    [data-theme="light"] .middle-hub-card .hub-title {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] .middle-hub-card span,
+    [data-theme="light"] .middle-hub-card p {
+      color: #475569 !important;
+    }
+
+    [data-theme="light"] .newsroom-hero-carousel-container {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    [data-theme="light"] .developing-desk-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] .developing-desk-card h2,
+    [data-theme="light"] .developing-desk-card h3 {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] .developing-story-item {
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+
+    [data-theme="light"] .developing-story-item .dev-headline {
+      color: #1E293B !important;
+    }
+
+    [data-theme="light"] .developing-story-item:hover .dev-headline {
+      color: #0284C7 !important;
+    }
+
+    [data-theme="light"] .developing-story-item .dev-num {
+      color: #0284C7 !important;
+    }
+
+    [data-theme="light"] .news-article-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] .news-article-card:hover {
+      border-color: #38BDF8 !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    [data-theme="light"] .news-article-card h3,
+    [data-theme="light"] .news-article-card h4,
+    [data-theme="light"] .news-article-title {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] .news-article-card p,
+    [data-theme="light"] .news-article-summary {
+      color: #475569 !important;
+    }
+
+    [data-theme="light"] #dedicatedNewsSearchInput {
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+
+    /* ── SAVED PORTFOLIO & PORTFOLIO DETAILS BASE & LIGHT THEME ── */
+    .pd-hero-banner {
+      background: linear-gradient(135deg, rgba(13,21,36,0.95), rgba(19,31,56,0.95));
+      border: 1px solid var(--border-alpha-8);
+      border-radius: 18px;
+      padding: 24px 28px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pd-simulation-card {
+      background: linear-gradient(135deg, rgba(13,21,36,0.95), rgba(15,28,50,0.95));
+      border: 1px solid rgba(0,210,255,0.22);
+      border-radius: 18px;
+      padding: 24px 26px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-theme="light"] #portfolioDetailView,
+    [data-theme="light"] #savedPortfoliosView {
+      background: #F8FAFC !important;
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] #portfolioDetailView > div:first-child,
+    [data-theme="light"] #savedPortfoliosView > div:first-child {
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+
+    /* Portfolio Hero Banner */
+    [data-theme="light"] .pd-hero-banner {
+      background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%) !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] #pdTitle {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] #pdMeta,
+    [data-theme="light"] #pdMeta span,
+    [data-theme="light"] #pdMeta strong {
+      color: #475569 !important;
+    }
+
+    /* KPI Summary Cards in Portfolio View */
+    [data-theme="light"] #portfolioDetailView div[style*="var(--bg-card)"] {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    [data-theme="light"] #pdKpiSip {
+      color: #059669 !important;
+    }
+
+    [data-theme="light"] #pdKpiLump {
+      color: #0284C7 !important;
+    }
+
+    [data-theme="light"] #pdKpiTotal {
+      color: #7C3AED !important;
+    }
+
+    [data-theme="light"] #pdKpiCagr {
+      color: #0284C7 !important;
+    }
+
+    [data-theme="light"] #pdKpiDiversity {
+      color: #0F172A !important;
+    }
+
+    /* Wealth Projection Simulator Card */
+    [data-theme="light"] .pd-simulation-card {
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] .pd-simulation-card div[style*="background:var(--bg-card-alt)"] {
+      background: #F8FAFC !important;
+      border-color: #E2E8F0 !important;
+    }
+
+    [data-theme="light"] .pd-simulation-card div[style*="background:var(--bg-card)"] {
+      background: #FFFFFF !important;
+      border-color: #E2E8F0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    [data-theme="light"] #pdMilestonesTableBody tr {
+      border-color: #E2E8F0 !important;
+    }
+
+    [data-theme="light"] #pdMilestonesTableBody td {
+      color: #334155 !important;
+    }
+
+    [data-theme="light"] #pdMilestonesTableBody tr:hover {
+      background: #F8FAFC !important;
+    }
+
+    [data-theme="light"] #pdHoldingsTableBody tr {
+      border-color: #E2E8F0 !important;
+    }
+
+    [data-theme="light"] #pdHoldingsTableBody td {
+      color: #334155 !important;
+    }
+
+    [data-theme="light"] #pdHoldingsTableBody tr:hover {
+      background: #F8FAFC !important;
+    }
+
+    [data-theme="light"] #portfolioDetailView h2 {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] #portfolioDetailView p {
+      color: #475569 !important;
+    }
+
+    [data-theme="light"] .pg-chip {
+      background: #F1F5F9 !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #334155 !important;
+    }
+
+    [data-theme="light"] .pd-h-pill {
+      background: #F1F5F9 !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #475569 !important;
+    }
+
+    [data-theme="light"] .pd-h-pill.active {
+      background: #0284C7 !important;
+      color: #FFFFFF !important;
+      border-color: #0284C7 !important;
+    }
+
+    [data-theme="light"] #pdMilestonesTableBody tr {
+      border-bottom: 1px solid #E2E8F0 !important;
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] #pdMilestonesTableBody tr:hover {
+      background: #F8FAFC !important;
+    }
+
+    [data-theme="light"] .saved-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] .saved-card:hover {
+      border-color: #0284C7 !important;
     }
 
     * {
@@ -4765,6 +5381,32 @@
     </div>
 
     <div class="header-right" style="position: relative; display: flex; gap: 10px; align-items: center;">
+      <!-- Global Language Translator (Hindi, English, Marathi) -->
+      <div id="siteLanguageSelectorContainer" style="position: relative; display: inline-flex; align-items: center; z-index: 1000;">
+        <button type="button" id="siteBtnLangDropdown" onclick="window.toggleSiteLanguageMenu(event)"
+          style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 9px; color: var(--text-main); padding: 7px 12px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 150ms; height: 36px;"
+          title="Translate Website (Hindi, English, Marathi)">
+          <span style="font-size: 14px;">🌐</span>
+          <span class="site-current-lang-text" id="siteCurrentLangLabel">English</span>
+          <span style="font-size: 8px; color: var(--text-muted);">▼</span>
+        </button>
+        <div id="siteLanguageDropdownMenu" style="display: none; position: absolute; right: 0; top: calc(100% + 6px); background: #0D1B2A; border: 1px solid rgba(56,189,248,0.25); border-radius: 12px; padding: 6px; min-width: 175px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 9999;">
+          <div style="font-size: 9px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px 6px;">SELECT LANGUAGE</div>
+          <button type="button" onclick="window.setSiteLanguage('en')" class="site-lang-opt lang-option-btn active" data-lang="en" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left;">
+            <span>🇬🇧 English</span>
+            <span class="lang-check" style="font-size: 11px; color: #38BDF8;">✓</span>
+          </button>
+          <button type="button" onclick="window.setSiteLanguage('mr')" class="site-lang-opt lang-option-btn" data-lang="mr" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left; margin-top: 2px;">
+            <span>🇮🇳 मराठी (Marathi)</span>
+            <span class="lang-check" style="font-size: 11px; color: #38BDF8; display: none;">✓</span>
+          </button>
+          <button type="button" onclick="window.setSiteLanguage('hi')" class="site-lang-opt lang-option-btn" data-lang="hi" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 6px; background: transparent; border: none; color: #E2E8F0; font-size: 11px; font-weight: 700; cursor: pointer; text-align: left; margin-top: 2px;">
+            <span>🇮🇳 हिंदी (Hindi)</span>
+            <span class="lang-check" style="font-size: 11px; color: #38BDF8; display: none;">✓</span>
+          </button>
+        </div>
+      </div>
+
       <div class="live-badge" onclick="openAmfiSyncModal()"
         title="Real-Time AMFI Stream · Auto-syncs daily at 9:00 PM IST (Click for sync status)"
         style="cursor: pointer;">
@@ -4781,8 +5423,8 @@
           <span>📁</span> SAVED
         </button>
         <div style="width: 1px; height: 16px; background: rgba(255,255,255,0.08);"></div>
-        <a href="javascript:void(0)" onclick="openDedicatedNewsView('all')" class="btn-header-item"
-          title="Open Dedicated Live Financial News & Regulatory Wire Page"
+        <a href="/news" class="btn-header-item"
+          title="Open Dedicated Live Financial News, Regular & Local Area News Wire"
           style="text-decoration: none; color: #38BDF8; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
           <span>📰</span> NEWS
         </a>
@@ -4909,18 +5551,18 @@
           Institutional Analytics Terminal
         </div>
 
-        <h2 style="font-size: 24px; font-weight: 800; color: #F1F5F9; margin-bottom: 8px; letter-spacing: -0.4px;">
+        <h2 class="empty-state-title" style="font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.4px;">
           Select a Mutual Fund to Begin Analysis
         </h2>
-        <p style="font-size: 14px; color: #94A3B8; max-width: 520px; line-height: 1.6; margin: 0 auto;">
-          Select any mutual fund from the <strong style="color: #F1F5F9;">14,300+ live AMFI schemes</strong> on the left
-          panel or press <kbd
-            style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2px 6px; font-size: 11px; color: #CBD5E1;">Ctrl+K</kbd>
+        <p class="empty-state-sub" style="font-size: 14px; color: var(--text-muted); max-width: 520px; line-height: 1.6; margin: 0 auto;">
+          Select any mutual fund from the <strong style="color: var(--text-main);">14,300+ live AMFI schemes</strong> on the left
+          panel or press <kbd class="empty-state-kbd"
+            style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2px 6px; font-size: 11px; color: var(--text-main);">Ctrl+K</kbd>
           to search.
         </p>
         <div style="margin-top: 18px; display: flex; gap: 10px; justify-content: center;">
           <a href="/verify"
-            style="display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(0,210,255,0.22)); border: 1px solid rgba(16,185,129,0.45); color: #34D399; font-weight: 800; font-size: 12px; text-decoration: none; box-shadow: 0 4px 18px rgba(16,185,129,0.25); transition: all 180ms ease;">
+            style="display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(0,210,255,0.22)); border: 1px solid rgba(16,185,129,0.45); color: #059669; font-weight: 800; font-size: 12px; text-decoration: none; box-shadow: 0 4px 18px rgba(16,185,129,0.25); transition: all 180ms ease;">
             <span>🛡️</span> Open Live Verification Engine
           </a>
         </div>
@@ -5931,47 +6573,46 @@
             <!-- Seasonality Intelligence KPI Bar -->
             <div
               style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 16px;">
-              <div
+              <div class="hm-kpi-card"
                 style="background: var(--bg-card-alt); border: 1px solid var(--border-light); border-radius: 10px; padding: 10px 14px;">
-                <div style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
+                <div class="hm-kpi-label" style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
                   Positive Month Win-Rate</div>
-                <div id="hmWinRate" style="font-size: 16px; font-weight: 900; color: #34D399; margin-top: 2px;">--</div>
-                <div id="hmWinRatio" style="font-size: 9px; color: var(--text-dark);">--</div>
+                <div id="hmWinRate" class="hm-kpi-val-win" style="font-size: 16px; font-weight: 900; color: #34D399; margin-top: 2px;">--</div>
+                <div id="hmWinRatio" class="hm-kpi-sub" style="font-size: 9px; color: var(--text-dark);">--</div>
               </div>
-              <div
+              <div class="hm-kpi-card"
                 style="background: var(--bg-card-alt); border: 1px solid var(--border-light); border-radius: 10px; padding: 10px 14px;">
-                <div style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
+                <div class="hm-kpi-label" style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
                   Best Month on Record</div>
                 <div id="hmBestMonth" style="font-size: 16px; font-weight: 900; color: #00D2FF; margin-top: 2px;">--
                 </div>
-                <div id="hmBestMonthDate" style="font-size: 9px; color: var(--text-dark);">--</div>
+                <div id="hmBestMonthDate" class="hm-kpi-sub" style="font-size: 9px; color: var(--text-dark);">--</div>
               </div>
-              <div
+              <div class="hm-kpi-card"
                 style="background: var(--bg-card-alt); border: 1px solid var(--border-light); border-radius: 10px; padding: 10px 14px;">
-                <div style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
+                <div class="hm-kpi-label" style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
                   Worst Drawdown Month</div>
                 <div id="hmWorstMonth" style="font-size: 16px; font-weight: 900; color: #F87171; margin-top: 2px;">--
                 </div>
-                <div id="hmWorstMonthDate" style="font-size: 9px; color: var(--text-dark);">--</div>
+                <div id="hmWorstMonthDate" class="hm-kpi-sub" style="font-size: 9px; color: var(--text-dark);">--</div>
               </div>
-              <div
+              <div class="hm-kpi-card"
                 style="background: var(--bg-card-alt); border: 1px solid var(--border-light); border-radius: 10px; padding: 10px 14px;">
-                <div style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
+                <div class="hm-kpi-label" style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
                   Top Seasonal Quarter</div>
                 <div id="hmBestQuarter" style="font-size: 16px; font-weight: 900; color: #F59E0B; margin-top: 2px;">--
                 </div>
-                <div id="hmBestQuarterAvg" style="font-size: 9px; color: var(--text-dark);">--</div>
+                <div id="hmBestQuarterAvg" class="hm-kpi-sub" style="font-size: 9px; color: var(--text-dark);">--</div>
               </div>
             </div>
 
             <!-- Heatmap Matrix Table (Responsive Overflow) -->
-            <div
-              style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border-light); border-radius: 12px; background: rgba(10, 15, 30, 0.4);">
+            <div class="heatmap-table-container">
               <table
                 style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center; min-width: 720px;"
                 id="seasonalityTable">
                 <thead>
-                  <tr
+                  <tr class="hm-thead-tr"
                     style="background: var(--bg-card-alt); border-bottom: 1px solid var(--border-light); color: var(--text-muted); font-size: 10px; font-weight: 800; letter-spacing: 0.04em;">
                     <th style="padding: 10px 12px; text-align: left; width: 65px;">YEAR</th>
                     <th style="padding: 10px 6px;">JAN</th>
@@ -5986,7 +6627,7 @@
                     <th style="padding: 10px 6px;">OCT</th>
                     <th style="padding: 10px 6px;">NOV</th>
                     <th style="padding: 10px 6px;">DEC</th>
-                    <th style="padding: 10px 10px; background: rgba(0,210,255,0.06); color: #00D2FF; width: 85px;">YTD /
+                    <th class="hm-th-ytd" style="padding: 10px 10px; background: rgba(0,210,255,0.06); color: #00D2FF; width: 85px;">YTD /
                       FULL</th>
                   </tr>
                 </thead>
@@ -5997,23 +6638,27 @@
             </div>
 
             <!-- Legend -->
-            <div
+            <div class="hm-legend"
               style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 8px; font-size: 10px; color: var(--text-muted);">
               <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                 <span style="display: inline-flex; align-items: center; gap: 4px;"><span
+                    class="hm-legend-box hm-legend-pos-strong"
                     style="width: 10px; height: 10px; border-radius: 3px; background: #10B981; display: inline-block;"></span>
                   &ge;+5%</span>
                 <span style="display: inline-flex; align-items: center; gap: 4px;"><span
+                    class="hm-legend-box hm-legend-pos-light"
                     style="width: 10px; height: 10px; border-radius: 3px; background: rgba(52,211,153,0.3); border: 1px solid #34D399; display: inline-block;"></span>
                   0% to +5%</span>
                 <span style="display: inline-flex; align-items: center; gap: 4px;"><span
+                    class="hm-legend-box hm-legend-neg-light"
                     style="width: 10px; height: 10px; border-radius: 3px; background: rgba(248,113,113,0.25); border: 1px solid #F87171; display: inline-block;"></span>
                   0% to -3%</span>
                 <span style="display: inline-flex; align-items: center; gap: 4px;"><span
+                    class="hm-legend-box hm-legend-neg-strong"
                     style="width: 10px; height: 10px; border-radius: 3px; background: #EF4444; display: inline-block;"></span>
                   &lt;-3%</span>
               </div>
-              <span style="font-style: italic; color: var(--text-dark);">* Calculated from daily official AMFI
+              <span class="hm-legend-sub" style="font-style: italic; color: var(--text-dark);">* Calculated from daily official AMFI
                 historical NAV records</span>
             </div>
           </div>
@@ -6024,7 +6669,7 @@
       <!-- DEDICATED SEPARATE FULL-SCREEN NEWS TERMINAL PAGE VIEW -->
       <!-- DEDICATED SEPARATE FULL-SCREEN ULTRA-PREMIUM BLOOMBERG/MINT NEWSROOM -->
       <div id="dedicatedNewsView"
-        style="display: none; position: fixed; inset: 0; background: #080C14; z-index: 2500; overflow-y: auto;">
+        style="display: none; position: fixed; inset: 0; background: var(--bg-page, #080C14); z-index: 2500; overflow-y: auto;">
 
         <style>
           @keyframes feedPulse {
@@ -6299,6 +6944,180 @@
           .news-article-card:hover img {
             transform: scale(1.05);
           }
+
+          /* Light theme overrides directly inside Newsroom */
+          html[data-theme="light"] #dedicatedNewsView {
+            background: #F8FAFC !important;
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] #dedicatedNewsView nav {
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+          }
+          html[data-theme="light"] #dedicatedNewsView nav div {
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] #dedicatedNewsView nav div[style*="color: #64748B"],
+          html[data-theme="light"] #dedicatedNewsView nav div[style*="color:#64748B"] {
+            color: #64748B !important;
+          }
+          html[data-theme="light"] #dedicatedNewsView nav div span {
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] .editorial-masthead-dateline {
+            background: #F1F5F9 !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            color: #475569 !important;
+          }
+          html[data-theme="light"] #editorialDateString {
+            color: #1E293B !important;
+          }
+          html[data-theme="light"] .market-ticker-ribbon {
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+          }
+          html[data-theme="light"] .ticker-index-item {
+            color: #1E293B !important;
+          }
+          html[data-theme="light"] #dedicatedNewsView div[style*="background: #0A0F1A"],
+          html[data-theme="light"] #dedicatedNewsView div[style*="background:#0A0F1A"] {
+            background: #F1F5F9 !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+          }
+          html[data-theme="light"] #topNewsTickerTrack span {
+            color: #334155 !important;
+          }
+          html[data-theme="light"] .middle-hub-card,
+          html[data-theme="light"] #dedicatedNewsView div[style*="background: #0D1B2A"],
+          html[data-theme="light"] #dedicatedNewsView div[style*="background:#0D1B2A"],
+          html[data-theme="light"] #dedicatedNewsView div[style*="rgba(13,27,42"] {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] .middle-hub-card span,
+          html[data-theme="light"] .middle-hub-card p {
+            color: #475569 !important;
+          }
+          html[data-theme="light"] .middle-hub-card div[style*="background: rgba(255,255,255,0.02)"],
+          html[data-theme="light"] .middle-hub-card div[style*="background: rgba(255,255,255,0.03)"],
+          html[data-theme="light"] .middle-hub-card div[style*="background:rgba(255,255,255,0.02)"],
+          html[data-theme="light"] .middle-hub-card div[style*="background:rgba(255,255,255,0.03)"] {
+            background: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+          }
+          html[data-theme="light"] .middle-hub-card div[style*="color: #F1F5F9"],
+          html[data-theme="light"] .middle-hub-card span[style*="color: #F1F5F9"],
+          html[data-theme="light"] .middle-hub-card span[style*="color: #E2E8F0"],
+          html[data-theme="light"] .middle-hub-card div[style*="color: #E2E8F0"] {
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] .newsroom-hero-carousel-container,
+          html[data-theme="light"] .newsroom-hero-slide {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+          }
+          html[data-theme="light"] .newsroom-hero-slide h1 {
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] .newsroom-hero-slide p {
+            color: #475569 !important;
+          }
+          html[data-theme="light"] .newsroom-hero-slide div[style*="background: rgba(0,0,0,0.3)"],
+          html[data-theme="light"] .newsroom-hero-slide div[style*="background:rgba(0,0,0,0.3)"] {
+            background: #F8FAFC !important;
+            border: 1px solid #CBD5E1 !important;
+          }
+          html[data-theme="light"] .newsroom-hero-slide div[style*="background: rgba(0,0,0,0.3)"] div,
+          html[data-theme="light"] .newsroom-hero-slide div[style*="background:rgba(0,0,0,0.3)"] span {
+            color: #1E293B !important;
+          }
+          html[data-theme="light"] .newsroom-hero-img-wrap div[style*="linear-gradient"] {
+            background: linear-gradient(0deg, #FFFFFF 0%, rgba(255,255,255,0.4) 40%, transparent 100%) !important;
+          }
+          html[data-theme="light"] .developing-desk-card {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+          }
+          html[data-theme="light"] .developing-desk-card h2,
+          html[data-theme="light"] .developing-desk-card h3 {
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] .developing-story-item {
+            border-bottom: 1px solid #E2E8F0 !important;
+          }
+          html[data-theme="light"] .developing-story-item .dev-headline {
+            color: #1E293B !important;
+          }
+          html[data-theme="light"] .developing-story-item:hover .dev-headline {
+            color: #0284C7 !important;
+          }
+          html[data-theme="light"] .developing-story-item .dev-num {
+            color: #0284C7 !important;
+          }
+          html[data-theme="light"] .hero-slide-capsule {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 1px solid #CBD5E1 !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+          }
+          html[data-theme="light"] #heroSlideCounter {
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] .news-article-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+          }
+          html[data-theme="light"] .news-article-card:hover {
+            border-color: #38BDF8 !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+          }
+          html[data-theme="light"] .news-article-card h3,
+          html[data-theme="light"] .news-article-card h4,
+          html[data-theme="light"] .news-article-title {
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] .news-article-card p,
+          html[data-theme="light"] .news-article-summary {
+            color: #475569 !important;
+          }
+          html[data-theme="light"] #dedicatedNewsSearchInput,
+          html[data-theme="light"] #dedicatedNewsSearchBox {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] #dedicatedPublisherSelect {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] #inAppArticleModal > div {
+            background: #FFFFFF !important;
+            color: #0F172A !important;
+            border: 1px solid #CBD5E1 !important;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12) !important;
+          }
+          html[data-theme="light"] #inAppArticleModal h1,
+          html[data-theme="light"] #inAppArticleModal h2,
+          html[data-theme="light"] #inAppArticleModal h3 {
+            color: #0F172A !important;
+          }
+          html[data-theme="light"] #inAppArticleModal p,
+          html[data-theme="light"] #inAppArticleModal li,
+          html[data-theme="light"] #inAppArticleModal td {
+            color: #334155 !important;
+          }
+          html[data-theme="light"] #inAppArticleModal th {
+            color: #64748B !important;
+          }
+          html[data-theme="light"] #inAppArticleModal div[style*="position: sticky"] {
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+          }
         </style>
 
         <!-- 0. EDITORIAL MASTHEAD DATELINE BAR -->
@@ -6437,6 +7256,35 @@
         <!-- 4. FULL-WIDTH BALANCED NEWSROOM LAYOUT (Centered, Edge-to-Edge Fluidity) -->
         <div style="max-width: 1560px; margin: 0 auto; padding: 0 24px 32px; width: 100%; box-sizing: border-box;" id="newsroomMainLayout">
           
+          <!-- ── TOP-LEVEL DUAL-MODE SWITCHER (Financial News vs Regular/Local News) ── -->
+          <div class="news-edition-mode-container" style="margin: 18px 0 16px; padding: 10px 14px; background: rgba(13,27,42,0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.35);">
+            <!-- Mode Toggle Buttons -->
+            <div style="display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);">
+              <a href="/news?mode=financial" class="news-mode-toggle-btn active" style="text-decoration: none; padding: 10px 20px; border-radius: 10px; border: none; font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 200ms; background: linear-gradient(135deg, #2563EB, #3B82F6); color: #FFFFFF; box-shadow: 0 4px 14px rgba(37,99,235,0.4);">
+                <span style="font-size: 16px;">📊</span>
+                <span>Financial News</span>
+                <span style="font-size: 9px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">Current Markets</span>
+              </a>
+
+              <a href="/news?mode=local" class="news-mode-toggle-btn" style="text-decoration: none; padding: 10px 20px; border-radius: 10px; border: 1px solid rgba(16,185,129,0.3); font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 200ms; background: rgba(16,185,129,0.15); color: #34D399;">
+                <span style="font-size: 16px;">📍</span>
+                <span>Regular News</span>
+                <span style="font-size: 9px; font-weight: 800; background: rgba(16,185,129,0.25); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; color: #FFF;">Chandrapur &amp; Local</span>
+              </a>
+            </div>
+
+            <!-- Quick Mode Description & Active Feed Tag -->
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #94A3B8; flex-wrap: wrap;">
+              <span style="color: #38BDF8; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                <span style="width: 7px; height: 7px; border-radius: 50%; background: #38BDF8;"></span>
+                <span>Switch between Live Financial Markets and Chandrapur / Regional News</span>
+              </span>
+              <a href="/news" style="color: #F59E0B; text-decoration: none; font-weight: 700; font-size: 11px; padding: 4px 10px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 6px;">
+                Open Full Newsroom Terminal ↗
+              </a>
+            </div>
+          </div>
+
           <!-- 1. HERO FRONT DESK SECTION (Lead Story Carousel + Top Developing Stories) -->
           <div id="dedicatedHeroSection"></div>
 
@@ -7691,8 +8539,7 @@
       style="max-width:1360px; width:100%; margin:0 auto; padding:24px 20px; display:flex; flex-direction:column; gap:22px; box-sizing:border-box;">
 
       <!-- Portfolio Hero Banner Card -->
-      <div
-        style="background:linear-gradient(135deg, rgba(13,21,36,0.95), rgba(19,31,56,0.95)); border:1px solid var(--border-alpha-8); border-radius:18px; padding:24px 28px; box-shadow:0 12px 40px rgba(0,0,0,0.35); position:relative; overflow:hidden;">
+      <div class="pd-hero-banner">
         <div
           style="position:absolute; right:-40px; top:-40px; width:260px; height:260px; background:radial-gradient(circle, rgba(0,210,255,0.1) 0%, transparent 70%); border-radius:50%; pointer-events:none;">
         </div>
@@ -7785,8 +8632,7 @@
       </div>
 
       <!-- ── SECTION: EXPECTED RETURNS & WEALTH PROJECTION SIMULATOR ── -->
-      <div
-        style="background:linear-gradient(135deg, rgba(13,21,36,0.95), rgba(15,28,50,0.95)); border:1px solid rgba(0,210,255,0.22); border-radius:18px; padding:24px 26px; box-shadow:0 12px 40px rgba(0,0,0,0.35); position:relative; overflow:hidden;">
+      <div class="pd-simulation-card">
         
         <!-- Header & Description -->
         <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px; margin-bottom:20px; border-bottom:1px solid var(--border-alpha-8); padding-bottom:16px;">
@@ -11763,63 +12609,49 @@
             else if (m < 9) quarterTotals.Q3.push(ret);
             else quarterTotals.Q4.push(ret);
 
-            let bg = 'rgba(255, 255, 255, 0.02)';
-            let color = '#94A3B8';
-            let border = '1px solid rgba(255,255,255,0.04)';
-
+            let cellClass = 'hm-zero';
             if (ret >= 5.0) {
-              bg = '#10B981';
-              color = '#FFFFFF';
-              border = '1px solid rgba(52,211,153,0.6)';
+              cellClass = 'hm-pos-strong';
             } else if (ret > 0) {
-              bg = 'rgba(52, 211, 153, 0.22)';
-              color = '#34D399';
-              border = '1px solid rgba(52, 211, 153, 0.35)';
+              cellClass = 'hm-pos-light';
             } else if (ret === 0) {
-              bg = 'rgba(255, 255, 255, 0.04)';
-              color = '#64748B';
+              cellClass = 'hm-zero';
             } else if (ret > -3.0) {
-              bg = 'rgba(248, 113, 113, 0.18)';
-              color = '#F87171';
-              border = '1px solid rgba(248, 113, 113, 0.3)';
+              cellClass = 'hm-neg-light';
             } else {
-              bg = '#EF4444';
-              color = '#FFFFFF';
-              border = '1px solid rgba(239, 68, 68, 0.6)';
+              cellClass = 'hm-neg-strong';
             }
 
             const sign = ret > 0 ? '+' : '';
             cellsHtml += `
               <td style="padding: 6px 4px;">
-                <div style="background: ${bg}; color: ${color}; border: ${border}; border-radius: 6px; padding: 6px 3px; font-weight: 700; font-size: 11px; font-family: monospace; transition: transform 120ms ease; cursor: default;" title="${MONTH_NAMES[m]} ${yr}: ${sign}${ret.toFixed(2)}% (₹${firstNav.toFixed(2)} → ₹${lastNav.toFixed(2)})" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+                <div class="hm-cell ${cellClass}" title="${MONTH_NAMES[m]} ${yr}: ${sign}${ret.toFixed(2)}% (₹${firstNav.toFixed(2)} → ₹${lastNav.toFixed(2)})">
                   ${sign}${ret.toFixed(1)}%
                 </div>
               </td>`;
           } else {
             cellsHtml += `
               <td style="padding: 6px 4px;">
-                <div style="color: var(--text-dark); font-size: 10px; padding: 6px 3px;">—</div>
+                <div class="hm-empty-cell" style="font-size: 10px; padding: 6px 3px;">—</div>
               </td>`;
           }
         }
 
         let ytdRetStr = '—';
-        let ytdStyle = 'color: var(--text-muted);';
+        let ytdClass = 'hm-zero';
         if (yearNavFirst !== null && yearNavLast !== null && yearNavFirst > 0) {
           const ytd = ((yearNavLast - yearNavFirst) / yearNavFirst) * 100;
           const sign = ytd > 0 ? '+' : '';
-          const ytdColor = ytd >= 0 ? '#34D399' : '#F87171';
-          const ytdBg = ytd >= 0 ? 'rgba(52, 211, 153, 0.12)' : 'rgba(248, 113, 113, 0.12)';
           ytdRetStr = `${sign}${ytd.toFixed(1)}%`;
-          ytdStyle = `background: ${ytdBg}; color: ${ytdColor}; border: 1px solid ${ytd >= 0 ? 'rgba(52,211,153,0.3)' : 'rgba(248,113,113,0.3)'}; font-weight: 800;`;
+          ytdClass = ytd >= 0 ? 'hm-ytd-pos' : 'hm-ytd-neg';
         }
 
         return `
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
-            <td style="padding: 8px 12px; text-align: left; font-weight: 800; color: var(--text-main); font-family: monospace;">${yr}</td>
+          <tr class="hm-data-row">
+            <td class="hm-year-cell" style="padding: 8px 12px; text-align: left; font-family: monospace;">${yr}</td>
             ${cellsHtml}
             <td style="padding: 6px 8px;">
-              <div style="${ytdStyle} border-radius: 6px; padding: 6px 4px; font-size: 11px; font-family: monospace;">
+              <div class="hm-cell ${ytdClass}">
                 ${ytdRetStr}
               </div>
             </td>
@@ -12074,16 +12906,16 @@
       ],
       market_macro: [
         "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1565372195458-9de0b320ef04?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80"
       ]
     };
 
-    function resolveNewsImage(title = '', category = 'all') {
+    function resolveNewsImage(title = '', category = 'all', idx = 0) {
       const tl = (title || '').toLowerCase();
       let h = 0;
       for (let i = 0; i < title.length; i++) {
@@ -12116,7 +12948,7 @@
         else pool = REAL_FINANCIAL_POOLS.market_macro;
       }
 
-      return pool[h % pool.length];
+      return pool[(h + (idx || 0) * 7 + 3) % pool.length];
     }
 
     async function fetchClientSideLiveRSS(category = 'all') {
@@ -12384,15 +13216,16 @@
         return;
       }
 
-      grid.innerHTML = articles.map(art => {
-        const img = art.image_url || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80';
+      grid.innerHTML = articles.map((art, idx) => {
+        const fallbackCardImg = resolveNewsImage(art.title, art.category, idx);
+        const img = (art.image_url && !art.image_url.includes('1590283603385')) ? art.image_url : fallbackCardImg;
         return `
         <div class="news-article-card" style="display: flex; flex-direction: column; overflow: hidden; border-radius: 12px; cursor: pointer;" onclick="openInAppArticle('${art.id}')">
           <div style="position: relative; width: 100%; height: 145px; overflow: hidden; background: #0F172A;">
             <img src="${img}" alt="${art.title}" loading="lazy"
               style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;"
               onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"
-              onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80'">
+              onerror="this.src='${fallbackCardImg}'">
             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,42,0.85) 0%, transparent 60%);"></div>
             <span style="position: absolute; top: 8px; left: 8px; background: rgba(6,10,16,0.82); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.12); padding: 2px 7px; border-radius: 5px; font-size: 10px; font-weight: 700; color: #F1F5F9; display: flex; align-items: center; gap: 4px;">
               <span>📰</span> ${art.source}
@@ -12558,19 +13391,7 @@
     setInterval(fetchLiveMarketTicker, 60 * 1000);
 
     function openDedicatedNewsView(cat = 'all') {
-      dedicatedNewsCategory = cat;
-      const v = document.getElementById('dedicatedNewsView');
-      if (v) {
-        v.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-        try {
-          history.pushState({ view: 'news' }, '', '/dashboard?view=news');
-        } catch (e) { }
-        renderDedicatedNews();
-        // Immediately fetch live wire updates in real-time
-        fetchLiveNews(dedicatedNewsCategory, true);
-        fetchLiveMarketTicker();
-      }
+      window.location.href = '/news' + (cat && cat !== 'all' ? '?cat=' + encodeURIComponent(cat) : '');
     }
 
     function closeDedicatedNewsView() {
@@ -12592,10 +13413,7 @@
       });
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('view') === 'news') {
-        window.addEventListener('DOMContentLoaded', () => {
-          setTimeout(() => { openDedicatedNewsView('all'); }, 60);
-        });
-        setTimeout(() => { openDedicatedNewsView('all'); }, 200);
+        window.location.href = '/news';
       }
     } catch (e) { }
 
@@ -13019,7 +13837,8 @@
                 <div style="width: 100%; overflow: hidden; position: relative;">
                   <div id="heroSlidesTrack" style="display: flex; width: 100%; transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);">
                     ${leadSlides.map((slide, idx) => {
-                      const heroImage = slide.image_url || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80';
+                      const fallbackImg = resolveNewsImage(slide.title, slide.category, idx);
+                      const heroImage = (slide.image_url && !slide.image_url.includes('1590283603385')) ? slide.image_url : fallbackImg;
                       const catMeta = getCategoryMeta(slide.category || 'SEBI', slide.title);
                       const category = slide.tag_label || catMeta.name;
                       const time_ago = slide.time_ago || 'Recent';
@@ -13037,9 +13856,9 @@
                         <div class="newsroom-hero-slide" onclick="openInAppArticle('${slide.id}')">
                           <!-- Hero Image Container with Vignette -->
                           <div style="height: 250px; position: relative; overflow: hidden;" class="newsroom-hero-img-wrap">
-                            <img src="${heroImage}" alt="${headline}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.82; transition: transform 500ms ease;"
+                            <img src="${heroImage}" alt="${headline}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transition: transform 500ms ease;"
                               onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"
-                              onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80'" />
+                              onerror="this.src='${fallbackImg}'; this.onerror=null;" />
                             <div style="position: absolute; inset: 0; background: linear-gradient(0deg, #0D1B2A 0%, rgba(13,27,42,0.6) 40%, transparent 100%);"></div>
                             
                             <!-- Top Left Badges -->
@@ -13196,15 +14015,16 @@
             </div>
           `;
         } else {
-          grid.innerHTML = gridArticles.map(art => {
+          grid.innerHTML = gridArticles.map((art, idx) => {
             const meta = getCategoryMeta(art.category || 'SEBI', art.title);
-            const img = art.image_url || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80';
+            const fallbackCardImg = resolveNewsImage(art.title, art.category, idx + 5);
+            const img = (art.image_url && !art.image_url.includes('1590283603385')) ? art.image_url : fallbackCardImg;
             return `
               <div class="news-article-card" onclick="openInAppArticle('${art.id}')">
                 <!-- THUMBNAIL WITH BADGES -->
                 <div style="height: 165px; overflow: hidden; position: relative; background: #131D2E;">
                   <img src="${img}" alt="${art.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transition: transform 350ms ease;"
-                    onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80'" />
+                    onerror="this.src='${fallbackCardImg}'; this.onerror=null;" />
                   <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 55%; background: linear-gradient(0deg, rgba(13,27,42,0.95), transparent);"></div>
                   
                   <!-- Publisher Badge -->
