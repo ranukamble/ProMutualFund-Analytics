@@ -19,3 +19,6 @@ android/local.properties
 .env.local
 .env.*.local
 
+# Vercel
+vercel.json
+.vercel/
