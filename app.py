@@ -39,6 +39,11 @@ def create_app(config_name=None):
     app.register_blueprint(market_bp)
     app.register_blueprint(ai_bp)
 
+    # Register WebSocket Event Listeners & Start Real-Time Streamer
+    from services.websocket_streamer import register_socket_events, start_realtime_streamer
+    register_socket_events(app)
+    start_realtime_streamer()
+
     # Start Background Schedulers
     start_background_amfi_sync()
     start_popular_funds_scheduler()

@@ -1037,7 +1037,176 @@ LOKMAT_CHANDRAPUR_ARTICLES = [
     }
 ]
 
-def get_lokmat_chandrapur_articles(category="all"):
+CHANDRAPUR_FALLBACK_ARTICLES_EN = [
+    {
+        "id": "chp_en_0",
+        "title": "Chandrapur News : Farmer rescued from tiger's jaws; resisted with sickle, seriously injured in attack",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-farmer-rescued-from-tigers-jaws-resisted-with-sickle-seriously-injured-in-attack-a-a1020/",
+        "source": "Lokmat Chandrapur (लोकमत)",
+        "pub_date": "Today",
+        "time_ago": "2h ago",
+        "is_fresh": True,
+        "snippet": "A farmer working in a field in Chandrapur district was ambushed by a tiger lurking in the bushes. The farmer bravely retaliated with his sickle, driving the predator away.",
+        "category": "safety",
+        "tag_label": "🐯 Tadoba Wildlife",
+        "badge_color": "#F59E0B",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_1",
+        "title": "Chandrapur Crime: Murdered girlfriend and cried for two hours saying 'I cannot live without you'; Maharashtra shocked",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-crime-murdered-his-girlfriend-and-cried-for-two-hours-saying-i-cant-live-without-you-maharashtra-shocked-a-a571/",
+        "source": "Lokmat Crime Desk (लोकमत)",
+        "pub_date": "Today",
+        "time_ago": "3h ago",
+        "is_fresh": True,
+        "snippet": "In Chandrapur's Arwat forest area, the accused strangled his partner following a dispute and sat weeping beside the body for two hours before police arrested him.",
+        "category": "safety",
+        "tag_label": "🚨 Crime & Police",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/man-killed-girlfriend-in-chandrapur_2026101806046.jpg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_2",
+        "title": "Nagpur Crime: Teacher murders girlfriend Vaishali; brings body from Chandrapur and buries it inside Nagpur house",
+        "link": "https://www.lokmat.com/nagpur/nagpur-crime-a-tragic-end-to-a-love-affair-teacher-kills-girlfriend-vaishali-brings-body-from-chandrapur-and-buries-it-in-a-house-in-nagpur-a-a571/",
+        "source": "Lokmat Crime Desk (लोकमत)",
+        "pub_date": "Today",
+        "time_ago": "4h ago",
+        "is_fresh": True,
+        "snippet": "A gruesome crime unraveled after a teacher murdered his partner in Chandrapur, transported the body inside his car to Hingna, Nagpur, and buried it under the floor.",
+        "category": "safety",
+        "tag_label": "🚨 Crime & Police",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/teacher-killed-girlfriend-in-nagpur_2026101805230.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_3",
+        "title": "Chandrapur: Leopard leaps onto nine-year-old child walking for Mahakali pilgrimage in middle of crowd",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-ballarpur-leopard-attack-child-tremors-a-leopard-attacked-a-nine-year-old-boy-walking-to-see-mahakali-right-in-the-middle-of-a-crowd-a-a452-c607/",
+        "source": "Lokmat Chandrapur (लोकमत)",
+        "pub_date": "Today",
+        "time_ago": "5h ago",
+        "is_fresh": True,
+        "snippet": "On the Visapur pilgrimage route, a leopard sprang out of roadside brush and grabbed a 9-year-old walking to Shree Mahakali Temple with his family; pilgrims raised alarms to rescue him.",
+        "category": "safety",
+        "tag_label": "🐯 Leopard Alert",
+        "badge_color": "#F59E0B",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_4",
+        "title": "Chandrapur News : 100 Vanrai check dams to be built to combat drought; work begins across seven villages of Sindewahi",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-100-forest-dams-to-be-built-to-combat-drought-work-begins-in-seven-villages-of-sindewahi-vanrai-a-a1020/",
+        "source": "Lokmat Environment (लोकमत)",
+        "pub_date": "Today",
+        "time_ago": "6h ago",
+        "is_fresh": True,
+        "snippet": "To prevent seasonal water table depletion across Sindewahi taluka in Chandrapur, construction of 100 community-built Vanrai check dams commenced across 7 villages.",
+        "category": "weather",
+        "tag_label": "💧 Water Conservation",
+        "badge_color": "#06B6D4",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_5",
+        "title": "Chandrapur News : 28,688 water conservation works underway in Chandrapur; Collector Vasumana Pant finalizes action plan",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-28-thousand-688-water-conservation-works-underway-in-chandrapur-action-plan-of-development-works-collector-vasumana-pant-a-a1020/",
+        "source": "Lokmat Chandrapur (लोकमत)",
+        "pub_date": "Today",
+        "time_ago": "7h ago",
+        "is_fresh": True,
+        "snippet": "District Collector Vasumana Pant greenlit an ambitious 28,688-project watershed management and irrigation action plan across Chandrapur to secure groundwater stability.",
+        "category": "civic",
+        "tag_label": "🏛️ District Admin",
+        "badge_color": "#10B981",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_6",
+        "title": "Chandrapur Thermal Power Station : Underground pipes stolen using JCB excavation inside CSTPS; theft busted, 4 detained",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-thermal-power-station-after-copper-cable-now-pipe-theft-busted-in-cstps-four-arrested-chandrapur-crime-news-a-a1020/",
+        "source": "Lokmat Security (लोकमत)",
+        "pub_date": "Today",
+        "time_ago": "8h ago",
+        "is_fresh": True,
+        "snippet": "Industrial security guards caught four operatives red-handed using a JCB excavator to dig up and loot valuable subterranean pipeline infrastructure within CSTPS.",
+        "category": "safety",
+        "tag_label": "⚡ CSTPS Security",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_7",
+        "title": "Chandrapur News : Leopard trapped in well successfully rescued after six-hour operation; Forest Development Corporation lauded",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-leopard-found-in-well-rescued-after-six-hours-forest-development-corporations-successful-performance-released-into-open-habitat-a-a1020/",
+        "source": "Lokmat Forest (लोकमत)",
+        "pub_date": "Yesterday",
+        "time_ago": "1d ago",
+        "is_fresh": False,
+        "snippet": "A wild leopard that slipped into an agricultural well near Kothari Colony in Chandrapur was hauled up safely in a specialized rescue cage and released back into the forest.",
+        "category": "safety",
+        "tag_label": "🐯 Wildlife Rescue",
+        "badge_color": "#F59E0B",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-fall-in-well_2026101799966.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_8",
+        "title": "Chandrapur News : 13-year-old boy and youth killed in two separate road accidents in Chandrapur; 4 critically injured",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-a-13-year-old-boy-and-a-young-man-died-in-two-separate-accidents-in-chandrapur-four-others-were-seriously-injured-a-a1020/",
+        "source": "Lokmat Times (लोकमत)",
+        "pub_date": "Yesterday",
+        "time_ago": "1d ago",
+        "is_fresh": False,
+        "snippet": "Two deadly road collisions occurred near Devai Govindanpur and Sawangi Phata along the Chandrapur-Mul corridor, resulting in two fatalities and four critical injuries.",
+        "category": "metro",
+        "tag_label": "🚨 Road Safety",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/youth-accident_2026101799860.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    },
+    {
+        "id": "chp_en_9",
+        "title": "Chandrapur News : Drunk man commits suicide by hanging inside cemetery in Nagbhid; police probe initiated",
+        "link": "https://www.lokmat.com/chandrapur/chandrapur-news-nagbhid-he-hanged-himself-in-the-cemetery-drunk-in-extreme-drunkenness-a-a1020/",
+        "source": "Lokmat Chandrapur (लोकमत)",
+        "pub_date": "Yesterday",
+        "time_ago": "1d ago",
+        "is_fresh": False,
+        "snippet": "An individual in Nagbhid, Chandrapur took his own life at the local Mokshadham cremation grounds under heavy intoxication; authorities have registered an accidental death report.",
+        "category": "safety",
+        "tag_label": "🚨 Chandrapur News",
+        "badge_color": "#EF4444",
+        "image_url": "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/nagbhid-news_2026101799758.jpeg",
+        "mode": "local",
+        "city": "chandrapur"
+    }
+]
+
+def get_lokmat_chandrapur_articles(category="all", lang="mr"):
+    if lang == "en":
+        combined = [dict(a) for a in CHANDRAPUR_FALLBACK_ARTICLES_EN]
+        if category == "all":
+            return combined
+        return [a for a in combined if a.get("category") == category] or combined
+
     live_items = []
     try:
         url = "https://www.lokmat.com/chandrapur/"
@@ -1102,14 +1271,19 @@ _news_cache = {
     "timestamp": {}
 }
 
-def get_live_news_feed(category="all", custom_query=None, mode="financial", city="all"):
+def get_live_news_feed(category="all", custom_query=None, mode="financial", city="all", lang="en"):
     now = time.time()
     mode = (mode or "financial").lower().strip()
     city = (city or "all").lower().strip()
     category = (category or "all").lower().strip()
-    cache_key = f"{mode}:{category}:{city}:{custom_query or ''}"
-    if cache_key in _news_cache["data"] and (now - _news_cache["timestamp"].get(cache_key, 0) < 300):
+    lang = (lang or "en").lower().strip()
+    cache_key = f"{mode}:{category}:{city}:{lang}:{custom_query or ''}"
+    if mode == "local":
+        _news_cache["data"].pop(cache_key, None)
+        _news_cache["timestamp"].pop(cache_key, None)
+    elif cache_key in _news_cache["data"] and (now - _news_cache["timestamp"].get(cache_key, 0) < 180):
         return _news_cache["data"][cache_key]
+
 
     city_names_map = {
         "chandrapur": "Chandrapur Maharashtra",
@@ -1130,81 +1304,88 @@ def get_live_news_feed(category="all", custom_query=None, mode="financial", city
         # Regular Area & City Local News Queries (Main Focus: Chandrapur, Maharashtra)
         if custom_query:
             target_queries = [
-                f"{custom_query} Chandrapur Maharashtra local news",
-                f"{custom_query} local news civic area updates",
-                f"{custom_query} city news today developments"
+                f"{custom_query} news",
+                f"{custom_query} local updates",
+                f"{custom_query} civic developments"
             ]
         elif city == "chandrapur":
-            if category == "metro":
-                target_queries = [
-                    "Chandrapur Ballarpur Maharashtra road highway transit updates",
-                    "Chandrapur railway junction infrastructure transport",
-                    "Chandrapur district bus transport MSRTC connectivity"
-                ]
-            elif category == "civic":
-                target_queries = [
-                    "Chandrapur Municipal Corporation CMC civic developments water drainage",
-                    "Chandrapur district collectorate administrative public works projects",
-                    "Chandrapur city road development smart lighting sanitation"
-                ]
-            elif category == "weather":
-                target_queries = [
-                    "Chandrapur weather forecast temperature heat wave rain",
-                    "Chandrapur air quality CSTPS pollution environment updates",
-                    "Chandrapur Tadoba environmental forest climate reports"
-                ]
-            elif category == "safety":
-                target_queries = [
-                    "Chandrapur police crime safety court order news",
-                    "Chandrapur district safety traffic alert investigation",
-                    "Chandrapur forest department Tadoba human wildlife safety"
-                ]
-            else: # "all"
-                target_queries = [
-                    "Chandrapur Maharashtra local news municipal civic developments",
-                    "Chandrapur city today news updates administration",
-                    "Chandrapur Municipal Corporation CMC civic projects",
-                    "Chandrapur district Tadoba road infrastructure news"
-                ]
+            if lang == "mr":
+                if category == "metro":
+                    target_queries = ["चंद्रपूर रस्ते वाहतूक", "चंद्रपूर रेल्वे"]
+                elif category == "civic":
+                    target_queries = ["चंद्रपूर महानगरपालिका", "चंद्रपूर जिल्हाधिकारी"]
+                elif category == "weather":
+                    target_queries = ["चंद्रपूर हवामान पाऊस", "चंद्रपूर पर्यावरण"]
+                elif category == "safety":
+                    target_queries = ["चंद्रपूर पोलीस क्राईम", "चंद्रपूर अपघात"]
+                else:
+                    target_queries = ["चंद्रपूर ताज्या बातम्या", "चंद्रपूर जिल्हा घडामोडी", "ताडोबा चंद्रपूर", "चंद्रपूर महानगरपालिका"]
+            elif lang == "hi":
+                if category == "metro":
+                    target_queries = ["चंद्रपुर सड़क परिवहन", "चंद्रपुर रेलवे"]
+                elif category == "civic":
+                    target_queries = ["चंद्रपुर नगर निगम", "चंद्रपुर प्रशासन"]
+                elif category == "weather":
+                    target_queries = ["चंद्रपुर मौसम बारिश", "चंद्रपुर पर्यावरण"]
+                elif category == "safety":
+                    target_queries = ["चंद्रपुर पुलिस अपराध", "चंद्रपुर दुर्घटना"]
+                else:
+                    target_queries = ["चंद्रपुर ताजा समाचार", "चंद्रपुर जिला", "ताडोबा चंद्रपुर"]
+            else:
+                if category == "metro":
+                    target_queries = ["Chandrapur road transport highway", "Chandrapur railway junction"]
+                elif category == "civic":
+                    target_queries = ["Chandrapur Municipal Corporation", "Chandrapur collector administration"]
+                elif category == "weather":
+                    target_queries = ["Chandrapur weather temperature rain", "Chandrapur environment CSTPS"]
+                elif category == "safety":
+                    target_queries = ["Chandrapur police crime", "Chandrapur court police investigation", "Tadoba tiger Chandrapur"]
+                else:
+                    target_queries = ["Chandrapur news", "Chandrapur Maharashtra news", "Chandrapur district developments", "Tadoba Chandrapur"]
         elif category == "metro":
             target_queries = [
-                f"{city_label} metro transport traffic infrastructure updates",
-                f"{city_label} local railway road highway transit"
+                f"{city_label} metro transport traffic updates",
+                f"{city_label} road highway transit"
             ]
         elif category == "civic":
             target_queries = [
-                f"{city_label} municipal corporation civic developments water sanitation",
-                f"{city_label} area infrastructure projects tender"
+                f"{city_label} municipal corporation civic developments",
+                f"{city_label} area infrastructure projects"
             ]
         elif category == "weather":
             target_queries = [
-                f"{city_label} weather forecast air quality pollution rain temperature",
+                f"{city_label} weather forecast pollution rain",
                 f"{city_label} environment climate updates"
             ]
         elif category == "safety":
             target_queries = [
-                f"{city_label} police court crime law order safety investigation",
-                f"{city_label} security emergency area alert"
+                f"{city_label} police court crime law order safety",
+                f"{city_label} traffic emergency alert"
             ]
         else: # "all"
             if city == "all":
-                target_queries = [
-                    "Chandrapur Maharashtra local news municipal updates",
-                    "India city local news municipal civic developments",
-                    "India metro transit urban infrastructure updates",
-                    "State local governance area news community"
-                ]
+                if lang == "mr":
+                    target_queries = [
+                        "महाराष्ट्र ताज्या बातम्या",
+                        "चंद्रपूर ताज्या बातम्या",
+                        "विदर्भ स्थानिक घडामोडी"
+                    ]
+                else:
+                    target_queries = [
+                        "Chandrapur Maharashtra news",
+                        "Maharashtra local urban infrastructure updates",
+                        "India city local governance developments"
+                    ]
             else:
                 target_queries = [
                     f"{city_label} local news municipal civic developments",
-                    f"{city_label} metro traffic infrastructure area updates",
                     f"{city_label} city news today developments"
                 ]
     else:
         # Financial News Queries (Markets, Mutual Funds, SEBI, AMFI, Macro)
         query_sources = {
             "all": [
-                "Indian Mutual Funds AMFI SEBI",
+                "Indian Mutual Funds AMFI",
                 "SEBI circular mutual fund regulations",
                 "Mutual Fund AMC SIP inflow AUM",
                 "Indian economy Nifty RBI inflation repo rate"
@@ -1220,9 +1401,9 @@ def get_live_news_feed(category="all", custom_query=None, mode="financial", city
                 "Mutual fund equity inflows"
             ],
             "macro": [
-                "Indian economy Nifty RBI inflation repo rate",
+                "Indian economy Nifty RBI repo rate",
                 "BSE Sensex Indian stock market equities",
-                "India GDP interest rate monetary policy"
+                "India GDP monetary policy"
             ],
             "tax": [
                 "Income tax mutual funds capital gains LTCG STCG",
@@ -1239,7 +1420,12 @@ def get_live_news_feed(category="all", custom_query=None, mode="financial", city
     def fetch_feed(q_term):
         try:
             enc = urllib.parse.quote(q_term)
-            url = f"https://news.google.com/rss/search?q={enc}&hl=en-IN&gl=IN&ceid=IN:en"
+            if lang == "mr":
+                url = f"https://news.google.com/rss/search?q={enc}&hl=mr&gl=IN&ceid=IN:mr"
+            elif lang == "hi":
+                url = f"https://news.google.com/rss/search?q={enc}&hl=hi&gl=IN&ceid=IN:hi"
+            else:
+                url = f"https://news.google.com/rss/search?q={enc}&hl=en-IN&gl=IN&ceid=IN:en"
             resp = requests.get(url, headers=headers, timeout=5)
             if resp.status_code == 200:
                 root_el = ET.fromstring(resp.content)
@@ -1283,14 +1469,30 @@ def get_live_news_feed(category="all", custom_query=None, mode="financial", city
             else:
                 clean_title = raw_title
                 
-            norm_key = re.sub(r'[^a-zA-Z0-9]', '', clean_title.lower())
+            # Language consistency: reject Devanagari titles in English feed so user never gets mixed English and Marathi
+            is_devanagari = bool(re.search(r'[\u0900-\u097F]', clean_title))
+            if lang == "en" and is_devanagari:
+                continue
+
+            norm_key = re.sub(r'[^a-zA-Z0-9\u0900-\u097F]', '', clean_title.lower())
             if not norm_key or norm_key in seen_titles:
                 continue
-            link = link_el.text.strip() if link_el is not None and link_el.text else "#"
-            if link != "#" and link in seen_links:
+
+            # Prefix check to catch wire syndication duplicates
+            title_pfx = norm_key[:30]
+            if len(title_pfx) >= 15 and title_pfx in seen_titles:
                 continue
+
+            link = link_el.text.strip() if link_el is not None and link_el.text else "#"
+            norm_link = link.split('?')[0].rstrip('/').lower() if link != "#" else "#"
+            if norm_link != "#" and norm_link in seen_links:
+                continue
+
             seen_titles.add(norm_key)
-            seen_links.add(link)
+            if len(title_pfx) >= 15:
+                seen_titles.add(title_pfx)
+            if norm_link != "#":
+                seen_links.add(norm_link)
             
             pub_date_str = pub_el.text.strip() if pub_el is not None and pub_el.text else ""
             time_ago = "Recently"
@@ -1406,146 +1608,157 @@ def get_live_news_feed(category="all", custom_query=None, mode="financial", city
                     if cand.startswith('//'): cand = 'https:' + cand
                     if cand.startswith('http'): live_img = cand
 
-            REAL_FINANCIAL_POOLS = {
-                "gold": [
-                    "https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1624365169365-27a3d3c713b1?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop&w=800&q=80"
+            REAL_TOPIC_POOLS = {
+                "coal_mining": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"
                 ],
-                "tax": [
-                    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80"
+                "steel_industry": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"
                 ],
-                "succession": [
-                    "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
+                "power_thermal": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"
+                ],
+                "power_distribution": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"
+                ],
+                "tadoba_tigers": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg"
+                ],
+                "leopards_fauna": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg",
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-fall-in-well_2026101799966.jpeg"
+                ],
+                "rural_villages": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg"
+                ],
+                "leadership_politics": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"
+                ],
+                "economy_deals": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg",
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"
+                ],
+                "aviation_airports": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"
+                ],
+                "transit_highways": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/youth-accident_2026101799860.jpeg"
+                ],
+                "water_rivers": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg"
+                ],
+                "police_courts": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/man-killed-girlfriend-in-chandrapur_2026101806046.jpg",
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/nagbhid-news_2026101799758.jpeg"
+                ],
+                "civic_admin": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"
+                ],
+                "historic_temples": [
+                    "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg"
+                ],
+                "financial_markets": [
+                    "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=80",
+                    "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=900&q=80",
+                    "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=900&q=80"
                 ],
                 "sebi_governance": [
-                    "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"
+                    "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=900&q=80",
+                    "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80"
                 ],
-                "sip_inclusion": [
-                    "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80"
+                "amc_wealth": [
+                    "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=900&q=80",
+                    "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=900&q=80"
                 ],
-                "amc_industry": [
-                    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+                "tax_budget": [
+                    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=900&q=80"
                 ],
-                "market_macro": [
-                    "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1565372195458-9de0b320ef04?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80"
+                "gold_bullion": [
+                    "https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=900&q=80"
+                ],
+                "succession_claims": [
+                    "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=900&q=80"
                 ]
             }
 
-            # Authentic Chandrapur & Vidarbha Photo Pools (Zero Taj Mahal, Zero generic Western office towers)
-            REAL_CHANDRAPUR_POOLS = {
-                "tadoba": [
-                    "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tiger_of_Tadoba.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/9/98/Tigers_tadoba.jpg",
-                    "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80"
-                ],
-                "heritage_gates": [
-                    "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/4/4b/Mahakali_temple.JPG",
-                    "https://upload.wikimedia.org/wikipedia/commons/8/87/Anchaleshwar_temple_Chandrapur.jpg"
-                ],
-                "cstps_energy": [
-                    "https://upload.wikimedia.org/wikipedia/commons/4/4f/Extra_2_units_of_CSTPS.jpg",
-                    "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80"
-                ],
-                "irai_water": [
-                    "https://upload.wikimedia.org/wikipedia/commons/1/14/Eraii_dam_chandrapur.jpg",
-                    "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
-                ],
-                "transit_roads": [
-                    "https://images.unsplash.com/photo-1508873696983-2df57046475a?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=800&q=80",
-                    "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg"
-                ],
-                "safety_police": [
-                    "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
-                    "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?auto=format&fit=crop&w=800&q=80"
-                ],
-                "civic_admin": [
-                    "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
-                    "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg"
-                ],
-                "city_general": [
-                    "https://upload.wikimedia.org/wikipedia/commons/9/93/Jatpura_Gate_Chandrapur.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tiger_of_Tadoba.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/4/4f/Extra_2_units_of_CSTPS.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pathanpura_Gate_Chandrapur.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/4/4b/Mahakali_temple.JPG",
-                    "https://upload.wikimedia.org/wikipedia/commons/1/14/Eraii_dam_chandrapur.jpg"
-                ]
-            }
+            # Exact Headline Matcher for authentic real press photos of Chandrapur district
+            EXACT_HEADLINE_IMAGES = [
+                (re.compile(r'waterhole|sensor.*water|vanrai|conservation|drought|sindewahi', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg"),
+                (re.compile(r'iron ore|mining.*tiger|halt.*mining|mining in chandrapur|bhumi pujan|coal gasification|kishan reddy|steel plant|10,115|industrial push', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"),
+                (re.compile(r'tatr buffer|killed by tiger|tiger.*killed|attack.*tiger|fateful triangle|tigers.*humans|tiger|वाघ', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg"),
+                (re.compile(r'safari quota|tadoba officer|political pressure', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg"),
+                (re.compile(r'msedcl|distribution infra|adb funded|power station|cstps|thermal', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg"),
+                (re.compile(r'smart village|small village|village in maharashtra', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg"),
+                (re.compile(r'mungantiwar|inclusive development|agenda|collector|vasumana pant', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"),
+                (re.compile(r'3 lakh crore|fadnavis|industrial magnet', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"),
+                (re.compile(r'madc|dgca|airport|runway', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg"),
+                (re.compile(r'leopard|well|ballarpur|rescue|बिबट्या', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg"),
+                (re.compile(r'accident|mul road|transport|वाहतूक', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/youth-accident_2026101799860.jpeg"),
+                (re.compile(r'murder|crime|police|arrest|stolen|pipe|theft|cemetery|nagbhid', re.I), "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/man-killed-girlfriend-in-chandrapur_2026101806046.jpg")
+            ]
+
+            used_backend_images = set()
 
             def resolve_news_image(t_str, c_str, idx=0):
                 tl = t_str.lower()
-                h = 0
-                for ch in t_str: h = (h * 31 + ord(ch)) & 0x7FFFFFFF
-                
-                # Check for Chandrapur or local keywords first
-                story_is_chp = is_chp or mode == "local" or any(w in tl for w in [
-                    "chandrapur", "chanda", "चंद्रपूर", "चंद्रपुर", "tadoba", "tatr", "cstps", 
-                    "irai", "jatpura", "pathanpura", "anchaleshwar", "mahakali", "ballarpur", 
-                    "dhanorkar", "vidarbha", "wardha", "samruddhi", "fadnavis"
-                ])
 
-                if story_is_chp:
-                    if any(w in tl for w in ["tadoba", "tatr", "tiger", "wildlife", "safari", "forest", "ecology", "landscape", "reserve"]):
-                        pool = REAL_CHANDRAPUR_POOLS["tadoba"]
-                    elif any(w in tl for w in ["cstps", "thermal", "power infra", "power plant", "electricity", "energy", "mist"]):
-                        pool = REAL_CHANDRAPUR_POOLS["cstps_energy"]
-                    elif any(w in tl for w in ["irai", "dam", "river", "flood", "evacuat", "rescue", "rainwater", "water"]):
-                        pool = REAL_CHANDRAPUR_POOLS["irai_water"]
-                    elif any(w in tl for w in ["gate", "jatpura", "pathanpura", "mahakali", "anchaleshwar", "temple", "heritage", "bhonsle"]):
-                        pool = REAL_CHANDRAPUR_POOLS["heritage_gates"]
-                    elif any(w in tl for w in ["police", "safety", "surveillance", "camera", "arrest", "crime", "court", "investigation"]):
-                        pool = REAL_CHANDRAPUR_POOLS["safety_police"]
-                    elif any(w in tl for w in ["expressway", "samruddhi", "transit", "highway", "road", "railway", "junction", "corridor", "ballarpur"]):
-                        pool = REAL_CHANDRAPUR_POOLS["transit_roads"]
-                    elif any(w in tl for w in ["civic", "corporation", "cmc", "budget", "tax", "infrastructure", "municipal", "chanda", "award", "mayor", "bjp", "congress", "dhanorkar"]):
-                        pool = REAL_CHANDRAPUR_POOLS["civic_admin"]
-                    else:
-                        pool = REAL_CHANDRAPUR_POOLS["city_general"]
+                # 1. Exact headline matching for real Chandrapur photos
+                for pattern, img_url in EXACT_HEADLINE_IMAGES:
+                    if pattern.search(tl):
+                        return img_url
+
+                # 2. Strict topic pool matching
+                if any(w in tl for w in ["iron ore", "coal", "mines", "gasification", "mining", "mineral", "pit", "quarry"]):
+                    pool = REAL_TOPIC_POOLS["coal_mining"]
+                elif any(w in tl for w in ["steel", "furnace", "foundry", "metal", "metallurg"]):
+                    pool = REAL_TOPIC_POOLS["steel_industry"]
+                elif any(w in tl for w in ["cstps", "thermal", "power plant", "boiler", "chimney", "cooling tower"]):
+                    pool = REAL_TOPIC_POOLS["power_thermal"]
+                elif any(w in tl for w in ["msedcl", "distribution", "substation", "grid", "electricity", "meter", "transmission line", "pylon"]):
+                    pool = REAL_TOPIC_POOLS["power_distribution"]
+                elif any(w in tl for w in ["tadoba", "tatr", "tiger", "safari", "wildlife", "वाघ"]):
+                    pool = REAL_TOPIC_POOLS["tadoba_tigers"]
+                elif any(w in tl for w in ["leopard", "mauled", "snake", "bhandara", "tendu", "forest", "rescue", "fauna", "jungle", "बिबट्या"]):
+                    pool = REAL_TOPIC_POOLS["leopards_fauna"]
+                elif any(w in tl for w in ["village", "smart village", "gram", "rural", "farmer", "crops", "agriculture", "panchayat"]):
+                    pool = REAL_TOPIC_POOLS["rural_villages"]
+                elif any(w in tl for w in ["fadnavis", "reddy", "mungantiwar", "minister", "bhumi pujan", "agenda", "cm", "bjp", "congress", "dhanorkar", "cabinet", "mla", "mp"]):
+                    pool = REAL_TOPIC_POOLS["leadership_politics"]
+                elif any(w in tl for w in ["investment", "crore", "deal", "industrial magnet", "industrial push", "fdi", "mou", "economy", "economic"]):
+                    pool = REAL_TOPIC_POOLS["economy_deals"]
+                elif any(w in tl for w in ["aviation", "airport", "flight", "airlines", "airways", "runway", "dgca"]):
+                    pool = REAL_TOPIC_POOLS["aviation_airports"]
+                elif any(w in tl for w in ["expressway", "samruddhi", "transit", "highway", "road", "railway", "junction", "corridor", "bridge", "flyover", "bus", "metro", "traffic"]):
+                    pool = REAL_TOPIC_POOLS["transit_highways"]
+                elif any(w in tl for w in ["irai", "dam", "river", "flood", "water", "irrigation", "drainage", "vanrai", "lake"]):
+                    pool = REAL_TOPIC_POOLS["water_rivers"]
+                elif any(w in tl for w in ["police", "crime", "safety", "arrest", "court", "theft", "stolen", "pipe", "murder", "accident", "killed", "probe", "investigation"]):
+                    pool = REAL_TOPIC_POOLS["police_courts"]
+                elif any(w in tl for w in ["cmc", "municipal", "civic", "corporation", "collector", "pant", "vasumana", "cleanliness", "swachh"]):
+                    pool = REAL_TOPIC_POOLS["civic_admin"]
+                elif any(w in tl for w in ["temple", "mahakali", "anchaleshwar", "gate", "jatpura", "pathanpura", "heritage"]):
+                    pool = REAL_TOPIC_POOLS["historic_temples"]
+                elif any(w in tl for w in ["gold", "silver", "bullion", "precious metal"]):
+                    pool = REAL_TOPIC_POOLS["gold_bullion"]
+                elif any(w in tl for w in ["tax", "ltcg", "stcg", "budget", "exemption", "harvest"]):
+                    pool = REAL_TOPIC_POOLS["tax_budget"]
+                elif any(w in tl for w in ["death", "nominee", "transmission", "heir", "claim", "succession"]):
+                    pool = REAL_TOPIC_POOLS["succession_claims"]
+                elif any(w in tl for w in ["sip", "inflow", "compounding", "retail", "amfi", "aum", "fund manager", "nfo", "mutual fund"]):
+                    pool = REAL_TOPIC_POOLS["amc_wealth"]
+                elif any(w in tl for w in ["sebi", "circular", "regulation", "regulator", "mandate", "rules", "compliance"]):
+                    pool = REAL_TOPIC_POOLS["sebi_governance"]
                 else:
-                    if any(w in tl for w in ["gold", "silver", "bullion"]): pool = REAL_FINANCIAL_POOLS["gold"]
-                    elif any(w in tl for w in ["tax", "ltcg", "stcg"]): pool = REAL_FINANCIAL_POOLS["tax"]
-                    elif any(w in tl for w in ["death", "nominee", "transmission", "heir"]): pool = REAL_FINANCIAL_POOLS["succession"]
-                    elif any(w in tl for w in ["sip", "compounding", "crore", "retail"]): pool = REAL_FINANCIAL_POOLS["sip_inclusion"]
-                    elif any(w in tl for w in ["sebi", "circular", "regulation", "rules"]): pool = REAL_FINANCIAL_POOLS["sebi_governance"]
-                    elif any(w in tl for w in ["fund manager", "amc", "aum", "nfo"]): pool = REAL_FINANCIAL_POOLS["amc_industry"]
-                    else: pool = REAL_FINANCIAL_POOLS["market_macro"]
-                # Use index offset to guarantee every consecutive article card has a distinct real image
-                return pool[(h + (idx * 7) + 3) % len(pool)]
+                    pool = REAL_TOPIC_POOLS["tadoba_tigers"] if mode == "local" else REAL_TOPIC_POOLS["financial_markets"]
 
-            final_img = live_img if live_img else resolve_news_image(clean_title, category, idx=len(articles))
+                return pool[idx % len(pool)]
+
+            final_img = None
+            if live_img and live_img.startswith("http") and not any(bad in live_img for bad in ["1549366021", "1504917599", "1581092160", "1577495508", "1486406146", "1529074963", "1589829545"]):
+                final_img = live_img
+            else:
+                final_img = resolve_news_image(clean_title, category, idx=len(articles))
+
             articles.append({
                 "title": clean_title,
                 "link": link,
@@ -1561,11 +1774,33 @@ def get_live_news_feed(category="all", custom_query=None, mode="financial", city
                 "mode": mode,
                 "city": city
             })
-        articles = articles[:100]
+        
+        # When viewing Chandrapur district news in Local mode, prioritize authentic ground reporting
         if mode == "local" and (city == "chandrapur" or city == "all"):
-            chp_lokmat = get_lokmat_chandrapur_articles(category)
-            seen_u = {a.get('link') for a in chp_lokmat}
-            articles = chp_lokmat + [a for a in articles if a.get('link') not in seen_u]
+            chp_verified = get_lokmat_chandrapur_articles(category, lang=lang)
+            existing_pfx = {re.sub(r'[^a-zA-Z0-9\u0900-\u097F]', '', a['title'].lower())[:25] for a in chp_verified}
+            filtered_other = [a for a in articles if re.sub(r'[^a-zA-Z0-9\u0900-\u097F]', '', a['title'].lower())[:25] not in existing_pfx]
+            chandrapur_real_images = [
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chandrapur-tiger-attack-on-old-age-person_2026101806694.jpeg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/chd-thermal-power-station_2026101801828.jpeg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/collector-v.-pant_2026101803838.jpeg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-attack-ballarpur-1_2026101804621.jpg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/leopard-fall-in-well_2026101799966.jpeg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/water-conservation_2026101804434.jpeg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/man-killed-girlfriend-in-chandrapur_2026101806046.jpg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/teacher-killed-girlfriend-in-nagpur_2026101805230.jpeg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/youth-accident_2026101799860.jpeg",
+                "https://d3pc1xvrcw35tl.cloudfront.net/images/686x514/nagbhid-news_2026101799758.jpeg"
+            ]
+            for idx_o, item_o in enumerate(filtered_other):
+                cur_img = item_o.get("image_url", "")
+                if not cur_img or "unsplash.com" in cur_img or not cur_img.startswith("https://d3pc1xvrcw35tl.cloudfront.net"):
+                    item_o["image_url"] = resolve_news_image(item_o.get("title", ""), item_o.get("category", ""), idx=idx_o)
+                    if "unsplash.com" in item_o.get("image_url", ""):
+                        item_o["image_url"] = chandrapur_real_images[idx_o % len(chandrapur_real_images)]
+            articles = chp_verified + filtered_other
+
+        articles = articles[:100]
     except Exception as e_news:
         print("[News Feed Fetch Error]", e_news)
 
@@ -1573,8 +1808,8 @@ def get_live_news_feed(category="all", custom_query=None, mode="financial", city
         dt_today = datetime.now(IST)
         def _fmt(d_offset): return (dt_today - timedelta(days=d_offset)).strftime("%d %b %Y")
         if mode == "local":
-            if city == "chandrapur":
-                articles = get_lokmat_chandrapur_articles(category)
+            if city == "chandrapur" or city == "all":
+                articles = get_lokmat_chandrapur_articles(category, lang=lang)
             else:
                 c_name = city_label if city != 'all' else 'Metro India'
                 fallback_pool = [

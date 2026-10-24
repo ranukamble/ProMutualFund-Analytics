@@ -56,16 +56,34 @@ def get_market_ticker_route():
 @market_bp.route('/api/news')
 def get_news_route():
     try:
+        import importlib
+        import services.market_data as smd
+        importlib.reload(smd)
+        if hasattr(smd, '_news_cache') and isinstance(smd._news_cache, dict):
+            smd._news_cache.get("data", {}).clear()
+            smd._news_cache.get("timestamp", {}).clear()
         cat = request.args.get('category', 'all').lower().strip()
         mode = request.args.get('mode', 'financial').lower().strip()
         city = request.args.get('city', 'all').lower().strip()
         query = request.args.get('q', '').strip() or None
-        force_refresh = request.args.get('refresh', '0') in ['1', 'true', 'True']
-        if force_refresh:
-            cache_key = f"{mode}:{cat}:{city}:{query or ''}"
-            _news_cache["data"].pop(cache_key, None)
-            _news_cache["timestamp"].pop(cache_key, None)
-        data = get_live_news_feed(category=cat, custom_query=query, mode=mode, city=city)
+        lang = request.args.get('lang', 'en').lower().strip()
+        data = smd.get_live_news_feed(category=cat, custom_query=query, mode=mode, city=city, lang=lang)
         return jsonify(data)
     except Exception as e:
         return jsonify({"status": "error", "error": str(e), "articles": []}), 500
+
+@market_bp.route('/api/stream/stats')
+def get_stream_stats():
+    try:
+        from services.websocket_streamer import CONNECTED_CLIENTS, _last_broadcast_ticker
+        return jsonify({
+            "status": "online",
+            "protocol": "WebSocket / Socket.IO",
+            "active_connected_clients": len(CONNECTED_CLIENTS),
+            "broadcaster": "Active (Daemon Thread)",
+            "last_broadcast": (_last_broadcast_ticker or {}).get("payload", {}).get("timestamp", "Pending")
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+

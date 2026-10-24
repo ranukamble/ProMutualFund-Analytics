@@ -200,6 +200,7 @@
         .hero-headline h1 .text-gradient {
             background: linear-gradient(135deg, #00D2FF 0%, #3B82F6 45%, #C026D3 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
         }
@@ -360,7 +361,7 @@
         }
 
         /* ══════════════════════════════════════════════════
-           RIGHT PANEL: SLEEK, SECURE GLASS LOGIN CARD
+           RIGHT PANEL: SLEEK, SECURE GLASS LOGIN CARD (PORTRAIT)
            ══════════════════════════════════════════════════ */
         .login-panel-wrapper {
             position: relative;
@@ -370,13 +371,13 @@
 
         .login-card {
             width: 100%;
-            max-width: 480px;
-            background: rgba(11, 20, 42, 0.82);
+            max-width: 395px;
+            background: rgba(11, 20, 42, 0.85);
             backdrop-filter: blur(28px);
             -webkit-backdrop-filter: blur(28px);
             border: 1px solid rgba(59, 130, 246, 0.45);
             border-radius: 24px;
-            padding: 44px 42px;
+            padding: 46px 32px 38px;
             box-shadow: 
                 0 30px 70px -15px rgba(0, 0, 0, 0.85),
                 0 0 45px rgba(37, 99, 235, 0.22),
@@ -409,16 +410,16 @@
         .card-brand-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 34px;
+            gap: 14px;
+            margin-bottom: 30px;
         }
         .card-brand-logo {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: radial-gradient(circle, #0e1e3e 0%, #060e20 100%);
             border: 2px solid #F59E0B;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.35), inset 0 0 12px rgba(245, 158, 11, 0.25);
+            box-shadow: 0 0 18px rgba(245, 158, 11, 0.35), inset 0 0 10px rgba(245, 158, 11, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -432,7 +433,7 @@
         }
 
         .card-brand-text h3 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             letter-spacing: -0.4px;
             color: #FFFFFF;
@@ -450,17 +451,18 @@
             margin-top: 3px;
         }
         .card-brand-text .brand-subtag {
-            font-size: 9.5px;
+            font-size: 8.5px;
             font-weight: 700;
             color: #475569;
-            letter-spacing: 1.2px;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
             margin-top: 2px;
+            white-space: nowrap;
         }
 
         /* Form Controls */
         .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 20px;
         }
         .form-label {
             display: block;
@@ -469,7 +471,7 @@
             color: #818CF8;
             letter-spacing: 1.2px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 7px;
         }
 
         .input-wrapper {
@@ -495,9 +497,9 @@
             background: rgba(7, 15, 33, 0.75);
             border: 1px solid rgba(59, 130, 246, 0.28);
             border-radius: 12px;
-            padding: 14px 16px 14px 46px;
+            padding: 13px 16px 13px 44px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 13.5px;
             color: #FFFFFF;
             outline: none;
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -539,23 +541,23 @@
         /* ── CAPTCHA ROW ── */
         .captcha-row {
             display: grid;
-            grid-template-columns: 110px 48px 1fr;
-            gap: 10px;
+            grid-template-columns: 104px 44px 1fr;
+            gap: 8px;
             align-items: center;
-            margin-bottom: 26px;
+            margin-bottom: 24px;
         }
 
         /* Stylized Glowing Numeric Display */
         .captcha-display {
-            height: 48px;
+            height: 46px;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(6, 11, 25, 0.95));
             border: 1px solid rgba(0, 210, 255, 0.35);
             border-radius: 12px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 800;
             color: var(--accent-cyan);
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -576,8 +578,8 @@
         }
 
         .captcha-refresh-btn {
-            height: 48px;
-            width: 48px;
+            height: 46px;
+            width: 44px;
             background: rgba(15, 23, 42, 0.7);
             border: 1px solid rgba(59, 130, 246, 0.28);
             border-radius: 12px;
@@ -604,21 +606,22 @@
             align-items: center;
         }
         .captcha-input-wrapper .form-input {
-            padding-left: 42px;
+            padding-left: 38px;
+            font-size: 13px;
         }
         .captcha-input-wrapper .input-icon {
-            left: 14px;
+            left: 12px;
         }
 
         /* ── PROMINENT BLUE-TO-PURPLE LOGIN BUTTON ── */
         .btn-secure-login {
             width: 100%;
-            padding: 15px 24px;
+            padding: 14px 20px;
             background: linear-gradient(90deg, #1D4ED8 0%, #2563EB 35%, #7C3AED 75%, #9333EA 100%);
             border: none;
             border-radius: 12px;
             font-family: inherit;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             color: #FFFFFF;
             cursor: pointer;
@@ -632,7 +635,7 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
         }
         .btn-secure-login::before {
             content: '';

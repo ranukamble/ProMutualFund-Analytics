@@ -1,2 +1,6 @@
 [phases.setup]
 aptPkgs = ["tesseract-ocr"]
+
+[start]
+cmd = "python app.py"
+
