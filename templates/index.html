@@ -5714,10 +5714,19 @@
 
   <!-- ═══ REAL-TIME WEBSOCKET MARKET TICKER RIBBON (DASHBOARD) ═══ -->
   <div class="dashboard-ticker-ribbon" id="dashboardLiveTickerRibbon">
-    <div style="display: inline-flex; align-items: center; gap: 5px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); padding: 2px 8px; border-radius: 5px; font-size: 9px; font-weight: 800; color: #38BDF8; letter-spacing: 0.05em; flex-shrink: 0;">
-      <span style="width: 5px; height: 5px; border-radius: 50%; background: #38BDF8; box-shadow: 0 0 6px #38BDF8; animation: feedPulse 1.8s infinite;"></span>
-      LIVE STREAM
-    </div>
+    <!-- 🔴 LIVE STREAM DROPDOWN TRIGGER BUTTON -->
+    <button type="button" id="dashLiveStreamDropdownBtn" onclick="toggleDashLiveDeskDropdown(event)" style="
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, rgba(239,68,68,0.22), rgba(185,28,28,0.14));
+      border: 1px solid rgba(239,68,68,0.45); padding: 3px 10px; border-radius: 6px;
+      font-size: 9.5px; font-weight: 800; color: #F87171; letter-spacing: 0.05em;
+      cursor: pointer; transition: all 180ms ease; box-shadow: 0 0 10px rgba(239,68,68,0.2);
+      flex-shrink: 0; outline: none;
+    " title="Click to open Live Desk, 2026 Trending Songs, Movies & Custom YouTube Player">
+      <span style="width: 6px; height: 6px; border-radius: 50%; background: #EF4444; box-shadow: 0 0 7px #EF4444; animation: feedPulse 1.8s infinite;"></span>
+      <span>🔴 LIVE STREAM</span>
+      <span id="dashLiveDeskChevron" style="font-size: 8px; opacity: 0.85; transition: transform 200ms; display: inline-block;">▼</span>
+    </button>
     <span style="color: rgba(255,255,255,0.12);">|</span>
     <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
       <span class="ticker-index-name" style="color: #38BDF8; font-weight: 800;">NIFTY 50</span>
@@ -5763,6 +5772,174 @@
     <div style="margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 10px; color: #64748B;">
       <span>⏱️ Last Tick:</span>
       <span id="dashLastTickTime" style="font-family: monospace; color: #94A3B8;">Connecting...</span>
+    </div>
+  </div>
+
+  <!-- ═══ LIVE DESK DROPDOWN FLYOUT CARD (DASHBOARD) ═══ -->
+  <div id="dashLiveDeskDropdown" style="
+    display: none; position: fixed; z-index: 999999;
+    width: 420px; max-width: calc(100vw - 20px);
+    background: #090E17; border: 1px solid rgba(239,68,68,0.35); border-radius: 14px;
+    padding: 13px 14px; box-shadow: 0 24px 60px rgba(0,0,0,0.92), 0 0 30px rgba(239,68,68,0.18);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  ">
+    <!-- Card Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.07);">
+      <div style="font-size:11px;font-weight:800;color:#F1F5F9;display:flex;align-items:center;gap:6px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#EF4444;box-shadow:0 0 8px #EF4444;animation:feedPulse 1.8s infinite;display:inline-block;"></span>
+        CHANDRAPUR LIVE DESK
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#F87171;border-radius:4px;padding:2px 6px;font-size:8px;font-weight:800;letter-spacing:0.06em;">
+          🔴 ON-AIR 24x7
+        </span>
+        <button type="button" onclick="closeDashLiveDeskDropdown()" style="
+          background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+          color: #94A3B8; border-radius: 5px; width: 20px; height: 20px; font-size: 11px;
+          cursor: pointer; display: flex; align-items: center; justify-content: center;
+        " title="Close Live Desk">✕</button>
+      </div>
+    </div>
+
+    <!-- Channel switcher pills -->
+    <div style="display:flex;gap:4px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;align-items:center;">
+      <button type="button" onclick="switchDashLiveChannel('lokmat')" id="dashLiveChan_lokmat" style="
+        padding:3px 8px;border-radius:12px;font-size:9px;font-weight:700;cursor:pointer;
+        background:rgba(239,68,68,0.18);border:1px solid rgba(239,68,68,0.4);color:#F87171;white-space:nowrap;
+      ">📰 Lokmat Live</button>
+      <button type="button" onclick="switchDashLiveChannel('abp')" id="dashLiveChan_abp" style="
+        padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+      ">📺 ABP Majha</button>
+      <button type="button" onclick="switchDashLiveChannel('tadoba')" id="dashLiveChan_tadoba" style="
+        padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+      ">🐯 Tadoba 4K</button>
+      <button type="button" onclick="switchDashLiveChannel('songs')" id="dashLiveChan_songs" style="
+        padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+      ">🎵 Trending Songs 2026</button>
+      <button type="button" onclick="switchDashLiveChannel('bollywood')" id="dashLiveChan_bollywood" style="
+        padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+      ">🎬 Bollywood Movies</button>
+      <button type="button" onclick="switchDashLiveChannel('goldmines')" id="dashLiveChan_goldmines" style="
+        padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+      ">🍿 Goldmines Action</button>
+      <button type="button" onclick="toggleDashCustomYouTubeInput()" id="dashLiveChan_custom" style="
+        padding:3px 8px;border-radius:12px;font-size:9px;font-weight:700;cursor:pointer;
+        background:rgba(56,189,248,0.16);border:1px solid rgba(56,189,248,0.4);color:#38BDF8;white-space:nowrap;display:flex;align-items:center;gap:3px;
+        box-shadow:0 0 8px rgba(56,189,248,0.15);
+      ">🔗 Connect YouTube</button>
+    </div>
+
+    <!-- Trending Movies Quick Picker (Appears when Bollywood Movies is selected) -->
+    <div id="dashMovieSubPills" style="display:none;gap:4px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;align-items:center;padding:6px 8px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(234,88,12,0.06));border:1px solid rgba(245,158,11,0.28);border-radius:9px;">
+      <span style="font-size:8.5px;font-weight:800;color:#FBBF24;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;display:flex;align-items:center;gap:3px;margin-right:2px;">
+        <span>🔥</span> Movies:
+      </span>
+      <button type="button" onclick="playDashMovieStream('hera_pheri')" id="dashMovPill_hera_pheri" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:700;cursor:pointer;background:rgba(245,158,11,0.22);border:1px solid rgba(245,158,11,0.5);color:#FDE68A;white-space:nowrap;transition:all 150ms;">
+        🤣 Hera Pheri
+      </button>
+      <button type="button" onclick="playDashMovieStream('hungama')" id="dashMovPill_hungama" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+        🎭 Hungama
+      </button>
+      <button type="button" onclick="playDashMovieStream('sooryavansham')" id="dashMovPill_sooryavansham" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+        👑 Sooryavansham
+      </button>
+      <button type="button" onclick="playDashMovieStream('shemaroo_premiere')" id="dashMovPill_shemaroo_premiere" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+        🌟 Shemaroo 24x7
+      </button>
+      <button type="button" onclick="playDashMovieStream('goldmines_bollywood')" id="dashMovPill_goldmines_bollywood" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+        🎬 Goldmines 24x7
+      </button>
+    </div>
+
+    <!-- Trending Songs 2026 Quick Picker (Appears when Trending Songs 2026 is selected) -->
+    <div id="dashSongsSubPills" style="display:none;gap:4px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;align-items:center;padding:6px 8px;background:linear-gradient(135deg,rgba(236,72,153,0.12),rgba(168,85,247,0.08));border:1px solid rgba(236,72,153,0.3);border-radius:9px;">
+      <span style="font-size:8.5px;font-weight:800;color:#F472B6;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;display:flex;align-items:center;gap:3px;margin-right:2px;">
+        <span>🎵</span> 2026 Hits:
+      </span>
+      <button type="button" onclick="playDashSongStream('tseries_2026')" id="dashSongPill_tseries_2026" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:700;cursor:pointer;background:rgba(236,72,153,0.25);border:1px solid rgba(236,72,153,0.6);color:#FCE7F3;white-space:nowrap;transition:all 150ms;">
+        🔥 T-Series
+      </button>
+      <button type="button" onclick="playDashSongStream('arijit_singh')" id="dashSongPill_arijit_singh" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+        💖 Arijit Singh
+      </button>
+      <button type="button" onclick="playDashSongStream('party_mashup')" id="dashSongPill_party_mashup" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+        ⚡ Party Beats
+      </button>
+      <button type="button" onclick="playDashSongStream('zee_party')" id="dashSongPill_zee_party" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+        🌟 Zee Music
+      </button>
+      <button type="button" onclick="playDashSongStream('lofi_chill')" id="dashSongPill_lofi_chill" style="padding:2px 7px;border-radius:7px;font-size:8.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+        🎧 Lo-Fi Chill
+      </button>
+    </div>
+
+    <!-- Expandable Connect My YouTube Box -->
+    <div id="dashCustomYouTubeInputBox" style="display:none;margin-bottom:8px;padding:10px;background:#060A14;border:1px solid rgba(56,189,248,0.4);border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.6);">
+      <div style="font-size:9.5px;font-weight:800;color:#38BDF8;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="display:flex;align-items:center;gap:4px;">
+          <span style="width:5px;height:5px;border-radius:50%;background:#38BDF8;box-shadow:0 0 6px #38BDF8;"></span>
+          Stream Custom YouTube Live / Video Here
+        </span>
+        <span onclick="toggleDashCustomYouTubeInput()" style="cursor:pointer;color:#64748B;font-size:11px;padding:0 3px;" title="Close">✕</span>
+      </div>
+      <div style="display:flex;gap:5px;">
+        <input id="dashCustomYouTubeUrlInput" type="text" placeholder="Paste YouTube link (watch?v=... or youtu.be/...)" style="
+          flex:1;background:#0D1B2A;border:1px solid rgba(255,255,255,0.14);border-radius:6px;padding:6px 8px;font-size:9.5px;color:#F1F5F9;outline:none;
+        " onkeydown="if(event.key==='Enter') connectAndPlayDashCustomYouTube()" />
+        <button type="button" onclick="connectAndPlayDashCustomYouTube()" style="
+          background:linear-gradient(135deg,#0284C7,#0369A1);border:none;border-radius:6px;color:#FFFFFF;padding:6px 11px;font-size:9.5px;font-weight:800;cursor:pointer;white-space:nowrap;
+        ">▶ Play</button>
+      </div>
+      <div id="dashCustomYtStatus" style="font-size:8.5px;color:#94A3B8;margin-top:4px;">
+        💡 Plays directly in this dropdown without redirects.
+      </div>
+      <div id="dashCustomYtActionRow" style="display:none;margin-top:6px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.06);align-items:center;justify-content:space-between;">
+        <span style="font-size:8.5px;color:#34D399;font-weight:700;">🟢 Connected</span>
+        <button type="button" onclick="disconnectDashCustomYouTube()" style="
+          background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#F87171;border-radius:4px;padding:2px 5px;font-size:8px;font-weight:700;cursor:pointer;
+        ">Disconnect</button>
+      </div>
+    </div>
+
+    <!-- Video 16:9 Frame -->
+    <div style="
+      width:100%;height:190px;border-radius:10px;overflow:hidden;
+      background:#060A10;border:1px solid rgba(255,255,255,0.1);
+      position:relative;
+    ">
+      <iframe id="dashLiveIframe"
+        src=""
+        data-src="https://www.youtube.com/embed/jefRw3wuWLQ?autoplay=1&mute=1&playsinline=1&rel=0"
+        title="Live Desk Stream"
+        style="width:100%;height:100%;border:none;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Live Subtext / Bulletin descriptor -->
+    <div style="
+      margin-top:7px;font-size:9.5px;color:#94A3B8;line-height:1.4;
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;
+    ">
+      <span style="display:flex;align-items:center;gap:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:210px;">
+        <span style="color:#00D2FF;font-weight:700;">📡 Feed:</span>
+        <span id="dashLiveChannelName" style="color:#CBD5E1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Lokmat Live Bulletin (Chandrapur &amp; Maharashtra)</span>
+      </span>
+      <div style="display:flex;align-items:center;gap:5px;">
+        <a id="dashLivePopoutLink" href="https://www.youtube.com/watch?v=jefRw3wuWLQ" target="_blank" rel="noopener" style="
+          color:#EF4444;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:4px;padding:2px 6px;font-size:8.5px;text-decoration:none;font-weight:700;
+        ">▶ Popout ↗</a>
+        <a href="/news" style="
+          color:#38BDF8;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.25);border-radius:4px;padding:2px 6px;font-size:8.5px;text-decoration:none;font-weight:700;
+        ">News Page ↗</a>
+      </div>
     </div>
   </div>
 
@@ -24575,13 +24752,349 @@
         }
       }
 
-      // URL sync check on page load
-      window.addEventListener('DOMContentLoaded', () => {
+      /* ═══════════════════════════════════════════════════════════════
+         🔴 DASHBOARD LIVE STREAM DROPDOWN (CHANDRAPUR LIVE DESK)
+      ═══════════════════════════════════════════════════════════════ */
+      const dashMovieCatalog = {
+        'hera_pheri': {
+          title: '🤣 Hera Pheri (Full HD Movie) - Akshay Kumar, Paresh Rawal, Suniel Shetty',
+          src: 'https://www.youtube.com/embed/TIQ5hrfermg?autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/watch?v=TIQ5hrfermg'
+        },
+        'hungama': {
+          title: '🎭 Hungama (Full HD Movie) - Akshaye Khanna, Paresh Rawal, Rimi Sen',
+          src: 'https://www.youtube.com/embed/oqeUuaK1bPU?autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/watch?v=oqeUuaK1bPU'
+        },
+        'sooryavansham': {
+          title: '👑 Sooryavansham (Full HD Movie) - Amitabh Bachchan, Soundarya',
+          src: 'https://www.youtube.com/embed/vB2m1uRF30c?autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/watch?v=vB2m1uRF30c'
+        },
+        'shemaroo_premiere': {
+          title: '🌟 Shemaroo Bollywood Cinema Premiere (Superhit Hindi Movies 24x7)',
+          src: 'https://www.youtube.com/embed/videoseries?list=UUBOmfqgTZi7yDp4-3Lr_3lA&autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/@shemaroomovies'
+        },
+        'goldmines_bollywood': {
+          title: '🎬 Goldmines Bollywood Hits (Superhit Hindi Cinema 24x7)',
+          src: 'https://www.youtube.com/embed/videoseries?list=UUOF23vGxkbhN4wl7ROrgXsA&autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/@GoldminesBollywood'
+        }
+      };
+
+      const dashSongCatalog = {
+        'tseries_2026': {
+          title: '🔥 T-Series Trending Hits 2026 (Official 24x7 Non-Stop Music Feed)',
+          src: 'https://www.youtube.com/embed/videoseries?list=UUq-FJ5jknLsUf-MWSy4_brA&autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/@tseries'
+        },
+        'arijit_singh': {
+          title: '💖 Arijit Singh Soulful Hits & Romantic Jukebox',
+          src: 'https://www.youtube.com/embed/AURtJ1hvRjw?autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/watch?v=AURtJ1hvRjw'
+        },
+        'party_mashup': {
+          title: '⚡ Bollywood Dance Mashup 2026 | Non-Stop Party Beats & Club Hits (T-Series)',
+          src: 'https://www.youtube.com/embed/EFUkIyQ8p_Y?autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/watch?v=EFUkIyQ8p_Y'
+        },
+        'zee_party': {
+          title: '🌟 Zee Music Bollywood Mega Mix | 3 Hours Non-Stop Superhits',
+          src: 'https://www.youtube.com/embed/EK8NG9Du_cQ?autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/watch?v=EK8NG9Du_cQ'
+        },
+        'lofi_chill': {
+          title: '🎧 Midnight Lo-Fi Bollywood Chillout | Relaxing Hindi Beats & Acoustics',
+          src: 'https://www.youtube.com/embed/VaX6J6SIb3s?autoplay=1&mute=0&playsinline=1&rel=0',
+          url: 'https://www.youtube.com/watch?v=VaX6J6SIb3s'
+        }
+      };
+
+      let dashLiveDeskOpen = false;
+      let dashLiveDeskInitialized = false;
+
+      window.toggleDashLiveDeskDropdown = function(e) {
+        if (e) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+        if (dashLiveDeskOpen) {
+          closeDashLiveDeskDropdown();
+        } else {
+          openDashLiveDeskDropdown();
+        }
+      };
+
+      window.openDashLiveDeskDropdown = function() {
+        const dropdown = document.getElementById('dashLiveDeskDropdown');
+        const btn = document.getElementById('dashLiveStreamDropdownBtn');
+        const chevron = document.getElementById('dashLiveDeskChevron');
+        const iframe = document.getElementById('dashLiveIframe');
+        if (!dropdown || !btn) return;
+
+        const rect = btn.getBoundingClientRect();
+        const topPos = rect.bottom + 8;
+        const leftPos = Math.max(12, Math.min(rect.left, window.innerWidth - 435));
+        dropdown.style.top = topPos + 'px';
+        dropdown.style.left = leftPos + 'px';
+        dropdown.style.display = 'block';
+
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+        dashLiveDeskOpen = true;
+
+        if (!dashLiveDeskInitialized && iframe) {
+          iframe.src = iframe.getAttribute('data-src') || 'https://www.youtube.com/embed/jefRw3wuWLQ?autoplay=1&mute=1&playsinline=1&rel=0';
+          dashLiveDeskInitialized = true;
+        }
+      };
+
+      window.closeDashLiveDeskDropdown = function() {
+        const dropdown = document.getElementById('dashLiveDeskDropdown');
+        const chevron = document.getElementById('dashLiveDeskChevron');
+        if (dropdown) dropdown.style.display = 'none';
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+        dashLiveDeskOpen = false;
+      };
+
+      window.playDashMovieStream = function(movieId) {
+        const movie = dashMovieCatalog[movieId] || dashMovieCatalog['hera_pheri'];
+        const iframe = document.getElementById('dashLiveIframe');
+        const descEl = document.getElementById('dashLiveChannelName');
+        const popLink = document.getElementById('dashLivePopoutLink');
+
+        if (iframe) iframe.src = movie.src;
+        if (descEl) descEl.textContent = movie.title;
+        if (popLink) popLink.href = movie.url;
+
+        Object.keys(dashMovieCatalog).forEach(id => {
+          const pill = document.getElementById(`dashMovPill_${id}`);
+          if (pill) {
+            if (id === movieId) {
+              pill.style.background = 'rgba(245,158,11,0.25)';
+              pill.style.borderColor = 'rgba(245,158,11,0.55)';
+              pill.style.color = '#FDE68A';
+              pill.style.fontWeight = '700';
+            } else {
+              pill.style.background = 'rgba(255,255,255,0.05)';
+              pill.style.borderColor = 'rgba(255,255,255,0.1)';
+              pill.style.color = '#CBD5E1';
+              pill.style.fontWeight = '600';
+            }
+          }
+        });
+      };
+
+      window.playDashSongStream = function(songId) {
+        const song = dashSongCatalog[songId] || dashSongCatalog['tseries_2026'];
+        const iframe = document.getElementById('dashLiveIframe');
+        const descEl = document.getElementById('dashLiveChannelName');
+        const popLink = document.getElementById('dashLivePopoutLink');
+
+        if (iframe) iframe.src = song.src;
+        if (descEl) descEl.textContent = song.title;
+        if (popLink) popLink.href = song.url;
+
+        Object.keys(dashSongCatalog).forEach(id => {
+          const pill = document.getElementById(`dashSongPill_${id}`);
+          if (pill) {
+            if (id === songId) {
+              pill.style.background = 'rgba(236,72,153,0.28)';
+              pill.style.borderColor = 'rgba(236,72,153,0.65)';
+              pill.style.color = '#FCE7F3';
+              pill.style.fontWeight = '700';
+            } else {
+              pill.style.background = 'rgba(255,255,255,0.05)';
+              pill.style.borderColor = 'rgba(255,255,255,0.1)';
+              pill.style.color = '#CBD5E1';
+              pill.style.fontWeight = '600';
+            }
+          }
+        });
+      };
+
+      window.switchDashLiveChannel = function(chan) {
+        const iframe = document.getElementById('dashLiveIframe');
+        const descEl = document.getElementById('dashLiveChannelName');
+        const popLink = document.getElementById('dashLivePopoutLink');
+        const bLokmat = document.getElementById('dashLiveChan_lokmat');
+        const bAbp = document.getElementById('dashLiveChan_abp');
+        const bTadoba = document.getElementById('dashLiveChan_tadoba');
+        const bSongs = document.getElementById('dashLiveChan_songs');
+        const bBollywood = document.getElementById('dashLiveChan_bollywood');
+        const bGoldmines = document.getElementById('dashLiveChan_goldmines');
+        const bCustom = document.getElementById('dashLiveChan_custom');
+        const subPills = document.getElementById('dashMovieSubPills');
+        const songPills = document.getElementById('dashSongsSubPills');
+
+        const resetBtns = () => {
+          [bLokmat, bAbp, bTadoba, bSongs, bBollywood, bGoldmines, bCustom].forEach(b => {
+            if (b) {
+              b.style.background = 'rgba(255,255,255,0.04)';
+              b.style.borderColor = 'rgba(255,255,255,0.08)';
+              b.style.color = '#94A3B8';
+              b.style.fontWeight = '500';
+            }
+          });
+        };
+        resetBtns();
+
+        if (chan === 'abp') {
+          if (subPills) subPills.style.display = 'none';
+          if (songPills) songPills.style.display = 'none';
+          if (bAbp) {
+            bAbp.style.background = 'rgba(239,68,68,0.18)';
+            bAbp.style.borderColor = 'rgba(239,68,68,0.4)';
+            bAbp.style.color = '#F87171';
+            bAbp.style.fontWeight = '700';
+          }
+          if (iframe) iframe.src = 'https://www.youtube.com/embed/a5B0FhXuLoY?autoplay=1&mute=1&playsinline=1&rel=0';
+          if (descEl) descEl.textContent = 'ABP Majha Live (Vidarbha / Maharashtra)';
+          if (popLink) popLink.href = 'https://www.youtube.com/watch?v=a5B0FhXuLoY';
+        } else if (chan === 'tadoba') {
+          if (subPills) subPills.style.display = 'none';
+          if (songPills) songPills.style.display = 'none';
+          if (bTadoba) {
+            bTadoba.style.background = 'rgba(16,185,129,0.18)';
+            bTadoba.style.borderColor = 'rgba(16,185,129,0.4)';
+            bTadoba.style.color = '#34D399';
+            bTadoba.style.fontWeight = '700';
+          }
+          if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U&autoplay=1&mute=1&playsinline=1&rel=0';
+          if (descEl) descEl.textContent = 'Tadoba-Andhari Tiger Reserve Chandrapur Safari (4K)';
+          if (popLink) popLink.href = 'https://www.youtube.com/playlist?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U';
+        } else if (chan === 'songs') {
+          if (subPills) subPills.style.display = 'none';
+          if (songPills) songPills.style.display = 'flex';
+          if (bSongs) {
+            bSongs.style.background = 'rgba(236,72,153,0.18)';
+            bSongs.style.borderColor = 'rgba(236,72,153,0.45)';
+            bSongs.style.color = '#F472B6';
+            bSongs.style.fontWeight = '700';
+          }
+          playDashSongStream('tseries_2026');
+        } else if (chan === 'bollywood') {
+          if (songPills) songPills.style.display = 'none';
+          if (subPills) subPills.style.display = 'flex';
+          if (bBollywood) {
+            bBollywood.style.background = 'rgba(245,158,11,0.18)';
+            bBollywood.style.borderColor = 'rgba(245,158,11,0.4)';
+            bBollywood.style.color = '#FBBF24';
+            bBollywood.style.fontWeight = '700';
+          }
+          playDashMovieStream('hera_pheri');
+        } else if (chan === 'goldmines') {
+          if (subPills) subPills.style.display = 'none';
+          if (songPills) songPills.style.display = 'none';
+          if (bGoldmines) {
+            bGoldmines.style.background = 'rgba(168,85,247,0.18)';
+            bGoldmines.style.borderColor = 'rgba(168,85,247,0.4)';
+            bGoldmines.style.color = '#C084FC';
+            bGoldmines.style.fontWeight = '700';
+          }
+          if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=UUyoXW-Dse7fURq30EWl_CUA&autoplay=1&mute=1&playsinline=1&rel=0';
+          if (descEl) descEl.textContent = '🍿 Goldmines Action Cinema (Blockbuster South Hindi Movies)';
+          if (popLink) popLink.href = 'https://www.youtube.com/@GoldminesTelefilms';
+        } else {
+          if (subPills) subPills.style.display = 'none';
+          if (songPills) songPills.style.display = 'none';
+          if (bLokmat) {
+            bLokmat.style.background = 'rgba(239,68,68,0.18)';
+            bLokmat.style.borderColor = 'rgba(239,68,68,0.4)';
+            bLokmat.style.color = '#F87171';
+            bLokmat.style.fontWeight = '700';
+          }
+          if (iframe) iframe.src = 'https://www.youtube.com/embed/jefRw3wuWLQ?autoplay=1&mute=1&playsinline=1&rel=0';
+          if (descEl) descEl.textContent = 'Lokmat Live Bulletin (Chandrapur & Maharashtra)';
+          if (popLink) popLink.href = 'https://www.youtube.com/watch?v=jefRw3wuWLQ';
+        }
+      };
+
+      window.toggleDashCustomYouTubeInput = function() {
+        const box = document.getElementById('dashCustomYouTubeInputBox');
+        if (!box) return;
+        box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
+        if (box.style.display === 'block') {
+          const inp = document.getElementById('dashCustomYouTubeUrlInput');
+          if (inp) setTimeout(() => inp.focus(), 80);
+        }
+      };
+
+      window.connectAndPlayDashCustomYouTube = function() {
+        const input = document.getElementById('dashCustomYouTubeUrlInput');
+        const iframe = document.getElementById('dashLiveIframe');
+        const descEl = document.getElementById('dashLiveChannelName');
+        const popLink = document.getElementById('dashLivePopoutLink');
+        const status = document.getElementById('dashCustomYtStatus');
+        const actionRow = document.getElementById('dashCustomYtActionRow');
+        if (!input || !iframe) return;
+
+        const raw = input.value.trim();
+        if (!raw) return;
+
+        let embedUrl = null;
+        let watchUrl = raw;
+
         try {
-          const urlParams = new URLSearchParams(window.location.search);
-          const fundCode = urlParams.get('fund') || (window.location.hash.startsWith('#fund=') ? window.location.hash.split('=')[1] : null);
-          // Deep-linking is handled automatically by selectFund in dashboard without popping up modal
-        } catch (e) { }
+          const urlObj = new URL(raw.startsWith('http') ? raw : 'https://' + raw);
+          if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
+            if (urlObj.searchParams.has('v')) {
+              const vid = urlObj.searchParams.get('v');
+              embedUrl = `https://www.youtube.com/embed/${vid}?autoplay=1&mute=0&playsinline=1&rel=0`;
+            } else if (urlObj.hostname.includes('youtu.be')) {
+              const vid = urlObj.pathname.replace(/^\//, '');
+              embedUrl = `https://www.youtube.com/embed/${vid}?autoplay=1&mute=0&playsinline=1&rel=0`;
+            } else if (urlObj.searchParams.has('list')) {
+              const listId = urlObj.searchParams.get('list');
+              embedUrl = `https://www.youtube.com/embed/videoseries?list=${listId}&autoplay=1&mute=0&playsinline=1&rel=0`;
+            } else if (urlObj.pathname.includes('/live/')) {
+              const vid = urlObj.pathname.split('/live/')[1].split('/')[0];
+              embedUrl = `https://www.youtube.com/embed/${vid}?autoplay=1&mute=0&playsinline=1&rel=0`;
+            }
+          }
+        } catch (err) {}
+
+        if (!embedUrl) {
+          if (/^[a-zA-Z0-9_-]{11}$/.test(raw)) {
+            embedUrl = `https://www.youtube.com/embed/${raw}?autoplay=1&mute=0&playsinline=1&rel=0`;
+            watchUrl = `https://www.youtube.com/watch?v=${raw}`;
+          } else {
+            embedUrl = raw;
+          }
+        }
+
+        iframe.src = embedUrl;
+        if (descEl) descEl.textContent = 'Custom Connected Stream: ' + raw.substring(0, 32);
+        if (popLink) popLink.href = watchUrl;
+        if (status) status.innerHTML = '🟢 <strong style="color:#34D399;">Active Stream Loaded:</strong> Playing in dropdown.';
+        if (actionRow) actionRow.style.display = 'flex';
+      };
+
+      window.disconnectDashCustomYouTube = function() {
+        const input = document.getElementById('dashCustomYouTubeUrlInput');
+        if (input) input.value = '';
+        const actionRow = document.getElementById('dashCustomYtActionRow');
+        if (actionRow) actionRow.style.display = 'none';
+        const status = document.getElementById('dashCustomYtStatus');
+        if (status) status.innerHTML = '💡 Plays directly in this dropdown without redirects.';
+        switchDashLiveChannel('lokmat');
+      };
+
+      // Auto-close dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!dashLiveDeskOpen) return;
+        const dropdown = document.getElementById('dashLiveDeskDropdown');
+        const btn = document.getElementById('dashLiveStreamDropdownBtn');
+        if (dropdown && !dropdown.contains(e.target) && btn && !btn.contains(e.target)) {
+          closeDashLiveDeskDropdown();
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && dashLiveDeskOpen) {
+          closeDashLiveDeskDropdown();
+        }
       });
   </script>
 
