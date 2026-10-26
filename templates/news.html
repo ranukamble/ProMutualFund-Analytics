@@ -1896,6 +1896,14 @@
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
             background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
           ">🐯 Tadoba 4K</button>
+          <button type="button" onclick="switchLiveChannel('bollywood')" id="liveChan_bollywood" style="
+            padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+            background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+          ">🎬 Bollywood Movies</button>
+          <button type="button" onclick="switchLiveChannel('goldmines')" id="liveChan_goldmines" style="
+            padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+            background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+          ">🍿 Goldmines Action</button>
           <button type="button" onclick="toggleCustomYouTubeInput()" id="liveChan_custom" style="
             padding:3px 9px;border-radius:12px;font-size:9px;font-weight:700;cursor:pointer;
             background:rgba(56,189,248,0.16);border:1px solid rgba(56,189,248,0.4);color:#38BDF8;white-space:nowrap;display:flex;align-items:center;gap:4px;
@@ -1939,13 +1947,12 @@
           position:relative;
         ">
           <iframe id="chandrapurLiveIframe"
-            src="https://www.youtube.com/embed/L-tPyWhPpzg?autoplay=1&mute=1&playsinline=1&rel=0"
-            title="Chandrapur &amp; Live Video Desk"
+            src="https://www.youtube.com/embed/jefRw3wuWLQ?autoplay=1&mute=1&playsinline=1&rel=0"
+            title="Lokmat Live Desk"
             style="width:100%;height:100%;border:none;"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            loading="lazy">
+            allowfullscreen>
           </iframe>
         </div>
 
@@ -1956,13 +1963,13 @@
         ">
           <span style="display:flex;align-items:center;gap:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
             <span style="color:#00D2FF;font-weight:700;">📡 Feed:</span>
-            <span id="liveChannelName" style="color:#CBD5E1;">News18 Lokmat Live (Chandrapur &amp; Vidarbha)</span>
+            <span id="liveChannelName" style="color:#CBD5E1;">Lokmat Live Bulletin (Chandrapur &amp; Maharashtra)</span>
           </span>
           <div style="display:flex;align-items:center;gap:6px;">
             <button type="button" onclick="toggleCustomYouTubeInput()" style="
               background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:#38BDF8;border-radius:4px;padding:2px 6px;font-size:9px;font-weight:700;cursor:pointer;
             ">⚙ Connect YouTube</button>
-            <a id="livePopoutLink" href="https://www.youtube.com/watch?v=L-tPyWhPpzg" target="_blank" rel="noopener" style="
+            <a id="livePopoutLink" href="https://www.youtube.com/watch?v=jefRw3wuWLQ" target="_blank" rel="noopener" style="
               color:#EF4444;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:4px;padding:2px 6px;font-size:9px;text-decoration:none;font-weight:700;
             ">▶ Popout ↗</a>
             <a href="https://www.youtube.com/@liveChandrapurNews" target="_blank" rel="noopener" style="
@@ -5303,11 +5310,13 @@
       const bLokmat = document.getElementById('liveChan_lokmat');
       const bAbp = document.getElementById('liveChan_abp');
       const bTadoba = document.getElementById('liveChan_tadoba');
+      const bBollywood = document.getElementById('liveChan_bollywood');
+      const bGoldmines = document.getElementById('liveChan_goldmines');
       const bCustom = document.getElementById('liveChan_custom');
       const box = document.getElementById('customYouTubeInputBox');
 
       const resetBtns = () => {
-        [bLokmat, bAbp, bTadoba, bCustom].forEach(b => {
+        [bLokmat, bAbp, bTadoba, bBollywood, bGoldmines, bCustom].forEach(b => {
           if (b) {
             b.style.background = 'rgba(255,255,255,0.04)';
             b.style.borderColor = 'rgba(255,255,255,0.08)';
@@ -5338,6 +5347,26 @@
         if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U&autoplay=1&mute=1&playsinline=1&rel=0';
         if (descEl) descEl.textContent = 'Tadoba-Andhari Tiger Reserve Chandrapur Safari (4K)';
         if (popLink) popLink.href = 'https://www.youtube.com/playlist?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U';
+      } else if (chan === 'bollywood') {
+        if (bBollywood) {
+          bBollywood.style.background = 'rgba(245,158,11,0.18)';
+          bBollywood.style.borderColor = 'rgba(245,158,11,0.4)';
+          bBollywood.style.color = '#FBBF24';
+          bBollywood.style.fontWeight = '700';
+        }
+        if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=UUOKf2TUhopMbr1t7v_Km-yw&autoplay=1&mute=1&playsinline=1&rel=0';
+        if (descEl) descEl.textContent = '🎬 Goldmines Bollywood Cinema (Superhit Hindi Movies 24x7)';
+        if (popLink) popLink.href = 'https://www.youtube.com/@GoldminesBollywood';
+      } else if (chan === 'goldmines') {
+        if (bGoldmines) {
+          bGoldmines.style.background = 'rgba(168,85,247,0.18)';
+          bGoldmines.style.borderColor = 'rgba(168,85,247,0.4)';
+          bGoldmines.style.color = '#C084FC';
+          bGoldmines.style.fontWeight = '700';
+        }
+        if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=UUyoXW-Dse7fURq30EWl_CUA&autoplay=1&mute=1&playsinline=1&rel=0';
+        if (descEl) descEl.textContent = '🍿 Goldmines Action Cinema (Blockbuster South Hindi Movies)';
+        if (popLink) popLink.href = 'https://www.youtube.com/@GoldminesTelefilms';
       } else {
         if (bLokmat) {
           bLokmat.style.background = 'rgba(239,68,68,0.18)';
@@ -5345,9 +5374,9 @@
           bLokmat.style.color = '#F87171';
           bLokmat.style.fontWeight = '700';
         }
-        if (iframe) iframe.src = 'https://www.youtube.com/embed/L-tPyWhPpzg?autoplay=1&mute=1&playsinline=1&rel=0';
-        if (descEl) descEl.textContent = 'News18 Lokmat Live (Chandrapur & Vidarbha)';
-        if (popLink) popLink.href = 'https://www.youtube.com/watch?v=L-tPyWhPpzg';
+        if (iframe) iframe.src = 'https://www.youtube.com/embed/jefRw3wuWLQ?autoplay=1&mute=1&playsinline=1&rel=0';
+        if (descEl) descEl.textContent = 'Lokmat Live Bulletin (Chandrapur & Maharashtra)';
+        if (popLink) popLink.href = 'https://www.youtube.com/watch?v=jefRw3wuWLQ';
       }
     }
 

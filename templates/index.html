@@ -2267,9 +2267,13 @@
       background-color: var(--bg-page);
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 20px;
+      padding: 0 20px 20px 20px;
       position: relative;
       box-sizing: border-box;
+    }
+
+    .dashboard-content {
+      padding-top: 20px;
     }
 
     /* Hero Card */
@@ -2404,18 +2408,20 @@
     .fund-nav-tabs-wrapper {
       position: sticky;
       top: 0;
-      z-index: 35;
-      background: rgba(8, 12, 20, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      margin: 10px 0 20px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 0 4px;
+      z-index: 45;
+      background: rgba(8, 13, 26, 0.98);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      margin: 0 -20px 18px -20px;
+      padding: 10px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
     }
 
     [data-theme="light"] .fund-nav-tabs-wrapper {
-      background: rgba(248, 250, 252, 0.92);
-      border-bottom-color: rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-bottom-color: rgba(0, 0, 0, 0.09) !important;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
     }
 
     .fund-nav-tabs {
@@ -3136,17 +3142,33 @@
       font-size: 11.5px;
       font-weight: 600;
       font-variant-numeric: tabular-nums;
-      color: #F1F5F9;
+      color: var(--text-main);
       text-align: right;
     }
 
+    [data-theme="light"] .qstat-val {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] .qstat-label {
+      color: #475569 !important;
+    }
+
+    [data-theme="light"] .qstat-val.text-green {
+      color: #059669 !important;
+    }
+
+    [data-theme="light"] .qstat-val.text-red {
+      color: #DC2626 !important;
+    }
+
     .qstat-val.text-green {
-      color: #34D399;
+      color: var(--green);
       font-weight: 700;
     }
 
     .qstat-val.text-red {
-      color: #F87171;
+      color: var(--red);
       font-weight: 700;
     }
 
@@ -3243,6 +3265,39 @@
       color: #0284C7 !important;
       background: rgba(2, 132, 199, 0.1) !important;
       border-color: rgba(2, 132, 199, 0.3) !important;
+    }
+
+    /* Light Mode Overrides for Fund Manager Tab & Modal */
+    [data-theme="light"] #directSchemeName,
+    [data-theme="light"] #fmmSchemeName {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] #fpMgrAumVal,
+    [data-theme="light"] #fmmAumVal,
+    [data-theme="light"] #fdmMgrAumVal {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] #directMgrTeamList [style*="color:#F8FAFC"],
+    [data-theme="light"] #directMgrTeamList [style*="color: #F8FAFC"],
+    [data-theme="light"] #fmmTeamList [style*="color:#F8FAFC"],
+    [data-theme="light"] #fmmTeamList [style*="color: #F8FAFC"] {
+      color: #0F172A !important;
+    }
+
+    [data-theme="light"] #directMgrTeamList > div,
+    [data-theme="light"] #fmmTeamList > div {
+      background: #FFFFFF !important;
+      border-color: rgba(0, 0, 0, 0.09) !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] #fpMgrStrategyComment,
+    [data-theme="light"] #fmmStrategy {
+      background: rgba(2, 132, 199, 0.06) !important;
+      border-color: rgba(2, 132, 199, 0.22) !important;
+      color: #334155 !important;
     }
 
     .empty-state {
@@ -5838,12 +5893,18 @@
 
         <!-- ══ Institutional Filter Tabs (Matches User's Screenshot Design) ══ -->
         <div class="fund-nav-tabs-wrapper">
-          <div class="fund-nav-tabs" id="fundNavTabs">
-            <button class="fund-tab-btn active" data-tab="overview" onclick="switchFundTab('overview', this)">Overview</button>
-            <button class="fund-tab-btn" data-tab="performance" onclick="switchFundTab('performance', this)">Performance</button>
-            <button class="fund-tab-btn" data-tab="risk" onclick="switchFundTab('risk', this)">Risk</button>
-            <button class="fund-tab-btn" data-tab="portfolio" onclick="switchFundTab('portfolio', this)">Portfolio</button>
-            <button class="fund-tab-btn" data-tab="managers" onclick="switchFundTab('managers', this)">Fund Managers</button>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+            <div class="fund-nav-tabs" id="fundNavTabs">
+              <button class="fund-tab-btn active" data-tab="overview" onclick="switchFundTab('overview', this)">Overview</button>
+              <button class="fund-tab-btn" data-tab="performance" onclick="switchFundTab('performance', this)">Performance</button>
+              <button class="fund-tab-btn" data-tab="risk" onclick="switchFundTab('risk', this)">Risk</button>
+              <button class="fund-tab-btn" data-tab="portfolio" onclick="switchFundTab('portfolio', this)">Portfolio</button>
+              <button class="fund-tab-btn" data-tab="managers" onclick="switchFundTab('managers', this)">Fund Managers</button>
+            </div>
+            <div class="sticky-fund-summary" id="stickyFundSummary" style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
+              <span id="stickyFundName" style="font-size: 12px; font-weight: 700; color: var(--text-muted); max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
+              <span id="stickyFundNav" style="font-size: 13.5px; font-weight: 800; color: var(--cyan); font-family: var(--font-mono, monospace);"></span>
+            </div>
           </div>
         </div>
 
@@ -6010,7 +6071,7 @@
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                       Fund House
                     </span>
-                    <span class="qstat-val" id="qs-house" style="color: #F8FAFC;">--</span>
+                    <span class="qstat-val" id="qs-house">--</span>
                   </div>
                   <div class="qstat-row">
                     <span class="qstat-label">
@@ -6038,7 +6099,7 @@
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                       Lock-in
                     </span>
-                    <span class="qstat-val" id="qs-lockin" style="color: #94A3B8;">Nil (Open-Ended)</span>
+                    <span class="qstat-val" id="qs-lockin" style="color: var(--text-muted);">Nil (Open-Ended)</span>
                   </div>
                 </div>
 
@@ -6049,7 +6110,7 @@
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                       Fund Age
                     </span>
-                    <span class="qstat-val" id="qs-age" style="color: #F8FAFC;">--</span>
+                    <span class="qstat-val" id="qs-age">--</span>
                   </div>
                   <div class="qstat-row">
                     <span class="qstat-label">
@@ -6745,23 +6806,23 @@
               </div>
 
               <!-- Scheme & Lead Manager Banner (Matching Modal Directly On Page) -->
-              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px;">
+              <div style="background: var(--bg-card-alt); border: 1px solid var(--border-light); border-radius: 12px; padding: 12px 14px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
-                  <div style="font-size: 9.5px; color: #64748B; font-weight: 700; text-transform: uppercase;">Scheme</div>
+                  <div style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Scheme</div>
                   <span id="directTeamCountBadge" style="font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 4px; background: rgba(0,210,255,0.12); color: #00D2FF; border: 1px solid rgba(0,210,255,0.3);">
                     👥 6 Portfolio Managers
                   </span>
                 </div>
-                <div id="directSchemeName" style="font-size: 13.5px; font-weight: 700; color: #F8FAFC; line-height: 1.35; margin-bottom: 8px;">
+                <div id="directSchemeName" style="font-size: 13.5px; font-weight: 800; color: var(--text-main); line-height: 1.35; margin-bottom: 8px;">
                   --
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; flex-wrap: wrap; gap: 6px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 8px; flex-wrap: wrap; gap: 6px;">
                   <div style="flex: 1; min-width: 200px;">
                     <div id="fpMgrDisplayName" style="font-size: 15px; font-weight: 800; color: #00D2FF;">
                       --
                     </div>
-                    <div id="fpMgrRole" style="font-size: 10.5px; color: #94A3B8; margin-top: 2px; line-height: 1.4;">
+                    <div id="fpMgrRole" style="font-size: 10.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.4;">
                       Lead Portfolio Manager
                     </div>
                   </div>
@@ -6791,10 +6852,10 @@
                   <div style="font-size: 9px; color: #64748B;">Active portfolios handled</div>
                 </div>
 
-                <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 10px 12px;">
-                  <div style="font-size: 9.5px; color: #94A3B8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;">AUM Under Watch</div>
-                  <div id="fpMgrAumVal" style="font-size: 16px; font-weight: 900; color: #F1F5F9; margin: 3px 0 1px;">--</div>
-                  <div style="font-size: 9px; color: #64748B;">Total scale handled</div>
+                <div style="background: var(--bg-card-alt); border: 1px solid var(--border-light); border-radius: 12px; padding: 10px 12px;">
+                  <div style="font-size: 9.5px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;">AUM Under Watch</div>
+                  <div id="fpMgrAumVal" style="font-size: 16px; font-weight: 900; color: var(--text-main); margin: 3px 0 1px;">--</div>
+                  <div style="font-size: 9px; color: var(--text-muted);">Total scale handled</div>
                 </div>
 
                 <div style="background: rgba(52,211,153,0.04); border: 1px solid rgba(52,211,153,0.18); border-radius: 12px; padding: 10px 12px;">
@@ -11339,6 +11400,11 @@
         try { currentFetchController.abort(); } catch (e) { }
       }
 
+      const stickyNameEl = document.getElementById('stickyFundName');
+      if (stickyNameEl) stickyNameEl.textContent = '';
+      const stickyNavEl = document.getElementById('stickyFundNav');
+      if (stickyNavEl) stickyNavEl.textContent = '';
+
       document.querySelectorAll('.fund-item').forEach(el => el.classList.remove('active'));
 
       if (window.history && window.history.replaceState) {
@@ -11699,6 +11765,11 @@
         }
         document.getElementById('val-nav').textContent = `₹ ${navVal.toFixed(4)}`;
 
+        const stickyNameEl = document.getElementById('stickyFundName');
+        if (stickyNameEl) stickyNameEl.textContent = fullSchemeName;
+        const stickyNavEl = document.getElementById('stickyFundNav');
+        if (stickyNavEl) stickyNavEl.textContent = `₹ ${navVal.toFixed(4)}`;
+
         // Render Top Portfolio Stock Holdings (Real AMC Disclosure Data)
         const holdingsContainer = document.getElementById('holdings-list');
         const holdingsSection = document.getElementById('holdings-section');
@@ -11840,9 +11911,9 @@
       if (high52Val !== null && !isNaN(high52Val) && low52Val !== null && !isNaN(low52Val)) {
         const h = high52Val.toFixed(4);
         const l = low52Val.toFixed(4);
-        document.getElementById('val-range-row').innerHTML = `<span class="text-green">▲ ₹${h}</span> <span style="color: rgba(255,255,255,0.15);">/</span> <span class="text-red">▼ ₹${l}</span>`;
-        document.getElementById('qs-high').innerHTML = `<span style="color:#34D399; font-weight:700;">▲ ₹${h}</span>`;
-        document.getElementById('qs-low').innerHTML = `<span style="color:#F87171; font-weight:700;">▼ ₹${l}</span>`;
+        document.getElementById('val-range-row').innerHTML = `<span class="text-green">▲ ₹${h}</span> <span style="color: var(--text-muted); opacity: 0.6;">/</span> <span class="text-red">▼ ₹${l}</span>`;
+        document.getElementById('qs-high').innerHTML = `<span class="qstat-val text-green">▲ ₹${h}</span>`;
+        document.getElementById('qs-low').innerHTML = `<span class="qstat-val text-red">▼ ₹${l}</span>`;
 
         document.getElementById('val-range-bar').style.display = 'block';
         const rangeSpan = high52Val - low52Val;
@@ -11909,7 +11980,13 @@
       if (ageVal !== null && ageVal !== undefined) {
         const numAge = parseFloat(ageVal);
         document.getElementById('val-age').textContent = `${ageVal} yrs`;
-        document.getElementById('qs-age').innerHTML = `<span style="color:#F8FAFC; font-weight:600;">${ageVal} yrs</span> <span style="font-size:9.5px; color:${numAge >= 5 ? '#34D399' : '#38BDF8'}; font-weight:700;">(${numAge >= 10 ? 'Veteran' : (numAge >= 5 ? 'Established' : 'Emerging')})</span>`;
+        const badgeLabel = numAge >= 10 ? 'Veteran' : (numAge >= 5 ? 'Established' : 'Emerging');
+        const badgeStyle = numAge >= 10
+          ? 'color: var(--green); background: var(--pill-green-bg); border: 1px solid var(--pill-green-border);'
+          : (numAge >= 5
+            ? 'color: var(--cyan); background: rgba(0, 210, 255, 0.12); border: 1px solid rgba(0, 210, 255, 0.28);'
+            : 'color: var(--orange); background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.28);');
+        document.getElementById('qs-age').innerHTML = `<span style="color: var(--text-main); font-weight: 700;">${ageVal} yrs</span> <span style="font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; display: inline-flex; align-items: center; ${badgeStyle}">(${badgeLabel})</span>`;
         const fillBar = document.getElementById('val-age-fill');
         if (fillBar) {
           const pct = Math.min(100, Math.max(10, (numAge / 25) * 100));
@@ -11920,6 +11997,7 @@
           if (numAge >= 10) statusEl.textContent = 'Veteran (10y+)';
           else if (numAge >= 5) statusEl.textContent = 'Established (5y+)';
           else statusEl.textContent = 'Emerging (<5y)';
+          statusEl.style.color = 'var(--green)';
         }
       } else {
         document.getElementById('val-age').textContent = 'N/A';
@@ -12418,26 +12496,26 @@
       const teamListEl = document.getElementById('fmmTeamList');
       if (teamListEl) {
         teamListEl.innerHTML = team.map((m, idx) => `
-                    <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                         <div style="display:flex; align-items:center; gap:10px;">
-                            <div style="width:32px; height:32px; border-radius:8px; background:${idx === 0 ? 'rgba(0,210,255,0.15)' : 'rgba(139,92,246,0.15)'}; color:${idx === 0 ? '#00D2FF' : '#A78BFA'}; border:1px solid ${idx === 0 ? 'rgba(0,210,255,0.3)' : 'rgba(139,92,246,0.3)'}; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">
+                            <div style="width:32px; height:32px; border-radius:8px; background:${idx === 0 ? 'rgba(0,210,255,0.15)' : 'rgba(139,92,246,0.15)'}; color:${idx === 0 ? 'var(--cyan)' : 'var(--purple-light)'}; border:1px solid ${idx === 0 ? 'rgba(0,210,255,0.3)' : 'rgba(139,92,246,0.3)'}; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">
                                 ${idx === 0 ? '⭐' : (idx + 1)}
                             </div>
                             <div>
-                                <div style="font-size:13px; font-weight:800; color:#F8FAFC;">
+                                <div style="font-size:13px; font-weight:800; color:var(--text-main);">
                                     ${m.name}
-                                    <span style="font-size:9.5px; font-weight:700; color:${idx === 0 ? '#00D2FF' : '#94A3B8'}; margin-left:6px;">(${m.role})</span>
+                                    <span style="font-size:9.5px; font-weight:700; color:${idx === 0 ? 'var(--cyan)' : 'var(--text-muted)'}; margin-left:6px;">(${m.role})</span>
                                 </div>
-                                <div style="font-size:10px; color:#94A3B8;">
+                                <div style="font-size:10px; color:var(--text-muted);">
                                     ${m.education ? `${m.education} · ` : ''}🎓 ${m.totalExp}+ Yrs Career Exp · 📊 Manages ${m.fundsCount} ${m.fundsCount === 1 ? 'Scheme' : 'Schemes'}
                                 </div>
                             </div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:13.5px; font-weight:900; color:#38BDF8;">
+                            <div style="font-size:13.5px; font-weight:900; color:var(--cyan);">
                                 ⏱️ ${m.tenureYears.toFixed(1)} Yrs
                             </div>
-                            <div style="font-size:9px; color:#94A3B8;">
+                            <div style="font-size:9px; color:var(--text-muted);">
                                 ${m.sinceYear ? `Managing since ${m.sinceYear}` : 'Portfolio Tenure'}
                             </div>
                         </div>
@@ -23028,26 +23106,26 @@
         const directTeamListEl = document.getElementById('directMgrTeamList');
         if (directTeamListEl) {
           directTeamListEl.innerHTML = team.map((m, idx) => `
-            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
               <div style="display:flex; align-items:center; gap:10px;">
-                <div style="width:32px; height:32px; border-radius:8px; background:${idx === 0 ? 'rgba(0,210,255,0.15)' : 'rgba(139,92,246,0.15)'}; color:${idx === 0 ? '#00D2FF' : '#A78BFA'}; border:1px solid ${idx === 0 ? 'rgba(0,210,255,0.3)' : 'rgba(139,92,246,0.3)'}; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">
+                <div style="width:32px; height:32px; border-radius:8px; background:${idx === 0 ? 'rgba(0,210,255,0.15)' : 'rgba(139,92,246,0.15)'}; color:${idx === 0 ? 'var(--cyan)' : 'var(--purple-light)'}; border:1px solid ${idx === 0 ? 'rgba(0,210,255,0.3)' : 'rgba(139,92,246,0.3)'}; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">
                   ${idx === 0 ? '⭐' : (idx + 1)}
                 </div>
                 <div>
-                  <div style="font-size:13px; font-weight:800; color:#F8FAFC;">
+                  <div style="font-size:13px; font-weight:800; color:var(--text-main);">
                     ${m.name}
-                    <span style="font-size:9.5px; font-weight:700; color:${idx === 0 ? '#00D2FF' : '#94A3B8'}; margin-left:6px;">(${m.role})</span>
+                    <span style="font-size:9.5px; font-weight:700; color:${idx === 0 ? 'var(--cyan)' : 'var(--text-muted)'}; margin-left:6px;">(${m.role})</span>
                   </div>
-                  <div style="font-size:10px; color:#94A3B8;">
+                  <div style="font-size:10px; color:var(--text-muted);">
                     ${m.education ? `${m.education} · ` : ''}🎓 ${m.totalExp}+ Yrs Career Exp · 📊 Manages ${m.fundsCount} ${m.fundsCount === 1 ? 'Scheme' : 'Schemes'}
                   </div>
                 </div>
               </div>
               <div style="text-align:right;">
-                <div style="font-size:13.5px; font-weight:900; color:#38BDF8;">
+                <div style="font-size:13.5px; font-weight:900; color:var(--cyan);">
                   ⏱️ ${m.tenureYears.toFixed(1)} Yrs
                 </div>
-                <div style="font-size:9px; color:#94A3B8;">
+                <div style="font-size:9px; color:var(--text-muted);">
                   ${m.sinceYear ? `Managing since ${m.sinceYear}` : 'Portfolio Tenure'}
                 </div>
               </div>
