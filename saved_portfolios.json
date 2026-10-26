@@ -1,47 +1,33 @@
 [
   {
-    "id": 1,
+    "id": 3,
     "name": "Core Wealth Allocation",
-    "created_at": "21 Oct 2026, 10:45",
-    "investment_amount": 24000,
+    "created_at": "26 Oct 2026, 15:56",
+    "investment_amount": 12000,
     "funds": [
       {
-        "code": "118632",
-        "name": "Nippon India Large Cap Fund - Direct Plan - Growth Option",
-        "category": "Large Cap",
-        "amc": "Nippon",
-        "plan": "Direct",
-        "option": "Growth",
-        "investment_type": "SIP",
-        "sip_amount": 500,
-        "lumpsum_amount": 25000,
-        "sip_weight": 25,
-        "lumpsum_weight": 0,
-        "weight": 25
-      },
-      {
-        "code": "122639",
-        "name": "Parag Parikh Flexi Cap Fund - Direct Plan - Growth",
+        "code": "120843",
+        "name": "Quant Flexi Cap Fund - Direct Plan - Growth Option",
         "category": "Flexi Cap",
-        "amc": "Parag Parikh",
+        "amc": "Quant",
         "plan": "Direct",
         "option": "Growth",
         "investment_type": "SIP",
         "sip_amount": 500,
         "lumpsum_amount": 25000,
-        "sip_weight": 25,
+        "sip_weight": 50,
         "lumpsum_weight": 0,
-        "weight": 25
+        "weight": 50
       },
       {
-        "code": "140088",
-        "name": "Nippon India ETF Gold BeES - Direct Plan",
-        "category": "ETF",
-        "amc": "Nippon",
+        "code": "118968",
+        "name": "HDFC Balanced Advantage Fund - Direct Plan - Growth Option",
+        "category": "Balanced Advantage",
+        "amc": "HDFC",
         "plan": "Direct",
         "option": "Growth",
         "investment_type": "SIP",
-        "sip_amount": 1000,
+        "sip_amount": 500,
         "lumpsum_amount": 25000,
         "sip_weight": 50,
         "lumpsum_weight": 0,
@@ -49,30 +35,143 @@
       }
     ],
     "summary": {
-      "total_sip": 2000,
+      "total_sip": 1000,
       "total_lumpsum": 0,
-      "fund_count": 3,
+      "fund_count": 2,
       "health_status": "Moderate",
       "health_observations": [
-        "\u2713 Healthy category distribution (Top: ETF 50%)",
+        "\u2713 Healthy category distribution (Top: Flexi Cap 50%)",
         "\u26a0\ufe0f Single fund concentration exceeds 40% (50%)",
         "\u2713 Diversified across 2 mutual fund houses"
       ],
       "categories": [
         {
-          "name": "ETF",
-          "amount": 1000,
+          "name": "Flexi Cap",
+          "amount": 500,
           "weight": 50
         },
         {
-          "name": "Large Cap",
+          "name": "Balanced Advantage",
           "amount": 500,
-          "weight": 25
-        },
+          "weight": 50
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "name": "Core Wealth Allocation",
+    "created_at": "26 Oct 2026, 15:38",
+    "investment_amount": 12000,
+    "funds": [
+      {
+        "code": "120843",
+        "name": "Quant Flexi Cap Fund - Direct Plan - Growth Option",
+        "category": "Flexi Cap",
+        "amc": "Quant",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 500,
+        "lumpsum_amount": 25000,
+        "sip_weight": 50,
+        "lumpsum_weight": 0,
+        "weight": 50
+      },
+      {
+        "code": "118968",
+        "name": "HDFC Balanced Advantage Fund - Direct Plan - Growth Option",
+        "category": "Balanced Advantage",
+        "amc": "HDFC",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 500,
+        "lumpsum_amount": 25000,
+        "sip_weight": 50,
+        "lumpsum_weight": 0,
+        "weight": 50
+      }
+    ],
+    "summary": {
+      "total_sip": 1000,
+      "total_lumpsum": 0,
+      "fund_count": 2,
+      "health_status": "Moderate",
+      "health_observations": [
+        "\u2713 Healthy category distribution (Top: Flexi Cap 50%)",
+        "\u26a0\ufe0f Single fund concentration exceeds 40% (50%)",
+        "\u2713 Diversified across 2 mutual fund houses"
+      ],
+      "categories": [
         {
           "name": "Flexi Cap",
           "amount": 500,
-          "weight": 25
+          "weight": 50
+        },
+        {
+          "name": "Balanced Advantage",
+          "amount": 500,
+          "weight": 50
+        }
+      ]
+    }
+  },
+  {
+    "id": 1,
+    "name": "Core Wealth Allocation",
+    "created_at": "26 Oct 2026, 15:34",
+    "investment_amount": 12000,
+    "funds": [
+      {
+        "code": "120843",
+        "name": "Quant Flexi Cap Fund - Direct Plan - Growth Option",
+        "category": "Flexi Cap",
+        "amc": "Quant",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 500,
+        "lumpsum_amount": 25000,
+        "sip_weight": 50,
+        "lumpsum_weight": 0,
+        "weight": 50
+      },
+      {
+        "code": "118968",
+        "name": "HDFC Balanced Advantage Fund - Direct Plan - Growth Option",
+        "category": "Balanced Advantage",
+        "amc": "HDFC",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 500,
+        "lumpsum_amount": 25000,
+        "sip_weight": 50,
+        "lumpsum_weight": 0,
+        "weight": 50
+      }
+    ],
+    "summary": {
+      "total_sip": 1000,
+      "total_lumpsum": 0,
+      "fund_count": 2,
+      "health_status": "Moderate",
+      "health_observations": [
+        "\u2713 Healthy category distribution (Top: Flexi Cap 50%)",
+        "\u26a0\ufe0f Single fund concentration exceeds 40% (50%)",
+        "\u2713 Diversified across 2 mutual fund houses"
+      ],
+      "categories": [
+        {
+          "name": "Flexi Cap",
+          "amount": 500,
+          "weight": 50
+        },
+        {
+          "name": "Balanced Advantage",
+          "amount": 500,
+          "weight": 50
         }
       ]
     }

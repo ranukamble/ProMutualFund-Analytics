@@ -8,7 +8,7 @@ from services.portfolio_builder import (
     delete_saved_portfolio, 
     auto_build_portfolio_by_risk
 )
-from services.ai_advisor import start_ai_generation_task
+from services.ai_advisor import start_ai_generation_task, generate_portfolio_ai_suggestions
 
 portfolio_bp = Blueprint('portfolio', __name__)
 
@@ -113,3 +113,30 @@ def task_status(task_id):
         return jsonify({'state': 'SUCCESS', 'success': True, 'funds': task['funds'], 'name': 'AI Optimal Growth Portfolio'})
     else:
         return jsonify({'state': 'FAILURE', 'success': False, 'error': task.get('error', 'Unknown error')})
+
+@portfolio_bp.route('/api/portfolio/ai-suggest', methods=['POST'])
+def ai_suggest_portfolio():
+    try:
+        data = request.get_json() or {}
+        # Can provide either portfolio object or portfolio_id
+        portfolio_data = data.get('portfolio')
+        if not portfolio_data and 'portfolio_id' in data:
+            pid = data['portfolio_id']
+            all_p = list_saved_portfolios()
+            for p in all_p:
+                if str(p.get('id')) == str(pid):
+                    portfolio_data = p
+                    break
+        
+        if not portfolio_data:
+            portfolio_data = data
+
+        import importlib
+        import services.ai_advisor
+        importlib.reload(services.ai_advisor)
+        result = services.ai_advisor.generate_portfolio_ai_suggestions(portfolio_data)
+        return jsonify(result), 200
+    except Exception as e:
+        import traceback
+        return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 500
+

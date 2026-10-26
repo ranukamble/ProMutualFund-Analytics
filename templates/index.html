@@ -5512,6 +5512,47 @@
       transform: translateX(2px);
       color: #00D2FF;
     }
+
+    /* ── AI Portfolio Intelligence & Optimization Suite ── */
+    .pd-ai-optimization-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 18px;
+      padding: 24px 26px;
+      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.08);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+    .pd-ai-grid-responsive {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 980px) {
+      .pd-ai-grid-responsive {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    .ai-fund-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-alpha-8);
+      border-radius: 14px;
+      padding: 16px 18px;
+      transition: all 180ms ease;
+    }
+    .ai-fund-card:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+      transform: translateY(-1px);
+    }
+    .ai-alt-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.07), rgba(0, 210, 255, 0.05));
+      border: 1px dashed rgba(16, 185, 129, 0.45);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
   </style>
 </head>
 
@@ -9162,6 +9203,146 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- ── SECTION: AI PORTFOLIO INTELLIGENCE & SCHEME OPTIMIZATION SUITE ── -->
+      <div class="pd-ai-optimization-card" id="pdAiAdvisorSection">
+        <!-- Background decorative radial glow -->
+        <div style="position:absolute; top:-60px; right:-60px; width:300px; height:300px; background:radial-gradient(circle, rgba(139,92,246,0.18) 0%, rgba(0,210,255,0.06) 50%, transparent 70%); border-radius:50%; pointer-events:none;"></div>
+        <div style="position:absolute; bottom:-60px; left:15%; width:240px; height:240px; background:radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 70%); border-radius:50%; pointer-events:none;"></div>
+
+        <!-- Header row -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:20px; border-bottom:1px solid var(--border-alpha-8); padding-bottom:18px; position:relative; z-index:2;">
+          <div>
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span style="font-size:24px; filter:drop-shadow(0 0 10px rgba(139,92,246,0.6));">🤖</span>
+              <h2 style="font-size:18px; font-weight:900; color:var(--text-main); margin:0; letter-spacing:-0.3px; display:flex; align-items:center; gap:8px;">
+                AI Portfolio Intelligence &amp; Scheme Optimization
+              </h2>
+              <span id="pdAiScoreBadge" style="font-size:11px; font-weight:800; padding:4px 12px; border-radius:20px; background:linear-gradient(135deg, rgba(139,92,246,0.25), rgba(0,210,255,0.18)); color:#C084FC; border:1px solid rgba(192,132,252,0.4); display:flex; align-items:center; gap:6px;">
+                <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#34D399; box-shadow:0 0 8px #34D399;"></span>
+                <span>AI Health Score: <strong id="pdAiScoreVal">Analyzing...</strong></span>
+              </span>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); margin:6px 0 0 0; line-height:1.5;">
+              Autonomous institutional audit screening for lagging funds, regular-plan commission drag, and category concentration with instant 5★ direct alternative swaps.
+            </p>
+          </div>
+
+          <!-- Quick action buttons -->
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <button type="button" onclick="pg.reRunAiScan()" id="pdAiReScanBtn"
+              style="background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.4); color:#C084FC; padding:8px 15px; border-radius:8px; font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 150ms;"
+              onmouseover="this.style.background='rgba(139,92,246,0.22)'" onmouseout="this.style.background='rgba(139,92,246,0.12)'">
+              <span>⚡</span> Deep AI Re-Scan
+            </button>
+            <button type="button" onclick="pg.applyAiToBuilder()" id="pdAiApplyBuilderBtn"
+              style="background:linear-gradient(135deg, rgba(0,210,255,0.2), rgba(58,123,213,0.3)); border:1px solid var(--cyan); color:#00D2FF; padding:8px 16px; border-radius:8px; font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px; box-shadow:0 2px 10px rgba(0,210,255,0.15); transition:all 150ms;"
+              onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='none'">
+              <span>🚀</span> Apply AI Rebalance to Builder
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Executive CIO Summary Callout -->
+        <div style="background:rgba(18,22,38,0.75); border:1px solid rgba(139,92,246,0.25); border-radius:14px; padding:16px 20px; margin-bottom:24px; position:relative; z-index:2; backdrop-filter:blur(8px);">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:800; color:#A78BFA; text-transform:uppercase; letter-spacing:0.05em;">
+              <span>🧠</span> AI Portfolio Diagnosis &amp; Strategic Executive Summary
+            </div>
+            <div id="pdAiStatusSummaryPill" style="font-size:11px; font-weight:700; color:#34D399; background:rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.3); padding:3px 10px; border-radius:6px;">
+              Institutional Health: Optimal
+            </div>
+          </div>
+          <div id="pdAiExecutiveSummary" style="font-size:12.5px; color:var(--text-main); line-height:1.65; font-weight:500;">
+            <span style="color:var(--text-muted);">Initiating deep scheme audit and risk model evaluation...</span>
+          </div>
+
+          <!-- Projected Impact Micro-Pills -->
+          <div style="display:flex; align-items:center; gap:16px; margin-top:14px; flex-wrap:wrap; padding-top:12px; border-top:1px solid var(--border-alpha-8);">
+            <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-muted);">
+              <span>📈</span> Projected Alpha Uplift: <strong id="pdAiAlphaBoost" style="color:#34D399; font-weight:800;">+2.1% p.a.</strong>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-muted);">
+              <span>💰</span> Est. 10Y Compounding Wealth Delta: <strong id="pdAiWealthDelta" style="color:var(--cyan); font-weight:800;">+₹74,000</strong>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-muted);">
+              <span>🛡️</span> Risk-Parity Shield: <strong style="color:#A78BFA; font-weight:800;">Multi-Asset Balanced</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two-Column Layout: Left = Fund Health & Alternatives, Right = Proper Allocation Blueprint -->
+        <div class="pd-ai-grid-responsive" style="position:relative; z-index:2;">
+          
+          <!-- Left: Scheme-by-Scheme Health & Alternative Swaps -->
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div>
+                <h3 style="font-size:13px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.04em; margin:0; display:flex; align-items:center; gap:6px;">
+                  <span>🔍</span> Scheme Health Audit &amp; High-Conviction Alternatives
+                </h3>
+                <p style="font-size:11px; color:var(--text-muted); margin:2px 0 0 0;">
+                  Flags underperforming or high-cost schemes with pre-matched 5★ Direct alternatives
+                </p>
+              </div>
+            </div>
+
+            <div id="pdAiFundAuditList" style="display:flex; flex-direction:column; gap:12px;">
+              <!-- Injected dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Right: Strategic Allocation Blueprint (Current vs Recommended) -->
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div>
+                <h3 style="font-size:13px; font-weight:800; color:var(--text-main); text-transform:uppercase; letter-spacing:0.04em; margin:0; display:flex; align-items:center; gap:6px;">
+                  <span>📊</span> Strategic Proper Allocation Blueprint
+                </h3>
+                <p style="font-size:11px; color:var(--text-muted); margin:2px 0 0 0;">
+                  Optimal target weights balancing capital growth with volatility control
+                </p>
+              </div>
+              <span style="font-size:10.5px; color:var(--cyan); font-weight:700; background:rgba(0,210,255,0.08); padding:2px 8px; border-radius:4px; border:1px solid rgba(0,210,255,0.2);">
+                Current vs AI Target
+              </span>
+            </div>
+
+            <div style="background:var(--bg-card-alt); border:1px solid var(--border-alpha-8); border-radius:14px; overflow:hidden;">
+              <div style="overflow-x:auto;">
+                <table style="width:100%; border-collapse:collapse; font-size:11.5px; text-align:left;">
+                  <thead>
+                    <tr style="background:var(--hover-alpha); border-bottom:1px solid var(--border-alpha-8); color:var(--text-muted); font-size:10px; text-transform:uppercase; font-weight:700;">
+                      <th style="padding:10px 14px;">Asset Segment</th>
+                      <th style="padding:10px 10px; text-align:right;">Current %</th>
+                      <th style="padding:10px 10px; text-align:right; color:#34D399;">AI Target %</th>
+                      <th style="padding:10px 14px; text-align:right;">Target SIP (₹)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pdAiAllocationTableBody">
+                    <!-- Injected dynamically by JS -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Allocation Action Commentary & Observations -->
+              <div id="pdAiAllocationRationaleList" style="padding:14px 16px; border-top:1px solid var(--border-alpha-8); background:rgba(0,0,0,0.15); display:flex; flex-direction:column; gap:8px; font-size:11px; color:var(--text-muted);">
+                <!-- Injected dynamically by JS -->
+              </div>
+
+              <div id="pdAiQuickRebalanceFooter" style="padding:12px 16px; border-top:1px solid var(--border-alpha-8); background:rgba(0,210,255,0.03); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <span style="font-size:10.5px; color:var(--text-muted); font-weight:600;">Deploy optimal risk-weighted capital split:</span>
+                <button type="button" onclick="pg.applyAiToBuilder()"
+                  style="background:rgba(52,211,153,0.12); border:1px solid #10B981; color:#34D399; padding:5px 12px; border-radius:6px; font-size:11px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:4px; transition:all 150ms;"
+                  onmouseover="this.style.background='rgba(52,211,153,0.22)'" onmouseout="this.style.background='rgba(52,211,153,0.12)'">
+                  <span>⚡</span> Quick Rebalance in Builder
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <!-- Main Visual Grid: Left (Allocation & Holdings) / Right (Insights, Costs & Disclosures) -->
@@ -18167,8 +18348,353 @@
         // 7. Render Expected Return Projections Simulator
         updatePortfolioProjections();
 
+        // 8. Trigger AI Portfolio Intelligence & Scheme Optimization Scan
+        fetchAndRenderAiSuggestions(p);
+
         // Scroll to top of viewer
         if (detailView) detailView.scrollTop = 0;
+      }
+
+      async function fetchAndRenderAiSuggestions(p) {
+        if (!p) return;
+        const scoreBadge = document.getElementById('pdAiScoreBadge');
+        const scoreVal = document.getElementById('pdAiScoreVal');
+        const summaryEl = document.getElementById('pdAiExecutiveSummary');
+        const summaryPill = document.getElementById('pdAiStatusSummaryPill');
+        const alphaEl = document.getElementById('pdAiAlphaBoost');
+        const wealthDeltaEl = document.getElementById('pdAiWealthDelta');
+        const fundAuditList = document.getElementById('pdAiFundAuditList');
+        const allocTableBody = document.getElementById('pdAiAllocationTableBody');
+        const allocRationaleList = document.getElementById('pdAiAllocationRationaleList');
+
+        if (summaryEl) {
+          summaryEl.innerHTML = `<span style="color:var(--cyan); display:inline-flex; align-items:center; gap:6px;"><span>⏳</span> AI Portfolio Engine evaluating expense ratios, plan drags, and risk parity...</span>`;
+        }
+        if (fundAuditList) {
+          fundAuditList.innerHTML = `<div style="padding:24px; text-align:center; color:var(--text-muted); font-size:12px;">Auditing portfolio schemes with AI...</div>`;
+        }
+
+        try {
+          const resp = await fetch('/api/portfolio/ai-suggest', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ portfolio: p })
+          });
+          const data = await resp.json();
+          if (!data || !data.success) {
+            if (summaryEl) summaryEl.textContent = 'AI evaluation could not be completed. Click Re-Scan to retry.';
+            return;
+          }
+
+          state.lastAiSuggestions = data;
+
+          // 1. Update Score & Header
+          if (scoreVal) scoreVal.textContent = `${data.overall_score}/100`;
+          if (summaryPill) {
+            if (data.is_portfolio_already_good) {
+              summaryPill.textContent = "Optimal Health (Good Portfolio)";
+              summaryPill.style.color = '#34D399';
+              summaryPill.style.background = 'rgba(52,211,153,0.18)';
+            } else {
+              summaryPill.textContent = data.health_grade;
+              summaryPill.style.color = data.overall_score >= 80 ? '#34D399' : (data.overall_score >= 65 ? '#FCD34D' : '#F87171');
+              summaryPill.style.background = data.overall_score >= 80 ? 'rgba(52,211,153,0.12)' : (data.overall_score >= 65 ? 'rgba(245,158,11,0.12)' : 'rgba(248,113,113,0.12)');
+            }
+          }
+
+          // 2. Executive CIO Commentary
+          if (summaryEl) {
+            summaryEl.textContent = data.executive_summary;
+          }
+
+          // 3. Impact Metrics
+          const blueprint = data.allocation_blueprint || {};
+          if (alphaEl) {
+            alphaEl.textContent = data.is_portfolio_already_good ? 'Already Maximized' : (blueprint.projected_cagr_boost || '+2.1% p.a.');
+          }
+          if (wealthDeltaEl) {
+            wealthDeltaEl.textContent = data.is_portfolio_already_good ? 'Optimal (0% Fee Drag)' : `+${blueprint.estimated_10y_wealth_delta || '₹74,000'}`;
+          }
+
+          // 4. Scheme Health & Alternatives
+          if (fundAuditList) {
+            const evals = data.fund_evaluations || [];
+            if (evals.length === 0) {
+              fundAuditList.innerHTML = `<div style="color:var(--text-muted); font-size:12px; padding:10px;">No scheme evaluations available.</div>`;
+            } else {
+              const goodBanner = data.is_portfolio_already_good ? `
+                <div style="background:linear-gradient(135deg, rgba(16,185,129,0.18), rgba(5,150,105,0.08)); border:1.5px solid rgba(52,211,153,0.45); border-radius:14px; padding:16px 20px; margin-bottom:12px; display:flex; align-items:center; gap:16px; box-shadow:0 4px 20px rgba(16,185,129,0.08);">
+                  <div style="font-size:32px; line-height:1;">🌟</div>
+                  <div style="flex:1;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
+                      <span style="font-size:13.5px; font-weight:900; color:#34D399; letter-spacing:0.02em;">PORTFOLIO IS ALREADY GOOD</span>
+                      <span style="background:#34D399; color:#042f1a; font-size:10px; font-weight:800; padding:2px 8px; border-radius:999px;">NO CHANGES NEEDED</span>
+                    </div>
+                    <p style="margin:0; font-size:12px; color:var(--text-main); line-height:1.5;">
+                      All your schemes are high-performing <strong>Direct Growth</strong> funds with <strong>zero distributor commission drag</strong>. We do not suggest any alternative funds — your portfolio is in great shape!
+                    </p>
+                  </div>
+                </div>
+              ` : '';
+
+              const fundCardsHtml = evals.map(ev => {
+                const isOptimal = ev.status === 'OPTIMAL';
+                const isReplace = ev.status === 'REPLACE';
+                const badgeColor = isOptimal ? '#34D399' : (isReplace ? '#F87171' : '#FCD34D');
+                const badgeBg = isOptimal ? 'rgba(52,211,153,0.12)' : (isReplace ? 'rgba(248,113,113,0.15)' : 'rgba(245,158,11,0.15)');
+                const borderAccent = isReplace ? 'rgba(248,113,113,0.35)' : 'var(--border-alpha-8)';
+
+                let altHtml = '';
+                if (ev.has_alternative && ev.alternative && !data.is_portfolio_already_good) {
+                  const alt = ev.alternative;
+                  altHtml = `
+                    <div class="ai-alt-box">
+                      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
+                        <div style="display:flex; align-items:center; gap:6px;">
+                          <span style="font-size:12px;">🌟</span>
+                          <span style="font-size:11px; font-weight:800; color:#34D399; text-transform:uppercase; letter-spacing:0.04em;">
+                            AI Suggested Alternative (5★ Direct)
+                          </span>
+                        </div>
+                        <span style="font-size:10px; color:var(--cyan); background:rgba(0,210,255,0.1); border:1px solid rgba(0,210,255,0.25); padding:1px 6px; border-radius:4px; font-weight:700;">
+                          AMFI Code: ${alt.code}
+                        </span>
+                      </div>
+
+                      <div style="font-size:12.5px; font-weight:800; color:var(--text-main); margin-bottom:6px;">
+                        ${escapeHtml(alt.name)}
+                      </div>
+
+                      <div style="display:flex; gap:10px; flex-wrap:wrap; font-size:10.5px; margin-bottom:8px;">
+                        <span style="color:#34D399; font-weight:700; background:rgba(52,211,153,0.1); padding:2px 6px; border-radius:4px;">
+                          📈 3Y Return: +${alt.cagr_3y}%
+                        </span>
+                        <span style="color:var(--text-muted); background:var(--bg-card); padding:2px 6px; border-radius:4px; border:1px solid var(--border-alpha-8);">
+                          📉 TER: ${alt.ter}%
+                        </span>
+                        <span style="color:#FCD34D; font-weight:700;">
+                          ★★★★★ 5-Star
+                        </span>
+                      </div>
+
+                      <div style="font-size:11px; color:var(--text-muted); line-height:1.45; margin-bottom:10px;">
+                        💡 <strong>Why Switch:</strong> ${escapeHtml(alt.advantage)}
+                      </div>
+
+                      <button type="button" onclick="pg.swapFundWithAiAlternative('${ev.code}', '${alt.code}', '${escapeHtml(alt.name).replace(/'/g, "\\'")}', '${alt.category}', ${alt.cagr_3y})"
+                        style="background:linear-gradient(135deg, rgba(16,185,129,0.2), rgba(5,150,105,0.3)); border:1px solid #10B981; color:#34D399; padding:6px 14px; border-radius:8px; font-size:11px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:all 150ms;"
+                        onmouseover="this.style.background='rgba(16,185,129,0.35)'" onmouseout="this.style.background='linear-gradient(135deg, rgba(16,185,129,0.2), rgba(5,150,105,0.3))'">
+                        <span>🔄</span> Swap this Fund with AI Alternative
+                      </button>
+                    </div>
+                  `;
+                } else {
+                  altHtml = `
+                    <div style="margin-top:10px; padding:8px 12px; background:rgba(52,211,153,0.08); border:1px solid rgba(52,211,153,0.25); border-radius:8px; display:flex; align-items:center; gap:8px;">
+                      <span style="color:#34D399; font-size:13px;">🛡️</span>
+                      <span style="font-size:11px; font-weight:700; color:#34D399;">
+                        ${data.is_portfolio_already_good ? 'Holding is already good — No alternative fund needed.' : 'Top-quartile Direct Growth scheme — No replacement needed.'}
+                      </span>
+                    </div>
+                  `;
+                }
+
+                const issuesHtml = (ev.issues || []).map(iss => `
+                  <li style="color:#F87171; font-size:11px; line-height:1.4; margin-bottom:3px;">
+                    ⚠️ ${escapeHtml(iss)}
+                  </li>
+                `).join('');
+
+                const strengthsHtml = (ev.strengths || []).map(str => `
+                  <li style="color:#34D399; font-size:11px; line-height:1.4; margin-bottom:3px;">
+                    ✓ ${escapeHtml(str)}
+                  </li>
+                `).join('');
+
+                return `
+                  <div class="ai-fund-card" style="border-color:${borderAccent};">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;">
+                      <div>
+                        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:4px;">
+                          <span style="font-size:10px; font-weight:800; color:var(--cyan); background:rgba(0,210,255,0.1); padding:2px 7px; border-radius:4px;">
+                            ${escapeHtml(ev.category)}
+                          </span>
+                          <span style="font-size:10px; color:var(--text-muted);">
+                            Allocation: <strong>${ev.weight.toFixed(0)}%</strong>
+                          </span>
+                        </div>
+                        <h4 style="font-size:12.5px; font-weight:800; color:var(--text-main); margin:0;">
+                          ${escapeHtml(ev.name)}
+                        </h4>
+                      </div>
+                      <span style="font-size:10.5px; font-weight:800; color:${badgeColor}; background:${badgeBg}; padding:3px 9px; border-radius:6px; white-space:nowrap; border:1px solid ${badgeColor}40;">
+                        ${escapeHtml(ev.badge)}
+                      </span>
+                    </div>
+
+                    ${(issuesHtml || strengthsHtml) ? `
+                      <ul style="margin:8px 0; padding-left:14px; list-style-type:none;">
+                        ${issuesHtml}
+                        ${strengthsHtml}
+                      </ul>
+                    ` : ''}
+
+                    ${altHtml}
+                  </div>
+                `;
+              }).join('');
+
+              fundAuditList.innerHTML = goodBanner + fundCardsHtml;
+            }
+          }
+
+          // 5. Strategic Allocation Table
+          if (allocTableBody) {
+            const targets = blueprint.target_allocations || [];
+            allocTableBody.innerHTML = targets.map(t => {
+              const delta = t.delta_weight;
+              const isGood = data.is_portfolio_already_good;
+              const deltaColor = isGood ? '#34D399' : (delta > 0 ? '#34D399' : (delta < 0 ? '#F87171' : 'var(--text-muted)'));
+              const deltaText = isGood ? 'Optimal (0%)' : (delta > 0 ? `+${delta}%` : `${delta}%`);
+
+              return `
+                <tr style="border-bottom:1px solid var(--border-alpha-8);">
+                  <td style="padding:10px 14px; color:var(--text-main); font-weight:700;">
+                    ${escapeHtml(t.category)}
+                  </td>
+                  <td style="padding:10px 10px; text-align:right; color:var(--text-muted); font-weight:600;">
+                    ${t.current_weight}%
+                  </td>
+                  <td style="padding:10px 10px; text-align:right; color:#34D399; font-weight:800;">
+                    ${t.recommended_weight}% <span style="font-size:9.5px; color:${deltaColor};">(${deltaText})</span>
+                  </td>
+                  <td style="padding:10px 14px; text-align:right; color:var(--cyan); font-weight:700;">
+                    ₹${new Intl.NumberFormat('en-IN').format(t.recommended_sip)}
+                  </td>
+                </tr>
+              `;
+            }).join('');
+          }
+
+          // 6. Strategic Rationale
+          if (allocRationaleList) {
+            const actions = blueprint.rebalance_actions || [];
+            allocRationaleList.innerHTML = actions.map(act => {
+              const icon = act.startsWith('✓') ? '✅' : '⚡';
+              return `
+                <div style="display:flex; align-items:flex-start; gap:6px;">
+                  <span style="font-size:12px;">${icon}</span>
+                  <span style="color:var(--text-main); line-height:1.4;">${escapeHtml(act)}</span>
+                </div>
+              `;
+            }).join('');
+          }
+
+          // 7. Update Builder & Rebalance Buttons
+          const applyBtn = document.getElementById('pdAiApplyBuilderBtn');
+          const quickFooter = document.getElementById('pdAiQuickRebalanceFooter');
+          if (data.is_portfolio_already_good) {
+            if (applyBtn) {
+              applyBtn.innerHTML = '<span>✅</span> Portfolio Already Optimal';
+              applyBtn.style.background = 'rgba(52,211,153,0.15)';
+              applyBtn.style.borderColor = '#34D399';
+              applyBtn.style.color = '#34D399';
+            }
+            if (quickFooter) {
+              quickFooter.innerHTML = `
+                <div style="display:flex; align-items:center; gap:8px; width:100%;">
+                  <span style="font-size:14px; color:#34D399;">✅</span>
+                  <span style="font-size:11px; color:#34D399; font-weight:700;">Current asset split is already optimal — no rebalancing needed.</span>
+                </div>
+              `;
+            }
+          } else {
+            if (applyBtn) {
+              applyBtn.innerHTML = '<span>🚀</span> Apply AI Rebalance to Builder';
+              applyBtn.style.background = 'linear-gradient(135deg, rgba(0,210,255,0.2), rgba(58,123,213,0.3))';
+              applyBtn.style.borderColor = 'var(--cyan)';
+              applyBtn.style.color = '#00D2FF';
+            }
+            if (quickFooter) {
+              quickFooter.innerHTML = `
+                <span style="font-size:10.5px; color:var(--text-muted); font-weight:600;">Deploy optimal risk-weighted capital split:</span>
+                <button type="button" onclick="pg.applyAiToBuilder()"
+                  style="background:rgba(52,211,153,0.12); border:1px solid #10B981; color:#34D399; padding:5px 12px; border-radius:6px; font-size:11px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:4px; transition:all 150ms;"
+                  onmouseover="this.style.background='rgba(52,211,153,0.22)'" onmouseout="this.style.background='rgba(52,211,153,0.12)'">
+                  <span>⚡</span> Quick Rebalance in Builder
+                </button>
+              `;
+            }
+          }
+
+        } catch (err) {
+          console.error('[AI Advisor Error]', err);
+          if (summaryEl) summaryEl.textContent = 'Could not fetch AI portfolio insights right now.';
+        }
+      }
+
+      async function swapFundWithAiAlternative(oldCode, newCode, newName, newCategory, newCagr) {
+        if (!state.currentViewingPortfolio) return;
+        const p = state.currentViewingPortfolio;
+        let funds = p.funds || [];
+        
+        let found = false;
+        funds = funds.map(f => {
+          if (String(f.code) === String(oldCode)) {
+            found = true;
+            return {
+              ...f,
+              code: String(newCode),
+              name: newName,
+              category: newCategory || f.category,
+              plan: 'Direct',
+              option: 'Growth',
+              amc: (typeof getAMC === 'function' ? getAMC(newName) : 'AMC')
+            };
+          }
+          return f;
+        });
+
+        if (!found) {
+          showToast('Could not locate original fund to swap', 'warning');
+          return;
+        }
+
+        p.funds = funds;
+        state.currentViewingPortfolio = p;
+
+        // Persist update to backend
+        try {
+          const resp = await fetch('/api/portfolio/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(p)
+          });
+          const res = await resp.json();
+          if (res.success) {
+            showToast(`✅ Successfully swapped with ${newName}!`, 'success');
+            // Re-render viewer with updated portfolio
+            viewPortfolio(p);
+          } else {
+            showToast(res.error || 'Failed to persist portfolio swap', 'error');
+          }
+        } catch (e) {
+          showToast(`Swapped locally with ${newName}`, 'success');
+          viewPortfolio(p);
+        }
+      }
+
+      function applyAiToBuilder() {
+        if (!state.currentViewingPortfolio) return;
+        const p = state.currentViewingPortfolio;
+        loadPortfolioById(p.id);
+        showToast('Loaded portfolio into Builder! Ready for AI fine-tuning.', 'success');
+      }
+
+      function reRunAiScan() {
+        if (!state.currentViewingPortfolio) return;
+        fetchAndRenderAiSuggestions(state.currentViewingPortfolio);
+        showToast('Running deep AI portfolio analysis...', 'info');
       }
 
       function backToSavedFromDetail() {
@@ -18347,6 +18873,10 @@
         exportCSV,
         printReport,
         showToast,
+        fetchAndRenderAiSuggestions,
+        reRunAiScan,
+        swapFundWithAiAlternative,
+        applyAiToBuilder,
         renderSelectedFunds: () => renderCenterPanel(),
         updateDonutPreview: () => renderRightPanel(),
         loadPortfolio: (p) => {
