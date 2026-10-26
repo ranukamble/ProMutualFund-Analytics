@@ -1896,6 +1896,10 @@
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
             background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
           ">🐯 Tadoba 4K</button>
+          <button type="button" onclick="switchLiveChannel('songs')" id="liveChan_songs" style="
+            padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+            background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+          ">🎵 Trending Songs 2026</button>
           <button type="button" onclick="switchLiveChannel('bollywood')" id="liveChan_bollywood" style="
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
             background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
@@ -1909,6 +1913,50 @@
             background:rgba(56,189,248,0.16);border:1px solid rgba(56,189,248,0.4);color:#38BDF8;white-space:nowrap;display:flex;align-items:center;gap:4px;
             box-shadow:0 0 10px rgba(56,189,248,0.15);
           ">🔗 Connect My YouTube</button>
+        </div>
+
+        <!-- Trending Movies Quick Picker (Appears when Bollywood Movies is selected) -->
+        <div id="movieSubPills" style="display:none;gap:5px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;align-items:center;padding:7px 10px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(234,88,12,0.06));border:1px solid rgba(245,158,11,0.28);border-radius:10px;">
+          <span style="font-size:9px;font-weight:800;color:#FBBF24;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;display:flex;align-items:center;gap:3px;margin-right:2px;">
+            <span>🔥</span> Trending Movies:
+          </span>
+          <button type="button" onclick="playMovieStream('hera_pheri')" id="movPill_hera_pheri" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:700;cursor:pointer;background:rgba(245,158,11,0.22);border:1px solid rgba(245,158,11,0.5);color:#FDE68A;white-space:nowrap;transition:all 150ms;">
+            🤣 Hera Pheri (HD)
+          </button>
+          <button type="button" onclick="playMovieStream('hungama')" id="movPill_hungama" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+            🎭 Hungama (HD)
+          </button>
+          <button type="button" onclick="playMovieStream('sooryavansham')" id="movPill_sooryavansham" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+            👑 Sooryavansham (HD)
+          </button>
+          <button type="button" onclick="playMovieStream('shemaroo_premiere')" id="movPill_shemaroo_premiere" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+            🌟 Shemaroo Cinema (24x7)
+          </button>
+          <button type="button" onclick="playMovieStream('goldmines_bollywood')" id="movPill_goldmines_bollywood" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+            🎬 Goldmines Bollywood (24x7)
+          </button>
+        </div>
+
+        <!-- Trending Songs 2026 Quick Picker (Appears when Trending Songs 2026 is selected) -->
+        <div id="songsSubPills" style="display:none;gap:5px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;align-items:center;padding:7px 10px;background:linear-gradient(135deg,rgba(236,72,153,0.12),rgba(168,85,247,0.08));border:1px solid rgba(236,72,153,0.3);border-radius:10px;">
+          <span style="font-size:9px;font-weight:800;color:#F472B6;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;display:flex;align-items:center;gap:3px;margin-right:2px;">
+            <span>🎵</span> 2026 Hits:
+          </span>
+          <button type="button" onclick="playSongStream('tseries_2026')" id="songPill_tseries_2026" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:700;cursor:pointer;background:rgba(236,72,153,0.25);border:1px solid rgba(236,72,153,0.6);color:#FCE7F3;white-space:nowrap;transition:all 150ms;">
+            🔥 T-Series Chartbusters
+          </button>
+          <button type="button" onclick="playSongStream('arijit_singh')" id="songPill_arijit_singh" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+            💖 Arijit Singh Hits
+          </button>
+          <button type="button" onclick="playSongStream('party_mashup')" id="songPill_party_mashup" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+            ⚡ Bollywood Party Beats
+          </button>
+          <button type="button" onclick="playSongStream('zee_party')" id="songPill_zee_party" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+            🌟 Zee Music Trending
+          </button>
+          <button type="button" onclick="playSongStream('lofi_chill')" id="songPill_lofi_chill" style="padding:3px 9px;border-radius:8px;font-size:9px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#CBD5E1;white-space:nowrap;transition:all 150ms;">
+            🎧 Lo-Fi Bollywood Chill
+          </button>
         </div>
 
         <!-- Expandable Connect My YouTube Box -->
@@ -5303,6 +5351,118 @@
       switchLiveChannel('lokmat');
     }
 
+    const movieCatalog = {
+      'hera_pheri': {
+        title: '🤣 Hera Pheri (Full HD Movie) - Akshay Kumar, Paresh Rawal, Suniel Shetty',
+        src: 'https://www.youtube.com/embed/TIQ5hrfermg?autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/watch?v=TIQ5hrfermg'
+      },
+      'hungama': {
+        title: '🎭 Hungama (Full HD Movie) - Akshaye Khanna, Paresh Rawal, Rimi Sen',
+        src: 'https://www.youtube.com/embed/oqeUuaK1bPU?autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/watch?v=oqeUuaK1bPU'
+      },
+      'sooryavansham': {
+        title: '👑 Sooryavansham (Full HD Movie) - Amitabh Bachchan, Soundarya',
+        src: 'https://www.youtube.com/embed/vB2m1uRF30c?autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/watch?v=vB2m1uRF30c'
+      },
+      'shemaroo_premiere': {
+        title: '🌟 Shemaroo Bollywood Cinema Premiere (Superhit Hindi Movies 24x7)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UUBOmfqgTZi7yDp4-3Lr_3lA&autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@shemaroomovies'
+      },
+      'goldmines_bollywood': {
+        title: '🎬 Goldmines Bollywood Hits (Superhit Hindi Cinema 24x7)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UUOF23vGxkbhN4wl7ROrgXsA&autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@GoldminesBollywood'
+      }
+    };
+
+    function playMovieStream(movieId) {
+      const movie = movieCatalog[movieId] || movieCatalog['hera_pheri'];
+      const iframe = document.getElementById('chandrapurLiveIframe');
+      const descEl = document.getElementById('liveChannelName');
+      const popLink = document.getElementById('livePopoutLink');
+
+      if (iframe) iframe.src = movie.src;
+      if (descEl) descEl.textContent = movie.title;
+      if (popLink) popLink.href = movie.url;
+
+      Object.keys(movieCatalog).forEach(id => {
+        const pill = document.getElementById(`movPill_${id}`);
+        if (pill) {
+          if (id === movieId) {
+            pill.style.background = 'rgba(245,158,11,0.25)';
+            pill.style.borderColor = 'rgba(245,158,11,0.55)';
+            pill.style.color = '#FDE68A';
+            pill.style.fontWeight = '700';
+          } else {
+            pill.style.background = 'rgba(255,255,255,0.05)';
+            pill.style.borderColor = 'rgba(255,255,255,0.1)';
+            pill.style.color = '#CBD5E1';
+            pill.style.fontWeight = '600';
+          }
+        }
+      });
+    }
+
+    const songCatalog = {
+      'tseries_2026': {
+        title: '🔥 T-Series Trending Hits 2026 (Official 24x7 Non-Stop Music Feed)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UUq-FJ5jknLsUf-MWSy4_brA&autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@tseries'
+      },
+      'arijit_singh': {
+        title: '💖 Arijit Singh Soulful Hits & Romantic Jukebox',
+        src: 'https://www.youtube.com/embed/AURtJ1hvRjw?autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/watch?v=AURtJ1hvRjw'
+      },
+      'party_mashup': {
+        title: '⚡ Bollywood Dance Mashup 2026 | Non-Stop Party Beats & Club Hits (T-Series)',
+        src: 'https://www.youtube.com/embed/EFUkIyQ8p_Y?autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/watch?v=EFUkIyQ8p_Y'
+      },
+      'zee_party': {
+        title: '🌟 Zee Music Bollywood Mega Mix | 3 Hours Non-Stop Superhits',
+        src: 'https://www.youtube.com/embed/EK8NG9Du_cQ?autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/watch?v=EK8NG9Du_cQ'
+      },
+      'lofi_chill': {
+        title: '🎧 Midnight Lo-Fi Bollywood Chillout | Relaxing Hindi Beats & Acoustics',
+        src: 'https://www.youtube.com/embed/VaX6J6SIb3s?autoplay=1&mute=0&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/watch?v=VaX6J6SIb3s'
+      }
+    };
+
+    function playSongStream(songId) {
+      const song = songCatalog[songId] || songCatalog['tseries_2026'];
+      const iframe = document.getElementById('chandrapurLiveIframe');
+      const descEl = document.getElementById('liveChannelName');
+      const popLink = document.getElementById('livePopoutLink');
+
+      if (iframe) iframe.src = song.src;
+      if (descEl) descEl.textContent = song.title;
+      if (popLink) popLink.href = song.url;
+
+      Object.keys(songCatalog).forEach(id => {
+        const pill = document.getElementById(`songPill_${id}`);
+        if (pill) {
+          if (id === songId) {
+            pill.style.background = 'rgba(236,72,153,0.28)';
+            pill.style.borderColor = 'rgba(236,72,153,0.65)';
+            pill.style.color = '#FCE7F3';
+            pill.style.fontWeight = '700';
+          } else {
+            pill.style.background = 'rgba(255,255,255,0.05)';
+            pill.style.borderColor = 'rgba(255,255,255,0.1)';
+            pill.style.color = '#CBD5E1';
+            pill.style.fontWeight = '600';
+          }
+        }
+      });
+    }
+
     function switchLiveChannel(chan) {
       const iframe = document.getElementById('chandrapurLiveIframe');
       const descEl = document.getElementById('liveChannelName');
@@ -5310,13 +5470,15 @@
       const bLokmat = document.getElementById('liveChan_lokmat');
       const bAbp = document.getElementById('liveChan_abp');
       const bTadoba = document.getElementById('liveChan_tadoba');
+      const bSongs = document.getElementById('liveChan_songs');
       const bBollywood = document.getElementById('liveChan_bollywood');
       const bGoldmines = document.getElementById('liveChan_goldmines');
       const bCustom = document.getElementById('liveChan_custom');
-      const box = document.getElementById('customYouTubeInputBox');
+      const subPills = document.getElementById('movieSubPills');
+      const songPills = document.getElementById('songsSubPills');
 
       const resetBtns = () => {
-        [bLokmat, bAbp, bTadoba, bBollywood, bGoldmines, bCustom].forEach(b => {
+        [bLokmat, bAbp, bTadoba, bSongs, bBollywood, bGoldmines, bCustom].forEach(b => {
           if (b) {
             b.style.background = 'rgba(255,255,255,0.04)';
             b.style.borderColor = 'rgba(255,255,255,0.08)';
@@ -5328,6 +5490,8 @@
       resetBtns();
 
       if (chan === 'abp') {
+        if (subPills) subPills.style.display = 'none';
+        if (songPills) songPills.style.display = 'none';
         if (bAbp) {
           bAbp.style.background = 'rgba(239,68,68,0.18)';
           bAbp.style.borderColor = 'rgba(239,68,68,0.4)';
@@ -5338,6 +5502,8 @@
         if (descEl) descEl.textContent = 'ABP Majha Live (Vidarbha / Maharashtra)';
         if (popLink) popLink.href = 'https://www.youtube.com/watch?v=a5B0FhXuLoY';
       } else if (chan === 'tadoba') {
+        if (subPills) subPills.style.display = 'none';
+        if (songPills) songPills.style.display = 'none';
         if (bTadoba) {
           bTadoba.style.background = 'rgba(16,185,129,0.18)';
           bTadoba.style.borderColor = 'rgba(16,185,129,0.4)';
@@ -5347,17 +5513,29 @@
         if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U&autoplay=1&mute=1&playsinline=1&rel=0';
         if (descEl) descEl.textContent = 'Tadoba-Andhari Tiger Reserve Chandrapur Safari (4K)';
         if (popLink) popLink.href = 'https://www.youtube.com/playlist?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U';
+      } else if (chan === 'songs') {
+        if (subPills) subPills.style.display = 'none';
+        if (songPills) songPills.style.display = 'flex';
+        if (bSongs) {
+          bSongs.style.background = 'rgba(236,72,153,0.18)';
+          bSongs.style.borderColor = 'rgba(236,72,153,0.45)';
+          bSongs.style.color = '#F472B6';
+          bSongs.style.fontWeight = '700';
+        }
+        playSongStream('tseries_2026');
       } else if (chan === 'bollywood') {
+        if (songPills) songPills.style.display = 'none';
+        if (subPills) subPills.style.display = 'flex';
         if (bBollywood) {
           bBollywood.style.background = 'rgba(245,158,11,0.18)';
           bBollywood.style.borderColor = 'rgba(245,158,11,0.4)';
           bBollywood.style.color = '#FBBF24';
           bBollywood.style.fontWeight = '700';
         }
-        if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=UUOKf2TUhopMbr1t7v_Km-yw&autoplay=1&mute=1&playsinline=1&rel=0';
-        if (descEl) descEl.textContent = '🎬 Goldmines Bollywood Cinema (Superhit Hindi Movies 24x7)';
-        if (popLink) popLink.href = 'https://www.youtube.com/@GoldminesBollywood';
+        playMovieStream('hera_pheri');
       } else if (chan === 'goldmines') {
+        if (subPills) subPills.style.display = 'none';
+        if (songPills) songPills.style.display = 'none';
         if (bGoldmines) {
           bGoldmines.style.background = 'rgba(168,85,247,0.18)';
           bGoldmines.style.borderColor = 'rgba(168,85,247,0.4)';
@@ -5368,6 +5546,8 @@
         if (descEl) descEl.textContent = '🍿 Goldmines Action Cinema (Blockbuster South Hindi Movies)';
         if (popLink) popLink.href = 'https://www.youtube.com/@GoldminesTelefilms';
       } else {
+        if (subPills) subPills.style.display = 'none';
+        if (songPills) songPills.style.display = 'none';
         if (bLokmat) {
           bLokmat.style.background = 'rgba(239,68,68,0.18)';
           bLokmat.style.borderColor = 'rgba(239,68,68,0.4)';
