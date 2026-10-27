@@ -1857,16 +1857,18 @@
         border:1px solid rgba(239,68,68,0.3);
         box-shadow:0 8px 24px rgba(239,68,68,0.12);
         border-radius:16px;padding:14px;
-        position:relative;
+        position:relative;transition:all 200ms ease;
       ">
-        <div style="
+        <div id="newsLiveDragShield" style="display:none;position:absolute;inset:0;z-index:999999;cursor:grabbing;"></div>
+        <div id="newsLiveDeskHeader" style="
           display:flex;justify-content:space-between;
-          align-items:center;margin-bottom:10px;
+          align-items:center;margin-bottom:10px;user-select:none;touch-action:none;
         ">
           <div style="
             font-size:11px;font-weight:800;color:#F1F5F9;
             display:flex;align-items:center;gap:6px;
           ">
+            <span id="newsLiveGripHandle" style="display:none;font-size:14px;color:#94A3B8;cursor:grab;letter-spacing:-1px;" title="Drag Handle">⠿</span>
             <span style="
               width:7px;height:7px;border-radius:50%;
               background:#EF4444;box-shadow:0 0 8px #EF4444;
@@ -1874,18 +1876,23 @@
             "></span>
             CHANDRAPUR LIVE DESK
           </div>
-          <div style="display:flex;align-items:center;gap:6px;">
+          <div style="display:flex;align-items:center;gap:5px;">
+            <button type="button" id="newsLiveFloatBtn" onclick="toggleNewsLiveFloat(event)" style="
+              background: rgba(56,189,248,0.14); border: 1px solid rgba(56,189,248,0.35);
+              color: #38BDF8; border-radius: 5px; padding: 2px 7px; font-size: 8.5px; font-weight: 800;
+              cursor: pointer; display: flex; align-items: center; gap: 3px;
+            " title="Float player so you can drag it anywhere while reading news">🗗 Float</button>
             <button type="button" onclick="refreshLiveStream()" style="
               background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3);
               color: #F87171; border-radius: 5px; padding: 2px 7px; font-size: 8.5px; font-weight: 800;
               cursor: pointer; display: flex; align-items: center; gap: 3px;
-            " title="Refresh Live Stream to Latest Broadcast">🔄 Refresh</button>
+            " title="Refresh Live Stream to Latest Broadcast">🔄</button>
             <span style="
               background:rgba(239,68,68,0.15);
               border:1px solid rgba(239,68,68,0.3);
               color:#F87171;border-radius:4px;
-              padding:2px 6px;font-size:8px;font-weight:800;letter-spacing:0.06em;
-            ">🔴 ON-AIR 24x7</span>
+              padding:2px 5px;font-size:7.5px;font-weight:800;letter-spacing:0.04em;
+            ">ON-AIR</span>
           </div>
         </div>
 
@@ -5646,6 +5653,144 @@
         setTimeout(() => refreshBtn.style.opacity = '1', 600);
       }
       switchLiveChannel(currentLiveChan, true);
+    }
+
+    let isNewsLiveFloated = false;
+    let isDraggingNewsLive = false;
+    let newsDragStartX = 0, newsDragStartY = 0;
+    let newsDragInitLeft = 0, newsDragInitTop = 0;
+
+    function toggleNewsLiveFloat(e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      const card = document.getElementById('chandrapurLivePlayerCard');
+      const btn = document.getElementById('newsLiveFloatBtn');
+      const grip = document.getElementById('newsLiveGripHandle');
+      const header = document.getElementById('newsLiveDeskHeader');
+      if (!card) return;
+
+      isNewsLiveFloated = !isNewsLiveFloated;
+
+      if (isNewsLiveFloated) {
+        card.style.position = 'fixed';
+        card.style.zIndex = '999999';
+        card.style.bottom = '24px';
+        card.style.right = '24px';
+        card.style.width = '370px';
+        card.style.maxWidth = 'calc(100vw - 32px)';
+        card.style.boxShadow = '0 30px 80px rgba(0,0,0,0.95), 0 0 35px rgba(239,68,68,0.3)';
+        card.style.borderColor = 'rgba(56,189,248,0.6)';
+        if (grip) grip.style.display = 'inline-block';
+        if (header) {
+          header.style.cursor = 'grab';
+          header.title = 'Click & drag anywhere to float on screen';
+        }
+        if (btn) {
+          btn.innerHTML = '⚓ Dock';
+          btn.title = 'Dock back into sidebar';
+          btn.style.background = 'rgba(245,158,11,0.2)';
+          btn.style.borderColor = 'rgba(245,158,11,0.5)';
+          btn.style.color = '#FDE68A';
+        }
+        initNewsLiveDraggable();
+      } else {
+        card.style.position = 'relative';
+        card.style.zIndex = 'auto';
+        card.style.bottom = 'auto';
+        card.style.right = 'auto';
+        card.style.left = 'auto';
+        card.style.top = 'auto';
+        card.style.width = '100%';
+        card.style.boxShadow = '0 8px 24px rgba(239,68,68,0.12)';
+        card.style.borderColor = 'rgba(239,68,68,0.3)';
+        if (grip) grip.style.display = 'none';
+        if (header) {
+          header.style.cursor = 'default';
+          header.title = '';
+        }
+        if (btn) {
+          btn.innerHTML = '🗗 Float';
+          btn.title = 'Float player on screen';
+          btn.style.background = 'rgba(56,189,248,0.14)';
+          btn.style.borderColor = 'rgba(56,189,248,0.35)';
+          btn.style.color = '#38BDF8';
+        }
+      }
+    }
+
+    function initNewsLiveDraggable() {
+      const header = document.getElementById('newsLiveDeskHeader');
+      const card = document.getElementById('chandrapurLivePlayerCard');
+      const shield = document.getElementById('newsLiveDragShield');
+      if (!header || !card || header._dragBound) return;
+      header._dragBound = true;
+
+      const onStart = (clientX, clientY, target) => {
+        if (!isNewsLiveFloated) return;
+        if (target && (target.tagName === 'BUTTON' || target.tagName === 'A' || target.closest('button') || target.closest('a'))) return;
+
+        isDraggingNewsLive = true;
+        newsDragStartX = clientX;
+        newsDragStartY = clientY;
+        const rect = card.getBoundingClientRect();
+        newsDragInitLeft = rect.left;
+        newsDragInitTop = rect.top;
+
+        card.style.bottom = 'auto';
+        card.style.right = 'auto';
+        card.style.left = rect.left + 'px';
+        card.style.top = rect.top + 'px';
+        card.style.transition = 'none';
+
+        if (shield) shield.style.display = 'block';
+        header.style.cursor = 'grabbing';
+      };
+
+      const onMove = (clientX, clientY) => {
+        if (!isDraggingNewsLive || !isNewsLiveFloated) return;
+        const dx = clientX - newsDragStartX;
+        const dy = clientY - newsDragStartY;
+        let newLeft = newsDragInitLeft + dx;
+        let newTop = newsDragInitTop + dy;
+
+        const maxLeft = Math.max(8, window.innerWidth - card.offsetWidth - 8);
+        const maxTop = Math.max(8, window.innerHeight - card.offsetHeight - 8);
+
+        newLeft = Math.max(8, Math.min(newLeft, maxLeft));
+        newTop = Math.max(8, Math.min(newTop, maxTop));
+
+        card.style.left = newLeft + 'px';
+        card.style.top = newTop + 'px';
+      };
+
+      const onEnd = () => {
+        if (!isDraggingNewsLive) return;
+        isDraggingNewsLive = false;
+        if (shield) shield.style.display = 'none';
+        header.style.cursor = 'grab';
+      };
+
+      header.addEventListener('mousedown', (e) => onStart(e.clientX, e.clientY, e.target));
+      window.addEventListener('mousemove', (e) => {
+        if (isDraggingNewsLive) {
+          e.preventDefault();
+          onMove(e.clientX, e.clientY);
+        }
+      });
+      window.addEventListener('mouseup', onEnd);
+
+      header.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length === 1) onStart(e.touches[0].clientX, e.touches[0].clientY, e.target);
+      }, { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (isDraggingNewsLive && e.touches && e.touches.length === 1) {
+          e.preventDefault();
+          onMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: false });
+      window.addEventListener('touchend', onEnd);
     }
 
     function prevStory(e) {

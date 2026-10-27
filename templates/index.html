@@ -5782,21 +5782,42 @@
     background: #090E17; border: 1px solid rgba(239,68,68,0.35); border-radius: 14px;
     padding: 13px 14px; box-shadow: 0 24px 60px rgba(0,0,0,0.92), 0 0 30px rgba(239,68,68,0.18);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    transition: box-shadow 180ms ease, border-color 180ms ease, width 200ms ease;
   ">
-    <!-- Card Header -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.07);">
-      <div style="font-size:11px;font-weight:800;color:#F1F5F9;display:flex;align-items:center;gap:6px;">
+    <!-- Transparent Drag Shield (prevents iframe from eating mouse events during drag) -->
+    <div id="dashLiveDragShield" style="display:none;position:absolute;inset:0;z-index:999999;cursor:grabbing;"></div>
+
+    <!-- Card Header / Drag Handle -->
+    <div id="dashLiveDeskHeader" style="
+      display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;padding-bottom:7px;
+      border-bottom:1px solid rgba(255,255,255,0.07);cursor:grab;user-select:none;touch-action:none;
+    " title="Click &amp; drag anywhere to float on screen • Double-click to toggle compact mini-view">
+      <div style="font-size:11px;font-weight:800;color:#F1F5F9;display:flex;align-items:center;gap:6px;pointer-events:none;">
+        <span style="font-size:14px;color:#94A3B8;letter-spacing:-1px;" title="Drag Handle">⠿</span>
         <span style="width:7px;height:7px;border-radius:50%;background:#EF4444;box-shadow:0 0 8px #EF4444;animation:feedPulse 1.8s infinite;display:inline-block;"></span>
-        CHANDRAPUR LIVE DESK
+        <span style="letter-spacing:0.02em;">CHANDRAPUR LIVE DESK</span>
+        <span id="dashLiveFloatTag" style="font-size:8px;font-weight:700;color:#38BDF8;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);padding:1px 5px;border-radius:4px;">
+          ✦ FLOATABLE
+        </span>
       </div>
-      <div style="display:flex;align-items:center;gap:6px;">
+      <div style="display:flex;align-items:center;gap:5px;">
+        <button type="button" onclick="resetDashLiveDeskPosition(event)" style="
+          background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+          color: #94A3B8; border-radius: 5px; padding: 2px 6px; font-size: 8.5px; font-weight: 700;
+          cursor: pointer; display: flex; align-items: center; gap: 2px;
+        " title="Reset window to default anchor">⚓ Reset</button>
+        <button type="button" id="dashLiveDeskMinBtn" onclick="toggleDashLiveDeskMinimize(event)" style="
+          background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+          color: #CBD5E1; border-radius: 5px; padding: 2px 6px; font-size: 9px; font-weight: 700;
+          cursor: pointer; display: flex; align-items: center;
+        " title="Minimize / Compact View">🗕 Mini</button>
         <button type="button" onclick="refreshDashLiveStream()" style="
           background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3);
           color: #F87171; border-radius: 5px; padding: 2px 7px; font-size: 8.5px; font-weight: 800;
           cursor: pointer; display: flex; align-items: center; gap: 3px;
-        " title="Refresh Live Stream to Latest Broadcast">🔄 Refresh</button>
-        <span style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#F87171;border-radius:4px;padding:2px 6px;font-size:8px;font-weight:800;letter-spacing:0.06em;">
-          🔴 ON-AIR 24x7
+        " title="Refresh Live Stream to Latest Broadcast">🔄</button>
+        <span style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#F87171;border-radius:4px;padding:2px 5px;font-size:7.5px;font-weight:800;letter-spacing:0.04em;">
+          ON-AIR
         </span>
         <button type="button" onclick="closeDashLiveDeskDropdown()" style="
           background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
@@ -5805,6 +5826,9 @@
         " title="Close Live Desk">✕</button>
       </div>
     </div>
+
+    <!-- Collapsible Controls Container (pills, movies, songs, custom url) -->
+    <div id="dashLiveDeskControls">
 
     <!-- Channel switcher pills -->
     <div style="display:flex;gap:4px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;align-items:center;">
@@ -5921,13 +5945,13 @@
           background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#F87171;border-radius:4px;padding:2px 5px;font-size:8px;font-weight:700;cursor:pointer;
         ">Disconnect</button>
       </div>
-    </div>
+    </div><!-- /dashLiveDeskControls -->
 
     <!-- Video 16:9 Frame -->
-    <div style="
+    <div id="dashLiveVideoWrap" style="
       width:100%;height:190px;border-radius:10px;overflow:hidden;
       background:#060A10;border:1px solid rgba(255,255,255,0.1);
-      position:relative;
+      position:relative;transition:height 180ms ease;
     ">
       <iframe id="dashLiveIframe"
         src=""
@@ -24899,6 +24923,190 @@
       let dashLiveDeskOpen = false;
       let dashLiveDeskInitialized = false;
       let currentDashLiveChan = 'aajtak';
+      let isDraggingDashLiveDesk = false;
+      let dashDragStartX = 0;
+      let dashDragStartY = 0;
+      let dashDragInitLeft = 0;
+      let dashDragInitTop = 0;
+      let dashLiveDeskIsMinimized = false;
+      let dashLiveDeskCustomPos = null;
+
+      // Load saved custom position if any
+      try {
+        const savedPos = localStorage.getItem('dash_live_desk_pos');
+        if (savedPos) dashLiveDeskCustomPos = JSON.parse(savedPos);
+      } catch (e) {}
+
+      window.initDashLiveDeskDraggable = function() {
+        const header = document.getElementById('dashLiveDeskHeader');
+        const dropdown = document.getElementById('dashLiveDeskDropdown');
+        const shield = document.getElementById('dashLiveDragShield');
+        if (!header || !dropdown || header._dragBound) return;
+        header._dragBound = true;
+
+        const onDragStart = (clientX, clientY, target) => {
+          if (target && (target.tagName === 'BUTTON' || target.tagName === 'A' || target.closest('button') || target.closest('a'))) {
+            return;
+          }
+
+          isDraggingDashLiveDesk = true;
+          dashDragStartX = clientX;
+          dashDragStartY = clientY;
+
+          const rect = dropdown.getBoundingClientRect();
+          dashDragInitLeft = rect.left;
+          dashDragInitTop = rect.top;
+
+          if (shield) shield.style.display = 'block';
+          header.style.cursor = 'grabbing';
+          dropdown.style.cursor = 'grabbing';
+          dropdown.style.transition = 'none';
+          dropdown.style.borderColor = 'rgba(56,189,248,0.85)';
+          dropdown.style.boxShadow = '0 30px 80px rgba(0,0,0,0.95), 0 0 35px rgba(56,189,248,0.35)';
+
+          const tag = document.getElementById('dashLiveFloatTag');
+          if (tag) tag.textContent = '✦ MOVING...';
+        };
+
+        const onDragMove = (clientX, clientY) => {
+          if (!isDraggingDashLiveDesk) return;
+
+          const dx = clientX - dashDragStartX;
+          const dy = clientY - dashDragStartY;
+
+          let newLeft = dashDragInitLeft + dx;
+          let newTop = dashDragInitTop + dy;
+
+          const maxLeft = Math.max(8, window.innerWidth - dropdown.offsetWidth - 8);
+          const maxTop = Math.max(8, window.innerHeight - dropdown.offsetHeight - 8);
+
+          newLeft = Math.max(8, Math.min(newLeft, maxLeft));
+          newTop = Math.max(8, Math.min(newTop, maxTop));
+
+          dropdown.style.left = newLeft + 'px';
+          dropdown.style.top = newTop + 'px';
+
+          dashLiveDeskCustomPos = { left: newLeft, top: newTop };
+        };
+
+        const onDragEnd = () => {
+          if (!isDraggingDashLiveDesk) return;
+          isDraggingDashLiveDesk = false;
+
+          if (shield) shield.style.display = 'none';
+          header.style.cursor = 'grab';
+          dropdown.style.cursor = 'default';
+          dropdown.style.borderColor = 'rgba(239,68,68,0.35)';
+          dropdown.style.boxShadow = '0 24px 60px rgba(0,0,0,0.92), 0 0 30px rgba(239,68,68,0.18)';
+
+          const tag = document.getElementById('dashLiveFloatTag');
+          if (tag) tag.textContent = '✦ FLOATING';
+
+          if (dashLiveDeskCustomPos) {
+            try {
+              localStorage.setItem('dash_live_desk_pos', JSON.stringify(dashLiveDeskCustomPos));
+            } catch (e) {}
+          }
+        };
+
+        header.addEventListener('mousedown', (e) => {
+          onDragStart(e.clientX, e.clientY, e.target);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (isDraggingDashLiveDesk) {
+            e.preventDefault();
+            onDragMove(e.clientX, e.clientY);
+          }
+        });
+
+        window.addEventListener('mouseup', onDragEnd);
+
+        header.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length === 1) {
+            onDragStart(e.touches[0].clientX, e.touches[0].clientY, e.target);
+          }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+          if (isDraggingDashLiveDesk && e.touches && e.touches.length === 1) {
+            e.preventDefault();
+            onDragMove(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        }, { passive: false });
+
+        window.addEventListener('touchend', onDragEnd);
+
+        header.addEventListener('dblclick', (e) => {
+          if (e.target && (e.target.tagName === 'BUTTON' || e.target.tagName === 'A')) return;
+          window.toggleDashLiveDeskMinimize(e);
+        });
+      };
+
+      window.resetDashLiveDeskPosition = function(e) {
+        if (e) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+        dashLiveDeskCustomPos = null;
+        try {
+          localStorage.removeItem('dash_live_desk_pos');
+        } catch (err) {}
+
+        const dropdown = document.getElementById('dashLiveDeskDropdown');
+        const btn = document.getElementById('dashLiveStreamDropdownBtn');
+        if (!dropdown || !btn) return;
+
+        const rect = btn.getBoundingClientRect();
+        dropdown.style.transition = 'all 240ms cubic-bezier(0.16, 1, 0.3, 1)';
+        dropdown.style.top = (rect.bottom + 8) + 'px';
+        dropdown.style.left = Math.max(12, Math.min(rect.left, window.innerWidth - 435)) + 'px';
+        setTimeout(() => {
+          if (dropdown) dropdown.style.transition = '';
+        }, 260);
+
+        const tag = document.getElementById('dashLiveFloatTag');
+        if (tag) tag.textContent = '✦ ANCHORED';
+      };
+
+      window.toggleDashLiveDeskMinimize = function(e) {
+        if (e) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+        const dropdown = document.getElementById('dashLiveDeskDropdown');
+        const controls = document.getElementById('dashLiveDeskControls');
+        const minBtn = document.getElementById('dashLiveDeskMinBtn');
+        const videoWrap = document.getElementById('dashLiveVideoWrap');
+        if (!dropdown) return;
+
+        dashLiveDeskIsMinimized = !dashLiveDeskIsMinimized;
+
+        if (dashLiveDeskIsMinimized) {
+          if (controls) controls.style.display = 'none';
+          dropdown.style.width = '300px';
+          if (videoWrap) videoWrap.style.height = '160px';
+          if (minBtn) {
+            minBtn.innerHTML = '🗖 Expand';
+            minBtn.title = 'Expand to Full View';
+          }
+        } else {
+          if (controls) controls.style.display = 'block';
+          dropdown.style.width = '420px';
+          if (videoWrap) videoWrap.style.height = '190px';
+          if (minBtn) {
+            minBtn.innerHTML = '🗕 Mini';
+            minBtn.title = 'Minimize / Compact View';
+          }
+        }
+
+        const maxLeft = Math.max(8, window.innerWidth - dropdown.offsetWidth - 8);
+        const maxTop = Math.max(8, window.innerHeight - dropdown.offsetHeight - 8);
+        let currLeft = parseInt(dropdown.style.left, 10) || 12;
+        let currTop = parseInt(dropdown.style.top, 10) || 50;
+        dropdown.style.left = Math.max(8, Math.min(currLeft, maxLeft)) + 'px';
+        dropdown.style.top = Math.max(8, Math.min(currTop, maxTop)) + 'px';
+      };
 
       window.toggleDashLiveDeskDropdown = function(e) {
         if (e) {
@@ -24919,15 +25127,26 @@
         const iframe = document.getElementById('dashLiveIframe');
         if (!dropdown || !btn) return;
 
-        const rect = btn.getBoundingClientRect();
-        const topPos = rect.bottom + 8;
-        const leftPos = Math.max(12, Math.min(rect.left, window.innerWidth - 435));
-        dropdown.style.top = topPos + 'px';
-        dropdown.style.left = leftPos + 'px';
+        // Position: use saved custom floating position or default under button
+        if (dashLiveDeskCustomPos && dashLiveDeskCustomPos.top !== undefined && dashLiveDeskCustomPos.left !== undefined) {
+          const maxLeft = Math.max(8, window.innerWidth - (dashLiveDeskIsMinimized ? 300 : 420) - 8);
+          const maxTop = Math.max(8, window.innerHeight - (dashLiveDeskIsMinimized ? 220 : 320) - 8);
+          dropdown.style.top = Math.max(8, Math.min(dashLiveDeskCustomPos.top, maxTop)) + 'px';
+          dropdown.style.left = Math.max(8, Math.min(dashLiveDeskCustomPos.left, maxLeft)) + 'px';
+        } else {
+          const rect = btn.getBoundingClientRect();
+          const topPos = rect.bottom + 8;
+          const leftPos = Math.max(12, Math.min(rect.left, window.innerWidth - 435));
+          dropdown.style.top = topPos + 'px';
+          dropdown.style.left = leftPos + 'px';
+        }
+
         dropdown.style.display = 'block';
 
         if (chevron) chevron.style.transform = 'rotate(180deg)';
         dashLiveDeskOpen = true;
+
+        window.initDashLiveDeskDraggable();
 
         if (!dashLiveDeskInitialized) {
           dashLiveDeskInitialized = true;
