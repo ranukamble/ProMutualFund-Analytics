@@ -1841,3 +1841,219 @@ def get_live_news_feed(category="all", custom_query=None, mode="financial", city
         _news_cache["data"][cache_key] = result
         _news_cache["timestamp"][cache_key] = now
     return result
+
+
+# ==============================================================================
+# 🔴 24x7 REAL LIVE NEWS STREAM RESOLVER & CATALOG (NO STATIC/EXPIRED LOOPS)
+# ==============================================================================
+LIVE_NEWS_CHANNELS = {
+    "aajtak": {
+        "id": "aajtak",
+        "name": "Aaj Tak Live",
+        "full_name": "Aaj Tak 24x7 Breaking News (India Live)",
+        "badge": "🔴 ON-AIR 24x7",
+        "tag": "National Hindi",
+        "handle": "aajtak",
+        "channel_id": "UCt4t-jeY85JegMlZ-E5UWtA",
+        "playlist_id": "UUt4t-jeY85JegMlZ-E5UWtA",
+        "watch_url": "https://www.youtube.com/@aajtak/live",
+        "fallback_video_id": "Nq2wYlWFucg",
+        "desc": "Aaj Tak Live (24x7 Breaking News & Top Headlines)"
+    },
+    "lokmat": {
+        "id": "lokmat",
+        "name": "Lokmat Live",
+        "full_name": "Lokmat Live Bulletin (Vidarbha & Maharashtra)",
+        "badge": "📰 BULLETIN",
+        "tag": "Maharashtra / Local",
+        "handle": "LokmatNews",
+        "channel_id": "UC5MHSwQ2menwYF2DqKoJsZg",
+        "playlist_id": "UU5MHSwQ2menwYF2DqKoJsZg",
+        "watch_url": "https://www.youtube.com/@LokmatNews/live",
+        "fallback_video_id": "",
+        "desc": "Lokmat Live Regional Bulletin (Chandrapur & Maharashtra)"
+    },
+    "abp": {
+        "id": "abp",
+        "name": "ABP Majha",
+        "full_name": "ABP Majha Live (Maharashtra & Vidarbha)",
+        "badge": "📺 ON-AIR",
+        "tag": "Marathi News",
+        "handle": "abpmajhatv",
+        "channel_id": "UCH7nv1A9xIrAifZJNvt7cgA",
+        "playlist_id": "UUH7nv1A9xIrAifZJNvt7cgA",
+        "watch_url": "https://www.youtube.com/@abpmajhatv/live",
+        "fallback_video_id": "",
+        "desc": "ABP Majha 24x7 Live News (Vidarbha / Maharashtra)"
+    },
+    "tv9": {
+        "id": "tv9",
+        "name": "TV9 Marathi",
+        "full_name": "TV9 Marathi Live 24x7",
+        "badge": "🔴 LIVE",
+        "tag": "Marathi News",
+        "handle": "Tv9MarathiOfficial",
+        "channel_id": "UCdOSeEq9Cs2Pco7OCn2_i5w",
+        "playlist_id": "UUdOSeEq9Cs2Pco7OCn2_i5w",
+        "watch_url": "https://www.youtube.com/@Tv9MarathiOfficial/live",
+        "fallback_video_id": "",
+        "desc": "TV9 Marathi Live Stream (Maharashtra 24x7)"
+    },
+    "cnbc": {
+        "id": "cnbc",
+        "name": "CNBC Awaaz",
+        "full_name": "CNBC Awaaz Markets & Mutual Funds 24x7",
+        "badge": "📈 MARKETS",
+        "tag": "Financial Live",
+        "handle": "cnbcawaaz",
+        "channel_id": "UCQIycDaLs3oA_h949g8vP9A",
+        "playlist_id": "UUQIycDaLs3oA_h949g8vP9A",
+        "watch_url": "https://www.youtube.com/@cnbcawaaz/live",
+        "fallback_video_id": "",
+        "desc": "CNBC Awaaz Live (Stock Markets, Mutual Funds & Economy)"
+    },
+    "zeenews": {
+        "id": "zeenews",
+        "name": "Zee News",
+        "full_name": "Zee News 24x7 Live Broadcast",
+        "badge": "🔴 LIVE",
+        "tag": "National Hindi",
+        "handle": "zeenews",
+        "channel_id": "UCyZ3QeZ0aKvZjI2T1bBwQtw",
+        "playlist_id": "",
+        "watch_url": "https://www.youtube.com/@zeenews/live",
+        "fallback_video_id": "",
+        "desc": "Zee News Live (National Breaking Headlines 24x7)"
+    },
+    "ndtv": {
+        "id": "ndtv",
+        "name": "NDTV India",
+        "full_name": "NDTV India Live 24x7",
+        "badge": "🔴 LIVE",
+        "tag": "National Hindi",
+        "handle": "ndtvindia",
+        "channel_id": "UC9CYT9gSNLevX5ey2_6CK0Q",
+        "playlist_id": "",
+        "watch_url": "https://www.youtube.com/@ndtvindia/live",
+        "fallback_video_id": "",
+        "desc": "NDTV India Live Newsroom (24x7 Continuous Feed)"
+    }
+}
+
+_live_stream_cache = {
+    "data": {},
+    "timestamp": {}
+}
+
+def resolve_channel_live_stream(channel_key="aajtak"):
+    """
+    Dynamically finds the currently active live video ID for a news channel.
+    Caches for 15 minutes to guarantee freshness without getting rate-limited.
+    Falls back to official dynamic channel uploads playlist (videoseries?list=UU...)
+    so that users NEVER see the same old static recorded clip every day.
+    """
+    key = (channel_key or "aajtak").lower().strip()
+    chan = LIVE_NEWS_CHANNELS.get(key)
+    if not chan:
+        key = "aajtak"
+        chan = LIVE_NEWS_CHANNELS["aajtak"]
+
+    now = time.time()
+    cached = _live_stream_cache["data"].get(key)
+    cached_ts = _live_stream_cache["timestamp"].get(key, 0)
+    if cached and (now - cached_ts < 900):
+        return cached
+
+    active_video_id = None
+    live_title = chan["desc"]
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Cache-Control': 'no-cache'
+    }
+
+    try:
+        live_url = chan["watch_url"]
+        resp = requests.get(live_url, headers=headers, timeout=5, allow_redirects=True)
+        if resp.status_code == 200:
+            final_url = resp.url
+            # 1. Check if redirected to watch?v=
+            m_url = re.search(r'watch\?v=([a-zA-Z0-9_-]{11})', final_url)
+            if m_url:
+                active_video_id = m_url.group(1)
+
+            # 2. Check canonical link in HTML
+            if not active_video_id:
+                m_can = re.search(r'<link\s+rel="canonical"\s+href="https://www\.youtube\.com/watch\?v=([a-zA-Z0-9_-]{11})"', resp.text)
+                if m_can:
+                    active_video_id = m_can.group(1)
+
+            # 3. Check ytInitialData watchEndpoint in HTML
+            if not active_video_id:
+                m_ep = re.search(r'"watchEndpoint":\s*\{\s*"videoId":\s*"([a-zA-Z0-9_-]{11})"', resp.text)
+                if m_ep:
+                    active_video_id = m_ep.group(1)
+
+            # 4. Check videoDetails in HTML
+            if not active_video_id:
+                m_vd = re.search(r'"videoId":\s*"([a-zA-Z0-9_-]{11})"', resp.text)
+                if m_vd:
+                    active_video_id = m_vd.group(1)
+
+            m_title = re.search(r'<title>(.*?)</title>', resp.text)
+            if m_title:
+                clean_title = m_title.group(1).replace('- YouTube', '').strip()
+                if clean_title:
+                    live_title = clean_title
+    except Exception as e:
+        print(f"[LiveStream Resolver] Notice for {key}:", e)
+
+    # Determine best embed URL
+    if active_video_id:
+        embed_url = f"https://www.youtube.com/embed/{active_video_id}?autoplay=1&mute=1&playsinline=1&rel=0"
+        is_live_now = True
+    elif chan.get("playlist_id"):
+        # Fallback to channel's dynamic uploads/live playlist feed
+        embed_url = f"https://www.youtube.com/embed/videoseries?list={chan['playlist_id']}&autoplay=1&mute=1&playsinline=1&rel=0"
+        is_live_now = True
+    elif chan.get("fallback_video_id"):
+        embed_url = f"https://www.youtube.com/embed/{chan['fallback_video_id']}?autoplay=1&mute=1&playsinline=1&rel=0"
+        is_live_now = True
+    else:
+        embed_url = f"https://www.youtube.com/embed/live_stream?channel={chan['channel_id']}&autoplay=1&mute=1&playsinline=1&rel=0"
+        is_live_now = True
+
+    result = {
+        "status": "success",
+        "channel": key,
+        "name": chan["name"],
+        "full_name": chan["full_name"],
+        "badge": chan["badge"],
+        "tag": chan["tag"],
+        "video_id": active_video_id or chan.get("fallback_video_id") or "",
+        "embed_url": embed_url,
+        "watch_url": chan["watch_url"],
+        "title": live_title,
+        "is_live": is_live_now,
+        "updated_at": datetime.now(IST).strftime("%I:%M %p IST")
+    }
+
+    _live_stream_cache["data"][key] = result
+    _live_stream_cache["timestamp"][key] = now
+    return result
+
+
+def get_live_stream_catalog():
+    """
+    Returns catalog of verified live news channels with their active embed sources.
+    """
+    catalog = {}
+    for key in LIVE_NEWS_CHANNELS:
+        catalog[key] = resolve_channel_live_stream(key)
+    return {
+        "status": "success",
+        "active_default": "aajtak",
+        "channels": catalog
+    }
+

@@ -86,4 +86,22 @@ def get_stream_stats():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@market_bp.route('/api/live-stream/catalog')
+def get_live_stream_catalog_route():
+    try:
+        from services.market_data import get_live_stream_catalog
+        return jsonify(get_live_stream_catalog())
+    except Exception as e:
+        return jsonify({"status": "error", "error": str(e), "channels": {}}), 500
+
+@market_bp.route('/api/live-stream/resolve')
+def resolve_live_stream_route():
+    try:
+        channel = request.args.get('channel', 'aajtak').strip().lower()
+        from services.market_data import resolve_channel_live_stream
+        return jsonify(resolve_channel_live_stream(channel))
+    except Exception as e:
+        return jsonify({"status": "error", "error": str(e)}), 500
+
+
 

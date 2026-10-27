@@ -1874,24 +1874,43 @@
             "></span>
             CHANDRAPUR LIVE DESK
           </div>
-          <span style="
-            background:rgba(239,68,68,0.15);
-            border:1px solid rgba(239,68,68,0.3);
-            color:#F87171;border-radius:4px;
-            padding:2px 6px;font-size:8px;font-weight:800;letter-spacing:0.06em;
-          ">🔴 ON-AIR 24x7</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button type="button" onclick="refreshLiveStream()" style="
+              background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3);
+              color: #F87171; border-radius: 5px; padding: 2px 7px; font-size: 8.5px; font-weight: 800;
+              cursor: pointer; display: flex; align-items: center; gap: 3px;
+            " title="Refresh Live Stream to Latest Broadcast">🔄 Refresh</button>
+            <span style="
+              background:rgba(239,68,68,0.15);
+              border:1px solid rgba(239,68,68,0.3);
+              color:#F87171;border-radius:4px;
+              padding:2px 6px;font-size:8px;font-weight:800;letter-spacing:0.06em;
+            ">🔴 ON-AIR 24x7</span>
+          </div>
         </div>
 
         <!-- Channel switcher pills -->
         <div style="display:flex;gap:5px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;align-items:center;">
-          <button type="button" onclick="switchLiveChannel('lokmat')" id="liveChan_lokmat" style="
+          <button type="button" onclick="switchLiveChannel('aajtak')" id="liveChan_aajtak" style="
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:700;cursor:pointer;
-            background:rgba(239,68,68,0.18);border:1px solid rgba(239,68,68,0.4);color:#F87171;white-space:nowrap;
+            background:rgba(239,68,68,0.22);border:1px solid rgba(239,68,68,0.5);color:#F87171;white-space:nowrap;
+          ">🔴 Aaj Tak Live</button>
+          <button type="button" onclick="switchLiveChannel('lokmat')" id="liveChan_lokmat" style="
+            padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+            background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
           ">📰 Lokmat Live</button>
           <button type="button" onclick="switchLiveChannel('abp')" id="liveChan_abp" style="
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
             background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
           ">📺 ABP Majha</button>
+          <button type="button" onclick="switchLiveChannel('tv9')" id="liveChan_tv9" style="
+            padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+            background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+          ">📡 TV9 Marathi</button>
+          <button type="button" onclick="switchLiveChannel('cnbc')" id="liveChan_cnbc" style="
+            padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
+            background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
+          ">📈 CNBC Markets</button>
           <button type="button" onclick="switchLiveChannel('tadoba')" id="liveChan_tadoba" style="
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
             background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
@@ -1899,11 +1918,11 @@
           <button type="button" onclick="switchLiveChannel('songs')" id="liveChan_songs" style="
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
             background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
-          ">🎵 Trending Songs 2026</button>
+          ">🎵 Trending Songs</button>
           <button type="button" onclick="switchLiveChannel('bollywood')" id="liveChan_bollywood" style="
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
             background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
-          ">🎬 Bollywood Movies</button>
+          ">🎬 Movies</button>
           <button type="button" onclick="switchLiveChannel('goldmines')" id="liveChan_goldmines" style="
             padding:3px 8px;border-radius:12px;font-size:9px;font-weight:500;cursor:pointer;
             background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;white-space:nowrap;
@@ -1912,7 +1931,7 @@
             padding:3px 9px;border-radius:12px;font-size:9px;font-weight:700;cursor:pointer;
             background:rgba(56,189,248,0.16);border:1px solid rgba(56,189,248,0.4);color:#38BDF8;white-space:nowrap;display:flex;align-items:center;gap:4px;
             box-shadow:0 0 10px rgba(56,189,248,0.15);
-          ">🔗 Connect My YouTube</button>
+          ">🔗 Connect YouTube</button>
         </div>
 
         <!-- Trending Movies Quick Picker (Appears when Bollywood Movies is selected) -->
@@ -1995,8 +2014,8 @@
           position:relative;
         ">
           <iframe id="chandrapurLiveIframe"
-            src="https://www.youtube.com/embed/jefRw3wuWLQ?autoplay=1&mute=1&playsinline=1&rel=0"
-            title="Lokmat Live Desk"
+            src="https://www.youtube.com/embed/videoseries?list=UUt4t-jeY85JegMlZ-E5UWtA&autoplay=1&mute=1&playsinline=1&rel=0"
+            title="Aaj Tak Live Desk"
             style="width:100%;height:100%;border:none;"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
@@ -2011,13 +2030,13 @@
         ">
           <span style="display:flex;align-items:center;gap:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
             <span style="color:#00D2FF;font-weight:700;">📡 Feed:</span>
-            <span id="liveChannelName" style="color:#CBD5E1;">Lokmat Live Bulletin (Chandrapur &amp; Maharashtra)</span>
+            <span id="liveChannelName" style="color:#CBD5E1;">🔴 Aaj Tak Live 24x7 (National &amp; Breaking News)</span>
           </span>
           <div style="display:flex;align-items:center;gap:6px;">
             <button type="button" onclick="toggleCustomYouTubeInput()" style="
               background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:#38BDF8;border-radius:4px;padding:2px 6px;font-size:9px;font-weight:700;cursor:pointer;
             ">⚙ Connect YouTube</button>
-            <a id="livePopoutLink" href="https://www.youtube.com/watch?v=jefRw3wuWLQ" target="_blank" rel="noopener" style="
+            <a id="livePopoutLink" href="https://www.youtube.com/@aajtak/live" target="_blank" rel="noopener" style="
               color:#EF4444;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:4px;padding:2px 6px;font-size:9px;text-decoration:none;font-weight:700;
             ">▶ Popout ↗</a>
             <a href="https://www.youtube.com/@liveChandrapurNews" target="_blank" rel="noopener" style="
@@ -5463,101 +5482,170 @@
       });
     }
 
-    function switchLiveChannel(chan) {
+    const liveCatalog = {
+      'aajtak': {
+        title: '🔴 Aaj Tak Live 24x7 (National & Breaking News)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UUt4t-jeY85JegMlZ-E5UWtA&autoplay=1&mute=1&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@aajtak/live',
+        channelKey: 'aajtak',
+        color: '#F87171',
+        bg: 'rgba(239,68,68,0.22)',
+        border: 'rgba(239,68,68,0.5)'
+      },
+      'lokmat': {
+        title: '📰 Lokmat Live (Chandrapur, Vidarbha & Maharashtra News)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UU5MHSwQ2menwYF2DqKoJsZg&autoplay=1&mute=1&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@LokmatNews/live',
+        channelKey: 'lokmat',
+        color: '#F87171',
+        bg: 'rgba(239,68,68,0.22)',
+        border: 'rgba(239,68,68,0.5)'
+      },
+      'abp': {
+        title: '📺 ABP Majha Live 24x7 (Maharashtra & Breaking News)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UUH7nv1A9xIrAifZJNvt7cgA&autoplay=1&mute=1&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@ABPMajhaTV/live',
+        channelKey: 'abp',
+        color: '#F87171',
+        bg: 'rgba(239,68,68,0.22)',
+        border: 'rgba(239,68,68,0.5)'
+      },
+      'tv9': {
+        title: '📡 TV9 Marathi Live 24x7 (MahaFast Live News)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UUdOSeEq9Cs2Pco7OCn2_i5w&autoplay=1&mute=1&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@tv9marathilive/live',
+        channelKey: 'tv9',
+        color: '#F87171',
+        bg: 'rgba(239,68,68,0.22)',
+        border: 'rgba(239,68,68,0.5)'
+      },
+      'cnbc': {
+        title: '📈 CNBC Awaaz Markets Live (Stock Market & Business 24x7)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UUQIycDaLs3oA_h949g8vP9A&autoplay=1&mute=1&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@CNBCAwaaz/live',
+        channelKey: 'cnbc',
+        color: '#38BDF8',
+        bg: 'rgba(56,189,248,0.2)',
+        border: 'rgba(56,189,248,0.5)'
+      },
+      'tadoba': {
+        title: '🐯 Tadoba-Andhari Tiger Reserve Chandrapur Safari (4K)',
+        src: 'https://www.youtube.com/embed/videoseries?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U&autoplay=1&mute=1&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/playlist?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U',
+        color: '#34D399',
+        bg: 'rgba(16,185,129,0.2)',
+        border: 'rgba(16,185,129,0.5)'
+      },
+      'goldmines': {
+        title: '🍿 Goldmines Action Cinema (Blockbuster South Hindi Movies)',
+        src: 'https://www.youtube.com/embed/videoseries?list=UUyoXW-Dse7fURq30EWl_CUA&autoplay=1&mute=1&playsinline=1&rel=0',
+        url: 'https://www.youtube.com/@GoldminesTelefilms',
+        color: '#C084FC',
+        bg: 'rgba(168,85,247,0.2)',
+        border: 'rgba(168,85,247,0.5)'
+      }
+    };
+
+    let currentLiveChan = 'aajtak';
+
+    function switchLiveChannel(chan, forceRefresh) {
+      currentLiveChan = chan || 'aajtak';
       const iframe = document.getElementById('chandrapurLiveIframe');
       const descEl = document.getElementById('liveChannelName');
       const popLink = document.getElementById('livePopoutLink');
-      const bLokmat = document.getElementById('liveChan_lokmat');
-      const bAbp = document.getElementById('liveChan_abp');
-      const bTadoba = document.getElementById('liveChan_tadoba');
-      const bSongs = document.getElementById('liveChan_songs');
-      const bBollywood = document.getElementById('liveChan_bollywood');
-      const bGoldmines = document.getElementById('liveChan_goldmines');
-      const bCustom = document.getElementById('liveChan_custom');
       const subPills = document.getElementById('movieSubPills');
       const songPills = document.getElementById('songsSubPills');
 
-      const resetBtns = () => {
-        [bLokmat, bAbp, bTadoba, bSongs, bBollywood, bGoldmines, bCustom].forEach(b => {
-          if (b) {
-            b.style.background = 'rgba(255,255,255,0.04)';
-            b.style.borderColor = 'rgba(255,255,255,0.08)';
-            b.style.color = '#94A3B8';
-            b.style.fontWeight = '500';
+      const pillIds = ['aajtak', 'lokmat', 'abp', 'tv9', 'cnbc', 'tadoba', 'songs', 'bollywood', 'goldmines', 'custom'];
+      pillIds.forEach(id => {
+        const btn = document.getElementById(`liveChan_${id}`);
+        if (btn) {
+          if (id === 'custom') {
+            btn.style.background = 'rgba(56,189,248,0.16)';
+            btn.style.borderColor = 'rgba(56,189,248,0.4)';
+            btn.style.color = '#38BDF8';
+            btn.style.fontWeight = '700';
+          } else {
+            btn.style.background = 'rgba(255,255,255,0.04)';
+            btn.style.borderColor = 'rgba(255,255,255,0.08)';
+            btn.style.color = '#94A3B8';
+            btn.style.fontWeight = '500';
           }
-        });
-      };
-      resetBtns();
+        }
+      });
 
-      if (chan === 'abp') {
-        if (subPills) subPills.style.display = 'none';
-        if (songPills) songPills.style.display = 'none';
-        if (bAbp) {
-          bAbp.style.background = 'rgba(239,68,68,0.18)';
-          bAbp.style.borderColor = 'rgba(239,68,68,0.4)';
-          bAbp.style.color = '#F87171';
-          bAbp.style.fontWeight = '700';
-        }
-        if (iframe) iframe.src = 'https://www.youtube.com/embed/a5B0FhXuLoY?autoplay=1&mute=1&playsinline=1&rel=0';
-        if (descEl) descEl.textContent = 'ABP Majha Live (Vidarbha / Maharashtra)';
-        if (popLink) popLink.href = 'https://www.youtube.com/watch?v=a5B0FhXuLoY';
-      } else if (chan === 'tadoba') {
-        if (subPills) subPills.style.display = 'none';
-        if (songPills) songPills.style.display = 'none';
-        if (bTadoba) {
-          bTadoba.style.background = 'rgba(16,185,129,0.18)';
-          bTadoba.style.borderColor = 'rgba(16,185,129,0.4)';
-          bTadoba.style.color = '#34D399';
-          bTadoba.style.fontWeight = '700';
-        }
-        if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U&autoplay=1&mute=1&playsinline=1&rel=0';
-        if (descEl) descEl.textContent = 'Tadoba-Andhari Tiger Reserve Chandrapur Safari (4K)';
-        if (popLink) popLink.href = 'https://www.youtube.com/playlist?list=PL_b3K_uSg9-V-hM6X7j_R_f1Vj9i8cE2U';
-      } else if (chan === 'songs') {
+      const activeBtn = document.getElementById(`liveChan_${chan}`);
+
+      if (chan === 'songs') {
         if (subPills) subPills.style.display = 'none';
         if (songPills) songPills.style.display = 'flex';
-        if (bSongs) {
-          bSongs.style.background = 'rgba(236,72,153,0.18)';
-          bSongs.style.borderColor = 'rgba(236,72,153,0.45)';
-          bSongs.style.color = '#F472B6';
-          bSongs.style.fontWeight = '700';
+        if (activeBtn) {
+          activeBtn.style.background = 'rgba(236,72,153,0.18)';
+          activeBtn.style.borderColor = 'rgba(236,72,153,0.45)';
+          activeBtn.style.color = '#F472B6';
+          activeBtn.style.fontWeight = '700';
         }
         playSongStream('tseries_2026');
-      } else if (chan === 'bollywood') {
+        return;
+      }
+
+      if (chan === 'bollywood') {
         if (songPills) songPills.style.display = 'none';
         if (subPills) subPills.style.display = 'flex';
-        if (bBollywood) {
-          bBollywood.style.background = 'rgba(245,158,11,0.18)';
-          bBollywood.style.borderColor = 'rgba(245,158,11,0.4)';
-          bBollywood.style.color = '#FBBF24';
-          bBollywood.style.fontWeight = '700';
+        if (activeBtn) {
+          activeBtn.style.background = 'rgba(245,158,11,0.18)';
+          activeBtn.style.borderColor = 'rgba(245,158,11,0.4)';
+          activeBtn.style.color = '#FBBF24';
+          activeBtn.style.fontWeight = '700';
         }
         playMovieStream('hera_pheri');
-      } else if (chan === 'goldmines') {
-        if (subPills) subPills.style.display = 'none';
-        if (songPills) songPills.style.display = 'none';
-        if (bGoldmines) {
-          bGoldmines.style.background = 'rgba(168,85,247,0.18)';
-          bGoldmines.style.borderColor = 'rgba(168,85,247,0.4)';
-          bGoldmines.style.color = '#C084FC';
-          bGoldmines.style.fontWeight = '700';
-        }
-        if (iframe) iframe.src = 'https://www.youtube.com/embed/videoseries?list=UUyoXW-Dse7fURq30EWl_CUA&autoplay=1&mute=1&playsinline=1&rel=0';
-        if (descEl) descEl.textContent = '🍿 Goldmines Action Cinema (Blockbuster South Hindi Movies)';
-        if (popLink) popLink.href = 'https://www.youtube.com/@GoldminesTelefilms';
-      } else {
-        if (subPills) subPills.style.display = 'none';
-        if (songPills) songPills.style.display = 'none';
-        if (bLokmat) {
-          bLokmat.style.background = 'rgba(239,68,68,0.18)';
-          bLokmat.style.borderColor = 'rgba(239,68,68,0.4)';
-          bLokmat.style.color = '#F87171';
-          bLokmat.style.fontWeight = '700';
-        }
-        if (iframe) iframe.src = 'https://www.youtube.com/embed/jefRw3wuWLQ?autoplay=1&mute=1&playsinline=1&rel=0';
-        if (descEl) descEl.textContent = 'Lokmat Live Bulletin (Chandrapur & Maharashtra)';
-        if (popLink) popLink.href = 'https://www.youtube.com/watch?v=jefRw3wuWLQ';
+        return;
       }
+
+      if (subPills) subPills.style.display = 'none';
+      if (songPills) songPills.style.display = 'none';
+
+      const item = liveCatalog[chan] || liveCatalog['aajtak'];
+      if (activeBtn) {
+        activeBtn.style.background = item.bg || 'rgba(239,68,68,0.22)';
+        activeBtn.style.borderColor = item.border || 'rgba(239,68,68,0.5)';
+        activeBtn.style.color = item.color || '#F87171';
+        activeBtn.style.fontWeight = '700';
+      }
+
+      if (descEl) descEl.textContent = item.title;
+      if (popLink) popLink.href = item.url;
+      if (iframe) iframe.src = item.src;
+
+      if (item.channelKey) {
+        const reqChan = item.channelKey;
+        const url = `/api/live-stream/resolve?channel=${reqChan}${forceRefresh ? '&refresh=1' : ''}`;
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            if (currentLiveChan === reqChan && data && data.embed_url) {
+              if (iframe && iframe.src !== data.embed_url) {
+                iframe.src = data.embed_url;
+              }
+              if (data.title && descEl) {
+                descEl.textContent = (data.is_live ? '🔴 ' : '📺 ') + data.title;
+              }
+              if (data.watch_url && popLink) {
+                popLink.href = data.watch_url;
+              }
+            }
+          })
+          .catch(() => {});
+      }
+    }
+
+    function refreshLiveStream() {
+      const refreshBtn = event?.currentTarget;
+      if (refreshBtn) {
+        refreshBtn.style.opacity = '0.5';
+        setTimeout(() => refreshBtn.style.opacity = '1', 600);
+      }
+      switchLiveChannel(currentLiveChan, true);
     }
 
     function prevStory(e) {
@@ -6512,6 +6600,8 @@
       const savedYt = localStorage.getItem('my_custom_yt_stream');
       if (savedYt) {
         connectAndPlayCustomYouTube(savedYt);
+      } else {
+        switchLiveChannel('aajtak');
       }
 
       // Auto-refresh market ticker every 60 seconds (1 minute)
