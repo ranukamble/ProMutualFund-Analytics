@@ -139,27 +139,31 @@
     updateIndexElement('dashVixVal', 'dashVixChg', data.vix);
 
     if (data.sip_inflow) {
-      const sipVal = document.getElementById('dashSipVal');
+      const sipVal = document.getElementById('dashSipVal') || document.getElementById('tickerSipVal');
       if (sipVal && data.sip_inflow.value) sipVal.textContent = data.sip_inflow.value;
+      const sipBadge = document.getElementById('tickerSipBadge');
+      if (sipBadge && data.sip_inflow.badge) sipBadge.textContent = data.sip_inflow.badge;
     }
     if (data.total_aum) {
-      const aumVal = document.getElementById('dashAumVal');
-      const aumChg = document.getElementById('dashAumChg');
+      const aumVal = document.getElementById('dashAumVal') || document.getElementById('tickerAumVal');
+      const aumChg = document.getElementById('dashAumChg') || document.getElementById('tickerAumChg');
       if (aumVal && data.total_aum.value) aumVal.textContent = data.total_aum.value;
       if (aumChg && data.total_aum.change) aumChg.textContent = data.total_aum.change;
     }
     if (data.gsec_10y) {
-      const gsecVal = document.getElementById('dashGsecVal');
+      const gsecVal = document.getElementById('dashGsecVal') || document.getElementById('tickerGsecVal');
+      const gsecChg = document.getElementById('dashGsecChg') || document.getElementById('tickerGsecChg');
       if (gsecVal && data.gsec_10y.value) gsecVal.textContent = data.gsec_10y.value;
+      if (gsecChg && data.gsec_10y.change) gsecChg.textContent = data.gsec_10y.change;
     }
     if (data.gold_10g) {
-      const goldVal = document.getElementById('dashGoldVal');
-      const goldChg = document.getElementById('dashGoldChg');
+      const goldVal = document.getElementById('dashGoldVal') || document.getElementById('tickerGoldVal');
+      const goldChg = document.getElementById('dashGoldChg') || document.getElementById('tickerGoldChg');
       if (goldVal && data.gold_10g.value) goldVal.textContent = data.gold_10g.value;
       if (goldChg && data.gold_10g.change) goldChg.textContent = data.gold_10g.change;
     }
 
-    const lastTickEl = document.getElementById('dashLastTickTime');
+    const lastTickEl = document.getElementById('dashLastTickTime') || document.getElementById('tickerLastTickTime');
     if (lastTickEl && data.timestamp) {
       lastTickEl.textContent = data.timestamp;
     }
@@ -168,6 +172,8 @@
     updateIndexElement('tickerNiftyVal', 'tickerNiftyChg', data.nifty);
     updateIndexElement('tickerSensexVal', 'tickerSensexChg', data.sensex);
     updateIndexElement('tickerVixVal', 'tickerVixChg', data.vix);
+    updateIndexElement('tickerGoldVal', 'tickerGoldChg', data.gold_10g);
+    updateIndexElement('tickerGsecVal', 'tickerGsecChg', data.gsec_10y);
 
     // 3. Sync Spot Nifty & VIX in Market Mood Card if visible
     if (data.nifty && data.nifty.raw_price) {

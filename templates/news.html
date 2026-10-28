@@ -1347,9 +1347,10 @@
       .hero-img { transition: opacity 400ms ease; }
 
       .top-nav { position: sticky; top: 0; z-index: 200; }
-      .tabs-bar { position: sticky; top: 50px; z-index: 199; }
-      .city-bar { position: sticky; top: 88px; z-index: 198; }
-      .stats-bar { position: sticky; top: 120px; z-index: 197; }
+      .market-ticker-ribbon { position: sticky; top: 50px; z-index: 199; }
+      .tabs-bar { position: sticky; top: 80px; z-index: 198; }
+      .city-bar { position: sticky; top: 118px; z-index: 197; }
+      .stats-bar { position: sticky; top: 150px; z-index: 196; }
 
       @media (max-width: 1024px) {
         #newsMainContentContainer {
@@ -1470,13 +1471,83 @@
     ">← Back to Dashboard</button>
   </nav>
 
+  <!-- ═══ REAL-TIME WEBSOCKET MARKET TICKER RIBBON (NEWS WIRE) ═══ -->
+  <div class="market-ticker-ribbon" id="newsLiveTickerRibbon" style="
+    background: #080D1A;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 0 18px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    font-size: 11px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    position: sticky;
+    top: 50px;
+    z-index: 199;
+  ">
+    <div style="display: inline-flex; align-items: center; gap: 5px; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); padding: 2px 7px; border-radius: 4px; font-size: 9px; font-weight: 800; color: #38BDF8; letter-spacing: 0.05em; flex-shrink: 0;">
+      <span style="width: 5px; height: 5px; border-radius: 50%; background: #38BDF8; box-shadow: 0 0 6px #38BDF8; animation: feedPulse 2s infinite;"></span>
+      MARKETS
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
+      <span class="ticker-index-name" style="color: #38BDF8; font-weight: 800;">NIFTY 50</span>
+      <span class="ticker-index-val" id="tickerNiftyVal" style="font-weight: 800; font-family: monospace; color: #F1F5F9;">24,852.15</span>
+      <span class="ticker-index-up" id="tickerNiftyChg" style="color: #34D399; font-weight: 700; font-size: 10.5px;">▲ +118.40 (+0.47%)</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
+      <span class="ticker-index-name" style="color: #38BDF8; font-weight: 800;">SENSEX</span>
+      <span class="ticker-index-val" id="tickerSensexVal" style="font-weight: 800; font-family: monospace; color: #F1F5F9;">81,224.75</span>
+      <span class="ticker-index-up" id="tickerSensexChg" style="color: #34D399; font-weight: 700; font-size: 10.5px;">▲ +384.10 (+0.46%)</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
+      <span class="ticker-index-name" style="color: #F87171; font-weight: 800;">INDIA VIX</span>
+      <span class="ticker-index-val" id="tickerVixVal" style="font-weight: 800; font-family: monospace; color: #F1F5F9;">13.42</span>
+      <span class="ticker-index-down" id="tickerVixChg" style="color: #F87171; font-weight: 700; font-size: 10.5px;">▼ -0.28 (-2.04%)</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
+      <span class="ticker-index-name" style="color: #34D399; font-weight: 800;">MONTHLY SIP INFLOW</span>
+      <span class="ticker-index-val" id="tickerSipVal" style="font-weight: 800; color: #34D399;">₹25,320 Cr</span>
+      <span id="tickerSipBadge" style="background: rgba(52,211,153,0.15); color: #34D399; border: 1px solid rgba(52,211,153,0.3); font-size: 8.5px; font-weight: 800; padding: 1px 5px; border-radius: 4px;">RECORD ATH</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
+      <span class="ticker-index-name" style="color: #A78BFA; font-weight: 800;">TOTAL MF AUM</span>
+      <span class="ticker-index-val" id="tickerAumVal" style="font-weight: 800; color: #A78BFA;">₹74.8 Lakh Cr</span>
+      <span class="ticker-index-up" id="tickerAumChg" style="color: #34D399; font-weight: 700; font-size: 10.5px;">▲ +2.1% MoM</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
+      <span class="ticker-index-name" style="color: #F59E0B; font-weight: 800;">10Y G-SEC</span>
+      <span class="ticker-index-val" id="tickerGsecVal" style="font-weight: 800; font-family: monospace; color: #F59E0B;">6.78%</span>
+      <span id="tickerGsecChg" style="color: #F59E0B; font-weight: 700; font-size: 10px;">▬ -2 bps</span>
+    </div>
+    <span style="color: rgba(255,255,255,0.12);">|</span>
+    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
+      <span class="ticker-index-name" style="color: #FCD34D; font-weight: 800;">MCX GOLD (10g)</span>
+      <span class="ticker-index-val" id="tickerGoldVal" style="font-weight: 800; font-family: monospace; color: #FCD34D;">₹78,450</span>
+      <span class="ticker-index-up" id="tickerGoldChg" style="color: #34D399; font-weight: 700; font-size: 10.5px;">▲ +0.62%</span>
+    </div>
+    <div style="margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 10px; color: #64748B;">
+      <span>⏱️ Last Tick:</span>
+      <span id="tickerLastTickTime" style="font-family: monospace; color: #94A3B8;">Connecting...</span>
+    </div>
+  </div>
+
   <!-- 2. NEWS TYPE TABS -->
   <div class="tabs-bar" id="newsTypeTabsBar" style="
     background:#080C14;
     border-bottom:1px solid rgba(255,255,255,0.06);
     padding:8px 18px;
     display:flex;align-items:center;gap:8px;
-    position:sticky;top:50px;z-index:199;
+    position:sticky;top:80px;z-index:198;
   ">
     <!-- Tab buttons -->
     <button onclick="switchNewsType('financial')"
@@ -1536,7 +1607,7 @@
     display:flex;align-items:center;gap:8px;
     overflow-x:auto;
     scrollbar-width:none;
-    position:sticky;top:88px;z-index:198;
+    position:sticky;top:118px;z-index:197;
   ">
     <span style="
       font-size:10px;font-weight:700;color:#64748B;
@@ -1612,7 +1683,7 @@
     border-bottom:1px solid rgba(255,255,255,0.06);
     padding:8px 18px;
     display:flex;align-items:center;gap:0;
-    position:sticky;top:120px;z-index:197;
+    position:sticky;top:150px;z-index:196;
   ">
     <div style="
       display:flex;align-items:center;gap:8px;
@@ -1702,59 +1773,6 @@
     </div>
   </div>
 
-  <!-- COMPACT REAL-TIME EXCHANGE TICKER RIBBON -->
-  <div class="market-ticker-ribbon" style="
-    background:#060A12;border-bottom:1px solid rgba(255,255,255,0.04);
-    height:28px;display:flex;align-items:center;padding:0 18px;gap:12px;
-    overflow-x:auto;scrollbar-width:none;font-size:10px;
-  ">
-    <div style="display:inline-flex;align-items:center;gap:4px;color:#38BDF8;font-weight:800;font-size:9px;letter-spacing:0.05em;flex-shrink:0;">
-      <span style="width:5px;height:5px;border-radius:50%;background:#38BDF8;"></span>
-      MARKETS
-    </div>
-    <span style="color:rgba(255,255,255,0.1);">|</span>
-    <div class="ticker-index-item" style="display:inline-flex;gap:5px;flex-shrink:0;">
-      <span style="color:#38BDF8;font-weight:700;">NIFTY 50:</span>
-      <span id="tickerNiftyVal" style="color:#F1F5F9;font-weight:700;">24,852.15</span>
-      <span id="tickerNiftyChg" style="color:#34D399;font-weight:700;">▲ +0.47%</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.1);">|</span>
-    <div class="ticker-index-item" style="display:inline-flex;gap:5px;flex-shrink:0;">
-      <span style="color:#38BDF8;font-weight:700;">SENSEX:</span>
-      <span id="tickerSensexVal" style="color:#F1F5F9;font-weight:700;">81,224.75</span>
-      <span id="tickerSensexChg" style="color:#34D399;font-weight:700;">▲ +0.46%</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.1);">|</span>
-    <div class="ticker-index-item" style="display:inline-flex;gap:5px;flex-shrink:0;">
-      <span style="color:#F87171;font-weight:700;">INDIA VIX:</span>
-      <span id="tickerVixVal" style="color:#F1F5F9;font-weight:700;">13.42</span>
-      <span id="tickerVixChg" style="color:#F87171;font-weight:700;">▼ -2.04%</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.1);">|</span>
-    <div class="ticker-index-item" style="display:inline-flex;gap:5px;flex-shrink:0;">
-      <span style="color:#34D399;font-weight:700;">SIP INFLOW:</span>
-      <span id="tickerSipVal" style="color:#F1F5F9;font-weight:700;">₹25,320 Cr</span>
-      <span id="tickerSipBadge" style="color:#38BDF8;font-weight:800;font-size:9px;">RECORD ATH</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.1);">|</span>
-    <div class="ticker-index-item" style="display:inline-flex;gap:5px;flex-shrink:0;">
-      <span style="color:#A78BFA;font-weight:700;">TOTAL MF AUM:</span>
-      <span id="tickerAumVal" style="color:#F1F5F9;font-weight:700;">₹74.8 Lakh Cr</span>
-      <span id="tickerAumChg" style="color:#34D399;font-weight:700;">▲ +2.1%</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.1);">|</span>
-    <div class="ticker-index-item" style="display:inline-flex;gap:5px;flex-shrink:0;">
-      <span style="color:#F59E0B;font-weight:700;">10Y G-SEC:</span>
-      <span id="tickerGsecVal" style="color:#F1F5F9;font-weight:700;">6.78%</span>
-      <span id="tickerGsecChg" style="color:#F59E0B;font-weight:700;">▬ -2 bps</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.1);">|</span>
-    <div class="ticker-index-item" style="display:inline-flex;gap:5px;flex-shrink:0;">
-      <span style="color:#FCD34D;font-weight:700;">GOLD:</span>
-      <span id="tickerGoldVal" style="color:#F1F5F9;font-weight:700;">₹78,450</span>
-      <span id="tickerGoldChg" style="color:#34D399;font-weight:700;">▲ +0.62%</span>
-    </div>
-  </div>
 
   <!-- Hidden Marquee Track Placeholder so ticker JS doesn't error -->
   <div id="topNewsTickerTrack" style="display:none;"></div>
@@ -6668,6 +6686,11 @@
       const aumChgEl = document.getElementById('tickerAumChg');
       if (aumValEl && data.total_aum) aumValEl.textContent = data.total_aum.value;
       if (aumChgEl && data.total_aum) aumChgEl.textContent = data.total_aum.change;
+
+      const lastTickEl = document.getElementById('tickerLastTickTime');
+      if (lastTickEl && (data.timestamp || data.last_updated)) {
+        lastTickEl.textContent = data.timestamp || data.last_updated;
+      }
 
       // Update Market Mood Index Widget in Sidebar
       if (data.mmi) {

@@ -70,30 +70,6 @@
       box-shadow: 0 0 14px rgba(16, 185, 129, 0.3) !important;
       transform: translateY(-1px);
     }
-    .dashboard-ticker-ribbon {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 7px 20px;
-      background: rgba(8, 13, 26, 0.96);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      overflow-x: auto;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-      font-size: 11.5px;
-      z-index: 95;
-    }
-    .dashboard-ticker-ribbon::-webkit-scrollbar {
-      display: none;
-    }
-    [data-theme="light"] .dashboard-ticker-ribbon {
-      background: #FFFFFF !important;
-      border-bottom: 1px solid #E2E8F0 !important;
-      color: #0F172A !important;
-    }
-    [data-theme="light"] .dashboard-ticker-ribbon .ticker-index-val {
-      color: #0F172A !important;
-    }
 
     :root {
       --bg-page: #080D1A;
@@ -5720,54 +5696,6 @@
     </div>
   </div>
 
-  <!-- ═══ REAL-TIME WEBSOCKET MARKET TICKER RIBBON (DASHBOARD) ═══ -->
-  <div class="dashboard-ticker-ribbon" id="dashboardLiveTickerRibbon">
-    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
-      <span class="ticker-index-name" style="color: #38BDF8; font-weight: 800;">NIFTY 50</span>
-      <span class="ticker-index-val" id="dashNiftyVal" style="font-weight: 800; font-family: monospace; color: #F1F5F9;">24,852.15</span>
-      <span class="ticker-index-up" id="dashNiftyChg" style="color: #34D399; font-weight: 700; font-size: 10.5px;">▲ +118.40 (+0.47%)</span>
-    </div>
-    <span style="color: rgba(255,255,255,0.12);">|</span>
-    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
-      <span class="ticker-index-name" style="color: #38BDF8; font-weight: 800;">SENSEX</span>
-      <span class="ticker-index-val" id="dashSensexVal" style="font-weight: 800; font-family: monospace; color: #F1F5F9;">81,224.75</span>
-      <span class="ticker-index-up" id="dashSensexChg" style="color: #34D399; font-weight: 700; font-size: 10.5px;">▲ +384.10 (+0.46%)</span>
-    </div>
-    <span style="color: rgba(255,255,255,0.12);">|</span>
-    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
-      <span class="ticker-index-name" style="color: #F87171; font-weight: 800;">INDIA VIX</span>
-      <span class="ticker-index-val" id="dashVixVal" style="font-weight: 800; font-family: monospace; color: #F1F5F9;">13.42</span>
-      <span class="ticker-index-down" id="dashVixChg" style="color: #F87171; font-weight: 700; font-size: 10.5px;">▼ -0.28 (-2.04%)</span>
-    </div>
-    <span style="color: rgba(255,255,255,0.12);">|</span>
-    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
-      <span class="ticker-index-name" style="color: #34D399; font-weight: 800;">MONTHLY SIP INFLOW</span>
-      <span class="ticker-index-val" id="dashSipVal" style="font-weight: 800; color: #34D399;">₹25,320 Cr</span>
-      <span style="background: rgba(52,211,153,0.15); color: #34D399; border: 1px solid rgba(52,211,153,0.3); font-size: 8.5px; font-weight: 800; padding: 1px 5px; border-radius: 4px;">RECORD ATH</span>
-    </div>
-    <span style="color: rgba(255,255,255,0.12);">|</span>
-    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
-      <span class="ticker-index-name" style="color: #A78BFA; font-weight: 800;">TOTAL MF AUM</span>
-      <span class="ticker-index-val" id="dashAumVal" style="font-weight: 800; color: #A78BFA;">₹74.8 Lakh Cr</span>
-      <span class="ticker-index-up" id="dashAumChg" style="color: #34D399; font-weight: 700; font-size: 10.5px;">▲ +2.1% MoM</span>
-    </div>
-    <span style="color: rgba(255,255,255,0.12);">|</span>
-    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
-      <span class="ticker-index-name" style="color: #F59E0B; font-weight: 800;">10Y G-SEC</span>
-      <span class="ticker-index-val" id="dashGsecVal" style="font-weight: 800; font-family: monospace; color: #F59E0B;">6.78%</span>
-      <span style="color: #F59E0B; font-weight: 700; font-size: 10px;">▬ -2 bps</span>
-    </div>
-    <span style="color: rgba(255,255,255,0.12);">|</span>
-    <div class="ticker-index-item" style="display: inline-flex; align-items: center; gap: 6px;">
-      <span class="ticker-index-name" style="color: #FCD34D; font-weight: 800;">MCX GOLD (10g)</span>
-      <span class="ticker-index-val" id="dashGoldVal" style="font-weight: 800; font-family: monospace; color: #FCD34D;">₹78,450</span>
-      <span class="ticker-index-up" id="dashGoldChg" style="color: #34D399; font-weight: 700; font-size: 10.5px;">▲ +0.62%</span>
-    </div>
-    <div style="margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 10px; color: #64748B;">
-      <span>⏱️ Last Tick:</span>
-      <span id="dashLastTickTime" style="font-family: monospace; color: #94A3B8;">Connecting...</span>
-    </div>
-  </div>
 
   <div class="main-container" id="main-view"
     style="display: flex; flex: 1; width: 100%; max-width: 100%; overflow: hidden;">
