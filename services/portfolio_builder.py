@@ -432,9 +432,12 @@ def save_portfolio_entry(data):
     else:
         portfolios = []
     
+    existing_ids = [p.get('id', 0) for p in portfolios if isinstance(p.get('id'), int)]
+    new_id = max(existing_ids, default=0) + 1
+
     new_portfolio = {
-        'id': len(portfolios) + 1,
-        'name': data.get('name', f'Portfolio {len(portfolios)+1}'),
+        'id': new_id,
+        'name': data.get('name', f'Portfolio {new_id}'),
         'created_at': datetime.now().strftime('%d %b %Y, %H:%M'),
         'investment_amount': data.get('investment_amount', 100000),
         'funds': data.get('funds', []),
@@ -468,6 +471,12 @@ def delete_saved_portfolio(pid):
         return False
     with open(PORTFOLIOS_FILE, 'w') as f:
         json.dump(portfolios, f, indent=2)
+
+    # Verify deletion actually persisted to disk
+    with open(PORTFOLIOS_FILE, 'r') as f:
+        remaining = json.load(f)
+    if any(p.get('id') == pid for p in remaining):
+        return False
     return True
 
 # ==============================================================================
