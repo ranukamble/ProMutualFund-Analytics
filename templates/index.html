@@ -5529,6 +5529,232 @@
       padding: 14px 16px;
       margin-top: 12px;
     }
+
+    /* ════════════════════════════════════════════════════════════════════
+       PORTFOLIO PERFORMANCE TRACKING STYLES
+       ═══════════════════════════════════════════════════════════════════ */
+    .perf-section {
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .perf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .perf-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .perf-title .perf-icon {
+      font-size: 24px;
+    }
+
+    .perf-benchmark-select {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .perf-benchmark-select:hover {
+      border-color: var(--glass-border-hover);
+    }
+
+    .perf-benchmark-select:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.1);
+    }
+
+    .perf-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .perf-metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all 0.2s;
+    }
+
+    .perf-metric-card:hover {
+      border-color: var(--glass-border-hover);
+      transform: translateY(-2px);
+    }
+
+    .perf-metric-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .perf-metric-value {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .perf-metric-value.positive { color: var(--green); }
+    .perf-metric-value.negative { color: var(--red); }
+    .perf-metric-value.neutral { color: var(--cyan); }
+
+    .perf-metric-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .perf-chart-container {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .perf-chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .perf-chart-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .perf-chart-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .perf-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .perf-table th {
+      background: var(--bg-panel);
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .perf-table td {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .perf-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .perf-table tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    .perf-table .benchmark-col {
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .perf-table .portfolio-col {
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .perf-snapshot-btn {
+      background: linear-gradient(135deg, var(--cyan), #0099cc);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      color: #000;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .perf-snapshot-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 210, 255, 0.3);
+    }
+
+    .perf-snapshot-btn:active {
+      transform: translateY(0);
+    }
+
+    .perf-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .perf-empty .perf-empty-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .perf-section {
+        padding: 16px;
+      }
+      .perf-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .perf-metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 
@@ -26776,7 +27002,295 @@
       window.FloatingLiveDesk.toggle(e);
     };
   })();
-  </script>
-</body>
 
+  /* PORTFOLIO PERFORMANCE TRACKING - JAVASCRIPT */
+  let perfChartInstance = null;
+  let currentPerfPortfolioId = null;
+  let currentPerfPortfolioItems = [];
+
+  window.initPortfolioPerformance = function(portfolioId, portfolioItems) {
+    currentPerfPortfolioId = portfolioId;
+    currentPerfPortfolioItems = portfolioItems || [];
+    const section = document.getElementById('portfolioPerformanceSection');
+    if (section) section.style.display = 'block';
+    loadBenchmarks();
+    loadPerformanceData();
+    updateLastSnapshotDisplay();
+  };
+
+  async function loadBenchmarks() {
+    try {
+      const resp = await fetch('/api/benchmarks');
+      const data = await resp.json();
+      if (data.success && data.benchmarks) {
+        const select = document.getElementById('perfBenchmarkSelect');
+        if (select) {
+          select.innerHTML = data.benchmarks.map(b =>
+            `<option value="${b.key}">${b.name} (${b.scheme_name})</option>`
+          ).join('');
+        }
+      }
+    } catch (e) {
+      console.error('[Perf] Failed to load benchmarks:', e);
+    }
+  }
+
+  async function loadPerformanceData() {
+    if (!currentPerfPortfolioId) return;
+    try {
+      const benchmark = document.getElementById('perfBenchmarkSelect')?.value || 'nifty_50';
+      const resp = await fetch(`/api/portfolio/${currentPerfPortfolioId}/performance?benchmark=${benchmark}&days=365`);
+      const data = await resp.json();
+      if (data.success) {
+        renderPerfMetrics(data);
+        renderPerfChart(data);
+        renderPerfComparison(data);
+      }
+    } catch (e) {
+      console.error('[Perf] Failed to load performance data:', e);
+    }
+  }
+
+  function renderPerfMetrics(data) {
+    const grid = document.getElementById('perfMetricsGrid');
+    const empty = document.getElementById('perfEmptyState');
+    if (!data.snapshots || data.snapshots.length === 0) {
+      if (grid) grid.innerHTML = '';
+      if (empty) empty.style.display = 'block';
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+
+    const pm = data.portfolio_metrics || {};
+    const bm = data.benchmark_metrics || {};
+    const latest = data.snapshots[data.snapshots.length - 1] || {};
+    const totalValue = latest.total_value || 0;
+    const totalInvested = latest.total_invested || 0;
+    const gain = totalValue - totalInvested;
+    const gainPct = totalInvested > 0 ? (gain / totalInvested * 100) : 0;
+
+    const metrics = [
+      { label: 'Current Value', value: `₹${totalValue.toLocaleString()}`, sub: `Invested: ₹${totalInvested.toLocaleString()}`, color: 'neutral' },
+      { label: 'Total Gain / Loss', value: `${gain >= 0 ? '+' : ''}₹${Math.round(gain).toLocaleString()}`, sub: `${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(2)}%`, color: gain >= 0 ? 'positive' : 'negative' },
+      { label: 'Portfolio Return', value: `${pm.absolute_return !== null ? pm.absolute_return.toFixed(2) : 'N/A'}%`, sub: 'Absolute return since inception', color: (pm.absolute_return || 0) >= 0 ? 'positive' : 'negative' },
+      { label: `Benchmark (${data.benchmark?.name || 'Nifty 50'})`, value: `${bm.absolute_return !== null ? bm.absolute_return.toFixed(2) : 'N/A'}%`, sub: 'Benchmark absolute return', color: (bm.absolute_return || 0) >= 0 ? 'positive' : 'negative' },
+      { label: 'Alpha vs Benchmark', value: `${(pm.absolute_return || 0) - (bm.absolute_return || 0) >= 0 ? '+' : ''}${(pm.absolute_return || 0) - (bm.absolute_return || 0).toFixed(2)}%`, sub: 'Excess return over benchmark', color: 'neutral' },
+      { label: 'Volatility', value: `${bm.volatility !== null ? bm.volatility.toFixed(2) : 'N/A'}%`, sub: 'Annualized volatility', color: 'neutral' },
+    ];
+
+    if (grid) {
+      grid.innerHTML = metrics.map(m => `
+        <div class="perf-metric-card">
+          <span class="perf-metric-label">${m.label}</span>
+          <div class="perf-metric-value ${m.color}">${m.value}</div>
+          <span class="perf-metric-sub">${m.sub}</span>
+        </div>
+      `).join('');
+    }
+  }
+
+  function renderPerfChart(data) {
+    const ctx = document.getElementById('perfChart');
+    if (!ctx) return;
+    if (perfChartInstance) perfChartInstance.destroy();
+
+    const chartData = data.chart_data || [];
+    const benchHistory = data.benchmark_history || [];
+    const labels = chartData.map(d => d.date);
+
+    const portfolioValues = chartData.map((d, i) => {
+      if (chartData.length === 0) return 100;
+      const firstVal = chartData[0].portfolio_value || 1;
+      const val = d.portfolio_value || firstVal;
+      return ((val / firstVal) * 100).toFixed(2);
+    });
+
+    const benchmarkValues = benchHistory.map((d, i) => {
+      if (benchHistory.length === 0) return 100;
+      const firstVal = benchHistory[0].nav || 1;
+      const val = d.nav || firstVal;
+      return ((val / firstVal) * 100).toFixed(2);
+    });
+
+    perfChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Your Portfolio',
+            data: portfolioValues,
+            borderColor: '#10B981',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+          },
+          {
+            label: data.benchmark?.name || 'Benchmark',
+            data: benchmarkValues,
+            borderColor: '#00D2FF',
+            backgroundColor: 'rgba(0, 210, 255, 0.05)',
+            borderWidth: 2,
+            borderDash: [6, 4],
+            fill: false,
+            tension: 0.4,
+            pointRadius: 0,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top', labels: { color: '#F8FAFC', font: { weight: '700' } } },
+          tooltip: { mode: 'index', intersect: false },
+        },
+        scales: {
+          x: { ticks: { color: '#94A3B8', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.03)' } },
+          y: { ticks: { color: '#94A3B8', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.03)' }, min: 0 },
+        },
+      },
+    });
+  }
+
+  function renderPerfComparison(data) {
+    const tbody = document.getElementById('perfComparisonBody');
+    if (!tbody) return;
+    const pm = data.portfolio_metrics || {};
+    const bm = data.benchmark_metrics || {};
+    const periods = [
+      { label: 'Total Return', p: pm.absolute_return, b: bm.absolute_return },
+      { label: 'CAGR', p: null, b: bm.cagr },
+      { label: 'Volatility', p: null, b: bm.volatility },
+      { label: 'Sharpe Ratio', p: null, b: bm.sharpe_ratio },
+      { label: 'Max Drawdown', p: null, b: bm.max_drawdown },
+    ];
+    tbody.innerHTML = periods.map(period => {
+      const pVal = period.p !== null ? period.p.toFixed(2) : 'N/A';
+      const bVal = period.b !== null ? period.b.toFixed(2) : 'N/A';
+      const alpha = period.p !== null && period.b !== null
+        ? ((period.p - period.b) >= 0 ? '+' : '') + (period.p - period.b).toFixed(2)
+        : 'N/A';
+      return `<tr><td>${period.label}</td><td class="portfolio-col">${pVal}</td><td class="benchmark-col">${bVal}</td><td>${alpha}</td></tr>`;
+    }).join('');
+  }
+
+  async function recordPortfolioSnapshot() {
+    if (!currentPerfPortfolioId || !currentPerfPortfolioItems.length) {
+      alert('No portfolio data available. Please save a portfolio first.');
+      return;
+    }
+    const btn = document.querySelector('.perf-snapshot-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Recording...';
+    btn.disabled = true;
+    try {
+      const benchmark = document.getElementById('perfBenchmarkSelect')?.value || 'nifty_50';
+      const resp = await fetch(`/api/portfolio/${currentPerfPortfolioId}/snapshot`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ portfolio: currentPerfPortfolioItems, benchmark: benchmark }),
+      });
+      const data = await resp.json();
+      if (data.success) {
+        updateLastSnapshotDisplay();
+        loadPerformanceData();
+        btn.innerHTML = '✅ Recorded';
+        setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 2000);
+      } else {
+        alert('Failed to record snapshot: ' + (data.error || 'Unknown error'));
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    } catch (e) {
+      console.error('[Perf] Snapshot error:', e);
+      alert('Error recording snapshot');
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  }
+
+  function updateLastSnapshotDisplay() {
+    const el = document.getElementById('perfLastSnapshot');
+    if (!el) return;
+    const now = new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+    el.textContent = `Last recorded: ${now}`;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('perfBenchmarkSelect');
+    if (select) {
+      select.addEventListener('change', () => { loadPerformanceData(); });
+    }
+  });
+
+  </script>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       PORTFOLIO PERFORMANCE TRACKING SECTION
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section id="portfolioPerformanceSection" class="perf-section" style="display:none;">
+    <div class="perf-header">
+      <h2 class="perf-title"><span class="perf-icon">📊</span>Portfolio Performance vs Benchmark</h2>
+      <select id="perfBenchmarkSelect" class="perf-benchmark-select">
+        <option value="nifty_50">Nifty 50 (UTI Index Fund)</option>
+        <option value="sensex">Sensex (SBI Index Fund)</option>
+        <option value="nifty_100">Nifty 100 (ICICI Pru Index Fund)</option>
+        <option value="nifty_midcap_150">Nifty Midcap 150 (HDFC Index Fund)</option>
+      </select>
+    </div>
+
+    <!-- Snapshot Controls -->
+    <div style="margin-bottom: 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+      <button class="perf-snapshot-btn" onclick="recordPortfolioSnapshot()">
+        📸 Record Snapshot
+      </button>
+      <span id="perfLastSnapshot" style="font-size:13px; color:var(--text-muted);">No snapshots recorded yet</span>
+    </div>
+
+    <!-- Metrics Cards -->
+    <div class="perf-metrics-grid" id="perfMetricsGrid">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Chart -->
+    <div class="perf-chart-container">
+      <div class="perf-chart-header">
+        <h3 class="perf-chart-title">Portfolio Value vs Benchmark</h3>
+        <p class="perf-chart-subtitle">Growth of ₹1 invested over time</p>
+      </div>
+      <canvas id="perfChart" height="300"></canvas>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="perf-chart-container">
+      <div class="perf-chart-header">
+        <h3 class="perf-chart-title">Performance Comparison</h3>
+        <p class="perf-chart-subtitle">Returns across time periods</p>
+      </div>
+      <table class="perf-table" id="perfComparisonTable">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th class="portfolio-col">Your Portfolio</th>
+            <th class="benchmark-col">Benchmark</th>
+            <th>Alpha (vs Benchmark)</th>
+          </tr>
+        </thead>
+        <tbody id="perfComparisonBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div id="perfEmptyState" class="perf-empty" style="display:none;">
+      <span class="perf-empty-icon">📭</span>
+      <p>No performance data yet. Save a portfolio and record your first snapshot to start tracking.</p>
+    </div>
+  </section>
+
+</body>
 </html>

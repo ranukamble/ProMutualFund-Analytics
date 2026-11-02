@@ -9,6 +9,11 @@ from services.portfolio_builder import (
     auto_build_portfolio_by_risk
 )
 from services.ai_advisor import start_ai_generation_task, generate_portfolio_ai_suggestions
+from services.portfolio_performance import (
+    record_daily_snapshot,
+    get_performance_comparison,
+    get_available_benchmarks,
+)
 
 portfolio_bp = Blueprint('portfolio', __name__)
 
@@ -37,6 +42,20 @@ def save_portfolio():
     try:
         data = request.get_json() or {}
         new_id = save_portfolio_entry(data)
+
+        # Auto-record initial performance snapshot
+        portfolio_items = data.get('portfolio', [])
+        benchmark = data.get('benchmark', 'nifty_50')
+        if portfolio_items:
+            try:
+                record_daily_snapshot(
+                    portfolio_id=new_id,
+                    portfolio_items=portfolio_items,
+                    benchmark=benchmark,
+                )
+            except Exception as snap_err:
+                print(f"[Auto-snapshot] Failed to record initial snapshot: {snap_err}")
+
         return jsonify({
             'success': True,
             'portfolio_id': new_id,
@@ -136,6 +155,71 @@ def ai_suggest_portfolio():
         importlib.reload(services.ai_advisor)
         result = services.ai_advisor.generate_portfolio_ai_suggestions(portfolio_data)
         return jsonify(result), 200
+    except Exception as e:
+        import traceback
+        return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 500
+
+
+@portfolio_bp.route('/api/benchmarks', methods=['GET'])
+def list_benchmarks():
+    """List available benchmark indices for performance comparison."""
+    try:
+        benchmarks = get_available_benchmarks()
+        return jsonify({'success': True, 'benchmarks': benchmarks})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@portfolio_bp.route('/api/portfolio/<int:pid>/snapshot', methods=['POST'])
+def record_snapshot(pid):
+    """Record a daily performance snapshot for a portfolio."""
+    try:
+        data = request.get_json() or {}
+        portfolio_items = data.get('portfolio', [])
+        benchmark = data.get('benchmark', 'nifty_50')
+
+        if not portfolio_items:
+            return jsonify({'error': 'Portfolio items are required'}), 400
+
+        result = record_daily_snapshot(
+            portfolio_id=pid,
+            portfolio_items=portfolio_items,
+            benchmark=benchmark,
+        )
+        return jsonify({'success': True, **result})
+    except Exception as e:
+        import traceback
+        return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 500
+
+
+@portfolio_bp.route('/api/portfolio/<int:pid>/performance', methods=['GET'])
+def portfolio_performance(pid):
+    """Get portfolio performance history and comparison metrics."""
+    try:
+        days = int(request.args.get('days', 365))
+        benchmark = request.args.get('benchmark', 'nifty_50')
+        result = get_performance_comparison(
+            portfolio_id=pid,
+            days=days,
+            benchmark=benchmark,
+        )
+        return jsonify({'success': True, **result})
+    except Exception as e:
+        import traceback
+        return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 500
+
+
+@portfolio_bp.route('/api/portfolio/<int:pid>/compare/<benchmark>', methods=['GET'])
+def compare_portfolio_benchmark(pid, benchmark):
+    """Compare portfolio performance against a specific benchmark."""
+    try:
+        days = int(request.args.get('days', 365))
+        result = get_performance_comparison(
+            portfolio_id=pid,
+            days=days,
+            benchmark=benchmark,
+        )
+        return jsonify({'success': True, **result})
     except Exception as e:
         import traceback
         return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 500

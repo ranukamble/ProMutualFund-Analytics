@@ -119,5 +119,87 @@ def get_fund_from_db(code):
     mf_data = {'meta': meta, 'data': nav_list}
     return mf_data, fund['rating']
 
+
+def init_portfolio_snapshots_table():
+    """Create portfolio_snapshots table for performance tracking."""
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS portfolio_snapshots (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            portfolio_id INTEGER NOT NULL,
+            snapshot_date DATE NOT NULL,
+            total_value REAL NOT NULL,
+            total_invested REAL NOT NULL,
+            cagr_1y REAL,
+            cagr_3y REAL,
+            benchmark_nifty_50 REAL,
+            benchmark_sensex REAL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (portfolio_id) REFERENCES portfolios(id)
+        )
+    ''')
+    c.execute('''
+        CREATE INDEX IF NOT EXISTS idx_portfolio_snapshots_pid_date
+        ON portfolio_snapshots (portfolio_id, snapshot_date)
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def save_portfolio_snapshot(portfolio_id, snapshot_date, total_value, total_invested,
+                            cagr_1y=None, cagr_3y=None, benchmark_nifty_50=None,
+                            benchmark_sensex=None):
+    """Save a daily portfolio performance snapshot."""
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('''
+        INSERT INTO portfolio_snapshots
+        (portfolio_id, snapshot_date, total_value, total_invested, cagr_1y, cagr_3y,
+         benchmark_nifty_50, benchmark_sensex)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (portfolio_id, snapshot_date, total_value, total_invested, cagr_1y, cagr_3y,
+          benchmark_nifty_50, benchmark_sensex))
+    snapshot_id = c.lastrowid
+    conn.commit()
+    conn.close()
+    return snapshot_id
+
+
+def get_portfolio_snapshots(portfolio_id, days=365):
+    """Get performance snapshots for a portfolio over the last N days."""
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('''
+        SELECT snapshot_date, total_value, total_invested, cagr_1y, cagr_3y,
+               benchmark_nifty_50, benchmark_sensex, created_at
+        FROM portfolio_snapshots
+        WHERE portfolio_id = ?
+        ORDER BY snapshot_date DESC
+        LIMIT ?
+    ''', (portfolio_id, days))
+    rows = c.fetchall()
+    conn.close()
+    return [dict(row) for row in rows]
+
+
+def get_latest_portfolio_snapshot(portfolio_id):
+    """Get the most recent snapshot for a portfolio."""
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('''
+        SELECT snapshot_date, total_value, total_invested, cagr_1y, cagr_3y,
+               benchmark_nifty_50, benchmark_sensex, created_at
+        FROM portfolio_snapshots
+        WHERE portfolio_id = ?
+        ORDER BY snapshot_date DESC
+        LIMIT 1
+    ''', (portfolio_id,))
+    row = c.fetchone()
+    conn.close()
+    return dict(row) if row else None
+
+
 # Initialize database on module load
 init_db()
+init_portfolio_snapshots_table()
