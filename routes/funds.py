@@ -44,6 +44,7 @@ def get_quote(code):
 
 @funds_bp.route('/api/history/<code>')
 @require_api_key
+@cache.memoize(timeout=86400)
 def get_history(code):
     history = None
     try:
@@ -73,6 +74,7 @@ def get_advanced(code):
 
 @funds_bp.route('/api/all-in-one/<code>')
 @require_api_key
+@cache.memoize(timeout=86400)
 def get_all_in_one(code):
     try:
         quote_res, err = get_quote_data(code)

@@ -260,6 +260,7 @@ def get_all_schemes_list():
 # ==============================================================================
 # DETAILED QUOTE & GROWW SCRAPER
 # ==============================================================================
+@cache.memoize(timeout=86400)
 def get_quote_data(code):
     code = str(code).strip()
     history = None
@@ -420,6 +421,7 @@ def get_quote_data(code):
 # ==============================================================================
 # ADVANCED METRICS (CAGR 1-10Y, Volatility, Sharpe, Sortino, Alpha, Beta)
 # ==============================================================================
+@cache.memoize(timeout=86400)
 def get_advanced_metrics(code):
     code = str(code).strip()
     history = None

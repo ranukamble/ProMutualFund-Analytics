@@ -21839,14 +21839,12 @@
       }
 
       try {
-        const [quoteRes, histRes, advRes] = await Promise.all([
-          fetch(`/api/quote/${code}`).then(r => r.json()).catch(() => ({})),
-          fetch(`/api/history/${code}`).then(r => r.json()).catch(() => ({ data: [] })),
-          fetch(`/api/advanced/${code}`).then(r => r.json()).catch(() => ({}))
-        ]);
-
-        const quote = quoteRes.quote || {};
-        const scraped = quoteRes.scraped || {};
+        // Fast 1-Roundtrip Consolidated Fetch
+        const allRes = await fetch(`/api/all-in-one/${code}`).then(r => r.json()).catch(() => ({}));
+        const quote = allRes.quote || {};
+        const scraped = allRes.scraped || {};
+        const advRes = allRes.advanced || {};
+        const histRes = { data: allRes.history || [] };
         const navVal = parseFloat(quote.nav) || 0;
         fdmCurrentNav = navVal;
 
