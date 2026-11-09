@@ -26539,10 +26539,13 @@
         <span id="floatingLiveFloatTag" style="font-size: 8.5px; font-weight: 800; background: rgba(56,189,248,0.18); color: #38BDF8; border: 1px solid rgba(56,189,248,0.4); border-radius: 4px; padding: 1px 5px;">✦ DRAG & FLOAT</span>
       </div>
       <div style="display: flex; align-items: center; gap: 5px;">
+        <button type="button" id="floatingLiveDeskFoldBtn" onclick="FloatingLiveDesk.toggleControlsOnly(event)" title="Minimize / Hide Search & Feed Panel Only" style="
+          background: rgba(239,68,68,0.14); border: 1px solid rgba(239,68,68,0.4); color: #FCA5A5; border-radius: 5px; padding: 2px 7px; font-size: 9px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 3px;
+        ">▲ Hide Search</button>
         <button type="button" onclick="FloatingLiveDesk.resetPosition(event)" title="Reset position to top-right" style="
           background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #94A3B8; border-radius: 5px; padding: 2px 7px; font-size: 9px; font-weight: 700; cursor: pointer;
         ">⚓ Anchor</button>
-        <button type="button" id="floatingLiveDeskMinBtn" onclick="FloatingLiveDesk.toggleMinimize(event)" title="Toggle Compact / Mini View" style="
+        <button type="button" id="floatingLiveDeskMinBtn" onclick="FloatingLiveDesk.toggleMinimize(event)" title="Toggle Entire Window Compact View" style="
           background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38BDF8; border-radius: 5px; padding: 2px 7px; font-size: 9px; font-weight: 700; cursor: pointer;
         ">🗕 Mini</button>
         <button type="button" onclick="FloatingLiveDesk.close(event)" title="Close Live Desk" style="
@@ -26620,7 +26623,7 @@
         <span style="color:#00D2FF; font-weight:700;">📡 Feed:</span>
         <span id="flLiveChannelName" style="color:#CBD5E1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Aaj Tak Live (24x7 Breaking News)</span>
       </span>
-      <div style="display:flex; align-items:center; gap:5px;">
+      <div style="display:flex; align-items:center; gap:5px; margin-right: 12px;">
         <button type="button" onclick="FloatingLiveDesk.refresh()" style="
           color:#34D399; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); border-radius:4px; padding:2px 6px; font-size:8.5px; font-weight:700; cursor:pointer;
         ">🔄 Live</button>
@@ -26628,6 +26631,29 @@
           color:#EF4444; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.25); border-radius:4px; padding:2px 6px; font-size:8.5px; text-decoration:none; font-weight:700;
         ">▶ Popout ↗</a>
       </div>
+    </div>
+
+    <!-- Drag-to-Resize Handle (Bottom-Right Corner) -->
+    <div id="floatingLiveDeskResizeHandle" title="Click & Drag to resize window freely" style="
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 16px;
+      height: 16px;
+      cursor: nwse-resize;
+      z-index: 60;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 2px;
+      user-select: none;
+      touch-action: none;
+    ">
+      <svg width="10" height="10" viewBox="0 0 10 10" style="opacity: 0.5; fill: none; stroke: #94A3B8; stroke-width: 1.5; stroke-linecap: round;">
+        <line x1="8" y1="2" x2="2" y2="8"></line>
+        <line x1="8" y1="5" x2="5" y2="8"></line>
+        <line x1="8" y1="8" x2="8" y2="8"></line>
+      </svg>
     </div>
   </div>
 
@@ -26674,17 +26700,23 @@
         const container = document.getElementById('floatingLiveDeskContainer');
         if (!container) return;
 
-        // Position from saved coordinates if available
+        // Position & Size from saved dimensions if available
         try {
           const saved = localStorage.getItem('floating_live_desk_pos');
           if (saved) {
             const pos = JSON.parse(saved);
             if (pos && typeof pos.left === 'number' && typeof pos.top === 'number') {
-              const maxL = Math.max(10, window.innerWidth - (isMinimized ? 290 : 430));
+              const curW = pos.width || (isMinimized ? 290 : 420);
+              const maxL = Math.max(10, window.innerWidth - curW);
               const maxT = Math.max(10, window.innerHeight - (isMinimized ? 220 : 330));
               container.style.left = Math.max(10, Math.min(pos.left, maxL)) + 'px';
               container.style.top = Math.max(10, Math.min(pos.top, maxT)) + 'px';
               container.style.right = 'auto';
+            }
+            if (pos && pos.width && !isMinimized) {
+              container.style.width = pos.width + 'px';
+              const vWrap = document.getElementById('flLiveVideoWrap');
+              if (vWrap && pos.videoHeight) vWrap.style.height = pos.videoHeight + 'px';
             }
           }
         } catch (err) {}
@@ -26693,6 +26725,7 @@
         isOpen = true;
 
         this.initDraggable();
+        this.initResizable();
 
         const iframe = document.getElementById('flLiveIframe');
         if (iframe && (!iframe.src || iframe.src === 'about:blank')) {
@@ -26712,14 +26745,45 @@
         if (e) { e.stopPropagation(); e.preventDefault(); }
         try { localStorage.removeItem('floating_live_desk_pos'); } catch (err) {}
         const container = document.getElementById('floatingLiveDeskContainer');
+        const vWrap = document.getElementById('flLiveVideoWrap');
         if (!container) return;
         container.style.transition = 'all 240ms cubic-bezier(0.16, 1, 0.3, 1)';
         container.style.top = '65px';
         container.style.right = '24px';
         container.style.left = 'auto';
+        container.style.width = '420px';
+        if (vWrap) vWrap.style.height = '195px';
         setTimeout(() => { if (container) container.style.transition = ''; }, 260);
         const tag = document.getElementById('floatingLiveFloatTag');
         if (tag) tag.textContent = '✦ ANCHORED';
+      },
+
+      isControlsHidden: false,
+
+      toggleControlsOnly: function(e) {
+        if (e) { e.stopPropagation(); e.preventDefault(); }
+        const controls = document.getElementById('floatingLiveDeskControls');
+        const foldBtn = document.getElementById('floatingLiveDeskFoldBtn');
+        if (!controls) return;
+
+        this.isControlsHidden = !this.isControlsHidden;
+        controls.style.display = this.isControlsHidden ? 'none' : 'block';
+
+        if (foldBtn) {
+          if (this.isControlsHidden) {
+            foldBtn.innerHTML = '▼ Show Search';
+            foldBtn.style.background = 'rgba(56,189,248,0.15)';
+            foldBtn.style.borderColor = 'rgba(56,189,248,0.45)';
+            foldBtn.style.color = '#38BDF8';
+            foldBtn.title = 'Open Search & Video Grid';
+          } else {
+            foldBtn.innerHTML = '▲ Hide Search';
+            foldBtn.style.background = 'rgba(239,68,68,0.14)';
+            foldBtn.style.borderColor = 'rgba(239,68,68,0.4)';
+            foldBtn.style.color = '#FCA5A5';
+            foldBtn.title = 'Minimize / Hide Search & Feed Panel Only';
+          }
+        }
       },
 
       toggleMinimize: function(e) {
@@ -26727,17 +26791,20 @@
         const container = document.getElementById('floatingLiveDeskContainer');
         const controls = document.getElementById('floatingLiveDeskControls');
         const minBtn = document.getElementById('floatingLiveDeskMinBtn');
+        const foldBtn = document.getElementById('floatingLiveDeskFoldBtn');
         const videoWrap = document.getElementById('flLiveVideoWrap');
         if (!container) return;
 
         isMinimized = !isMinimized;
         if (isMinimized) {
           if (controls) controls.style.display = 'none';
+          if (foldBtn) foldBtn.style.display = 'none';
           container.style.width = '290px';
           if (videoWrap) videoWrap.style.height = '155px';
           if (minBtn) { minBtn.innerHTML = '🗖 Expand'; minBtn.title = 'Expand to Full Suite'; }
         } else {
-          if (controls) controls.style.display = 'block';
+          if (controls) controls.style.display = this.isControlsHidden ? 'none' : 'block';
+          if (foldBtn) foldBtn.style.display = 'inline-flex';
           container.style.width = '420px';
           if (videoWrap) videoWrap.style.height = '195px';
           if (minBtn) { minBtn.innerHTML = '🗕 Mini'; minBtn.title = 'Compact / Mini View'; }
@@ -26887,6 +26954,99 @@
         } else {
           this.searchKeyword('share market live hindi');
         }
+      },
+
+      
+      initResizable: function() {
+        const resizeHandle = document.getElementById('floatingLiveDeskResizeHandle');
+        const container = document.getElementById('floatingLiveDeskContainer');
+        const shield = document.getElementById('floatingLiveDragShield');
+        const videoWrap = document.getElementById('flLiveVideoWrap');
+        if (!resizeHandle || !container || resizeHandle.getAttribute('data-init')) return;
+        resizeHandle.setAttribute('data-init', 'true');
+
+        let isResizing = false;
+        let startX = 0, startY = 0;
+        let startW = 0, startH = 0;
+        let startVideoH = 0;
+
+        const onResizeStart = (clientX, clientY, e) => {
+          if (e) { e.stopPropagation(); e.preventDefault(); }
+          if (isMinimized) return; // don't resize when minimized
+          isResizing = true;
+          startX = clientX;
+          startY = clientY;
+          startW = container.offsetWidth;
+          startH = container.offsetHeight;
+          startVideoH = videoWrap ? videoWrap.offsetHeight : 195;
+
+          if (shield) shield.style.display = 'block';
+          container.style.borderColor = 'rgba(56,189,248,0.85)';
+          const tag = document.getElementById('floatingLiveFloatTag');
+          if (tag) tag.textContent = '✦ RESIZING...';
+        };
+
+        const onResizeMove = (clientX, clientY) => {
+          if (!isResizing) return;
+          const dx = clientX - startX;
+          const dy = clientY - startY;
+
+          // Compute new dimensions with constraints (Min: 320x220, Max: 800px or viewport width)
+          const minW = 320;
+          const maxW = Math.min(820, window.innerWidth - 30);
+          const newW = Math.max(minW, Math.min(startW + dx, maxW));
+          container.style.width = newW + 'px';
+
+          // Proportional or delta height adjustment on the video wrap
+          if (videoWrap) {
+            const minVH = 160;
+            const maxVH = Math.min(480, window.innerHeight - 180);
+            const newVH = Math.max(minVH, Math.min(startVideoH + dy, maxVH));
+            videoWrap.style.height = newVH + 'px';
+          }
+        };
+
+        const onResizeEnd = () => {
+          if (!isResizing) return;
+          isResizing = false;
+          if (shield) shield.style.display = 'none';
+          container.style.borderColor = 'rgba(239,68,68,0.45)';
+          const tag = document.getElementById('floatingLiveFloatTag');
+          if (tag) tag.textContent = '✦ RESIZED';
+
+          // Persist width and video height
+          try {
+            const currLeft = parseInt(container.style.left, 10);
+            const currTop = parseInt(container.style.top, 10);
+            const w = container.offsetWidth;
+            const vH = videoWrap ? videoWrap.offsetHeight : 195;
+            localStorage.setItem('floating_live_desk_pos', JSON.stringify({
+              left: isNaN(currLeft) ? 24 : currLeft,
+              top: isNaN(currTop) ? 65 : currTop,
+              width: w,
+              videoHeight: vH
+            }));
+          } catch(err) {}
+        };
+
+        resizeHandle.addEventListener('mousedown', (e) => onResizeStart(e.clientX, e.clientY, e));
+        window.addEventListener('mousemove', (e) => {
+          if (isResizing) { e.preventDefault(); onResizeMove(e.clientX, e.clientY); }
+        });
+        window.addEventListener('mouseup', onResizeEnd);
+
+        resizeHandle.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length === 1) onResizeStart(e.touches[0].clientX, e.touches[0].clientY, e);
+        }, { passive: false });
+
+        window.addEventListener('touchmove', (e) => {
+          if (isResizing && e.touches && e.touches.length === 1) {
+            e.preventDefault();
+            onResizeMove(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        }, { passive: false });
+
+        window.addEventListener('touchend', onResizeEnd);
       },
 
       initDraggable: function() {
