@@ -34,7 +34,8 @@
     reconnectionDelay: 1000,
     reconnectionDelayMax: 5000,
     timeout: 10000,
-    transports: ['websocket', 'polling']
+    transports: ['websocket', 'polling'],
+    upgrade: true
   });
   window.socket = socket;
 
@@ -86,7 +87,7 @@
   function startLatencyPing() {
     clearInterval(pingIntervalTimer);
     sendPing();
-    pingIntervalTimer = setInterval(sendPing, 4000);
+    pingIntervalTimer = setInterval(sendPing, 5000);
   }
 
   function sendPing() {
