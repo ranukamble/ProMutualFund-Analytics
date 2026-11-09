@@ -1,5 +1,64 @@
 [
   {
+    "id": 4,
+    "name": "Core Wealth Allocation",
+    "created_at": "09 Nov 2026, 13:59",
+    "investment_amount": 12000,
+    "funds": [
+      {
+        "code": "118955",
+        "name": "HDFC Flexi Cap Fund - Direct Plan - Growth Option",
+        "category": "Flexi Cap",
+        "amc": "HDFC",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 500,
+        "lumpsum_amount": 25000,
+        "sip_weight": 50,
+        "lumpsum_weight": 0,
+        "weight": 50
+      },
+      {
+        "code": "120251",
+        "name": "ICICI Prudential Aggressive Hybrid Fund - Direct Plan - Growth",
+        "category": "Aggressive Hybrid",
+        "amc": "ICICI",
+        "plan": "Direct",
+        "option": "Growth",
+        "investment_type": "SIP",
+        "sip_amount": 500,
+        "lumpsum_amount": 25000,
+        "sip_weight": 50,
+        "lumpsum_weight": 0,
+        "weight": 50
+      }
+    ],
+    "summary": {
+      "total_sip": 1000,
+      "total_lumpsum": 0,
+      "fund_count": 2,
+      "health_status": "Moderate",
+      "health_observations": [
+        "\u2713 Healthy category distribution (Top: Flexi Cap 50%)",
+        "\u26a0\ufe0f Single fund concentration exceeds 40% (50%)",
+        "\u2713 Diversified across 2 mutual fund houses"
+      ],
+      "categories": [
+        {
+          "name": "Flexi Cap",
+          "amount": 500,
+          "weight": 50
+        },
+        {
+          "name": "Aggressive Hybrid",
+          "amount": 500,
+          "weight": 50
+        }
+      ]
+    }
+  },
+  {
     "id": 3,
     "name": "Core Wealth Allocation",
     "created_at": "26 Oct 2026, 15:56",
