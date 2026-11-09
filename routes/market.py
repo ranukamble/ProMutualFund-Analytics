@@ -103,5 +103,11 @@ def resolve_live_stream_route():
     except Exception as e:
         return jsonify({"status": "error", "error": str(e)}), 500
 
-
-
+@market_bp.route('/api/youtube/search')
+def youtube_search_route():
+    try:
+        q = request.args.get('q', '').strip()
+        from services.market_data import search_youtube_videos
+        return jsonify(search_youtube_videos(q))
+    except Exception as e:
+        return jsonify({"status": "error", "error": str(e), "results": []}), 500

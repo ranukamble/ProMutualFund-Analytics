@@ -2057,3 +2057,79 @@ def get_live_stream_catalog():
         "channels": catalog
     }
 
+
+
+def search_youtube_videos(query, max_results=12):
+    """
+    Fast YouTube video search for the Mini Real YouTube inside Live Desk.
+    Fetches real video results with thumbnails, titles, channel names, and live indicators.
+    """
+    query = (query or "").strip()
+    if not query:
+        query = "share market live hindi"
+    
+    cache_key = f"yt_search_{query.lower()}"
+    cached = cache.get(cache_key)
+    if cached:
+        return cached
+
+    url = f"https://www.youtube.com/results?search_query={urllib.parse.quote(query)}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9,hi;q=0.8"
+    }
+    
+    results = []
+    try:
+        resp = requests.get(url, headers=headers, timeout=8)
+        if resp.status_code == 200:
+            match = re.search(r'var ytInitialData = ({.*?});</script>', resp.text)
+            if match:
+                data = json.loads(match.group(1))
+                sections = data.get('contents', {}).get('twoColumnSearchResultsRenderer', {}).get('primaryContents', {}).get('sectionListRenderer', {}).get('contents', [])
+                for sec in sections:
+                    items = sec.get('itemSectionRenderer', {}).get('contents', [])
+                    for item in items:
+                        v = item.get('videoRenderer')
+                        if v and 'videoId' in v:
+                            vid = v.get('videoId')
+                            title = v.get('title', {}).get('runs', [{}])[0].get('text', '')
+                            channel = v.get('ownerText', {}).get('runs', [{}])[0].get('text', '')
+                            
+                            thumbs = v.get('thumbnail', {}).get('thumbnails', [])
+                            thumb = thumbs[-1].get('url', f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg") if thumbs else f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg"
+                            
+                            length_text = v.get('lengthText', {}).get('simpleText', '')
+                            is_live = 'BADGE_STYLE_TYPE_LIVE_NOW' in str(v.get('badges', [])) or 'LIVE' in str(v.get('badges', []))
+                            if is_live:
+                                length_text = 'LIVE'
+                            
+                            results.append({
+                                'id': vid,
+                                'title': title,
+                                'channel': channel,
+                                'thumb': thumb,
+                                'length': length_text,
+                                'is_live': is_live,
+                                'watch_url': f"https://www.youtube.com/watch?v={vid}",
+                                'embed_url': f"https://www.youtube.com/embed/{vid}?autoplay=1&mute=0&playsinline=1&rel=0"
+                            })
+                            if len(results) >= max_results:
+                                break
+                    if len(results) >= max_results:
+                        break
+    except Exception as e:
+        print(f"[YouTube Search Error] {e}")
+
+    final_resp = {
+        "status": "success",
+        "query": query,
+        "count": len(results),
+        "results": results
+    }
+    # Cache query for 10 minutes
+    try:
+        cache.set(cache_key, final_resp, timeout=600)
+    except Exception:
+        pass
+    return final_resp

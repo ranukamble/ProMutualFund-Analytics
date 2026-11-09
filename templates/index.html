@@ -26551,42 +26551,39 @@
       </div>
     </div>
 
-    <!-- Collapsible Controls Container -->
+    <!-- Collapsible Controls Container (Mini Real YouTube Experience) -->
     <div id="floatingLiveDeskControls">
-      <!-- Channel Switcher Row -->
-      <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none;">
-        <button type="button" id="flChan_aajtak" onclick="FloatingLiveDesk.switchChannel('aajtak')" style="flex-shrink:0; background:rgba(239,68,68,0.22); border:1px solid rgba(239,68,68,0.5); color:#F87171; font-size:9.5px; font-weight:700; padding:3px 7px; border-radius:5px; cursor:pointer;">🔴 Aaj Tak</button>
-        <button type="button" id="flChan_lokmat" onclick="FloatingLiveDesk.switchChannel('lokmat')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 7px; border-radius:5px; cursor:pointer;">📰 Lokmat (Local)</button>
-        <button type="button" id="flChan_abp" onclick="FloatingLiveDesk.switchChannel('abp')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 7px; border-radius:5px; cursor:pointer;">📺 ABP Majha</button>
-        <button type="button" id="flChan_tv9" onclick="FloatingLiveDesk.switchChannel('tv9')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 7px; border-radius:5px; cursor:pointer;">📡 TV9 Marathi</button>
-        <button type="button" id="flChan_cnbc" onclick="FloatingLiveDesk.switchChannel('cnbc')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 7px; border-radius:5px; cursor:pointer;">📈 CNBC Markets</button>
-        <button type="button" id="flChan_tadoba" onclick="FloatingLiveDesk.switchChannel('tadoba')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 7px; border-radius:5px; cursor:pointer;">🐯 Tadoba Safari</button>
-        <button type="button" id="flChan_songs" onclick="FloatingLiveDesk.switchChannel('songs')" style="flex-shrink:0; background:rgba(236,72,153,0.12); border:1px solid rgba(236,72,153,0.3); color:#F472B6; font-size:9.5px; font-weight:600; padding:3px 7px; border-radius:5px; cursor:pointer;">🎵 2026 Hits</button>
-        <button type="button" id="flChan_bollywood" onclick="FloatingLiveDesk.switchChannel('bollywood')" style="flex-shrink:0; background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.3); color:#FBBF24; font-size:9.5px; font-weight:600; padding:3px 7px; border-radius:5px; cursor:pointer;">🎬 Movies</button>
-        <button type="button" id="flChan_custom" onclick="FloatingLiveDesk.toggleCustomInput()" style="flex-shrink:0; background:rgba(56,189,248,0.14); border:1px solid rgba(56,189,248,0.4); color:#38BDF8; font-size:9.5px; font-weight:700; padding:3px 7px; border-radius:5px; cursor:pointer;">🔗 Connect YT</button>
+      <!-- Real YouTube Search & Paste Bar -->
+      <form id="flYtSearchForm" onsubmit="FloatingLiveDesk.handleSearch(event)" style="display:flex; gap:6px; margin-bottom:7px;">
+        <div style="flex:1; position:relative; display:flex; align-items:center;">
+          <span style="position:absolute; left:9px; font-size:11px; opacity:0.6; pointer-events:none;">🔍</span>
+          <input type="text" id="flYtSearchInput" placeholder="Search real YouTube videos or paste link..." style="
+            width:100%; box-sizing:border-box; background:rgba(15,23,42,0.9); border:1px solid rgba(239,68,68,0.35);
+            color:#F8FAFC; font-size:11px; font-weight:500; padding:5px 9px 5px 28px; border-radius:7px; outline:none;
+            transition:border-color 150ms ease;
+          " onfocus="this.style.borderColor='#EF4444'" onblur="this.style.borderColor='rgba(239,68,68,0.35)'">
+        </div>
+        <button type="submit" style="
+          background:#EF4444; color:#fff; border:none; border-radius:7px; padding:0 12px; font-size:11px;
+          font-weight:700; cursor:pointer; display:flex; align-items:center; gap:4px; box-shadow:0 2px 8px rgba(239,68,68,0.35);
+        ">Search</button>
+      </form>
+
+      <!-- Category Filter Pills -->
+      <div style="display:flex; gap:4px; overflow-x:auto; padding-bottom:6px; scrollbar-width:none;">
+        <button type="button" class="fl-cat-pill" onclick="FloatingLiveDesk.searchKeyword('share market live hindi')" style="flex-shrink:0; background:rgba(239,68,68,0.22); border:1px solid rgba(239,68,68,0.5); color:#FCA5A5; font-size:9.5px; font-weight:700; padding:3px 8px; border-radius:5px; cursor:pointer;">📈 Stock Live</button>
+        <button type="button" class="fl-cat-pill" onclick="FloatingLiveDesk.searchKeyword('nifty trading live today')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 8px; border-radius:5px; cursor:pointer;">⚡ Nifty & BankNifty</button>
+        <button type="button" class="fl-cat-pill" onclick="FloatingLiveDesk.searchKeyword('aaj tak live news hindi')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 8px; border-radius:5px; cursor:pointer;">🔴 Live News</button>
+        <button type="button" class="fl-cat-pill" onclick="FloatingLiveDesk.searchKeyword('bollywood top songs jukebox 2026')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 8px; border-radius:5px; cursor:pointer;">🎵 Music</button>
+        <button type="button" class="fl-cat-pill" onclick="FloatingLiveDesk.searchKeyword('lofi songs to relax trading study')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 8px; border-radius:5px; cursor:pointer;">🎧 Lo-Fi Chill</button>
+        <button type="button" class="fl-cat-pill" onclick="FloatingLiveDesk.searchKeyword('comedy movies full hindi')" style="flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#94A3B8; font-size:9.5px; font-weight:500; padding:3px 8px; border-radius:5px; cursor:pointer;">🎬 Movies</button>
+        <button type="button" id="flToggleFeedBtn" onclick="FloatingLiveDesk.toggleFeed()" style="flex-shrink:0; background:rgba(56,189,248,0.14); border:1px solid rgba(56,189,248,0.4); color:#38BDF8; font-size:9.5px; font-weight:700; padding:3px 8px; border-radius:5px; cursor:pointer;">☰ Browse Feed</button>
       </div>
 
-      <!-- Movie Sub-Pills -->
-      <div id="flMovieSubPills" style="display:none; gap:4px; overflow-x:auto; padding:5px 0 6px; border-top:1px dashed rgba(245,158,11,0.25); scrollbar-width:none;">
-        <button type="button" id="flMovPill_hera_pheri" onclick="FloatingLiveDesk.playMovie('hera_pheri')" style="flex-shrink:0; background:rgba(245,158,11,0.25); border:1px solid rgba(245,158,11,0.55); color:#FDE68A; font-size:8.5px; font-weight:700; padding:2px 6px; border-radius:4px; cursor:pointer;">🤣 Hera Pheri</button>
-        <button type="button" id="flMovPill_hungama" onclick="FloatingLiveDesk.playMovie('hungama')" style="flex-shrink:0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#CBD5E1; font-size:8.5px; font-weight:600; padding:2px 6px; border-radius:4px; cursor:pointer;">🎭 Hungama</button>
-        <button type="button" id="flMovPill_sooryavansham" onclick="FloatingLiveDesk.playMovie('sooryavansham')" style="flex-shrink:0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#CBD5E1; font-size:8.5px; font-weight:600; padding:2px 6px; border-radius:4px; cursor:pointer;">👑 Sooryavansham</button>
-        <button type="button" id="flMovPill_shemaroo_premiere" onclick="FloatingLiveDesk.playMovie('shemaroo_premiere')" style="flex-shrink:0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#CBD5E1; font-size:8.5px; font-weight:600; padding:2px 6px; border-radius:4px; cursor:pointer;">🌟 Shemaroo Cinema</button>
-      </div>
-
-      <!-- Songs Sub-Pills -->
-      <div id="flSongsSubPills" style="display:none; gap:4px; overflow-x:auto; padding:5px 0 6px; border-top:1px dashed rgba(236,72,153,0.25); scrollbar-width:none;">
-        <button type="button" id="flSongPill_tseries_2026" onclick="FloatingLiveDesk.playSong('tseries_2026')" style="flex-shrink:0; background:rgba(236,72,153,0.28); border:1px solid rgba(236,72,153,0.65); color:#FCE7F3; font-size:8.5px; font-weight:700; padding:2px 6px; border-radius:4px; cursor:pointer;">🔥 T-Series 24x7</button>
-        <button type="button" id="flSongPill_arijit_singh" onclick="FloatingLiveDesk.playSong('arijit_singh')" style="flex-shrink:0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#CBD5E1; font-size:8.5px; font-weight:600; padding:2px 6px; border-radius:4px; cursor:pointer;">💖 Arijit Hits</button>
-        <button type="button" id="flSongPill_party_mashup" onclick="FloatingLiveDesk.playSong('party_mashup')" style="flex-shrink:0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#CBD5E1; font-size:8.5px; font-weight:600; padding:2px 6px; border-radius:4px; cursor:pointer;">⚡ Party Mashup</button>
-        <button type="button" id="flSongPill_lofi_chill" onclick="FloatingLiveDesk.playSong('lofi_chill')" style="flex-shrink:0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#CBD5E1; font-size:8.5px; font-weight:600; padding:2px 6px; border-radius:4px; cursor:pointer;">🎧 Lo-Fi Chill</button>
-      </div>
-
-      <!-- Custom YouTube Input Box -->
-      <div id="flCustomYouTubeInputBox" style="display:none; margin:5px 0 8px; padding:7px 9px; background:rgba(15,23,42,0.85); border:1px solid rgba(56,189,248,0.3); border-radius:7px;">
-        <div style="display:flex; gap:5px;">
-          <input type="text" id="flCustomYouTubeUrlInput" placeholder="Paste YouTube link or video ID..." style="flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.15); color:#F1F5F9; font-size:10px; padding:4px 8px; border-radius:5px; outline:none;">
-          <button type="button" onclick="FloatingLiveDesk.connectCustomYT()" style="background:#0284C7; color:#fff; border:none; border-radius:5px; padding:4px 9px; font-size:10px; font-weight:700; cursor:pointer;">Play</button>
+      <!-- Real YouTube Video Results Feed (Scrollable Mini YouTube Grid) -->
+      <div id="flYtFeedContainer" style="display:none; max-height:190px; overflow-y:auto; margin-bottom:8px; padding-right:3px; scrollbar-width:thin;">
+        <div id="flYtFeedGrid" style="display:grid; grid-template-columns:1fr; gap:6px;">
+          <!-- Dynamically populated YouTube search results -->
         </div>
       </div>
     </div>
@@ -26699,7 +26696,8 @@
 
         const iframe = document.getElementById('flLiveIframe');
         if (iframe && (!iframe.src || iframe.src === 'about:blank')) {
-          this.switchChannel(currentChan);
+          this.playVideo('5n-1o0_K_98', 'NIFTY & BANK NIFTY LIVE ANALYSIS', 'Market Desk');
+          this.searchKeyword('share market live hindi');
         }
       },
 
@@ -26746,161 +26744,149 @@
         }
       },
 
-      switchChannel: function(chan, forceRefresh) {
-        currentChan = chan || 'aajtak';
-        const iframe = document.getElementById('flLiveIframe');
-        const descEl = document.getElementById('flLiveChannelName');
-        const popLink = document.getElementById('flLivePopoutLink');
-        const subPills = document.getElementById('flMovieSubPills');
-        const songPills = document.getElementById('flSongsSubPills');
+      currentVideoId: '5n-1o0_K_98',
+      isFeedOpen: false,
 
-        const pillIds = ['aajtak', 'lokmat', 'abp', 'tv9', 'cnbc', 'tadoba', 'songs', 'bollywood', 'custom'];
-        pillIds.forEach(id => {
-          const btn = document.getElementById(`flChan_${id}`);
-          if (btn) {
-            btn.style.background = 'rgba(255,255,255,0.04)';
-            btn.style.borderColor = 'rgba(255,255,255,0.08)';
-            btn.style.color = '#94A3B8';
-            btn.style.fontWeight = '500';
-          }
-        });
+      handleSearch: function(e) {
+        if (e) { e.preventDefault(); e.stopPropagation(); }
+        const inp = document.getElementById('flYtSearchInput');
+        if (!inp) return;
+        const val = inp.value.trim();
+        if (!val) return;
 
-        const activeBtn = document.getElementById(`flChan_${chan}`);
-
-        if (chan === 'songs') {
-          if (subPills) subPills.style.display = 'none';
-          if (songPills) songPills.style.display = 'flex';
-          if (activeBtn) {
-            activeBtn.style.background = 'rgba(236,72,153,0.22)';
-            activeBtn.style.borderColor = 'rgba(236,72,153,0.55)';
-            activeBtn.style.color = '#FCE7F3';
-            activeBtn.style.fontWeight = '700';
-          }
-          this.playSong('tseries_2026');
+        // Check if it's a direct URL or video ID
+        const vid = this.extractVideoId(val);
+        if (vid) {
+          this.playVideo(vid, 'Playing: ' + val.substring(0, 32));
+          inp.value = '';
           return;
-        } else {
-          if (songPills) songPills.style.display = 'none';
         }
 
-        if (chan === 'bollywood') {
-          if (songPills) songPills.style.display = 'none';
-          if (subPills) subPills.style.display = 'flex';
-          if (activeBtn) {
-            activeBtn.style.background = 'rgba(245,158,11,0.2)';
-            activeBtn.style.borderColor = 'rgba(245,158,11,0.5)';
-            activeBtn.style.color = '#FDE68A';
-            activeBtn.style.fontWeight = '700';
+        // Otherwise perform real YouTube search
+        this.searchKeyword(val);
+      },
+
+      searchKeyword: function(query) {
+        const inp = document.getElementById('flYtSearchInput');
+        if (inp && query) inp.value = query;
+
+        const feedContainer = document.getElementById('flYtFeedContainer');
+        const feedGrid = document.getElementById('flYtFeedGrid');
+        const toggleBtn = document.getElementById('flToggleFeedBtn');
+
+        if (feedContainer) feedContainer.style.display = 'block';
+        this.isFeedOpen = true;
+        if (toggleBtn) toggleBtn.textContent = '✕ Close Feed';
+
+        if (feedGrid) {
+          feedGrid.innerHTML = `
+            <div style="text-align:center; padding:15px; color:#94A3B8; font-size:11px;">
+              <span style="display:inline-block; animation:spin 1s linear infinite;">⏳</span> Searching YouTube for "<b>${query}</b>"...
+            </div>
+          `;
+        }
+
+        fetch(`/api/youtube/search?q=${encodeURIComponent(query)}`)
+          .then(res => res.json())
+          .then(data => {
+            if (!feedGrid) return;
+            const items = (data && data.results) || [];
+            if (!items.length) {
+              feedGrid.innerHTML = `
+                <div style="text-align:center; padding:12px; color:#EF4444; font-size:10px;">
+                  No YouTube results found for "${query}". Try another search term!
+                </div>
+              `;
+              return;
+            }
+
+            feedGrid.innerHTML = items.map(v => `
+              <div onclick="FloatingLiveDesk.playVideo('${v.id}', '${v.title.replace(/'/g, "\'")}', '${v.channel.replace(/'/g, "\'")}')" style="
+                display:flex; gap:8px; align-items:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+                border-radius:6px; padding:5px 7px; cursor:pointer; transition:all 150ms ease;
+              " onmouseover="this.style.background='rgba(239,68,68,0.12)'; this.style.borderColor='rgba(239,68,68,0.35)';"
+                 onmouseout="this.style.background='rgba(255,255,255,0.04)'; this.style.borderColor='rgba(255,255,255,0.08)';">
+                <div style="position:relative; width:80px; height:45px; flex-shrink:0; border-radius:4px; overflow:hidden; background:#000;">
+                  <img src="${v.thumb}" alt="" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+                  ${v.is_live ? '<span style="position:absolute; bottom:2px; right:2px; background:#EF4444; color:#fff; font-size:7.5px; font-weight:800; padding:1px 3px; border-radius:2px;">LIVE</span>' : (v.length ? `<span style="position:absolute; bottom:2px; right:2px; background:rgba(0,0,0,0.8); color:#fff; font-size:7.5px; font-weight:700; padding:1px 3px; border-radius:2px;">${v.length}</span>` : '')}
+                </div>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:10px; font-weight:700; color:#F1F5F9; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.2;">
+                    ${v.title}
+                  </div>
+                  <div style="font-size:8.5px; color:#94A3B8; margin-top:2px; display:flex; align-items:center; gap:4px;">
+                    <span>📺 ${v.channel}</span>
+                  </div>
+                </div>
+              </div>
+            `).join('');
+          })
+          .catch(err => {
+            if (feedGrid) {
+              feedGrid.innerHTML = `
+                <div style="text-align:center; padding:10px; color:#EF4444; font-size:10px;">
+                  Error fetching YouTube feed: ${err.message || 'Network error'}
+                </div>
+              `;
+            }
+          });
+      },
+
+      toggleFeed: function() {
+        const feedContainer = document.getElementById('flYtFeedContainer');
+        const toggleBtn = document.getElementById('flToggleFeedBtn');
+        if (!feedContainer) return;
+
+        this.isFeedOpen = !this.isFeedOpen;
+        feedContainer.style.display = this.isFeedOpen ? 'block' : 'none';
+        if (toggleBtn) {
+          toggleBtn.textContent = this.isFeedOpen ? '✕ Close Feed' : '☰ Browse Feed';
+        }
+        if (this.isFeedOpen) {
+          const feedGrid = document.getElementById('flYtFeedGrid');
+          if (feedGrid && !feedGrid.children.length) {
+            this.searchKeyword('share market live hindi');
           }
-          this.playMovie('hera_pheri');
-          return;
-        } else {
-          if (subPills) subPills.style.display = 'none';
-        }
-
-        const info = liveCatalog[chan] || liveCatalog['aajtak'];
-        if (activeBtn) {
-          activeBtn.style.background = info.bg;
-          activeBtn.style.borderColor = info.border;
-          activeBtn.style.color = info.color;
-          activeBtn.style.fontWeight = '700';
-        }
-
-        if (descEl) descEl.textContent = info.title;
-        if (popLink) popLink.href = info.url;
-        if (iframe) {
-          if (forceRefresh || iframe.getAttribute('data-chan') !== chan) {
-            iframe.setAttribute('data-chan', chan);
-            iframe.src = info.src;
-          }
-        }
-
-        if (info.channelKey) {
-          const reqChan = info.channelKey;
-          fetch(`/api/live-stream/resolve?channel=${reqChan}${forceRefresh ? '&refresh=1' : ''}`)
-            .then(res => res.json())
-            .then(data => {
-              if (currentChan === reqChan && data && data.embed_url) {
-                if (iframe && iframe.src !== data.embed_url) iframe.src = data.embed_url;
-                if (data.title && descEl) descEl.textContent = (data.is_live ? '🔴 ' : '📺 ') + data.title;
-                if (data.watch_url && popLink) popLink.href = data.watch_url;
-              }
-            })
-            .catch(() => {});
         }
       },
 
-      playMovie: function(id) {
-        const movie = movieCatalog[id] || movieCatalog['hera_pheri'];
+      playVideo: function(videoId, title, channel) {
+        if (!videoId) return;
+        this.currentVideoId = videoId;
         const iframe = document.getElementById('flLiveIframe');
         const descEl = document.getElementById('flLiveChannelName');
         const popLink = document.getElementById('flLivePopoutLink');
-        if (iframe) iframe.src = movie.src;
-        if (descEl) descEl.textContent = movie.title;
-        if (popLink) popLink.href = movie.url;
+
+        const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0`;
+        const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+        if (iframe) iframe.src = embedUrl;
+        if (descEl) descEl.textContent = title ? (channel ? `${title} • ${channel}` : title) : `YouTube Video (${videoId})`;
+        if (popLink) popLink.href = watchUrl;
       },
 
-      playSong: function(id) {
-        const song = songCatalog[id] || songCatalog['tseries_2026'];
-        const iframe = document.getElementById('flLiveIframe');
-        const descEl = document.getElementById('flLiveChannelName');
-        const popLink = document.getElementById('flLivePopoutLink');
-        if (iframe) iframe.src = song.src;
-        if (descEl) descEl.textContent = song.title;
-        if (popLink) popLink.href = song.url;
-      },
-
-      refresh: function() {
-        this.switchChannel(currentChan, true);
-      },
-
-      toggleCustomInput: function() {
-        const box = document.getElementById('flCustomYouTubeInputBox');
-        if (!box) return;
-        box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
-        if (box.style.display === 'block') {
-          const inp = document.getElementById('flCustomYouTubeUrlInput');
-          if (inp) setTimeout(() => inp.focus(), 80);
-        }
-      },
-
-      connectCustomYT: function() {
-        const input = document.getElementById('flCustomYouTubeUrlInput');
-        const iframe = document.getElementById('flLiveIframe');
-        const descEl = document.getElementById('flLiveChannelName');
-        const popLink = document.getElementById('flLivePopoutLink');
-        if (!input || !iframe) return;
-        const raw = input.value.trim();
-        if (!raw) return;
-
-        let embedUrl = null;
-        let watchUrl = raw;
+      extractVideoId: function(raw) {
+        if (!raw) return null;
+        raw = raw.trim();
+        if (/^[a-zA-Z0-9_-]{11}$/.test(raw)) return raw;
         try {
           const urlObj = new URL(raw.startsWith('http') ? raw : 'https://' + raw);
           if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
-            if (urlObj.searchParams.has('v')) {
-              embedUrl = `https://www.youtube.com/embed/${urlObj.searchParams.get('v')}?autoplay=1&mute=0&playsinline=1&rel=0`;
-            } else if (urlObj.hostname.includes('youtu.be')) {
-              embedUrl = `https://www.youtube.com/embed/${urlObj.pathname.replace(/^\//, '')}?autoplay=1&mute=0&playsinline=1&rel=0`;
-            } else if (urlObj.searchParams.has('list')) {
-              embedUrl = `https://www.youtube.com/embed/videoseries?list=${urlObj.searchParams.get('list')}&autoplay=1&mute=0&playsinline=1&rel=0`;
-            } else if (urlObj.pathname.includes('/live/')) {
-              embedUrl = `https://www.youtube.com/embed/${urlObj.pathname.split('/live/')[1].split('/')[0]}?autoplay=1&mute=0&playsinline=1&rel=0`;
-            }
+            if (urlObj.searchParams.has('v')) return urlObj.searchParams.get('v');
+            if (urlObj.hostname.includes('youtu.be')) return urlObj.pathname.replace(/^\//, '').split('?')[0];
+            if (urlObj.pathname.includes('/live/')) return urlObj.pathname.split('/live/')[1].split('/')[0].split('?')[0];
+            if (urlObj.pathname.includes('/shorts/')) return urlObj.pathname.split('/shorts/')[1].split('/')[0].split('?')[0];
           }
-        } catch (err) {}
+        } catch(e) {}
+        return null;
+      },
 
-        if (!embedUrl) {
-          if (/^[a-zA-Z0-9_-]{11}$/.test(raw)) {
-            embedUrl = `https://www.youtube.com/embed/${raw}?autoplay=1&mute=0&playsinline=1&rel=0`;
-            watchUrl = `https://www.youtube.com/watch?v=${raw}`;
-          } else {
-            embedUrl = raw;
-          }
+      refresh: function() {
+        if (this.currentVideoId) {
+          this.playVideo(this.currentVideoId);
+        } else {
+          this.searchKeyword('share market live hindi');
         }
-
-        iframe.src = embedUrl;
-        if (descEl) descEl.textContent = 'Custom Connected Stream: ' + raw.substring(0, 32);
-        if (popLink) popLink.href = watchUrl;
       },
 
       initDraggable: function() {
