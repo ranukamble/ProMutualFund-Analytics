@@ -2,7 +2,7 @@ import os
 from flask import Flask
 
 from core.config import config_by_name
-from core.extensions import cache, socketio
+from core.extensions import cache
 from services.market_data import start_background_amfi_sync, start_popular_funds_scheduler
 
 # Import Blueprints
@@ -28,7 +28,6 @@ def create_app(config_name=None):
 
     # Initialize Extensions
     cache.init_app(app)
-    socketio.init_app(app)
 
     # Register Blueprints
     app.register_blueprint(auth_bp)
@@ -39,10 +38,8 @@ def create_app(config_name=None):
     app.register_blueprint(market_bp)
     app.register_blueprint(ai_bp)
 
-    # Register WebSocket Event Listeners & Start Real-Time Streamer
-    from services.websocket_streamer import register_socket_events, start_realtime_streamer
-    register_socket_events(app)
-    start_realtime_streamer()
+    # Background streaming handled by client-side HTTP polling (Vercel compatible)
+    # No WebSocket server threads needed
 
     # Start Background Schedulers
     start_background_amfi_sync()
@@ -56,4 +53,4 @@ app = create_app()
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     print(f"Starting Pro Mutual Fund Analytics on port {port}...")
-    socketio.run(app, host="0.0.0.0", port=port, debug=False, allow_unsafe_werkzeug=True)
+    app.run(host="0.0.0.0", port=port, debug=False)

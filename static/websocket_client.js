@@ -1,109 +1,96 @@
 /**
  * ══════════════════════════════════════════════════════════════════════════
- * ProMutualFund Analytics - Real-Time Streaming & WebSocket Client Engine
- * High-performance bidirectional streaming controller for market ticks,
+ * ProMutualFund Analytics - Real-Time Streaming Client Engine
+ * HTTP Polling-based streaming controller for market ticks,
  * sentiment indexes, and background AMFI synchronization.
+ * Compatible with serverless platforms (Vercel, Netlify, etc.)
  * ══════════════════════════════════════════════════════════════════════════
  */
 
 (function () {
   'use strict';
 
+  // Polling intervals (milliseconds)
+  const TICK_INTERVAL = 5000;      // Market tick every 5 seconds
+  const MOOD_INTERVAL = 60000;     // Market mood every 60 seconds
+  const SYNC_INTERVAL = 120000;    // AMFI sync status every 2 minutes
+  const PING_INTERVAL = 10000;     // Latency check every 10 seconds
+
   // Global diagnostics state
   window.MF_WS_STATE = {
     connected: false,
-    socketId: null,
+    socketId: 'HTTP-POLL',
     latencyMs: 0,
     packetsReceived: 0,
     connectedClients: 1,
     connectedSince: null,
     lastTickTime: null,
-    activeTransport: 'polling'
+    activeTransport: 'http-polling'
   };
 
-  // Ensure socket is available
-  if (typeof io === 'undefined') {
-    console.warn('[MF WebSocket] Socket.IO client library not detected. Real-time stream disabled.');
-    return;
+  let tickTimer = null;
+  let moodTimer = null;
+  let syncTimer = null;
+  let pingTimer = null;
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // 1. HTTP POLLING ENGINE
+  // ──────────────────────────────────────────────────────────────────────────
+
+  async function fetchJSON(url) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (e) {
+      console.warn(`[MF Stream] Fetch error (${url}):`, e.message);
+      return null;
+    }
   }
 
-  // Reuse existing socket instance or create one
-  const socket = window.socket || io({
-    reconnection: true,
-    reconnectionAttempts: Infinity,
-    reconnectionDelay: 1000,
-    reconnectionDelayMax: 5000,
-    timeout: 10000,
-    transports: ['websocket', 'polling'],
-    upgrade: true
-  });
-  window.socket = socket;
-
-  let pingIntervalTimer = null;
-
-  // ──────────────────────────────────────────────────────────────────────────
-  // 1. CONNECTION LIFECYCLE HANDLERS
-  // ──────────────────────────────────────────────────────────────────────────
-
-  socket.on('connect', () => {
+  function startPolling() {
     window.MF_WS_STATE.connected = true;
-    window.MF_WS_STATE.socketId = socket.id;
     window.MF_WS_STATE.connectedSince = new Date();
-    window.MF_WS_STATE.activeTransport = socket.io.engine ? socket.io.engine.transport.name : 'websocket';
+    console.log('%c[MF Stream] 🟢 HTTP Polling Stream Started', 'color: #10B981; font-weight: bold;');
+    updateBadgeStatus(true, 'LIVE');
 
-    console.log(`%c[MF WebSocket] 🟢 Live Stream Connected. Transport: ${window.MF_WS_STATE.activeTransport} (ID: ${socket.id})`, 'color: #10B981; font-weight: bold;');
-
-    updateBadgeStatus(true, 'WS LIVE');
+    // Initial fetch immediately
+    pollMarketTick();
+    pollMarketMood();
+    pollSyncStatus();
     startLatencyPing();
 
-    // Trigger initial requests
-    socket.emit('request_market_tick');
-    socket.emit('request_market_mood');
-  });
+    // Set recurring intervals
+    tickTimer = setInterval(pollMarketTick, TICK_INTERVAL);
+    moodTimer = setInterval(pollMarketMood, MOOD_INTERVAL);
+    syncTimer = setInterval(pollSyncStatus, SYNC_INTERVAL);
+  }
 
-  socket.on('disconnect', (reason) => {
+  function stopPolling() {
     window.MF_WS_STATE.connected = false;
-    console.warn('[MF WebSocket] 🔴 Stream disconnected:', reason);
-    updateBadgeStatus(false, 'RECONNECTING...');
-    clearInterval(pingIntervalTimer);
-  });
-
-  socket.on('connect_error', (err) => {
-    console.warn('[MF WebSocket] Connection error:', err.message);
-    updateBadgeStatus(false, 'CONNECT ERROR');
-  });
-
-  socket.on('ws_connected', (data) => {
-    if (data) {
-      window.MF_WS_STATE.connectedClients = data.clients_count || 1;
-      updateDiagnosticsUI();
-    }
-  });
+    clearInterval(tickTimer);
+    clearInterval(moodTimer);
+    clearInterval(syncTimer);
+    clearInterval(pingTimer);
+    updateBadgeStatus(false, 'OFFLINE');
+  }
 
   // ──────────────────────────────────────────────────────────────────────────
   // 2. LATENCY PING ENGINE
   // ──────────────────────────────────────────────────────────────────────────
 
   function startLatencyPing() {
-    clearInterval(pingIntervalTimer);
+    clearInterval(pingTimer);
     sendPing();
-    pingIntervalTimer = setInterval(sendPing, 5000);
+    pingTimer = setInterval(sendPing, PING_INTERVAL);
   }
 
-  function sendPing() {
-    if (!socket.connected) return;
-    const clientTimestamp = Date.now();
-    socket.emit('ping_check', { client_timestamp: clientTimestamp });
-  }
-
-  socket.on('pong_check', (data) => {
-    if (data && data.client_timestamp) {
-      const now = Date.now();
-      const rtt = Math.max(1, Math.round(now - data.client_timestamp));
+  async function sendPing() {
+    const start = Date.now();
+    const data = await fetchJSON('/api/market-ticker');
+    if (data) {
+      const rtt = Date.now() - start;
       window.MF_WS_STATE.latencyMs = rtt;
-      if (data.clients_count) {
-        window.MF_WS_STATE.connectedClients = data.clients_count;
-      }
 
       const pingEl = document.getElementById('wsStreamPing');
       if (pingEl) {
@@ -118,20 +105,22 @@
       }
       updateDiagnosticsUI();
     }
-  });
+  }
 
   // ──────────────────────────────────────────────────────────────────────────
   // 3. REAL-TIME MARKET TICK STREAM HANDLER
   // ──────────────────────────────────────────────────────────────────────────
 
-  socket.on('market_tick', (payload) => {
+  async function pollMarketTick() {
+    const payload = await fetchJSON('/api/market-ticker');
     if (!payload) return;
+
     window.MF_WS_STATE.packetsReceived++;
     window.MF_WS_STATE.lastTickTime = payload.timestamp || new Date().toLocaleTimeString();
 
     applyMarketTick(payload);
     updateDiagnosticsUI();
-  });
+  }
 
   function applyMarketTick(data) {
     // 1. Dashboard Ticker Ribbon
@@ -221,7 +210,8 @@
   // 4. REAL-TIME MARKET MOOD (MMI) UPDATE HANDLER
   // ──────────────────────────────────────────────────────────────────────────
 
-  socket.on('market_mood_update', (mood) => {
+  async function pollMarketMood() {
+    const mood = await fetchJSON('/api/market-mood');
     if (!mood) return;
 
     // Update MMI score
@@ -262,38 +252,27 @@
       fiiEl.textContent = `${prefix}${Math.abs(mood.fii_flow).toLocaleString('en-IN')} Cr`;
       fiiEl.style.color = mood.fii_flow >= 0 ? '#34D399' : '#F87171';
     }
-  });
+  }
 
   // ──────────────────────────────────────────────────────────────────────────
-  // 5. AMFI DAILY BACKGROUND SYNC & NOTIFICATION TOASTS
+  // 5. AMFI DAILY BACKGROUND SYNC STATUS POLLING
   // ──────────────────────────────────────────────────────────────────────────
 
-  socket.on('amfi_sync_update', (evt) => {
-    if (!evt) return;
+  async function pollSyncStatus() {
+    const data = await fetchJSON('/api/sync/status');
+    if (!data || !data.sync_state) return;
 
-    if (evt.status === 'success') {
+    const evt = data.sync_state;
+    if (evt.last_status === 'success' && evt.last_sync) {
       showToast({
         title: 'Daily AMFI Sync Complete',
-        message: evt.message || `Synchronized ${evt.count ? evt.count.toLocaleString() : 'all'} schemes at ${evt.timestamp}`,
+        message: `Last synced: ${evt.last_sync}`,
         type: 'success',
-        icon: '✅'
-      });
-    } else if (evt.status === 'in_progress') {
-      showToast({
-        title: 'AMFI Synchronizing...',
-        message: evt.message || 'Fetching latest NAV text file from official AMFI servers...',
-        type: 'info',
-        icon: '⏳'
-      });
-    } else if (evt.status === 'failed') {
-      showToast({
-        title: 'AMFI Sync Alert',
-        message: evt.message || 'Nightly sync encountered a connection issue.',
-        type: 'error',
-        icon: '⚠️'
+        icon: '✅',
+        durationMs: 4000
       });
     }
-  });
+  }
 
   // ──────────────────────────────────────────────────────────────────────────
   // 6. UI BADGE & TOAST CONTROLLERS
@@ -312,7 +291,7 @@
       badge.style.color = '#34D399';
       dot.style.background = '#34D399';
       dot.style.boxShadow = '0 0 8px #34D399';
-      text.textContent = labelText || 'WS LIVE';
+      text.textContent = labelText || 'LIVE';
     } else {
       badge.style.background = 'rgba(239, 68, 68, 0.12)';
       badge.style.borderColor = 'rgba(239, 68, 68, 0.35)';
@@ -388,7 +367,7 @@
   };
 
   // ──────────────────────────────────────────────────────────────────────────
-  // 7. INTERACTIVE WEBSOCKET DIAGNOSTICS MODAL
+  // 7. INTERACTIVE STREAMING DIAGNOSTICS MODAL
   // ──────────────────────────────────────────────────────────────────────────
 
   window.toggleWsStatsModal = function () {
@@ -430,7 +409,7 @@
         <div style="padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02);">
           <div style="display: flex; align-items: center; gap: 8px;">
             <span style="font-size: 16px;">🌐</span>
-            <span style="font-size: 13px; font-weight: 800; color: #F1F5F9; letter-spacing: -0.2px;">WebSocket Live Streaming Diagnostics</span>
+            <span style="font-size: 13px; font-weight: 800; color: #F1F5F9; letter-spacing: -0.2px;">Live Streaming Diagnostics</span>
           </div>
           <button onclick="window.closeWsStatsModal()" style="background: none; border: none; color: #64748B; font-size: 16px; cursor: pointer;">✕</button>
         </div>
@@ -441,23 +420,23 @@
           </div>
           <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <span style="color: #94A3B8;">Transport Protocol:</span>
-            <span id="wsDiagTransport" style="font-weight: 700; color: #38BDF8; font-family: monospace;">websocket</span>
+            <span id="wsDiagTransport" style="font-weight: 700; color: #38BDF8; font-family: monospace;">http-polling</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <span style="color: #94A3B8;">Client Latency (RTT):</span>
             <span id="wsDiagLatency" style="font-weight: 800; color: #34D399; font-family: monospace;">-- ms</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-            <span style="color: #94A3B8;">Socket SID:</span>
-            <span id="wsDiagSid" style="color: #CBD5E1; font-family: monospace; font-size: 10px;">--</span>
+            <span style="color: #94A3B8;">Stream Mode:</span>
+            <span id="wsDiagSid" style="color: #CBD5E1; font-family: monospace; font-size: 10px;">HTTP Polling (Serverless)</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <span style="color: #94A3B8;">Packets Streamed:</span>
             <span id="wsDiagPackets" style="font-weight: 700; color: #F1F5F9;">0</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-            <span style="color: #94A3B8;">Connected Browser Tabs:</span>
-            <span id="wsDiagPeers" style="font-weight: 700; color: #A78BFA;">1</span>
+            <span style="color: #94A3B8;">Poll Interval:</span>
+            <span id="wsDiagPeers" style="font-weight: 700; color: #A78BFA;">5s</span>
           </div>
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #94A3B8;">Last Broadcast Tick:</span>
@@ -481,9 +460,7 @@
     const statusEl = document.getElementById('wsDiagStatus');
     const transEl = document.getElementById('wsDiagTransport');
     const latEl = document.getElementById('wsDiagLatency');
-    const sidEl = document.getElementById('wsDiagSid');
     const pktsEl = document.getElementById('wsDiagPackets');
-    const peersEl = document.getElementById('wsDiagPeers');
     const lastEl = document.getElementById('wsDiagLastTick');
 
     if (!statusEl) return;
@@ -492,22 +469,27 @@
     statusEl.style.color = window.MF_WS_STATE.connected ? '#34D399' : '#F87171';
     if (transEl) transEl.textContent = window.MF_WS_STATE.activeTransport;
     if (latEl) latEl.textContent = `${window.MF_WS_STATE.latencyMs} ms`;
-    if (sidEl) sidEl.textContent = window.MF_WS_STATE.socketId || 'N/A';
     if (pktsEl) pktsEl.textContent = window.MF_WS_STATE.packetsReceived.toLocaleString();
-    if (peersEl) peersEl.textContent = window.MF_WS_STATE.connectedClients;
     if (lastEl && window.MF_WS_STATE.lastTickTime) lastEl.textContent = window.MF_WS_STATE.lastTickTime;
   }
 
   window.sendManualWsPing = function () {
     sendPing();
-    showToast({ title: 'Ping Sent', message: 'Calculated latency round-trip time with backend server.', type: 'info', icon: '⚡', durationMs: 2500 });
+    showToast({ title: 'Ping Sent', message: 'Measured HTTP round-trip latency to server.', type: 'info', icon: '⚡', durationMs: 2500 });
   };
 
   window.reconnectWebSocket = function () {
-    if (socket) {
-      socket.disconnect().connect();
-      showToast({ title: 'Reconnecting', message: 'Re-initiating WebSocket handshake...', type: 'info', icon: '🔄', durationMs: 2000 });
-    }
+    stopPolling();
+    setTimeout(() => {
+      startPolling();
+      showToast({ title: 'Reconnected', message: 'HTTP polling stream restarted.', type: 'success', icon: '🔄', durationMs: 2000 });
+    }, 500);
   };
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // 8. START POLLING ON PAGE LOAD
+  // ──────────────────────────────────────────────────────────────────────────
+
+  startPolling();
 
 })();
