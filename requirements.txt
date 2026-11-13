@@ -3,7 +3,7 @@ mftool==2.5
 requests==2.31.0
 beautifulsoup4==4.12.3
 gunicorn==21.2.0
-gevent==24.2.1
+gevent>=23.7.0
 gevent-websocket==0.10.1
 pandas
 numpy
